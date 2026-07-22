@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hôtel des Cigales · Sète</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--creme:#F7F2E8;--vert:#2C3A32;--dore:#C08A5E}
+body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--vert);line-height:1.6}
+header{display:flex;justify-content:space-between;align-items:center;padding:1.6rem 4rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
+nav a{margin-left:2.4rem;color:var(--vert);text-decoration:none;opacity:.75}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.06em;text-transform:none}
+.hero{padding:5rem 4rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:4.4rem;line-height:1.05;letter-spacing:-.01em}
+.hero h1 em{color:var(--dore)}
+.hero p{margin:1.6rem 0 2.4rem;max-width:30rem;font-weight:300;opacity:.8}
+.btn{display:inline-block;padding:.9rem 2.2rem;border:1px solid var(--vert);color:var(--vert);text-decoration:none;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase}
+.btn-fill{background:var(--vert);color:var(--creme);margin-right:.8rem}
+.frame{aspect-ratio:4/5;border-radius:220px 220px 8px 8px;background:
+  radial-gradient(circle at 30% 22%,rgba(255,255,255,.45),transparent 45%),
+  linear-gradient(170deg,#7E9384 0%,#4A6355 45%,#2C3A32 100%);
+  position:relative;overflow:hidden}
+.frame::after{content:"";position:absolute;left:12%;right:12%;bottom:0;height:44%;
+  background:linear-gradient(to top,rgba(192,138,94,.55),transparent);}
+.frame span{position:absolute;left:50%;bottom:2.5rem;transform:translateX(-50%);color:var(--creme);
+  font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.2em}
+.strip{display:flex;justify-content:space-around;padding:2rem 4rem;border-block:1px solid rgba(44,58,50,.18);
+  font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.rooms{padding:5rem 4rem}
+.rooms h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.6rem;margin-bottom:2.6rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+.card{background:#fff}
+.card .ph{aspect-ratio:3/2}
+.c1 .ph{background:linear-gradient(140deg,#D9C3A9,#B08560)}
+.c2 .ph{background:linear-gradient(140deg,#A9BDB0,#54705F)}
+.c3 .ph{background:linear-gradient(140deg,#E2D2BC,#C08A5E)}
+.card .txt{padding:1.4rem 1.6rem}
+.card h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.5rem}
+.card p{font-size:.86rem;opacity:.7;margin-top:.2rem}
+.card .price{margin-top:.9rem;font-size:.8rem;letter-spacing:.14em;color:var(--dore);text-transform:uppercase}
+footer{background:var(--vert);color:var(--creme);padding:3.5rem 4rem;display:flex;justify-content:space-between;align-items:flex-end}
+footer .fl{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300}
+footer p{font-size:.84rem;opacity:.7;line-height:1.9}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">Hôtel des Cigales</span>
+  <nav><a href="#">Chambres</a><a href="#">La table</a><a href="#">Spa</a><a href="#">Réserver</a></nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Le sud,<br>comme <em>une parenthèse.</em></h1>
+    <p>Douze chambres face à l'étang de Thau, un jardin de pins et le silence
+       qui va avec. À dix minutes des plages de Sète.</p>
+    <a class="btn btn-fill" href="#">Réserver un séjour</a>
+    <a class="btn" href="#">Voir les chambres</a>
+  </div>
+  <div class="frame"><span>SÈTE · HÉRAULT</span></div>
+</section>
+
+<div class="strip">
+  <span>12 chambres</span><span>Piscine chauffée</span><span>Petit-déjeuner maison</span><span>Vue sur l'étang</span>
+</div>
+
+<section class="rooms">
+  <h2>Nos chambres</h2>
+  <div class="grid">
+    <div class="card c1"><div class="ph"></div><div class="txt">
+      <h3>La Terrasse</h3><p>28 m² · terrasse privée</p><p class="price">Dès 145 € la nuit</p></div></div>
+    <div class="card c2"><div class="ph"></div><div class="txt">
+      <h3>Le Jardin</h3><p>22 m² · accès jardin</p><p class="price">Dès 120 € la nuit</p></div></div>
+    <div class="card c3"><div class="ph"></div><div class="txt">
+      <h3>La Suite Thau</h3><p>40 m² · vue sur l'étang</p><p class="price">Dès 210 € la nuit</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <span class="fl">Hôtel des Cigales</span>
+  <p>4 chemin des Pins, 34200 Sète<br>04 67 00 00 00 · bonjour@hoteldescigales.fr</p>
+</footer>
+</body>
+</html>

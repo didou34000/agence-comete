@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Comptoir du Peyrou · Bistrot à Montpellier</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Karla:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--creme:#FCF7EF;--bordeaux:#7A1F2B;--dore:#E8C87A;--encre:#241713}
+body{font-family:'Karla',sans-serif;background:var(--creme);color:var(--encre);line-height:1.6}
+header{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3.5rem;
+  background:var(--bordeaux);color:var(--creme)}
+.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;letter-spacing:.01em}
+nav a{margin-left:2rem;color:var(--creme);text-decoration:none;font-size:.9rem;opacity:.9}
+.book{border:1px solid var(--dore);color:var(--dore);padding:.55rem 1.3rem;border-radius:2px;font-weight:600}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;min-height:26rem}
+.hero-txt{padding:4.5rem 3.5rem}
+.kick{font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--bordeaux);font-weight:600}
+h1{font-family:'Playfair Display',serif;font-size:4.2rem;line-height:1.05;margin:1rem 0 1.2rem;font-weight:700}
+h1 em{color:var(--bordeaux)}
+.hero-txt p{max-width:32rem;font-weight:300;font-size:1.05rem;margin-bottom:2rem}
+.btn{display:inline-block;background:var(--bordeaux);color:var(--creme);padding:.9rem 2rem;
+  text-decoration:none;font-weight:600;font-size:.95rem;border-radius:2px;margin-right:.7rem}
+.btn.alt{background:transparent;color:var(--bordeaux);border:1px solid var(--bordeaux)}
+.hero-img{background:
+  radial-gradient(circle at 65% 30%,rgba(232,200,122,.5),transparent 55%),
+  linear-gradient(155deg,#A6444F 0%,#7A1F2B 55%,#4A1119 100%);
+  position:relative}
+.hero-img span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-4deg);
+  font-family:'Playfair Display',serif;font-style:italic;color:var(--dore);font-size:2rem;text-align:center;line-height:1.5}
+.info{display:flex;justify-content:center;gap:3.5rem;padding:1.4rem;background:var(--encre);color:var(--creme);
+  font-size:.86rem;letter-spacing:.06em}
+.info b{color:var(--dore);font-weight:600}
+.menu{padding:4.5rem 3.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:3rem}
+.menu h2{grid-column:1/-1;font-family:'Playfair Display',serif;font-size:2.6rem;text-align:center;margin-bottom:.5rem}
+.menu h3{font-family:'Playfair Display',serif;font-style:italic;color:var(--bordeaux);font-size:1.5rem;margin-bottom:1rem}
+.plat{padding:.7rem 0;border-bottom:1px dotted rgba(36,23,19,.22)}
+.plat .t{display:flex;justify-content:space-between;gap:1rem;font-weight:600;font-size:.98rem}
+.plat p{font-size:.85rem;font-weight:300;opacity:.7}
+footer{background:var(--bordeaux);color:var(--creme);text-align:center;padding:3rem}
+footer .fl{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700}
+footer p{font-size:.9rem;opacity:.85;margin-top:.5rem}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">Le Comptoir du Peyrou</span>
+  <nav><a href="#">La carte</a><a href="#">Les vins</a><a href="#">Le midi</a>
+       <a class="book" href="#">Réserver une table</a></nav>
+</header>
+
+<section class="hero">
+  <div class="hero-txt">
+    <p class="kick">Bistrot · Montpellier centre</p>
+    <h1>La cuisine du marché,<br><em>tous les jours.</em></h1>
+    <p>Une ardoise qui change chaque matin selon les Halles Castellane,
+       une cave courte mais bien choisie, et une terrasse à l'ombre des platanes.</p>
+    <a class="btn" href="#">Réserver une table</a>
+    <a class="btn alt" href="#">Voir la carte</a>
+  </div>
+  <div class="hero-img"><span>« Trois entrées,<br>trois plats,<br>trois desserts. »</span></div>
+</section>
+
+<div class="info">
+  <span>Ouvert <b>du mardi au samedi</b></span>
+  <span>Formule midi <b>19 €</b></span>
+  <span>Terrasse <b>ombragée</b></span>
+</div>
+
+<section class="menu">
+  <h2>L'ardoise du jour</h2>
+  <div>
+    <h3>Entrées</h3>
+    <div class="plat"><div class="t"><span>Tielle sétoise revisitée</span><span>9 €</span></div><p>poulpe, tomate confite</p></div>
+    <div class="plat"><div class="t"><span>Velouté de courge</span><span>8 €</span></div><p>huile de noisette, brousse</p></div>
+    <div class="plat"><div class="t"><span>Anchois de Collioure</span><span>11 €</span></div><p>pain grillé, beurre demi-sel</p></div>
+  </div>
+  <div>
+    <h3>Plats</h3>
+    <div class="plat"><div class="t"><span>Encornets à la plancha</span><span>21 €</span></div><p>persillade, riz de Camargue</p></div>
+    <div class="plat"><div class="t"><span>Épaule d'agneau confite</span><span>24 €</span></div><p>sept heures, jus au thym</p></div>
+    <div class="plat"><div class="t"><span>Risotto de petit épeautre</span><span>18 €</span></div><p>légumes du jour, pecorino</p></div>
+  </div>
+  <div>
+    <h3>Desserts</h3>
+    <div class="plat"><div class="t"><span>Tarte au citron</span><span>8 €</span></div><p>meringue légèrement brûlée</p></div>
+    <div class="plat"><div class="t"><span>Grenache et figues</span><span>9 €</span></div><p>glace au miel de garrigue</p></div>
+    <div class="plat"><div class="t"><span>Chocolat noir 70 %</span><span>8 €</span></div><p>fleur de sel, huile d'olive</p></div>
+  </div>
+</section>
+
+<footer>
+  <span class="fl">Le Comptoir du Peyrou</span>
+  <p>3 place du Peyrou, 34000 Montpellier · 04 67 00 00 00 · service continu jusqu'à 22h30</p>
+</footer>
+</body>
+</html>

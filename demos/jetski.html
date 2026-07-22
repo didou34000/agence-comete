@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Wave · Location de jet ski à Palavas</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--nuit:#012A4A;--bleu:#0496C7;--cyan:#48CAE4;--soleil:#FFD166;--blanc:#F4FBFF}
+body{font-family:'Archivo',sans-serif;background:var(--nuit);color:var(--blanc)}
+header{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 3rem;
+  position:relative;z-index:3}
+.logo{font-weight:900;font-size:1.5rem;letter-spacing:-.02em}
+.logo span{color:var(--soleil)}
+nav a{margin-left:2rem;color:var(--blanc);text-decoration:none;font-size:.9rem;font-weight:600;opacity:.85}
+.cta{background:var(--soleil);color:var(--nuit);padding:.7rem 1.5rem;border-radius:100px;font-weight:800;
+  text-decoration:none;font-size:.9rem}
+.hero{position:relative;padding:4.5rem 3rem 7rem;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 78% 18%,rgba(72,202,228,.5),transparent 55%),
+             radial-gradient(circle at 12% 85%,rgba(4,150,199,.45),transparent 60%)}
+.wave{position:absolute;left:-5%;right:-5%;bottom:-2px;height:150px;
+  background:linear-gradient(to top,rgba(72,202,228,.35),transparent);
+  border-radius:50% 50% 0 0/100% 100% 0 0}
+.hero-in{position:relative;z-index:2;max-width:62rem}
+.tag{display:inline-block;border:1px solid rgba(244,251,255,.35);border-radius:100px;
+  padding:.35rem 1rem;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+h1{font-size:5.2rem;line-height:.92;font-weight:900;letter-spacing:-.035em;margin:1.6rem 0 1.2rem;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--soleil)}
+.hero p{font-size:1.15rem;max-width:34rem;opacity:.88;margin-bottom:2.2rem}
+.btns a{display:inline-block;margin-right:.8rem;padding:1rem 2rem;border-radius:100px;text-decoration:none;font-weight:800}
+.b1{background:var(--soleil);color:var(--nuit)}
+.b2{border:2px solid rgba(244,251,255,.45);color:var(--blanc)}
+.prices{background:var(--blanc);color:var(--nuit);padding:4.5rem 3rem}
+.prices h2{font-size:2.6rem;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:2.2rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.p{border:3px solid var(--nuit);border-radius:18px;padding:1.8rem}
+.p.hot{background:var(--nuit);color:var(--blanc)}
+.p h3{font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em}
+.p .big{font-size:3.2rem;font-weight:900;line-height:1.1;margin:.4rem 0}
+.p .big small{font-size:1.1rem;font-weight:600}
+.p ul{list-style:none;font-size:.92rem;opacity:.85}
+.p li{padding:.3rem 0}
+.p li::before{content:"▸ ";color:var(--bleu);font-weight:900}
+.p.hot li::before{color:var(--soleil)}
+.band{background:var(--bleu);padding:1.1rem 0;overflow:hidden;white-space:nowrap;
+  font-weight:900;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase}
+footer{padding:3rem;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+footer b{font-size:1.4rem}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">BLUE<span>WAVE</span></span>
+  <nav>
+    <a href="#">Nos jets</a><a href="#">Randonnées</a><a href="#">Tarifs</a>
+    <a class="cta" href="#">Réserver</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wave"></div>
+  <div class="hero-in">
+    <span class="tag">Palavas-les-Flots · sans permis</span>
+    <h1>Plein gaz sur<br><em>la Méditerranée.</em></h1>
+    <p>Location de jet ski à l'heure ou à la demi-journée, randonnées encadrées
+       jusqu'à la pointe de l'Espiguette. Départ toutes les heures, de mai à septembre.</p>
+    <div class="btns">
+      <a class="b1" href="#">Réserver un créneau</a>
+      <a class="b2" href="#">Voir les randonnées</a>
+    </div>
+  </div>
+</section>
+
+<div class="band">✺ SANS PERMIS ✺ DÉPART TOUTES LES HEURES ✺ MONITEURS DIPLÔMÉS ✺ ÉQUIPEMENT FOURNI ✺ SANS PERMIS ✺</div>
+
+<section class="prices">
+  <h2>Nos formules</h2>
+  <div class="grid">
+    <div class="p"><h3>Initiation</h3><div class="big">45<small> €</small></div>
+      <ul><li>30 minutes</li><li>Briefing inclus</li><li>Dès 16 ans</li></ul></div>
+    <div class="p hot"><h3>Randonnée</h3><div class="big">120<small> €</small></div>
+      <ul><li>2 heures encadrées</li><li>Pause baignade</li><li>Photos offertes</li></ul></div>
+    <div class="p"><h3>Demi-journée</h3><div class="big">220<small> €</small></div>
+      <ul><li>4 heures</li><li>Jet pour 2</li><li>Carburant compris</li></ul></div>
+  </div>
+</section>
+
+<footer>
+  <b>BLUE<span style="color:#FFD166">WAVE</span></b>
+  <span>Port de Palavas · 07 00 00 00 00 · ouvert 7j/7 de mai à septembre</span>
+</footer>
+</body>
+</html>

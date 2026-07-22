@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Atelier du Barbier · Montpellier</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--noir:#12100E;--or:#C9A227;--sable:#EDE6DA}
+body{font-family:'Oswald',sans-serif;background:var(--noir);color:var(--sable);font-weight:300}
+header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 3.5rem;
+  border-bottom:1px solid rgba(237,230,218,.16)}
+.logo{font-size:1.15rem;letter-spacing:.3em;text-transform:uppercase}
+.logo b{color:var(--or);font-weight:600}
+nav a{margin-left:2.2rem;color:var(--sable);text-decoration:none;font-size:.82rem;
+  letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+.hero{position:relative;padding:6rem 3.5rem 5rem;text-align:center;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,rgba(201,162,39,.05) 0 2px,transparent 2px 14px)}
+.hero-in{position:relative}
+.sub{font-family:'Lora',serif;font-style:italic;color:var(--or);font-size:1.05rem;letter-spacing:.06em}
+h1{font-size:5.6rem;line-height:.95;letter-spacing:.02em;text-transform:uppercase;font-weight:400;margin:.9rem 0 1.4rem}
+h1 span{display:block;font-size:2.2rem;letter-spacing:.42em;color:var(--or);font-weight:300}
+.hero p{max-width:34rem;margin:0 auto 2.2rem;font-size:1rem;opacity:.78;letter-spacing:.02em}
+.btn{display:inline-block;padding:.95rem 2.6rem;background:var(--or);color:var(--noir);
+  text-decoration:none;font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600}
+.rule{display:flex;align-items:center;gap:1.4rem;padding:0 3.5rem;margin:1rem 0 0}
+.rule i{flex:1;height:1px;background:rgba(237,230,218,.22)}
+.rule span{font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;opacity:.65}
+.menu{padding:4.5rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.menu h2{font-family:'Lora',serif;font-style:italic;font-size:2.4rem;color:var(--or);margin-bottom:1.8rem;font-weight:400}
+.line{display:flex;align-items:baseline;gap:.9rem;padding:.85rem 0;border-bottom:1px dotted rgba(237,230,218,.22)}
+.line .n{font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase}
+.line .d{flex:1;height:1px}
+.line .p{color:var(--or);font-size:1.05rem}
+.line small{display:block;font-family:'Lora',serif;font-size:.82rem;opacity:.6;letter-spacing:0;text-transform:none}
+.visual{background:
+  radial-gradient(circle at 50% 32%,rgba(201,162,39,.28),transparent 58%),
+  linear-gradient(160deg,#221E19,#12100E);
+  border:1px solid rgba(201,162,39,.35);display:grid;place-items:center;min-height:24rem}
+.visual .em{font-family:'Lora',serif;font-style:italic;font-size:1.6rem;color:var(--or);text-align:center;line-height:1.6}
+footer{border-top:1px solid rgba(237,230,218,.16);padding:2.6rem 3.5rem;display:flex;
+  justify-content:space-between;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">L'Atelier du <b>Barbier</b></span>
+  <nav><a href="#">La maison</a><a href="#">Prestations</a><a href="#">Équipe</a><a href="#">Rendez-vous</a></nav>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <p class="sub">Depuis 1998 · Écusson, Montpellier</p>
+    <h1>Le rasoir<span>et le temps</span></h1>
+    <p>Coupe à l'ancienne, rasage à la serviette chaude et barbe taillée au millimètre.
+       Sur rendez-vous, du mardi au samedi.</p>
+    <a class="btn" href="#">Prendre rendez-vous</a>
+  </div>
+</section>
+
+<div class="rule"><i></i><span>Prestations</span><i></i></div>
+
+<section class="menu">
+  <div>
+    <h2>À la carte</h2>
+    <div class="line"><span class="n">Coupe classique<small>Shampooing et coiffage compris</small></span><span class="d"></span><span class="p">28 €</span></div>
+    <div class="line"><span class="n">Taille de barbe<small>Tondeuse, rasoir, huile</small></span><span class="d"></span><span class="p">22 €</span></div>
+    <div class="line"><span class="n">Rasage traditionnel<small>Serviette chaude, blaireau</small></span><span class="d"></span><span class="p">35 €</span></div>
+    <div class="line"><span class="n">Coupe + barbe<small>Le rituel complet</small></span><span class="d"></span><span class="p">45 €</span></div>
+    <div class="line"><span class="n">Le fils<small>Jusqu'à 12 ans</small></span><span class="d"></span><span class="p">18 €</span></div>
+  </div>
+  <div class="visual"><p class="em">« On ne coupe pas<br>les cheveux à la va-vite. »</p></div>
+</section>
+
+<footer>
+  <span>12 rue de l'Aiguillerie · Montpellier</span>
+  <span>Mardi — Samedi · 9h / 19h</span>
+  <span>04 67 00 00 00</span>
+</footer>
+</body>
+</html>

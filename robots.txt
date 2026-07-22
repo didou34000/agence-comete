@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://agence-comete.fr/sitemap.xml
