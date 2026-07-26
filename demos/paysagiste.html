@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Racines &amp; Cie · Paysagiste dans l'Hérault</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Démo · Racines &amp; Cie · Paysagiste dans l'Hérault | Comète</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 :root{--clair:#F2F5EF;--vert:#33562F;--pousse:#8FBF6C;--terre:#6B5B4A}
 body{font-family:'Inter',sans-serif;background:var(--clair);color:var(--vert);line-height:1.65}
 header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 3.5rem}
@@ -44,13 +48,27 @@ footer{background:var(--vert);color:var(--clair);padding:3.2rem 3.5rem;
   display:flex;justify-content:space-between;align-items:center}
 footer .fl{font-family:'DM Serif Display',serif;font-size:2rem}
 footer p{font-size:.9rem;opacity:.8}
+
+/* Bandeau Comète posé sur les démos */
+body{padding-bottom:5.5rem}
+.comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
+ align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
+ background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
+ font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
+ font-weight:400;letter-spacing:0;text-transform:none}
+.comete-bandeau b{color:#FF4D00;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;flex:none}
+.comete-bandeau p{margin:0;opacity:.8;max-width:52ch}
+.comete-bandeau a{margin-left:auto;background:#FF4D00;color:#17130E;font-weight:700;text-decoration:none;
+ padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem;letter-spacing:0;text-transform:none}
+.comete-bandeau a:hover{background:#FAF5EC}
+@media(max-width:640px){.comete-bandeau a{margin-left:0;width:100%;text-align:center}}
 </style>
 </head>
 <body>
 <header>
   <span class="logo">Racines <i>&amp;</i> Cie</span>
-  <nav><a href="#">Réalisations</a><a href="#">Entretien</a><a href="#">Arrosage</a>
-       <a class="cta" href="#">Devis gratuit</a></nav>
+  <nav><a href="#decouvrir">Réalisations</a><a href="#decouvrir">Entretien</a><a href="#decouvrir">Arrosage</a>
+       <a class="cta" href="#decouvrir">Devis gratuit</a></nav>
 </header>
 
 <section class="hero">
@@ -60,8 +78,8 @@ footer p{font-size:.9rem;opacity:.8}
       <p>Paysagistes à Montpellier depuis douze ans. Conception, plantation et entretien
          de jardins méditerranéens, pensés pour consommer peu d'eau.</p>
       <div class="btns">
-        <a class="f1" href="#">Demander un devis</a>
-        <a class="f2" href="#">Voir nos jardins</a>
+        <a class="f1" href="#decouvrir">Demander un devis</a>
+        <a class="f2" href="#decouvrir">Voir nos jardins</a>
       </div>
     </div>
     <div class="stats">
@@ -73,7 +91,7 @@ footer p{font-size:.9rem;opacity:.8}
 
 <div class="band"><div class="g1"></div><div class="g2"></div><div class="g3"></div></div>
 
-<section class="serv">
+<section class="serv" id="decouvrir">
   <h2>Ce qu'on fait pousser</h2>
   <div class="grid">
     <div class="s"><div class="ic"></div><h3>Création</h3><p>Plans, choix des essences et plantation complète de votre jardin.</p></div>
@@ -87,5 +105,10 @@ footer p{font-size:.9rem;opacity:.8}
   <span class="fl">Racines &amp; Cie</span>
   <p>Montpellier et 30 km alentour · 04 67 00 00 00 · contact@racines-et-cie.fr</p>
 </footer>
+<div class="comete-bandeau">
+  <b>Démo</b>
+  <p>Ce site n’existe pas : c’est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599 €.</p>
+  <a href="../index.html#offre">Voir l’offre Comète →</a>
+</div>
 </body>
 </html>

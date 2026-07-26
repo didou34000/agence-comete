@@ -1,0 +1,15 @@
+{
+  "name": "Comète · Agence web à Montpellier",
+  "short_name": "Comète",
+  "description": "Création de site internet à Montpellier : 4 pages à 599 €, maquette offerte avant tout paiement.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FAF5EC",
+  "theme_color": "#FAF5EC",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

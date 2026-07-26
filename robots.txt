@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Les cinq sites de démonstration présentent des entreprises fictives
+# (noms, téléphones et tarifs inventés). Ils ne doivent jamais apparaître
+# dans les résultats de recherche comme de vrais commerces.
+Disallow: /demos/
+
 Sitemap: https://agence-comete.fr/sitemap.xml

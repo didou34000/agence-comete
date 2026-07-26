@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hôtel des Cigales · Sète</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Démo · Hôtel des Cigales · Sète | Comète</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 :root{--creme:#F7F2E8;--vert:#2C3A32;--dore:#C08A5E}
 body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--vert);line-height:1.6}
 header{display:flex;justify-content:space-between;align-items:center;padding:1.6rem 4rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
@@ -43,12 +47,26 @@ nav a{margin-left:2.4rem;color:var(--vert);text-decoration:none;opacity:.75}
 footer{background:var(--vert);color:var(--creme);padding:3.5rem 4rem;display:flex;justify-content:space-between;align-items:flex-end}
 footer .fl{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300}
 footer p{font-size:.84rem;opacity:.7;line-height:1.9}
+
+/* Bandeau Comète posé sur les démos */
+body{padding-bottom:5.5rem}
+.comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
+ align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
+ background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
+ font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
+ font-weight:400;letter-spacing:0;text-transform:none}
+.comete-bandeau b{color:#FF4D00;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;flex:none}
+.comete-bandeau p{margin:0;opacity:.8;max-width:52ch}
+.comete-bandeau a{margin-left:auto;background:#FF4D00;color:#17130E;font-weight:700;text-decoration:none;
+ padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem;letter-spacing:0;text-transform:none}
+.comete-bandeau a:hover{background:#FAF5EC}
+@media(max-width:640px){.comete-bandeau a{margin-left:0;width:100%;text-align:center}}
 </style>
 </head>
 <body>
 <header>
   <span class="logo">Hôtel des Cigales</span>
-  <nav><a href="#">Chambres</a><a href="#">La table</a><a href="#">Spa</a><a href="#">Réserver</a></nav>
+  <nav><a href="#decouvrir">Chambres</a><a href="#decouvrir">La table</a><a href="#decouvrir">Spa</a><a href="#decouvrir">Réserver</a></nav>
 </header>
 
 <section class="hero">
@@ -56,8 +74,8 @@ footer p{font-size:.84rem;opacity:.7;line-height:1.9}
     <h1>Le sud,<br>comme <em>une parenthèse.</em></h1>
     <p>Douze chambres face à l'étang de Thau, un jardin de pins et le silence
        qui va avec. À dix minutes des plages de Sète.</p>
-    <a class="btn btn-fill" href="#">Réserver un séjour</a>
-    <a class="btn" href="#">Voir les chambres</a>
+    <a class="btn btn-fill" href="#decouvrir">Réserver un séjour</a>
+    <a class="btn" href="#decouvrir">Voir les chambres</a>
   </div>
   <div class="frame"><span>SÈTE · HÉRAULT</span></div>
 </section>
@@ -66,7 +84,7 @@ footer p{font-size:.84rem;opacity:.7;line-height:1.9}
   <span>12 chambres</span><span>Piscine chauffée</span><span>Petit-déjeuner maison</span><span>Vue sur l'étang</span>
 </div>
 
-<section class="rooms">
+<section class="rooms" id="decouvrir">
   <h2>Nos chambres</h2>
   <div class="grid">
     <div class="card c1"><div class="ph"></div><div class="txt">
@@ -82,5 +100,10 @@ footer p{font-size:.84rem;opacity:.7;line-height:1.9}
   <span class="fl">Hôtel des Cigales</span>
   <p>4 chemin des Pins, 34200 Sète<br>04 67 00 00 00 · bonjour@hoteldescigales.fr</p>
 </footer>
+<div class="comete-bandeau">
+  <b>Démo</b>
+  <p>Ce site n’existe pas : c’est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599 €.</p>
+  <a href="../index.html#offre">Voir l’offre Comète →</a>
+</div>
 </body>
 </html>

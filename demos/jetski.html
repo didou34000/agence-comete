@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blue Wave · Location de jet ski à Palavas</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Démo · Blue Wave · Location de jet ski à Palavas | Comète</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 :root{--nuit:#012A4A;--bleu:#0496C7;--cyan:#48CAE4;--soleil:#FFD166;--blanc:#F4FBFF}
 body{font-family:'Archivo',sans-serif;background:var(--nuit);color:var(--blanc)}
 header{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 3rem;
@@ -48,14 +52,28 @@ h1 em{font-style:normal;color:var(--soleil)}
   font-weight:900;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase}
 footer{padding:3rem;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
 footer b{font-size:1.4rem}
+
+/* Bandeau Comète posé sur les démos */
+body{padding-bottom:5.5rem}
+.comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
+ align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
+ background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
+ font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
+ font-weight:400;letter-spacing:0;text-transform:none}
+.comete-bandeau b{color:#FF4D00;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;flex:none}
+.comete-bandeau p{margin:0;opacity:.8;max-width:52ch}
+.comete-bandeau a{margin-left:auto;background:#FF4D00;color:#17130E;font-weight:700;text-decoration:none;
+ padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem;letter-spacing:0;text-transform:none}
+.comete-bandeau a:hover{background:#FAF5EC}
+@media(max-width:640px){.comete-bandeau a{margin-left:0;width:100%;text-align:center}}
 </style>
 </head>
 <body>
 <header>
   <span class="logo">BLUE<span>WAVE</span></span>
   <nav>
-    <a href="#">Nos jets</a><a href="#">Randonnées</a><a href="#">Tarifs</a>
-    <a class="cta" href="#">Réserver</a>
+    <a href="#decouvrir">Nos jets</a><a href="#decouvrir">Randonnées</a><a href="#decouvrir">Tarifs</a>
+    <a class="cta" href="#decouvrir">Réserver</a>
   </nav>
 </header>
 
@@ -67,15 +85,15 @@ footer b{font-size:1.4rem}
     <p>Location de jet ski à l'heure ou à la demi-journée, randonnées encadrées
        jusqu'à la pointe de l'Espiguette. Départ toutes les heures, de mai à septembre.</p>
     <div class="btns">
-      <a class="b1" href="#">Réserver un créneau</a>
-      <a class="b2" href="#">Voir les randonnées</a>
+      <a class="b1" href="#decouvrir">Réserver un créneau</a>
+      <a class="b2" href="#decouvrir">Voir les randonnées</a>
     </div>
   </div>
 </section>
 
 <div class="band">✺ SANS PERMIS ✺ DÉPART TOUTES LES HEURES ✺ MONITEURS DIPLÔMÉS ✺ ÉQUIPEMENT FOURNI ✺ SANS PERMIS ✺</div>
 
-<section class="prices">
+<section class="prices" id="decouvrir">
   <h2>Nos formules</h2>
   <div class="grid">
     <div class="p"><h3>Initiation</h3><div class="big">45<small> €</small></div>
@@ -91,5 +109,10 @@ footer b{font-size:1.4rem}
   <b>BLUE<span style="color:#FFD166">WAVE</span></b>
   <span>Port de Palavas · 07 00 00 00 00 · ouvert 7j/7 de mai à septembre</span>
 </footer>
+<div class="comete-bandeau">
+  <b>Démo</b>
+  <p>Ce site n’existe pas : c’est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599 €.</p>
+  <a href="../index.html#offre">Voir l’offre Comète →</a>
+</div>
 </body>
 </html>

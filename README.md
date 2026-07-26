@@ -1,22 +1,55 @@
 # Comète · Agence web à Montpellier
 
 Site vitrine statique de l'agence : offre « site 4 pages à 599 € avec maquette
-offerte », réalisations, process, FAQ et contact.
+offerte », réalisations détaillées, pages services, process, FAQ et contact.
 
-## Contenu
+Aucune dépendance, aucun build, aucun outil : ce sont des fichiers statiques
+qu'un simple serveur HTTP suffit à servir.
+
+## Arborescence
 
 | Fichier / dossier | Rôle |
 |---|---|
-| `index.html` | Page principale (une seule page, navigation par ancres) |
-| `mentions-legales.html` | Mentions légales |
-| `styles.css` | Toute la mise en forme |
-| `script.js` | Animations, carrousel du hero, FAQ, formulaire |
-| `assets/` | Captures des réalisations et des démos (JPEG optimisés) |
-| `demos/` | Cinq sites de démonstration par métier |
-| `robots.txt`, `sitemap.xml` | Référencement |
+| `index.html` | Page d'accueil (navigation par ancres) |
+| `services/` | Trois pages service : site internet, identité visuelle, réseaux sociaux |
+| `realisations/` | Trois cas clients : South Conciergerie, General Robotics, Iksee |
+| `demos/` | Cinq sites de démonstration par métier, autonomes (CSS inline) |
+| `mentions-legales.html` · `confidentialite.html` · `cgv.html` | Pages légales |
+| `404.html` | Page d'erreur (servie automatiquement par Vercel) |
+| `styles.css` | Toute la mise en forme, jetons de design compris |
+| `script.js` | Menu, carrousel, FAQ, formulaire |
+| `assets/fonts/` | Les deux familles auto-hébergées en woff2 |
+| `assets/img/` | Visuels en AVIF + WebP + JPEG de repli, trois largeurs |
+| `favicon.svg` · `apple-touch-icon.png` · `site.webmanifest` | Icônes |
+| `robots.txt` · `sitemap.xml` | Référencement |
 
-Aucune dépendance, aucun build : ce sont des fichiers statiques.
-Les polices proviennent de Google Fonts.
+## Système de design
+
+Tout est piloté par des jetons déclarés en tête de `styles.css`. **Ne pas
+écrire de valeur en dur** : si un espacement manque, ajouter un cran à
+l'échelle plutôt qu'une exception.
+
+- **Espacement** — `--sp-1` … `--sp-11`, échelle de 8 (4 px → 160 px).
+- **Typographie** — `--fs-xs` … `--fs-4xl`, ratio 1,25. Trois crans fluides
+  seulement, réservés aux titres (`--fs-titre-hero`, `-section`, `-bloc`).
+- **Mouvement** — trois durées (`--t-vif`, `--t`, `--t-long`) et deux courbes.
+  Pas de quatrième.
+- **Largeurs de lecture** — `--mesure` (64 ch) pour la prose,
+  `--mesure-etroite` (46 ch), `--mesure-large` (74 ch).
+- **Conteneur** — `--page` (1240 px) et `--gouttiere`. Une seule classe
+  `.wrap` cadre **toutes** les sections, colorées ou non : le fond va sur la
+  `<section>`, le cadrage sur le `.wrap` à l'intérieur. C'est ce qui garantit
+  que le bord gauche du contenu ne bouge jamais d'une section à l'autre.
+- **Rythme vertical** — `.section`, plus `--majeure`, `--bande`, `--serree`.
+
+### Doctrine de mouvement
+
+Une seule chose bouge à la fois dans le champ de vision. Concrètement : une
+seule animation en boucle infinie sur toute la page (le ruban), aucun
+`will-change` permanent, et les apparitions au défilement sont pilotées en
+CSS par `animation-timeline: view()` — pas de JavaScript, pas de classes
+posées à la volée. Si le navigateur ne connaît pas cette propriété, le
+contenu est simplement visible d'emblée.
 
 ## Développement local
 
@@ -26,10 +59,44 @@ python3 -m http.server 4173
 
 Puis ouvrir http://localhost:4173
 
-## À personnaliser avant la mise en ligne
+## À faire avant la mise en ligne
 
-- L'adresse e-mail `bonjour@agence-comete.fr` (encore fictive)
-- Le nom de domaine dans les balises SEO (`agence-comete.fr`)
-- Les chiffres de la section statistiques et le « + 37 projets » du portfolio
-- Le formulaire de contact ouvre le logiciel de mail ; pour un envoi direct,
-  brancher un service type Formspree (voir le commentaire dans `script.js`)
+1. **Brancher le formulaire.** Ouvrir `script.js` et renseigner `POINT_ENVOI`
+   avec l'URL d'un service de réception (Formspree, Web3Forms, une fonction
+   serverless…). Tant que la constante est vide, le formulaire ouvre le
+   logiciel de mail — ça fonctionne, mais beaucoup de visiteurs mobiles n'ont
+   pas de client mail configuré, donc c'est le premier point à traiter.
+2. **Vérifier l'adresse e-mail** `bonjour@agence-comete.fr` (elle apparaît
+   dans `script.js`, les pages légales et le pied de page).
+3. **Renseigner les réseaux sociaux** dans le pied de page : les liens
+   Instagram et LinkedIn pointent aujourd'hui vers les pages d'accueil des
+   plateformes.
+4. **Ajouter le lien vers la fiche Google Business** et, quand il y aura des
+   avis, une section témoignages signés (nom, entreprise, ville, lien vers
+   l'avis). Les anciens témoignages anonymes ont été retirés : non attribués,
+   ils desservaient la crédibilité.
+5. **Ajouter prénoms et photos** dans la section « L'agence ». Elle tient
+   debout sans, mais l'argument « vous parlez à ceux qui font » gagne
+   beaucoup à être incarné.
+
+## Notes techniques
+
+- **Images** — trois largeurs (480/720/900) en AVIF et WebP, avec un JPEG de
+  repli. Pour régénérer après ajout d'un visuel : redimensionner en 900 px de
+  large et produire les variantes (`sharp`, `cwebp`/`avifenc`, ou tout autre
+  encodeur). Le premier affichage de l'accueil pèse environ 260 Ko.
+- **Polices** — auto-hébergées en woff2 avec `unicode-range`, donc le
+  navigateur ne télécharge que le sous-ensemble utile. Deux familles de repli
+  (`Grotesk repli`, `Serif repli`) sont calées sur les métriques des vraies
+  polices via `size-adjust`, ce qui annule le décalage de mise en page au
+  chargement. Aucune requête vers un domaine tiers.
+- **Carte de France** — tracé dérivé des données ouvertes de l'État français
+  (licence ouverte Etalab), projeté en Mercator et simplifié. Les positions
+  des villes viennent de leurs coordonnées réelles.
+- **Démos** — les cinq sites présentent des entreprises fictives. Ils portent
+  `noindex, nofollow`, sont exclus dans `robots.txt` et affichent un bandeau
+  permanent le précisant, pour qu'aucun d'eux ne soit jamais pris pour un vrai
+  commerce dans les résultats de recherche.
+- **Accessibilité** — lien d'évitement, contrastes AA vérifiés (les couleurs
+  de texte sont opaques, pas des alpha empilés), navigation clavier complète,
+  et `prefers-reduced-motion` respecté sur toutes les animations.

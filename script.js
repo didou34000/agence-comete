@@ -1,247 +1,227 @@
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const finePointer = window.matchMedia('(pointer: fine)').matches;
+/* =============================================================
+   COMÈTE — comportements
+   -------------------------------------------------------------
+   Doctrine : le CSS s'occupe de l'apparence et des apparitions au
+   défilement (`animation-timeline: view()`). Le JavaScript ne gère
+   que ce qui a besoin d'un état : le menu, le carrousel, la FAQ,
+   le formulaire. Tout est facultatif — sans JS, la page reste
+   entièrement lisible et le formulaire fonctionne toujours.
+   ============================================================= */
 
-/* ===== Menu burger (mobile) ===== */
-const burger = document.querySelector('.burger');
-const nav = document.getElementById('menu');
+/* -------------------------------------------------------------
+   RÉGLAGE À FAIRE UNE FOIS : l'adresse qui reçoit le formulaire.
+   Laissée vide, le formulaire ouvre le logiciel de mail (comme
+   avant). Dès qu'une URL est renseignée — Formspree, Web3Forms,
+   Brevo, une fonction serverless… — l'envoi se fait sans quitter
+   la page, avec message de confirmation.
+   Exemple : "https://formspree.io/f/xxxxxxxx"
+   ------------------------------------------------------------- */
+const POINT_ENVOI = '';
+const MAIL_CONTACT = 'bonjour@agence-comete.fr';
+
+const mouvementReduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+/* ===== En-tête : état au défilement ===== */
+const entete = $('.entete');
+if (entete) {
+  const majEntete = () => entete.toggleAttribute('data-defile', scrollY > 8);
+  addEventListener('scroll', majEntete, { passive: true });
+  majEntete();
+}
+
+/* ===== Menu mobile ===== */
+const burger = $('.burger');
+const nav = $('#menu');
 if (burger && nav) {
-  burger.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    burger.setAttribute('aria-expanded', String(open));
-  });
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-    });
-  });
-}
+  const fermer = () => {
+    nav.removeAttribute('data-ouvert');
+    burger.setAttribute('aria-expanded', 'false');
+  };
+  const basculer = () => {
+    const ouvert = nav.toggleAttribute('data-ouvert');
+    burger.setAttribute('aria-expanded', String(ouvert));
+  };
 
-/* ===== Révélation au scroll ===== */
-const revealTargets = document.querySelectorAll(
-  '.section-title, .section-kicker, .section-intro, .stat, .service, .card, .options, ' +
-  '.tl-step, .france-text, .france-visual, .duo-card, .work, .quote, .faq details, ' +
-  '.contact-infos, .contact-form'
-);
+  burger.addEventListener('click', basculer);
+  $$('a', nav).forEach(a => a.addEventListener('click', fermer));
 
-if (!reduceMotion) {
-  revealTargets.forEach(el => el.classList.add('reveal'));
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        el.classList.add('visible');
-        observer.unobserve(el);
-        // Une fois l'animation terminée (700 ms + délai en cascade éventuel),
-        // on retire les classes pour rendre la main aux transitions de survol
-        const delay = parseFloat(el.style.transitionDelay) || 0;
-        setTimeout(() => {
-          el.classList.remove('reveal', 'visible');
-          el.style.transitionDelay = '';
-        }, 750 + delay + 250);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  revealTargets.forEach(el => observer.observe(el));
-
-  // Décalage en cascade pour les grilles
-  document.querySelectorAll('.cards, .portfolio-grid, .services, .quotes, .stats').forEach(grid => {
-    [...grid.children].forEach((child, i) => {
-      child.style.transitionDelay = `${i * 90}ms`;
-    });
-  });
-}
-
-/* ===== Compteurs animés ===== */
-const counters = document.querySelectorAll('[data-count]');
-const easeOut = t => 1 - Math.pow(1 - t, 3);
-
-const counterObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const el = entry.target;
-    counterObserver.unobserve(el);
-    const target = parseInt(el.dataset.count, 10);
-    if (reduceMotion) {
-      el.textContent = target.toLocaleString('fr-FR');
-      return;
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape' && nav.hasAttribute('data-ouvert')) {
+      fermer();
+      burger.focus();
     }
-    const duration = 1400;
-    const start = performance.now();
-    const tick = now => {
-      const p = Math.min((now - start) / duration, 1);
-      el.textContent = Math.round(easeOut(p) * target).toLocaleString('fr-FR');
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
   });
-}, { threshold: 0.6 });
-
-counters.forEach(el => counterObserver.observe(el));
-
-/* ===== Effet 3D au survol des cartes =====
-   Les durées de transition vivent en CSS (.tilting) : le JS ne touche
-   qu'au transform, pour ne pas écraser les transitions de box-shadow
-   ni celles du reveal. */
-if (finePointer && !reduceMotion) {
-  document.querySelectorAll('.card, .service, .work, .duo-card').forEach(el => {
-    el.addEventListener('mousemove', e => {
-      if (el.classList.contains('reveal')) return;
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      el.classList.add('tilting');
-      el.style.transform =
-        `perspective(700px) rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
-    });
-    el.addEventListener('mouseleave', () => {
-      el.classList.remove('tilting');
-      el.style.transform = '';
-    });
+  // Un clic en dehors referme, sans piéger le clic sur le bouton lui-même.
+  document.addEventListener('pointerdown', e => {
+    if (!nav.hasAttribute('data-ouvert')) return;
+    if (!nav.contains(e.target) && !burger.contains(e.target)) fermer();
   });
-
-  /* Boutons magnétiques */
-  document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('mousemove', e => {
-      const r = btn.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      btn.style.translate = `${(x * 8).toFixed(1)}px ${(y * 6).toFixed(1)}px`;
-    });
-    btn.addEventListener('mouseleave', () => { btn.style.translate = ''; });
-  });
+  // Le menu déroulant n'a plus de raison d'être une fois en desktop.
+  matchMedia('(min-width: 781px)').addEventListener('change', e => e.matches && fermer());
 }
 
-/* ===== Hero : le mot qui alterne =====
-   Boucle auto-replanifiée (pas de setInterval) : deux cycles ne peuvent pas
-   se chevaucher, et le mot ne peut jamais rester invisible. */
-const swapWord = document.getElementById('swapWord');
-if (swapWord && !reduceMotion) {
-  const words = ['parler', 'cliquer', 'rêver', 'briller'];
-  const PAUSE = 2600, SLIDE = 300;
-  let wi = 0;
-
-  const cycle = () => {
-    if (document.hidden) { setTimeout(cycle, PAUSE); return; }
-    swapWord.classList.add('out');
-    setTimeout(() => {
-      wi = (wi + 1) % words.length;
-      swapWord.textContent = words[wi];
-      swapWord.classList.remove('out');   // seul état à annuler, jamais bloquant
-      setTimeout(cycle, PAUSE);
-    }, SLIDE);
+/* ===== Barre de progression + retour en haut ===== */
+const progression = $('.progression');
+const haut = $('.haut');
+if (progression || haut) {
+  let enAttente = false;
+  const mesurer = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const ratio = max > 0 ? Math.min(scrollY / max, 1) : 0;
+    if (progression) progression.style.width = `${(ratio * 100).toFixed(2)}%`;
+    if (haut) haut.toggleAttribute('data-visible', scrollY > innerHeight);
+    enAttente = false;
   };
-  setTimeout(cycle, PAUSE);
+  addEventListener('scroll', () => {
+    if (enAttente) return;
+    enAttente = true;
+    requestAnimationFrame(mesurer);
+  }, { passive: true });
+  mesurer();
 
-  // Filet de sécurité si l'onglet change pendant une transition
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) swapWord.classList.remove('out');
+  haut?.addEventListener('click', () => {
+    scrollTo({ top: 0, behavior: mouvementReduit ? 'auto' : 'smooth' });
   });
 }
 
-/* ===== Hero : réalisations et démos défilent dans la fenêtre navigateur =====
-   Les visuels sont chargés au fil de l'eau (data-src) pour ne pas peser
-   sur le premier affichage. */
-const shots = [...document.querySelectorAll('.browser-screen .shot')];
-const heroUrl = document.getElementById('heroUrl');
-const heroDemo = document.querySelector('.browser-demo');
+/* ===== Titre : le mot qui alterne =====
+   Les mots sont empilés dans une grille : la largeur réservée est
+   celle du plus long, donc la ligne du titre ne bouge jamais.      */
+const mots = $$('[data-mot]');
+if (mots.length > 1 && !mouvementReduit) {
+  const PAUSE = 3600, GLISSE = 420;
+  let i = 0;
 
-if (shots.length > 1 && !reduceMotion) {
-  const DELAY = 3800;
-  let si = 0;
+  const tour = () => {
+    if (document.hidden) return setTimeout(tour, PAUSE);
+    const sortant = mots[i];
+    i = (i + 1) % mots.length;
+    const entrant = mots[i];
 
-  const load = el => {
-    if (el && el.dataset.src) {
-      el.src = el.dataset.src;
-      el.removeAttribute('data-src');
-    }
+    sortant.setAttribute('data-sort', '');
+    sortant.setAttribute('aria-hidden', 'true');
+    entrant.removeAttribute('data-sort');
+    entrant.removeAttribute('aria-hidden');
+
+    setTimeout(tour, PAUSE + GLISSE);
+  };
+  setTimeout(tour, PAUSE);
+}
+
+/* ===== Fenêtre navigateur : les réalisations défilent =====
+   Une seule chose bouge dans le hero : c'est celle-ci.            */
+const vues = $$('[data-vue]');
+const urlVue = $('#urlVue');
+const badgeDemo = $('#badgeDemo');
+
+if (vues.length > 1 && !mouvementReduit) {
+  const PAUSE = 5000;
+  let i = 0;
+
+  // Charge les images au fil de l'eau plutôt qu'au premier affichage.
+  const charger = el => {
+    if (!el) return;
+    $$('source[data-srcset]', el.parentElement).forEach(s => {
+      if (s.dataset.srcset && !s.srcset) { s.srcset = s.dataset.srcset; }
+    });
+    if (el.dataset.src && !el.getAttribute('src')) el.src = el.dataset.src;
   };
 
-  const nextShot = () => {
-    if (document.hidden) { setTimeout(nextShot, DELAY); return; }
-    shots[si].classList.remove('is-on');
-    si = (si + 1) % shots.length;
-    const cur = shots[si];
-    load(cur);
-    cur.classList.add('is-on');
-    if (heroUrl && cur.dataset.url) heroUrl.textContent = cur.dataset.url;
-    if (heroDemo) heroDemo.classList.toggle('show', cur.hasAttribute('data-demo'));
-    load(shots[(si + 1) % shots.length]);   // on prépare la suivante
-    setTimeout(nextShot, DELAY);
+  const suivante = () => {
+    if (document.hidden) return setTimeout(suivante, PAUSE);
+    vues[i].removeAttribute('data-actif');
+    i = (i + 1) % vues.length;
+    const vue = vues[i];
+    charger(vue);
+    vue.setAttribute('data-actif', '');
+    if (urlVue && vue.dataset.url) urlVue.textContent = vue.dataset.url;
+    badgeDemo?.toggleAttribute('data-visible', vue.hasAttribute('data-demo'));
+    charger(vues[(i + 1) % vues.length]);
+    setTimeout(suivante, PAUSE);
   };
 
-  load(shots[1]);
-  setTimeout(nextShot, DELAY);
+  charger(vues[1]);
+  setTimeout(suivante, PAUSE);
 }
 
-/* ===== Barre de progression de lecture + bouton retour en haut ===== */
-const progressBar = document.getElementById('progress');
-const toTop = document.getElementById('toTop');
+/* ===== FAQ : une seule question ouverte ===== */
+const questions = $$('.faq details');
+questions.forEach(d => d.addEventListener('toggle', () => {
+  if (d.open) questions.forEach(a => { if (a !== d) a.open = false; });
+}));
 
-const onScroll = () => {
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  const ratio = max > 0 ? window.scrollY / max : 0;
-  if (progressBar) progressBar.style.width = (ratio * 100).toFixed(2) + '%';
-  if (toTop) toTop.classList.toggle('show', window.scrollY > 900);
-};
-
-let ticking = false;
-window.addEventListener('scroll', () => {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => { onScroll(); ticking = false; });
-}, { passive: true });
-onScroll();
-
-if (toTop) {
-  toTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-  });
-}
-
-/* ===== FAQ : une seule question ouverte à la fois ===== */
-const faqItems = document.querySelectorAll('.faq details');
-faqItems.forEach(d => {
-  d.addEventListener('toggle', () => {
-    if (d.open) faqItems.forEach(other => { if (other !== d) other.open = false; });
-  });
-});
-
-/* ===== Formulaire : ouvre le mail prérempli =====
-   Pour un envoi sans logiciel de mail, créez un formulaire gratuit sur
-   formspree.io et remplacez ce gestionnaire par :
-   <form action="https://formspree.io/f/VOTRE_ID" method="POST"> */
-const form = document.getElementById('contactForm');
+/* ===== Formulaire de contact ===== */
+const form = $('#formContact');
 if (form) {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const subject = `[Maquette offerte] ${data.get('besoin')} · ${data.get('nom')}`;
-    const body = [
-      `Nom : ${data.get('nom')}`,
-      `Email : ${data.get('email')}`,
-      `Téléphone : ${data.get('tel') || 'non renseigné'}`,
-      `Besoin : ${data.get('besoin')}`,
+  const etat = $('.formulaire__etat', form);
+  const bouton = $('button[type="submit"]', form);
+  const libelleBouton = bouton?.textContent;
+
+  const dire = (message, ton) => {
+    if (!etat) return;
+    etat.textContent = message;
+    if (ton) etat.setAttribute('data-ton', ton); else etat.removeAttribute('data-ton');
+  };
+
+  const versMailto = donnees => {
+    const sujet = `[Maquette offerte] ${donnees.get('besoin')} · ${donnees.get('nom')}`;
+    const corps = [
+      `Nom : ${donnees.get('nom')}`,
+      `Email : ${donnees.get('email')}`,
+      `Téléphone : ${donnees.get('tel') || 'non renseigné'}`,
+      `Besoin : ${donnees.get('besoin')}`,
       '',
-      data.get('message')
+      donnees.get('message')
     ].join('\n');
 
-    let url = `mailto:bonjour@agence-comete.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // Les liens mailto trop longs sont ignorés par certains systèmes :
-    // au-delà du seuil, on copie le message et on ouvre un brouillon court
+    let url = `mailto:${MAIL_CONTACT}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
+    // Certains systèmes ignorent les mailto trop longs : on copie le
+    // message et on n'ouvre qu'un brouillon court.
     if (url.length > 1800) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(body).catch(() => {});
-      }
-      const hint = form.querySelector('.form-hint');
-      if (hint) hint.textContent = 'Votre message était long : il a été copié, collez-le dans le brouillon qui s’ouvre.';
-      const shortBody = 'Bonjour,\n\n(Message copié automatiquement : collez-le ici.)';
-      url = `mailto:bonjour@agence-comete.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(shortBody)}`;
+      navigator.clipboard?.writeText(corps).catch(() => {});
+      dire('Message long : il a été copié, collez-le dans le brouillon qui s’ouvre.', null);
+      url = `mailto:${MAIL_CONTACT}?subject=${encodeURIComponent(sujet)}`
+          + `&body=${encodeURIComponent('Bonjour,\n\n(Message copié automatiquement : collez-le ici.)')}`;
+    } else {
+      dire('Votre logiciel de mail s’ouvre avec le message prérempli.', null);
     }
+    location.href = url;
+  };
 
-    window.location.href = url;
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    form.setAttribute('data-touche', '');       // les champs ne rougissent qu'ici
+
+    if (!form.reportValidity()) {
+      dire('Il manque une information au-dessus.', 'ko');
+      return;
+    }
+    const donnees = new FormData(form);
+    if (donnees.get('_appat')) return;          // pot de miel anti-robot
+
+    if (!POINT_ENVOI) return versMailto(donnees);
+
+    bouton?.setAttribute('aria-busy', 'true');
+    if (bouton) bouton.textContent = 'Envoi…';
+    dire('Envoi en cours…', null);
+
+    try {
+      const reponse = await fetch(POINT_ENVOI, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: donnees
+      });
+      if (!reponse.ok) throw new Error(reponse.status);
+      form.reset();
+      form.removeAttribute('data-touche');
+      dire('Message reçu. On vous répond sous 24 h, jours ouvrés.', 'ok');
+    } catch {
+      dire('L’envoi a échoué. Écrivez-nous directement à ' + MAIL_CONTACT + '.', 'ko');
+    } finally {
+      bouton?.removeAttribute('aria-busy');
+      if (bouton && libelleBouton) bouton.textContent = libelleBouton;
+    }
   });
 }
