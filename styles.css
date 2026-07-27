@@ -441,7 +441,11 @@ p { text-wrap: pretty; }
   text-decoration: none;
   letter-spacing: -.01em;
   margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .42em;
 }
+.logo__mark { height: 1.35em; width: auto; display: block; flex: none; }
 .logo sup { color: var(--soleil); font-size: .7em; }
 
 .nav { display: flex; align-items: center; gap: var(--sp-6); }
@@ -662,42 +666,39 @@ p { text-wrap: pretty; }
 .badge-prix__anneau { transform-origin: center; transition: rotate 1.2s var(--ease); }
 .badge-prix:hover .badge-prix__anneau { rotate: 40deg; }
 
-/* ====================== 09. BANDEAU DÉFILANT ====================== *
- * L'inclinaison est portée par le ruban, jamais par la piste : une piste
- * large de plusieurs milliers de pixels, inclinée, verrait son extrémité
- * dériver de plus de cent pixels vers le haut et sortir du bandeau.
- * Le ruban est plus large que la page pour que ses coins inclinés la
- * couvrent, et il rogne lui-même sa piste, donc avant sa propre rotation.
- * La piste tient deux groupes identiques : translater de -50 % ramène
- * exactement au même point, la boucle est invisible à toute largeur.   */
+/* ====================== 09. BANDE D'EXPERTISES ====================== *
+ * Rangée statique, centrée, en display serif : les métiers se lisent d'un
+ * coup d'oeil, sans mouvement ni inclinaison. Les separateurs sont posés
+ * en ::after pour qu'aucun ne traîne en fin de ligne au retour à la ligne. */
 
-.ruban {
-  background: var(--encre); color: var(--txt-inv);
-  overflow: clip;
-  rotate: -1.2deg;
-  width: 106%; margin-inline: -3%;
-  margin-block: clamp(var(--sp-5), 3vw, var(--sp-7));
-  border-block: 1px solid color-mix(in oklab, var(--soleil) 55%, transparent);
+.expertises {
+  max-width: var(--page); margin-inline: auto;
+  padding-inline: var(--gouttiere);
+  padding-block: clamp(var(--sp-5), 4vw, var(--sp-7));
 }
-.ruban__piste {
-  display: flex; width: max-content;
-  padding-block: var(--sp-3);
-  animation: defile 38s linear infinite;
+.expertises__liste {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap;
+  align-items: baseline; justify-content: center;
+  gap: .5rem clamp(1rem, 3vw, 2.2rem);
+  border-block: 1px solid var(--trait);
+  padding-block: clamp(1.1rem, 2.6vw, 1.9rem);
 }
-.ruban:hover .ruban__piste { animation-play-state: paused; }
-.ruban__groupe { display: flex; align-items: center; }
-.ruban__groupe > span {
-  display: flex; align-items: center; gap: var(--sp-5);
-  padding-right: var(--sp-5);
-  font-size: var(--fs-m); font-weight: 500;
+.expertises__liste li {
+  font-size: var(--fs-m);
+  font-weight: 500;
+  display: flex; align-items: baseline;
+  gap: .5rem clamp(1rem, 3vw, 2.2rem);
   white-space: nowrap;
 }
-.ruban__groupe > span::after {
+/* Le point précède l'élément : aucun ne reste orphelin en fin de ligne. */
+.expertises__liste li + li::before {
   content: ""; flex: none;
-  width: 7px; height: 7px; border-radius: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
   background: var(--soleil);
+  translate: 0 -.22em;
 }
-@keyframes defile { to { translate: -50% 0; } }
+}
 
 /* ====================== 10. BANDE DE PREUVE ====================== */
 
@@ -1198,7 +1199,8 @@ p { text-wrap: pretty; }
   color: var(--txt-3);
   margin-bottom: var(--sp-4);
 }
-.pied__marque { font-family: var(--font-display); font-size: var(--fs-l); }
+.pied__marque { font-family: var(--font-display); font-size: var(--fs-l); display: inline-flex; align-items: center; gap: .42em; }
+.pied__marque .logo__mark { height: 1.3em; }
 .pied__marque sup { color: var(--soleil); font-size: .7em; }
 .pied__baseline { margin-top: var(--sp-2); font-size: var(--fs-s); color: var(--txt-3); max-width: 22ch; }
 .pied nav { display: grid; gap: var(--sp-2); justify-items: start; }
@@ -1206,15 +1208,6 @@ p { text-wrap: pretty; }
 .pied nav a:hover, .pied__coord a:hover { color: var(--accent-txt); }
 .pied__coord { display: grid; gap: var(--sp-2); justify-items: start; }
 .pied__coord p { font-size: var(--fs-s); color: var(--txt-3); }
-.pied__social { display: flex; gap: var(--sp-3); margin-top: var(--sp-3); }
-.pied__social a {
-  width: 2.25rem; height: 2.25rem;
-  display: grid; place-items: center;
-  border: 1.5px solid var(--trait-fort);
-  border-radius: 50%;
-  transition: background var(--t) var(--ease), color var(--t) var(--ease), border-color var(--t) var(--ease);
-}
-.pied__social a:hover { background: var(--encre); color: var(--creme); border-color: var(--encre); }
 .pied__bas {
   display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5);
   align-items: center;
@@ -1480,11 +1473,10 @@ p { text-wrap: pretty; }
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  .ruban__piste { animation: none; }
 }
 
 @media print {
-  .annonce, .entete, .cta-mobile, .haut, .progression, .ruban, body::after { display: none !important; }
+  .annonce, .entete, .cta-mobile, .haut, .progression, body::after { display: none !important; }
   body { background: #fff; color: #000; }
   .section { padding-block: 1.5rem; }
 }
