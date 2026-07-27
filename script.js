@@ -1,18 +1,18 @@
 /* =============================================================
-   COMÈTE — comportements
+   COMÈTE, comportements
    -------------------------------------------------------------
    Doctrine : le CSS s'occupe de l'apparence et des apparitions au
    défilement (`animation-timeline: view()`). Le JavaScript ne gère
    que ce qui a besoin d'un état : le menu, le carrousel, la FAQ,
-   le formulaire. Tout est facultatif — sans JS, la page reste
+   le formulaire. Tout est facultatif, sans JS, la page reste
    entièrement lisible et le formulaire fonctionne toujours.
    ============================================================= */
 
 /* -------------------------------------------------------------
    RÉGLAGE À FAIRE UNE FOIS : l'adresse qui reçoit le formulaire.
    Laissée vide, le formulaire ouvre le logiciel de mail (comme
-   avant). Dès qu'une URL est renseignée — Formspree, Web3Forms,
-   Brevo, une fonction serverless… — l'envoi se fait sans quitter
+   avant). Dès qu'une URL est renseignée (Formspree, Web3Forms,
+   Brevo, une fonction serverless…) l'envoi se fait sans quitter
    la page, avec message de confirmation.
    Exemple : "https://formspree.io/f/xxxxxxxx"
    ------------------------------------------------------------- */

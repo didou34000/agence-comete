@@ -4,103 +4,898 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Démonstration Comète : site vitrine d'un barbier à Montpellier. Coupe, barbe, rasage traditionnel, prise de rendez-vous.">
+<meta name="theme-color" content="#0C0A08">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Démo · L'Atelier du Barbier · Montpellier | Comète</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<title>Démo · L'Atelier du Barbier, Montpellier | Comète</title>
+<link rel="preload" as="image" href="/assets/img/demos/barbier/hero-1800.avif" fetchpriority="high">
+<link rel="stylesheet" href="/assets/fonts/demos/barbier.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:2rem}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-:root{--noir:#12100E;--or:#C9A227;--sable:#EDE6DA}
-body{font-family:'Oswald',sans-serif;background:var(--noir);color:var(--sable);font-weight:300}
-header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 3.5rem;
-  border-bottom:1px solid rgba(237,230,218,.16)}
-.logo{font-size:1.15rem;letter-spacing:.3em;text-transform:uppercase}
-.logo b{color:var(--or);font-weight:600}
-nav a{margin-left:2.2rem;color:var(--sable);text-decoration:none;font-size:.82rem;
-  letter-spacing:.18em;text-transform:uppercase;opacity:.8}
-.hero{position:relative;padding:6rem 3.5rem 5rem;text-align:center;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;
-  background:repeating-linear-gradient(45deg,rgba(201,162,39,.05) 0 2px,transparent 2px 14px)}
-.hero-in{position:relative}
-.sub{font-family:'Lora',serif;font-style:italic;color:var(--or);font-size:1.05rem;letter-spacing:.06em}
-h1{font-size:5.6rem;line-height:.95;letter-spacing:.02em;text-transform:uppercase;font-weight:400;margin:.9rem 0 1.4rem}
-h1 span{display:block;font-size:2.2rem;letter-spacing:.42em;color:var(--or);font-weight:300}
-.hero p{max-width:34rem;margin:0 auto 2.2rem;font-size:1rem;opacity:.78;letter-spacing:.02em}
-.btn{display:inline-block;padding:.95rem 2.6rem;background:var(--or);color:var(--noir);
-  text-decoration:none;font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600}
-.rule{display:flex;align-items:center;gap:1.4rem;padding:0 3.5rem;margin:1rem 0 0}
-.rule i{flex:1;height:1px;background:rgba(237,230,218,.22)}
-.rule span{font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;opacity:.65}
-.menu{padding:4.5rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
-.menu h2{font-family:'Lora',serif;font-style:italic;font-size:2.4rem;color:var(--or);margin-bottom:1.8rem;font-weight:400}
-.line{display:flex;align-items:baseline;gap:.9rem;padding:.85rem 0;border-bottom:1px dotted rgba(237,230,218,.22)}
-.line .n{font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase}
-.line .d{flex:1;height:1px}
-.line .p{color:var(--or);font-size:1.05rem}
-.line small{display:block;font-family:'Lora',serif;font-size:.82rem;opacity:.6;letter-spacing:0;text-transform:none}
-.visual{background:
-  radial-gradient(circle at 50% 32%,rgba(201,162,39,.28),transparent 58%),
-  linear-gradient(160deg,#221E19,#12100E);
-  border:1px solid rgba(201,162,39,.35);display:grid;place-items:center;min-height:24rem}
-.visual .em{font-family:'Lora',serif;font-style:italic;font-size:1.6rem;color:var(--or);text-align:center;line-height:1.6}
-footer{border-top:1px solid rgba(237,230,218,.16);padding:2.6rem 3.5rem;display:flex;
-  justify-content:space-between;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --noir:#0B0908; --noir-2:#131010; --noir-3:#1C1815;
+  --or:#C9A227; --or-clair:#E8CB74; --cuivre:#8C5A2B;
+  --sable:#F0E9DC; --sable-2:#B8AE9E; --sable-3:#7C7468;
+  --px:clamp(1.25rem,5vw,5rem);
+  --page:1340px;
+  --t:.55s; --t-vif:.28s; --e:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Oswald',system-ui,sans-serif;font-weight:300;
+  background:var(--noir);color:var(--sable);line-height:1.6;
+  overflow-x:clip;padding-bottom:5.5rem;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--or-clair);outline-offset:3px}
+.wrap{max-width:var(--page);margin-inline:auto;padding-inline:var(--px)}
+.section{padding-block:clamp(4.5rem,9vw,8.5rem);position:relative;z-index:2}
+.serif{font-family:'Lora',Georgia,serif}
+.eyebrow{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--or);font-size:1.05rem;font-weight:400}
+h1,h2,h3{font-weight:400;line-height:1.02;letter-spacing:-.005em}
+h2{font-size:clamp(2.4rem,5.4vw,4.4rem)}
+h3{font-size:1.45rem;line-height:1.2}
+p{max-width:62ch}
+.mesure{max-width:46ch}
+
+/* ---------- barre de progression ---------- */
+.progress{position:fixed;inset:0 auto auto 0;height:2px;width:100%;z-index:60;transform-origin:0 50%;
+  transform:scaleX(0);background:linear-gradient(90deg,var(--cuivre),var(--or-clair))}
+
+/* ---------- entête ---------- */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--or);color:var(--noir);padding:.7rem 1.2rem}
+.skip:focus{left:.5rem;top:.5rem}
+header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:1.5rem;
+  padding:1.15rem var(--px);transition:background var(--t) var(--e),padding var(--t) var(--e),border-color var(--t)}
+header::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:rgba(240,233,220,.12);
+  transform:scaleX(1);transition:opacity var(--t)}
+header.colle{background:rgba(11,9,8,.88);backdrop-filter:blur(14px);padding-block:.75rem}
+.marque{font-size:1.1rem;letter-spacing:.02em;line-height:1.15;flex:none}
+.marque b{display:block;color:var(--or);font-weight:500;font-size:1.35rem}
+.marque span{font-family:'Lora',serif;font-style:italic;font-size:.82rem;color:var(--sable-2);font-weight:400}
+nav{margin-left:auto;display:flex;align-items:center;gap:2rem}
+nav a{font-size:.98rem;color:var(--sable-2);position:relative;padding-block:.2rem;transition:color var(--t-vif)}
+nav a::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:var(--or);
+  transform:scaleX(0);transform-origin:100% 50%;transition:transform var(--t) var(--e)}
+nav a:hover{color:var(--sable)}
+nav a:hover::after{transform:scaleX(1);transform-origin:0 50%}
+.tel{color:var(--sable);font-size:.98rem}
+.bouton{display:inline-flex;align-items:center;gap:.6rem;background:var(--or);color:var(--noir);
+  padding:.72rem 1.5rem;font-weight:500;font-size:.95rem;border:1px solid var(--or);cursor:pointer;
+  position:relative;overflow:hidden;transition:color var(--t) var(--e)}
+.bouton span{position:relative;z-index:2}
+.bouton::before{content:"";position:absolute;inset:0;background:var(--sable);
+  transform:translateY(101%);transition:transform var(--t) var(--e)}
+.bouton:hover::before{transform:translateY(0)}
+.bouton.creux{background:transparent;color:var(--sable);border-color:rgba(240,233,220,.32)}
+.bouton.creux::before{background:var(--or)}
+.bouton.creux:hover{color:var(--noir)}
+.burger{display:none;background:none;border:1px solid rgba(240,233,220,.28);padding:.55rem .7rem;cursor:pointer}
+.burger i{display:block;width:20px;height:1px;background:var(--sable);margin:4px 0;transition:transform var(--t-vif),opacity var(--t-vif)}
+
+/* ---------- rideau d'ouverture ---------- */
+.rideau{position:fixed;inset:0;z-index:90;background:var(--noir);display:grid;place-items:center;
+  animation:leve .8s .3s var(--e) forwards}
+.rideau p{font-family:'Lora',serif;font-style:italic;color:var(--or);font-size:1.5rem;
+  animation:fondu .5s .1s var(--e) both}
+@keyframes leve{to{transform:translateY(-101%)}}
+@keyframes fondu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- héros ---------- */
+.hero{position:relative;min-height:calc(100svh - 5.5rem);display:flex;align-items:flex-end;overflow:clip;isolation:isolate}
+.hero-fond{position:absolute;inset:-8% 0 -8% 0;z-index:-2}
+.hero-fond img{width:100%;height:100%;object-fit:cover;filter:saturate(.72) contrast(1.06) brightness(.72)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(11,9,8,.86) 0%,rgba(11,9,8,.36) 34%,rgba(11,9,8,.82) 76%,var(--noir) 100%)}
+.hero .wrap{width:100%;padding-bottom:clamp(3rem,7vw,6rem);padding-top:8rem}
+.hero-eyebrow{margin-bottom:1.4rem}
+.hero h1{font-size:clamp(3.4rem,12vw,10rem);line-height:.86;font-weight:400}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l>span{display:block;transform:translateY(105%);animation:monte 1s var(--e) forwards}
+.hero h1 .l:nth-child(1)>span{animation-delay:.62s}
+.hero h1 .l:nth-child(2)>span{animation-delay:.74s}
+.hero h1 em{font-family:'Lora',serif;font-style:italic;color:var(--or);font-size:.68em}
+@keyframes monte{to{transform:translateY(0)}}
+.hero-bas{margin-top:clamp(2rem,4vw,3.4rem);display:flex;flex-wrap:wrap;align-items:flex-end;
+  gap:2rem 3rem;opacity:0;animation:fondu .8s 1.05s var(--e) forwards}
+.hero-bas p{color:var(--sable-2);font-size:1.05rem;max-width:34ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero-meta{margin-left:auto;text-align:right;font-size:.92rem;color:var(--sable-3);line-height:1.9}
+.hero-meta b{color:var(--sable);font-weight:400}
+
+/* ---------- bandeau défilant ---------- */
+.ruban{border-block:1px solid rgba(240,233,220,.14);background:var(--noir-2);
+  padding-block:1.1rem;overflow:clip;position:relative;z-index:2}
+.ruban-piste{display:flex;width:max-content;animation:glisse 46s linear infinite}
+.ruban:hover .ruban-piste{animation-play-state:paused}
+.ruban span{font-size:1.15rem;color:var(--sable-2);padding-inline:1.6rem;white-space:nowrap;display:flex;align-items:center;gap:1.6rem}
+.ruban span::after{content:"";width:5px;height:5px;background:var(--or);border-radius:50%;flex:none}
+@keyframes glisse{to{transform:translateX(-50%)}}
+
+/* ---------- révélations ---------- */
+[data-anim]{opacity:0;transform:translateY(28px);
+  transition:opacity .9s var(--e),transform .9s var(--e);transition-delay:var(--d,0s)}
+[data-anim="masque"]{transform:none;clip-path:inset(0 0 100% 0)}
+[data-anim].vu{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+
+/* ---------- la maison ---------- */
+.maison{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.maison-img{position:relative;overflow:hidden}
+.maison-img img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform 1.4s var(--e)}
+.maison-img:hover img{transform:scale(1.045)}
+.maison-img figcaption{position:absolute;inset:auto 0 0 0;padding:1.4rem;background:linear-gradient(transparent,rgba(11,9,8,.9));
+  font-family:'Lora',serif;font-style:italic;font-size:.95rem;color:var(--sable-2)}
+.maison h2{margin:1rem 0 1.6rem}
+.maison p+p{margin-top:1.1rem}
+.maison p{color:var(--sable-2)}
+.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.6rem;
+  border-top:1px solid rgba(240,233,220,.14);padding-top:1.8rem}
+.chiffres b{display:block;font-size:clamp(2rem,3.6vw,2.9rem);color:var(--or);font-weight:400;line-height:1}
+.chiffres span{font-size:.92rem;color:var(--sable-3);display:block;margin-top:.4rem}
+
+/* ---------- prestations ---------- */
+.presta{background:var(--noir-2);border-block:1px solid rgba(240,233,220,.1)}
+.presta-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:3rem}
+.presta-tete p{color:var(--sable-2);max-width:38ch}
+.liste{border-top:1px solid rgba(240,233,220,.14)}
+.ligne{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:1.4rem;
+  padding:1.5rem .4rem;border-bottom:1px solid rgba(240,233,220,.1);position:relative;cursor:default;
+  transition:padding-inline var(--t) var(--e),background var(--t) var(--e)}
+.ligne::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(201,162,39,.11),transparent 70%);
+  opacity:0;transition:opacity var(--t) var(--e)}
+.ligne:hover{padding-inline:1.2rem .8rem}
+.ligne:hover::before{opacity:1}
+.ligne>*{position:relative}
+.ligne .nom{font-size:clamp(1.15rem,2vw,1.55rem);font-weight:400}
+.ligne .det{font-family:'Lora',serif;font-size:.93rem;color:var(--sable-3);font-weight:400;line-height:1.5}
+.ligne .duree{font-family:'Lora',serif;font-style:italic;color:var(--sable-3);font-size:.92rem;text-align:right;white-space:nowrap}
+.ligne .prix{font-size:clamp(1.15rem,2vw,1.5rem);color:var(--or);white-space:nowrap}
+.apercu{position:fixed;top:0;left:0;width:250px;aspect-ratio:4/3;z-index:40;pointer-events:none;
+  opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .35s var(--e),transform .35s var(--e);
+  overflow:hidden;border:1px solid rgba(201,162,39,.4)}
+.apercu.actif{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.apercu img{width:100%;height:100%;object-fit:cover}
+.presta-note{margin-top:2rem;font-family:'Lora',serif;font-style:italic;color:var(--sable-3);font-size:.98rem}
+
+/* ---------- galerie ---------- */
+.galerie-grille{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(.6rem,1.4vw,1.2rem);margin-top:3rem}
+.gal{position:relative;overflow:hidden;background:var(--noir-3)}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--e),filter .6s var(--e);filter:saturate(.85)}
+.gal:hover img{transform:scale(1.06);filter:saturate(1)}
+.gal figcaption{position:absolute;inset:auto 0 0 0;padding:1rem 1.1rem;font-size:.9rem;
+  background:linear-gradient(transparent,rgba(11,9,8,.88));transform:translateY(100%);
+  transition:transform var(--t) var(--e)}
+.gal:hover figcaption{transform:translateY(0)}
+.g1{grid-column:span 7}
+.g2{grid-column:span 5}
+.g1,.g2{height:clamp(18rem,30vw,28rem)}
+.g3{grid-column:span 4;aspect-ratio:1}
+.g4{grid-column:span 4;aspect-ratio:1}
+.g5{grid-column:span 4;aspect-ratio:1}
+
+/* ---------- équipe ---------- */
+.equipe{background:var(--noir-2);border-block:1px solid rgba(240,233,220,.1)}
+.equipe-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.4vw,2rem);margin-top:3rem}
+.tete{position:relative;overflow:hidden;background:var(--noir-3)}
+.tete img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1) contrast(1.05);
+  transition:filter .8s var(--e),transform 1.2s var(--e)}
+.tete:hover img{filter:grayscale(0);transform:scale(1.04)}
+.tete-txt{position:absolute;inset:auto 0 0 0;padding:1.4rem;
+  background:linear-gradient(transparent,rgba(11,9,8,.94) 55%)}
+.tete-txt h3{font-size:1.5rem}
+.tete-txt .role{font-family:'Lora',serif;font-style:italic;color:var(--or);font-size:.95rem;margin-top:.15rem}
+.tete-txt .plus{color:var(--sable-2);font-size:.92rem;max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .6s var(--e),opacity .5s var(--e),margin-top .6s var(--e)}
+.tete:hover .tete-txt .plus,.tete:focus-within .tete-txt .plus{max-height:7rem;opacity:1;margin-top:.7rem}
+
+/* ---------- produits ---------- */
+.produits-grille{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;margin-top:2.5rem}
+.produits-liste{display:grid;gap:1.1rem}
+.prod{display:flex;align-items:baseline;gap:1rem;padding-bottom:1.1rem;border-bottom:1px solid rgba(240,233,220,.12)}
+.prod b{font-weight:400;font-size:1.1rem}
+.prod span{font-family:'Lora',serif;font-size:.92rem;color:var(--sable-3);flex:1}
+.prod .p{color:var(--or);white-space:nowrap}
+.produits figure{overflow:hidden}
+.produits figure img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform 1.3s var(--e)}
+.produits figure:hover img{transform:scale(1.05)}
+
+/* ---------- avis ---------- */
+.avis{background:var(--noir-2);border-block:1px solid rgba(240,233,220,.1);overflow:clip}
+.avis-tete{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;justify-content:space-between}
+.note{display:flex;align-items:center;gap:.7rem;font-size:.98rem;color:var(--sable-2)}
+.note svg{width:16px;height:16px;fill:var(--or)}
+.avis-piste{display:flex;gap:1.4rem;width:max-content;margin-top:3rem;animation:glisse 62s linear infinite}
+.avis:hover .avis-piste{animation-play-state:paused}
+.carte-avis{width:min(84vw,25rem);flex:none;background:var(--noir);border:1px solid rgba(240,233,220,.13);padding:1.9rem}
+.carte-avis p{font-family:'Lora',serif;font-size:1.03rem;color:var(--sable);line-height:1.65}
+.carte-avis .qui{margin-top:1.3rem;font-size:.92rem;color:var(--sable-3)}
+.carte-avis .qui b{display:block;color:var(--sable);font-weight:400;font-size:1rem}
+
+/* ---------- faq ---------- */
+.faq-liste{margin-top:2.5rem;border-top:1px solid rgba(240,233,220,.14)}
+.faq-item{border-bottom:1px solid rgba(240,233,220,.12)}
+.faq-q{width:100%;background:none;border:0;text-align:left;cursor:pointer;padding:1.4rem .2rem;
+  display:flex;align-items:center;gap:1.5rem;font-size:clamp(1.05rem,1.8vw,1.3rem);font-weight:300;
+  transition:color var(--t-vif)}
+.faq-q:hover{color:var(--or-clair)}
+.faq-q i{margin-left:auto;flex:none;width:14px;height:14px;position:relative}
+.faq-q i::before,.faq-q i::after{content:"";position:absolute;background:var(--or);inset:50% 0 auto 0;height:1px;transition:transform var(--t) var(--e)}
+.faq-q i::after{transform:rotate(90deg)}
+.faq-q[aria-expanded="true"] i::after{transform:rotate(0)}
+.faq-r{overflow:hidden;display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--e)}
+.faq-item.ouvert .faq-r{grid-template-rows:1fr}
+.faq-r>div{min-height:0}
+.faq-r p{font-family:'Lora',serif;color:var(--sable-2);padding:0 .2rem 1.5rem;max-width:64ch}
+
+/* ---------- rendez-vous ---------- */
+.rdv-grille{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4.5rem);margin-top:3rem}
+form{display:grid;gap:1.2rem}
+.champ{display:grid;gap:.45rem}
+.champ label{font-size:.92rem;color:var(--sable-2)}
+.champ input,.champ select,.champ textarea{background:var(--noir-2);border:1px solid rgba(240,233,220,.2);
+  padding:.85rem 1rem;font-weight:300;transition:border-color var(--t-vif),background var(--t-vif)}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--or);background:var(--noir-3);outline:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pot{position:absolute;left:-9999px}
+form .bouton{justify-content:center;margin-top:.4rem}
+.form-note{font-size:.86rem;color:var(--sable-3);font-family:'Lora',serif}
+.form-etat{font-size:.95rem;padding:.9rem 1.1rem;border:1px solid rgba(201,162,39,.4);background:rgba(201,162,39,.08);display:none}
+.form-etat.montre{display:block}
+.infos{display:grid;gap:1.8rem;align-content:start}
+.bloc-info h3{font-size:1.15rem;margin-bottom:.8rem}
+.horaires{display:grid;gap:.55rem}
+.horaires div{display:flex;justify-content:space-between;gap:1rem;font-size:.98rem;color:var(--sable-2);
+  padding-bottom:.55rem;border-bottom:1px dotted rgba(240,233,220,.16)}
+.horaires div.ferme{color:var(--sable-3)}
+.horaires b{font-weight:300;color:var(--sable)}
+.acces{display:grid;gap:.7rem;font-size:.96rem;color:var(--sable-2)}
+.acces div{display:flex;gap:.8rem;align-items:flex-start}
+.acces svg{width:18px;height:18px;flex:none;margin-top:.3rem;stroke:var(--or);fill:none;stroke-width:1.4}
+
+/* ---------- pied ---------- */
+footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);position:relative;z-index:2}
+.pied{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-block:clamp(3rem,6vw,5rem)}
+.pied h4{font-weight:400;font-size:1rem;color:var(--sable);margin-bottom:1rem}
+.pied ul{list-style:none;display:grid;gap:.6rem}
+.pied a,.pied li{color:var(--sable-3);font-size:.96rem}
+.pied a:hover{color:var(--or)}
+.pied .marque b{font-size:1.8rem}
+.pied .mot{font-family:'Lora',serif;font-style:italic;color:var(--sable-3);margin-top:1rem;max-width:32ch}
+.bas{border-top:1px solid rgba(240,233,220,.1);padding-block:1.4rem;display:flex;flex-wrap:wrap;
+  gap:.6rem 2rem;font-size:.86rem;color:var(--sable-3)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1000px){
+  .maison,.rdv-grille,.produits-grille{grid-template-columns:1fr}
+  .equipe-grille{grid-template-columns:1fr 1fr}
+  .g1,.g2{grid-column:span 12;height:auto;aspect-ratio:16/10}
+  .g3,.g4,.g5{grid-column:span 4}
+  .pied{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  nav{position:fixed;inset:0 0 auto 0;flex-direction:column;align-items:flex-start;gap:1.2rem;
+    background:var(--noir-2);padding:6rem var(--px) 2.5rem;transform:translateY(-101%);
+    transition:transform var(--t) var(--e);border-bottom:1px solid rgba(240,233,220,.14)}
+  nav.ouvert{transform:translateY(0)}
+  nav a{font-size:1.35rem}
+  .tel{display:none}
+  .burger{display:block;margin-left:auto;position:relative;z-index:2}
+  header .bouton{display:none}
+  .hero-meta{margin-left:0;text-align:left}
+  .equipe-grille{grid-template-columns:1fr}
+  .g3,.g4,.g5{grid-column:span 12;aspect-ratio:4/3}
+  .duo{grid-template-columns:1fr}
+  .pied{grid-template-columns:1fr}
+  .apercu{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  [data-anim]{opacity:1;transform:none;clip-path:none}
+  .rideau{display:none}
+  .hero h1 .l>span{transform:none}
+  .hero-bas,.defile{opacity:1}
+}
 
 /* Bandeau Comète posé sur les démos */
-body{padding-bottom:5.5rem}
 .comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
  align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
  background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
- font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
+ font-family:system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
  font-weight:400;letter-spacing:0;text-transform:none}
 .comete-bandeau b{color:#FF4D00;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;flex:none}
 .comete-bandeau p{margin:0;opacity:.8;max-width:52ch}
 .comete-bandeau a{margin-left:auto;background:#FF4D00;color:#17130E;font-weight:700;text-decoration:none;
- padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem;letter-spacing:0;text-transform:none}
+ padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem}
 .comete-bandeau a:hover{background:#FAF5EC}
 @media(max-width:640px){.comete-bandeau a{margin-left:0;width:100%;text-align:center}}
 </style>
 </head>
 <body>
-<header>
-  <span class="logo">L'Atelier du <b>Barbier</b></span>
-  <nav><a href="#decouvrir">La maison</a><a href="#decouvrir">Prestations</a><a href="#decouvrir">Équipe</a><a href="#decouvrir">Rendez-vous</a></nav>
+<div class="rideau" aria-hidden="true"><p>L'Atelier du Barbier</p></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header id="entete">
+  <a class="marque" href="#haut">
+    <b>L'Atelier du Barbier</b>
+    <span>Montpellier, depuis 1998</span>
+  </a>
+  <nav id="menu">
+    <a href="#maison">La maison</a>
+    <a href="#prestations">Prestations</a>
+    <a href="#equipe">Les barbiers</a>
+    <a href="#galerie">En images</a>
+    <a href="#rdv">Rendez-vous</a>
+  </nav>
+  <a class="tel" href="tel:+33467000000">04 67 00 00 00</a>
+  <a class="bouton" href="#rdv"><span>Prendre rendez-vous</span></a>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+    <i></i><i></i>
+  </button>
 </header>
 
-<section class="hero">
-  <div class="hero-in">
-    <p class="sub">Depuis 1998 · Écusson, Montpellier</p>
-    <h1>Le rasoir<span>et le temps</span></h1>
-    <p>Coupe à l'ancienne, rasage à la serviette chaude et barbe taillée au millimètre.
-       Sur rendez-vous, du mardi au samedi.</p>
-    <a class="btn" href="#decouvrir">Prendre rendez-vous</a>
+<main id="contenu">
+
+<section class="hero" id="haut">
+  <div class="hero-fond" id="heroFond">
+    <picture>
+      <source type="image/avif" srcset="/assets/img/demos/barbier/hero-900.avif 900w, /assets/img/demos/barbier/hero-1800.avif 1800w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/img/demos/barbier/hero-900.webp 900w, /assets/img/demos/barbier/hero-1800.webp 1800w" sizes="100vw">
+      <img src="/assets/img/demos/barbier/hero-1800.jpg" alt="Salon de barbier, fauteuils en cuir alignés devant les miroirs" width="1800" height="1200" fetchpriority="high">
+    </picture>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow hero-eyebrow">Coupe, barbe et rasage à l'ancienne</p>
+    <h1>
+      <span class="l"><span>Le rasoir</span></span>
+      <span class="l"><span><em>et le temps</em></span></span>
+    </h1>
+    <div class="hero-bas">
+      <div>
+        <p>Douze minutes de tondeuse ne font pas une coupe. Ici on prend trois quarts d'heure,
+           serviette chaude comprise.</p>
+        <div class="hero-actions" style="margin-top:1.6rem">
+          <a class="bouton" href="#rdv"><span>Réserver un créneau</span></a>
+          <a class="bouton creux" href="#prestations"><span>Voir les prestations</span></a>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <b>12 rue de l'Aiguillerie</b><br>
+        Écusson, Montpellier<br>
+        Mardi au samedi, 9h à 19h
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="rule"><i></i><span>Prestations</span><i></i></div>
-
-<section class="menu" id="decouvrir">
-  <div>
-    <h2>À la carte</h2>
-    <div class="line"><span class="n">Coupe classique<small>Shampooing et coiffage compris</small></span><span class="d"></span><span class="p">28 €</span></div>
-    <div class="line"><span class="n">Taille de barbe<small>Tondeuse, rasoir, huile</small></span><span class="d"></span><span class="p">22 €</span></div>
-    <div class="line"><span class="n">Rasage traditionnel<small>Serviette chaude, blaireau</small></span><span class="d"></span><span class="p">35 €</span></div>
-    <div class="line"><span class="n">Coupe + barbe<small>Le rituel complet</small></span><span class="d"></span><span class="p">45 €</span></div>
-    <div class="line"><span class="n">Le fils<small>Jusqu'à 12 ans</small></span><span class="d"></span><span class="p">18 €</span></div>
+<div class="ruban" aria-hidden="true">
+  <div class="ruban-piste">
+    <span>Coupe classique</span><span>Rasage à la serviette chaude</span><span>Taille de barbe</span>
+    <span>Coloration</span><span>Soin du visage</span><span>Sans rendez-vous le mardi</span>
+    <span>Coupe classique</span><span>Rasage à la serviette chaude</span><span>Taille de barbe</span>
+    <span>Coloration</span><span>Soin du visage</span><span>Sans rendez-vous le mardi</span>
   </div>
-  <div class="visual"><p class="em">« On ne coupe pas<br>les cheveux à la va-vite. »</p></div>
+</div>
+
+<section class="section" id="maison">
+  <div class="wrap maison">
+    <div>
+      <p class="eyebrow" data-anim>La maison</p>
+      <h2 data-anim style="--d:.06s">Vingt-sept ans<br>au même comptoir.</h2>
+      <p data-anim style="--d:.12s">Jean-Pierre a ouvert la boutique en 1998, rue de l'Aiguillerie, avec deux fauteuils
+        rachetés à un coiffeur de Nîmes qui partait à la retraite. Ils sont toujours là, regarnis deux fois.</p>
+      <p data-anim style="--d:.16s">On travaille au rasoir et à la tondeuse manuelle quand la coupe le demande, avec des
+        produits qu'on utilise nous-mêmes. Pas de forfait à la minute, pas de vente forcée : vous repartez avec la coupe
+        que vous vouliez, et on vous dit franchement quand une idée ne tiendra pas sur vos cheveux.</p>
+      <div class="chiffres">
+        <div data-anim style="--d:.2s"><b data-compteur="27">0</b><span>ans rue de l'Aiguillerie</span></div>
+        <div data-anim style="--d:.26s"><b data-compteur="4">0</b><span>barbiers au fauteuil</span></div>
+        <div data-anim style="--d:.32s"><b data-compteur="45">0</b><span>minutes par rendez-vous</span></div>
+      </div>
+    </div>
+    <figure class="maison-img" data-anim="masque" style="--d:.1s">
+      <picture>
+        <source type="image/avif" srcset="/assets/img/demos/barbier/salon-900.avif">
+        <source type="image/webp" srcset="/assets/img/demos/barbier/salon-900.webp">
+        <img src="/assets/img/demos/barbier/salon-900.jpg" alt="Fauteuil de barbier en cuir noir devant un mur de briques" width="900" height="1125" loading="lazy">
+      </picture>
+      <figcaption>Le fauteuil du fond, celui que tout le monde demande.</figcaption>
+    </figure>
+  </div>
 </section>
+
+<section class="section presta" id="prestations">
+  <div class="wrap">
+    <div class="presta-tete">
+      <div>
+        <p class="eyebrow" data-anim>Prestations</p>
+        <h2 data-anim style="--d:.06s">Ce qu'on fait,<br>et ce que ça coûte.</h2>
+      </div>
+      <p data-anim style="--d:.12s">Les prix sont affichés en boutique et ne bougent pas selon le barbier
+        qui vous reçoit. Paiement carte ou espèces.</p>
+    </div>
+
+    <div class="liste" id="liste">
+      <div class="ligne" data-anim data-img="/assets/img/demos/barbier/coupe-900.avif">
+        <span class="nom">Coupe classique<span class="det" style="display:block">Shampooing, coupe, coiffage</span></span>
+        <span class="duree">30 min</span>
+        <span class="prix">28&nbsp;€</span>
+      </div>
+      <div class="ligne" data-anim style="--d:.04s" data-img="/assets/img/demos/barbier/barbe-900.avif">
+        <span class="nom">Taille de barbe<span class="det" style="display:block">Tondeuse, contours au rasoir, huile</span></span>
+        <span class="duree">25 min</span>
+        <span class="prix">22&nbsp;€</span>
+      </div>
+      <div class="ligne" data-anim style="--d:.08s" data-img="/assets/img/demos/barbier/rasage-900.avif">
+        <span class="nom">Rasage traditionnel<span class="det" style="display:block">Serviette chaude, blaireau, rasoir droit, baume</span></span>
+        <span class="duree">40 min</span>
+        <span class="prix">35&nbsp;€</span>
+      </div>
+      <div class="ligne" data-anim style="--d:.12s" data-img="/assets/img/demos/barbier/coupe-900.avif">
+        <span class="nom">Coupe et barbe<span class="det" style="display:block">Le rendez-vous complet, une heure au fauteuil</span></span>
+        <span class="duree">60 min</span>
+        <span class="prix">45&nbsp;€</span>
+      </div>
+      <div class="ligne" data-anim style="--d:.16s" data-img="/assets/img/demos/barbier/outils-900.avif">
+        <span class="nom">Contour et finitions<span class="det" style="display:block">Entre deux coupes, nuque et contours repris</span></span>
+        <span class="duree">15 min</span>
+        <span class="prix">14&nbsp;€</span>
+      </div>
+      <div class="ligne" data-anim style="--d:.2s" data-img="/assets/img/demos/barbier/produit-900.avif">
+        <span class="nom">Soin du visage<span class="det" style="display:block">Gommage, masque à l'argile, massage</span></span>
+        <span class="duree">30 min</span>
+        <span class="prix">32&nbsp;€</span>
+      </div>
+      <div class="ligne" data-anim style="--d:.24s" data-img="/assets/img/demos/barbier/salon-900.avif">
+        <span class="nom">Coupe enfant<span class="det" style="display:block">Jusqu'à 12 ans, sans shampooing</span></span>
+        <span class="duree">20 min</span>
+        <span class="prix">18&nbsp;€</span>
+      </div>
+    </div>
+    <p class="presta-note" data-anim>Le mardi, deux fauteuils restent libres pour ceux qui passent sans avoir réservé.</p>
+  </div>
+  <div class="apercu" id="apercu" aria-hidden="true"><img src="" alt=""></div>
+</section>
+
+<section class="section" id="galerie">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>En images</p>
+    <h2 data-anim style="--d:.06s">La boutique<br>et ce qui s'y passe.</h2>
+    <div class="galerie-grille">
+      <figure class="gal g1" data-anim="masque">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/coupe-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/coupe-900.webp">
+          <img src="/assets/img/demos/barbier/coupe-900.jpg" alt="Client installé dans le fauteuil pendant une coupe" width="900" height="619" loading="lazy">
+        </picture>
+        <figcaption>Coupe classique, tondeuse et ciseaux</figcaption>
+      </figure>
+      <figure class="gal g2" data-anim="masque" style="--d:.08s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/rasage-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/rasage-900.webp">
+          <img src="/assets/img/demos/barbier/rasage-900.jpg" alt="Rasage du visage devant le miroir" width="900" height="675" loading="lazy">
+        </picture>
+        <figcaption>Rasage au coupe-chou</figcaption>
+      </figure>
+      <figure class="gal g3" data-anim="masque" style="--d:.12s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/barbe-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/barbe-900.webp">
+          <img src="/assets/img/demos/barbier/barbe-900.jpg" alt="Barbier souriant en train de tailler la barbe d'un client" width="900" height="900" loading="lazy">
+        </picture>
+        <figcaption>Taille de barbe</figcaption>
+      </figure>
+      <figure class="gal g4" data-anim="masque" style="--d:.16s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/outils-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/outils-900.webp">
+          <img src="/assets/img/demos/barbier/outils-900.jpg" alt="Ciseaux et peigne posés sur le plan de travail" width="900" height="900" loading="lazy">
+        </picture>
+        <figcaption>Les ciseaux, affûtés tous les deux mois</figcaption>
+      </figure>
+      <figure class="gal g5" data-anim="masque" style="--d:.2s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/produit-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/produit-900.webp">
+          <img src="/assets/img/demos/barbier/produit-900.jpg" alt="Flacons en verre ambré alignés sur une étagère" width="900" height="900" loading="lazy">
+        </picture>
+        <figcaption>Les huiles préparées à Aniane</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section equipe" id="equipe">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Au fauteuil</p>
+    <h2 data-anim style="--d:.06s">Quatre paires de mains,<br>quatre façons de couper.</h2>
+    <div class="equipe-grille">
+      <figure class="tete" data-anim="masque">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/equipe-1-640.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/equipe-1-640.webp">
+          <img src="/assets/img/demos/barbier/equipe-1-640.jpg" alt="Portrait d'un barbier au travail" width="640" height="853" loading="lazy">
+        </picture>
+        <figcaption class="tete-txt">
+          <h3>Jean-Pierre</h3>
+          <p class="role">Le patron, depuis 1998</p>
+          <p class="plus">Formé à Marseille, il tient le rasoir droit mieux que personne ici et refuse toujours
+            de couper à la tondeuse ce qui peut se couper aux ciseaux.</p>
+        </figcaption>
+      </figure>
+      <figure class="tete" data-anim="masque" style="--d:.08s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/equipe-2-640.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/equipe-2-640.webp">
+          <img src="/assets/img/demos/barbier/equipe-2-640.jpg" alt="Portrait d'un barbier tenant ses ciseaux" width="640" height="853" loading="lazy">
+        </picture>
+        <figcaption class="tete-txt">
+          <h3>Malik</h3>
+          <p class="role">Dégradés et coupes courtes</p>
+          <p class="plus">Arrivé en 2016. C'est lui qu'on demande pour les dégradés très courts et les contours nets,
+            et il travaille vite sans jamais bâcler la finition.</p>
+        </figcaption>
+      </figure>
+      <figure class="tete" data-anim="masque" style="--d:.16s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/equipe-3-640.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/equipe-3-640.webp">
+          <img src="/assets/img/demos/barbier/equipe-3-640.jpg" alt="Portrait d'un barbier dans son salon" width="640" height="853" loading="lazy">
+        </picture>
+        <figcaption class="tete-txt">
+          <h3>Théo</h3>
+          <p class="role">Barbe et soin du visage</p>
+          <p class="plus">Il s'occupe des barbes longues, des rasages complets et des soins. Prenez rendez-vous
+            en fin de journée, c'est là qu'il prend le plus son temps.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section produits" id="produits">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>À emporter</p>
+    <h2 data-anim style="--d:.06s">Ce qu'on utilise,<br>vous pouvez le rapporter chez vous.</h2>
+    <div class="produits-grille">
+      <div class="produits-liste">
+        <div class="prod" data-anim style="--d:.1s"><b>Huile à barbe</b><span>cèdre et petit grain, 30 ml</span><span class="p">19&nbsp;€</span></div>
+        <div class="prod" data-anim style="--d:.14s"><b>Baume après-rasage</b><span>sans alcool, 100 ml</span><span class="p">16&nbsp;€</span></div>
+        <div class="prod" data-anim style="--d:.18s"><b>Pommade coiffante</b><span>tenue moyenne, effet mat, 100 ml</span><span class="p">18&nbsp;€</span></div>
+        <div class="prod" data-anim style="--d:.22s"><b>Savon de rasage</b><span>bol en céramique de Saint-Jean-de-Fos</span><span class="p">24&nbsp;€</span></div>
+        <div class="prod" data-anim style="--d:.26s"><b>Blaireau</b><span>poils synthétiques, manche en olivier</span><span class="p">39&nbsp;€</span></div>
+        <div class="prod" data-anim style="--d:.3s"><b>Peigne en corne</b><span>fabriqué dans l'Ariège</span><span class="p">22&nbsp;€</span></div>
+      </div>
+      <figure data-anim="masque" style="--d:.12s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/barbier/produit-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/barbier/produit-900.webp">
+          <img src="/assets/img/demos/barbier/produit-900.jpg" alt="Flacons en verre ambré sur une étagère" width="900" height="900" loading="lazy">
+        </picture>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section avis" id="avis">
+  <div class="wrap avis-tete">
+    <div>
+      <p class="eyebrow" data-anim>Ce qu'on nous dit</p>
+      <h2 data-anim style="--d:.06s">Les clients parlent<br>mieux que nous.</h2>
+    </div>
+    <p class="note" data-anim style="--d:.12s">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 6.8L12 17.8 5.7 21l1.3-6.8-5-4.8 7-.9z"/></svg>
+      4,8 sur 312 avis Google
+    </p>
+  </div>
+  <div class="avis-piste">
+    <blockquote class="carte-avis"><p>« J'y vais depuis six ans. La coupe est la même à un millimètre près,
+      que ce soit Malik ou Jean-Pierre qui s'en occupe. »</p><p class="qui"><b>Renaud C.</b>Client depuis 2019</p></blockquote>
+    <blockquote class="carte-avis"><p>« Le rasage à la serviette chaude vaut largement les trente-cinq euros.
+      On sort de là avec dix ans de moins. »</p><p class="qui"><b>Tarik B.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Ils ont pris mon fils de neuf ans qui avait peur de la tondeuse.
+      Vingt minutes plus tard il voulait revenir. »</p><p class="qui"><b>Sophie M.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« On m'a dit franchement que la coupe que je demandais ne tiendrait pas
+      sur mes cheveux. J'ai suivi le conseil, ils avaient raison. »</p><p class="qui"><b>Nicolas D.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Rendez-vous à 14h, installé à 14h02. Ça paraît idiot mais chez un
+      coiffeur, ça ne l'est pas. »</p><p class="qui"><b>Julien P.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« J'y vais depuis six ans. La coupe est la même à un millimètre près,
+      que ce soit Malik ou Jean-Pierre qui s'en occupe. »</p><p class="qui"><b>Renaud C.</b>Client depuis 2019</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Le rasage à la serviette chaude vaut largement les trente-cinq euros.
+      On sort de là avec dix ans de moins. »</p><p class="qui"><b>Tarik B.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Ils ont pris mon fils de neuf ans qui avait peur de la tondeuse.
+      Vingt minutes plus tard il voulait revenir. »</p><p class="qui"><b>Sophie M.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« On m'a dit franchement que la coupe que je demandais ne tiendrait pas
+      sur mes cheveux. J'ai suivi le conseil, ils avaient raison. »</p><p class="qui"><b>Nicolas D.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Rendez-vous à 14h, installé à 14h02. Ça paraît idiot mais chez un
+      coiffeur, ça ne l'est pas. »</p><p class="qui"><b>Julien P.</b>Avis Google</p></blockquote>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Questions fréquentes</p>
+    <h2 data-anim style="--d:.06s">Avant de venir.</h2>
+    <div class="faq-liste">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Faut-il réserver ?<i></i></button>
+        <div class="faq-r"><div><p>C'est plus sûr, surtout le samedi. Le mardi, deux fauteuils restent
+          réservés aux passages sans rendez-vous, de 9h à 19h.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Combien de temps dure un rendez-vous ?<i></i></button>
+        <div class="faq-r"><div><p>Trente minutes pour une coupe seule, une heure pour coupe et barbe.
+          On ne fait pas se chevaucher deux clients sur le même fauteuil, donc l'horaire est tenu.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Est-ce que vous coupez les cheveux longs ?<i></i></button>
+        <div class="faq-r"><div><p>Oui. Coupe aux ciseaux, dégradé long, mise en forme. Comptez quarante-cinq
+          minutes et prévenez à la réservation pour qu'on bloque le créneau.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Vous acceptez les enfants ?<i></i></button>
+        <div class="faq-r"><div><p>À partir de cinq ans, et la coupe enfant est à 18&nbsp;€ jusqu'à douze ans.
+          Le samedi matin, il y a du monde et de l'attente : le mercredi après-midi est plus calme.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Où se garer ?<i></i></button>
+        <div class="faq-r"><div><p>Parking Pastourelle à trois minutes à pied, ou tram L1 arrêt Comédie puis
+          cinq minutes de marche. La rue de l'Aiguillerie est piétonne.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section presta" id="rdv">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Rendez-vous</p>
+    <h2 data-anim style="--d:.06s">Choisissez votre créneau.</h2>
+    <div class="rdv-grille">
+      <form id="formulaire" data-anim style="--d:.1s" novalidate>
+        <div class="duo">
+          <div class="champ">
+            <label for="nom">Votre nom</label>
+            <input id="nom" name="nom" type="text" autocomplete="name" required>
+          </div>
+          <div class="champ">
+            <label for="tel">Téléphone</label>
+            <input id="tel" name="tel" type="tel" autocomplete="tel" required>
+          </div>
+        </div>
+        <div class="champ">
+          <label for="presta">Prestation</label>
+          <select id="presta" name="prestation">
+            <option>Coupe classique (28 €, 30 min)</option>
+            <option>Taille de barbe (22 €, 25 min)</option>
+            <option>Rasage traditionnel (35 €, 40 min)</option>
+            <option>Coupe et barbe (45 €, 60 min)</option>
+            <option>Contour et finitions (14 €, 15 min)</option>
+            <option>Soin du visage (32 €, 30 min)</option>
+            <option>Coupe enfant (18 €, 20 min)</option>
+          </select>
+        </div>
+        <div class="duo">
+          <div class="champ">
+            <label for="jour">Jour souhaité</label>
+            <input id="jour" name="jour" type="date">
+          </div>
+          <div class="champ">
+            <label for="barbier">Barbier</label>
+            <select id="barbier" name="barbier">
+              <option>Peu importe</option>
+              <option>Jean-Pierre</option>
+              <option>Malik</option>
+              <option>Théo</option>
+            </select>
+          </div>
+        </div>
+        <div class="champ">
+          <label for="mot">Une précision ?</label>
+          <textarea id="mot" name="message" rows="3"></textarea>
+        </div>
+        <input class="pot" type="text" name="societe" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="bouton" type="submit"><span>Envoyer la demande</span></button>
+        <p class="form-note">On rappelle dans la demi-journée pour confirmer l'heure exacte.</p>
+        <p class="form-etat" id="etat" role="status"></p>
+      </form>
+
+      <div class="infos">
+        <div class="bloc-info" data-anim style="--d:.14s">
+          <h3>Horaires</h3>
+          <div class="horaires">
+            <div class="ferme"><span>Lundi</span><b>Fermé</b></div>
+            <div><span>Mardi</span><b>9h à 19h</b></div>
+            <div><span>Mercredi</span><b>9h à 19h</b></div>
+            <div><span>Jeudi</span><b>9h à 21h</b></div>
+            <div><span>Vendredi</span><b>9h à 19h</b></div>
+            <div><span>Samedi</span><b>8h30 à 18h</b></div>
+            <div class="ferme"><span>Dimanche</span><b>Fermé</b></div>
+          </div>
+        </div>
+        <div class="bloc-info" data-anim style="--d:.2s">
+          <h3>Venir</h3>
+          <div class="acces">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              <span>12 rue de l'Aiguillerie, 34000 Montpellier</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 21h8M9 17v4M15 17v4"/></svg>
+              <span>Tram L1 ou L2, arrêt Comédie, puis 5 minutes à pied</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 16V8h3.5a2.5 2.5 0 010 5H9"/></svg>
+              <span>Parking Pastourelle, 3 minutes</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4h2.2c.7 0 1.3.5 1.4 1.2l.6 3c.1.6-.1 1.2-.6 1.5l-1.4 1a12 12 0 005.6 5.6l1-1.4c.3-.5.9-.7 1.5-.6l3 .6c.7.1 1.2.7 1.2 1.4v2.2c0 .8-.7 1.5-1.5 1.5A15.5 15.5 0 014 5.5z"/></svg>
+              <span><a href="tel:+33467000000">04 67 00 00 00</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <footer>
-  <span>12 rue de l'Aiguillerie · Montpellier</span>
-  <span>Mardi — Samedi · 9h / 19h</span>
-  <span>04 67 00 00 00</span>
+  <div class="wrap pied">
+    <div>
+      <span class="marque"><b>L'Atelier du Barbier</b></span>
+      <p class="mot">Douze minutes de tondeuse ne font pas une coupe. On a ouvert en 1998 avec cette idée,
+        elle n'a pas bougé.</p>
+    </div>
+    <div>
+      <h4>La boutique</h4>
+      <ul>
+        <li>12 rue de l'Aiguillerie</li>
+        <li>34000 Montpellier</li>
+        <li><a href="tel:+33467000000">04 67 00 00 00</a></li>
+        <li><a href="mailto:bonjour@atelier-du-barbier.fr">bonjour@atelier-du-barbier.fr</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Le site</h4>
+      <ul>
+        <li><a href="#prestations">Prestations et tarifs</a></li>
+        <li><a href="#equipe">Les barbiers</a></li>
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#rdv">Prendre rendez-vous</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap bas">
+    <span>Mardi au samedi, fermé dimanche et lundi</span>
+    <span>Site de démonstration réalisé par Comète</span>
+  </div>
 </footer>
+
 <div class="comete-bandeau">
   <b>Démo</b>
-  <p>Ce site n’existe pas : c’est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599 €.</p>
-  <a href="../index.html#offre">Voir l’offre Comète →</a>
+  <p>Ce site n'existe pas : c'est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
+  <a href="../index.html#offre">Voir l'offre Comète</a>
 </div>
+
+<script>
+(function(){
+  var doux = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* révélations au défilement */
+  var cibles = document.querySelectorAll('[data-anim]');
+  if (doux) { cibles.forEach(function(el){ el.classList.add('vu'); }); }
+  else {
+    var io = new IntersectionObserver(function(entrees){
+      entrees.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+    cibles.forEach(function(el){ io.observe(el); });
+  }
+
+  /* entête collée + barre de progression + parallaxe */
+  var entete = document.getElementById('entete');
+  var barre = document.getElementById('progress');
+  var fond = document.getElementById('heroFond');
+  var tic = false;
+  function auDefilement(){
+    var y = window.scrollY;
+    entete.classList.toggle('colle', y > 40);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    barre.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
+    if (!doux && fond && y < window.innerHeight * 1.2) {
+      fond.style.transform = 'translate3d(0,' + (y * 0.18) + 'px,0)';
+    }
+    tic = false;
+  }
+  addEventListener('scroll', function(){
+    if (!tic) { tic = true; requestAnimationFrame(auDefilement); }
+  }, { passive: true });
+  auDefilement();
+
+  /* menu mobile */
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){
+    var ouvert = menu.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded', ouvert);
+    burger.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+  menu.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded', 'false'); }
+  });
+
+  /* compteurs */
+  var compteurs = document.querySelectorAll('[data-compteur]');
+  var ioc = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      ioc.unobserve(e.target);
+      var cible = parseInt(e.target.dataset.compteur, 10), debut = null;
+      if (doux) { e.target.textContent = cible; return; }
+      function pas(t){
+        if (!debut) debut = t;
+        var p = Math.min((t - debut) / 1100, 1);
+        e.target.textContent = Math.round(cible * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(pas);
+      }
+      requestAnimationFrame(pas);
+    });
+  }, { threshold: .5 });
+  compteurs.forEach(function(el){ ioc.observe(el); });
+
+  /* aperçu photo qui suit le curseur sur la liste des prestations */
+  var apercu = document.getElementById('apercu');
+  var apercuImg = apercu.querySelector('img');
+  var liste = document.getElementById('liste');
+  var sx = 0, sy = 0, cx = 0, cy = 0, anime = false;
+  function boucle(){
+    cx += (sx - cx) * .16; cy += (sy - cy) * .16;
+    apercu.style.translate = cx + 'px ' + cy + 'px';
+    if (anime) requestAnimationFrame(boucle);
+  }
+  if (!doux && matchMedia('(hover: hover)').matches) {
+    liste.addEventListener('pointermove', function(e){ sx = e.clientX; sy = e.clientY; });
+    liste.querySelectorAll('.ligne').forEach(function(ligne){
+      ligne.addEventListener('pointerenter', function(e){
+        apercuImg.src = ligne.dataset.img;
+        sx = cx = e.clientX; sy = cy = e.clientY;
+        apercu.classList.add('actif');
+        if (!anime) { anime = true; requestAnimationFrame(boucle); }
+      });
+      ligne.addEventListener('pointerleave', function(){
+        apercu.classList.remove('actif');
+      });
+    });
+    liste.addEventListener('pointerleave', function(){ anime = false; });
+  }
+
+  /* questions fréquentes */
+  document.querySelectorAll('.faq-q').forEach(function(bouton){
+    bouton.addEventListener('click', function(){
+      var item = bouton.parentElement;
+      var ouvert = item.classList.toggle('ouvert');
+      bouton.setAttribute('aria-expanded', ouvert);
+    });
+  });
+
+  /* formulaire */
+  var form = document.getElementById('formulaire');
+  var etat = document.getElementById('etat');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (form.societe.value) return;
+    if (!form.nom.value.trim() || !form.tel.value.trim()) {
+      etat.textContent = 'Il nous faut au moins votre nom et un numéro pour vous rappeler.';
+      etat.classList.add('montre'); return;
+    }
+    etat.textContent = 'Demande enregistrée. Sur un vrai site, elle arriverait dans la boîte mail de la boutique.';
+    etat.classList.add('montre');
+    form.reset();
+  });
+})();
+</script>
 </body>
 </html>

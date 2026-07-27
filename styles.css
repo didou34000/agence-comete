@@ -1,5 +1,5 @@
 /* =============================================================
-   COMÈTE — feuille de style unique
+   COMÈTE, feuille de style unique
    -------------------------------------------------------------
    Sommaire
    01. Polices
@@ -126,7 +126,7 @@
   --txt-3:    #6E6459;             /*  5.0:1 sur crème */
   --txt-inv:  #FAF5EC;
   --txt-inv-2:#C9C0B4;             /*  8.4:1 sur encre  */
-  --accent-txt: #B03500;           /*  4.9:1 sur crème — orange lisible */
+  --accent-txt: #B03500;           /*  4.9:1 sur crème, orange lisible */
   --accent-txt-sable: #A83200;     /*  4.6:1 sur sable  */
   --bleu-txt: #1730D6;             /*  6.4:1 sur crème */
 
@@ -291,7 +291,7 @@ body::after {
 .surtitre {
   display: flex; align-items: center; gap: var(--sp-3);
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .16em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--accent-txt);
   margin-bottom: var(--sp-4);
 }
@@ -333,14 +333,14 @@ strong { font-weight: 700; }
 
 p { text-wrap: pretty; }
 
-/* Liste à puce astérisque — le seul endroit où le ✺ sert de puce. */
+/* Liste à puce ronde, le seul endroit où la puce est dessinée en CSS. */
 .liste-etoile > li {
   position: relative;
   padding: var(--sp-2) 0 var(--sp-2) var(--sp-6);
   max-width: var(--mesure);
 }
 .liste-etoile > li::before {
-  content: "✺";
+  content: "•";
   position: absolute; left: 0; top: var(--sp-2);
   font-size: .75em; line-height: 1.9;
   color: var(--accent-txt);
@@ -525,7 +525,7 @@ p { text-wrap: pretty; }
 .hero__titre em { color: var(--soleil); }
 
 /* Mot qui alterne : les mots sont empilés dans une grille, donc la
-   largeur réservée est celle du plus long — la ligne du titre ne
+   largeur réservée est celle du plus long, la ligne du titre ne
    change jamais de longueur ni de hauteur. */
 .mot-tournant {
   display: inline-grid;
@@ -697,7 +697,7 @@ p { text-wrap: pretty; }
 }
 .preuve__label {
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .16em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--txt-3);
   flex: none;
 }
@@ -835,7 +835,7 @@ p { text-wrap: pretty; }
 }
 .offre--vedette .offre__liste li { border-color: var(--trait-inv); }
 .offre__liste li::before {
-  content: "✺"; flex: none;
+  content: "•"; flex: none;
   color: var(--accent-txt); font-size: .8em; line-height: 1.8;
 }
 .offre--vedette .offre__liste li::before { color: var(--soleil); }
@@ -849,7 +849,7 @@ p { text-wrap: pretty; }
 .offre--vedette .offre__exclus { border-color: var(--trait-inv); }
 .offre__exclus > p {
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .12em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--txt-3);
   margin-bottom: var(--sp-2);
 }
@@ -860,7 +860,7 @@ p { text-wrap: pretty; }
   display: flex; gap: var(--sp-3);
 }
 .offre--vedette .offre__exclus li { color: var(--txt-inv-2); }
-.offre__exclus li::before { content: "—"; flex: none; opacity: .6; }
+.offre__exclus li::before { content: "×"; flex: none; opacity: .6; }
 
 .offre .btn { margin-top: auto; }         /* bouton collé en bas, toujours aligné */
 .offre__exclus { margin-bottom: var(--sp-6); }
@@ -922,7 +922,7 @@ p { text-wrap: pretty; }
   display: inline-block;
   margin-top: var(--sp-3);
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .1em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--accent-txt-sable);
 }
 
@@ -1098,7 +1098,7 @@ p { text-wrap: pretty; }
 }
 .contact__liste dt {
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .12em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--txt-3);
 }
 .contact__liste a, .contact__liste .val { font-size: var(--fs-m); font-weight: 500; text-decoration: none; }
@@ -1159,7 +1159,7 @@ p { text-wrap: pretty; }
 }
 .pied h2 {
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .14em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--txt-3);
   margin-bottom: var(--sp-4);
 }
@@ -1287,7 +1287,7 @@ p { text-wrap: pretty; }
 .prose dl { display: grid; gap: 0; }
 .prose dt {
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .1em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--txt-3);
   padding-top: var(--sp-3);
   border-top: 1px dashed var(--trait-fort);
@@ -1304,7 +1304,7 @@ p { text-wrap: pretty; }
 }
 .cas__resume dt {
   font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: .12em;
+  text-transform: none; letter-spacing: .005em;
   color: var(--txt-3);
   margin-bottom: var(--sp-1);
 }

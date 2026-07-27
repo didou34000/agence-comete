@@ -4,115 +4,812 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Démonstration Comète : site vitrine d'un loueur de jet ski à Palavas-les-Flots. Formules, randonnées, flotte et réservation.">
+<meta name="theme-color" content="#04182B">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Démo · Blue Wave · Location de jet ski à Palavas | Comète</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<title>Démo · Bluewave, location de jet ski à Palavas | Comète</title>
+<link rel="preload" as="image" href="/assets/img/demos/jetski/hero-1800.avif" fetchpriority="high">
+<link rel="stylesheet" href="/assets/fonts/demos/jetski.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:2rem}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-:root{--nuit:#012A4A;--bleu:#0496C7;--cyan:#48CAE4;--soleil:#FFD166;--blanc:#F4FBFF}
-body{font-family:'Archivo',sans-serif;background:var(--nuit);color:var(--blanc)}
-header{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 3rem;
-  position:relative;z-index:3}
-.logo{font-weight:900;font-size:1.5rem;letter-spacing:-.02em}
-.logo span{color:var(--soleil)}
-nav a{margin-left:2rem;color:var(--blanc);text-decoration:none;font-size:.9rem;font-weight:600;opacity:.85}
-.cta{background:var(--soleil);color:var(--nuit);padding:.7rem 1.5rem;border-radius:100px;font-weight:800;
-  text-decoration:none;font-size:.9rem}
-.hero{position:relative;padding:4.5rem 3rem 7rem;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;
-  background:radial-gradient(circle at 78% 18%,rgba(72,202,228,.5),transparent 55%),
-             radial-gradient(circle at 12% 85%,rgba(4,150,199,.45),transparent 60%)}
-.wave{position:absolute;left:-5%;right:-5%;bottom:-2px;height:150px;
-  background:linear-gradient(to top,rgba(72,202,228,.35),transparent);
-  border-radius:50% 50% 0 0/100% 100% 0 0}
-.hero-in{position:relative;z-index:2;max-width:62rem}
-.tag{display:inline-block;border:1px solid rgba(244,251,255,.35);border-radius:100px;
-  padding:.35rem 1rem;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-h1{font-size:5.2rem;line-height:.92;font-weight:900;letter-spacing:-.035em;margin:1.6rem 0 1.2rem;text-transform:uppercase}
-h1 em{font-style:normal;color:var(--soleil)}
-.hero p{font-size:1.15rem;max-width:34rem;opacity:.88;margin-bottom:2.2rem}
-.btns a{display:inline-block;margin-right:.8rem;padding:1rem 2rem;border-radius:100px;text-decoration:none;font-weight:800}
-.b1{background:var(--soleil);color:var(--nuit)}
-.b2{border:2px solid rgba(244,251,255,.45);color:var(--blanc)}
-.prices{background:var(--blanc);color:var(--nuit);padding:4.5rem 3rem}
-.prices h2{font-size:2.6rem;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:2.2rem}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.p{border:3px solid var(--nuit);border-radius:18px;padding:1.8rem}
-.p.hot{background:var(--nuit);color:var(--blanc)}
-.p h3{font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em}
-.p .big{font-size:3.2rem;font-weight:900;line-height:1.1;margin:.4rem 0}
-.p .big small{font-size:1.1rem;font-weight:600}
-.p ul{list-style:none;font-size:.92rem;opacity:.85}
-.p li{padding:.3rem 0}
-.p li::before{content:"▸ ";color:var(--bleu);font-weight:900}
-.p.hot li::before{color:var(--soleil)}
-.band{background:var(--bleu);padding:1.1rem 0;overflow:hidden;white-space:nowrap;
-  font-weight:900;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase}
-footer{padding:3rem;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
-footer b{font-size:1.4rem}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --nuit:#04182B; --nuit-2:#082539; --nuit-3:#0E3350;
+  --cyan:#00C2FF; --cyan-2:#7EE3FF; --jaune:#FFD166;
+  --blanc:#F2FAFF; --gris:#9DB8CC; --gris-2:#6E8BA3;
+  --px:clamp(1.25rem,5vw,5rem);
+  --page:1340px;
+  --t:.5s; --t-vif:.25s; --e:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;-webkit-text-size-adjust:100%}
+body{font-family:'Archivo',system-ui,sans-serif;background:var(--nuit);color:var(--blanc);
+  line-height:1.6;overflow-x:clip;padding-bottom:5.5rem}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--jaune);outline-offset:3px}
+.wrap{max-width:var(--page);margin-inline:auto;padding-inline:var(--px)}
+.section{padding-block:clamp(4rem,8.5vw,7.5rem);position:relative}
+h1,h2,h3{font-weight:900;line-height:.98;letter-spacing:-.025em}
+h2{font-size:clamp(2.3rem,5.6vw,4.4rem)}
+h3{font-size:1.5rem;line-height:1.1}
+p{max-width:62ch}
+.eyebrow{font-size:.92rem;font-weight:600;color:var(--cyan);display:flex;align-items:center;gap:.6rem}
+.eyebrow::before{content:"";width:24px;height:2px;background:var(--cyan);flex:none}
+
+/* ---------- entête ---------- */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--cyan);color:var(--nuit);padding:.7rem 1.2rem}
+.skip:focus{left:.5rem;top:.5rem}
+header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:1.5rem;
+  padding:1.1rem var(--px);transition:background var(--t) var(--e),padding var(--t) var(--e)}
+header.colle{background:rgba(4,24,43,.92);backdrop-filter:blur(14px);padding-block:.7rem;
+  box-shadow:0 1px 0 rgba(0,194,255,.22)}
+.marque{font-size:1.45rem;font-weight:900;letter-spacing:-.03em;flex:none}
+.marque i{font-style:normal;color:var(--cyan)}
+nav{margin-left:auto;display:flex;align-items:center;gap:1.8rem}
+nav a{font-size:.96rem;font-weight:500;color:var(--gris);position:relative;padding-block:.2rem;
+  transition:color var(--t-vif)}
+nav a::after{content:"";position:absolute;inset:auto 0 0 0;height:2px;background:var(--cyan);
+  transform:scaleX(0);transform-origin:100% 50%;transition:transform var(--t) var(--e)}
+nav a:hover{color:var(--blanc)}
+nav a:hover::after{transform:scaleX(1);transform-origin:0 50%}
+.bouton{display:inline-flex;align-items:center;justify-content:center;background:var(--cyan);color:var(--nuit);
+  padding:.8rem 1.7rem;font-weight:800;font-size:.95rem;border:2px solid var(--cyan);border-radius:100px;
+  cursor:pointer;position:relative;overflow:hidden;transition:color var(--t) var(--e),transform var(--t-vif) var(--e)}
+.bouton span{position:relative;z-index:2}
+.bouton::before{content:"";position:absolute;inset:0;background:var(--jaune);transform:translateY(101%);
+  transition:transform var(--t) var(--e)}
+.bouton:hover::before{transform:translateY(0)}
+.bouton:hover{transform:translateY(-2px)}
+.bouton.jaune{background:var(--jaune);border-color:var(--jaune)}
+.bouton.jaune::before{background:var(--cyan)}
+.bouton.creux{background:transparent;color:var(--blanc);border-color:rgba(242,250,255,.32)}
+.bouton.creux::before{background:var(--blanc)}
+.bouton.creux:hover{color:var(--nuit)}
+.burger{display:none;background:none;border:2px solid rgba(242,250,255,.3);border-radius:100px;
+  padding:.5rem .7rem;cursor:pointer}
+.burger i{display:block;width:20px;height:2px;background:var(--blanc);margin:4px 0}
+
+/* ---------- héros ---------- */
+.hero{position:relative;min-height:calc(100svh - 5.5rem);display:flex;align-items:center;overflow:clip;isolation:isolate}
+.hero-fond{position:absolute;inset:-8% 0;z-index:-2}
+.hero-fond img{width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,rgba(4,24,43,.92) 0%,rgba(4,24,43,.68) 46%,rgba(4,24,43,.3) 100%)}
+.hero .wrap{width:100%;padding-top:7rem;padding-bottom:9rem}
+.hero .eyebrow{opacity:0;animation:fondu .8s .2s var(--e) forwards}
+.hero h1{font-size:clamp(3rem,10.5vw,8.4rem);margin:1.1rem 0 1.5rem;max-width:14ch}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l>span{display:block;transform:translateY(105%);animation:monte .9s var(--e) forwards}
+.hero h1 .l:nth-child(1)>span{animation-delay:.3s}
+.hero h1 .l:nth-child(2)>span{animation-delay:.4s}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+@keyframes monte{to{transform:translateY(0)}}
+@keyframes fondu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero p.intro{max-width:44ch;color:var(--gris);font-size:1.05rem;opacity:0;animation:fondu .9s .75s var(--e) forwards}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;opacity:0;animation:fondu .9s .9s var(--e) forwards}
+.hero-chiffres{display:flex;flex-wrap:wrap;gap:2.5rem;margin-top:3rem;opacity:0;animation:fondu .9s 1.05s var(--e) forwards}
+.hero-chiffres b{display:block;font-size:2.2rem;line-height:1;color:var(--jaune)}
+.hero-chiffres span{font-size:.9rem;color:var(--gris-2)}
+.vague{position:absolute;inset:auto 0 0 0;z-index:2;line-height:0;pointer-events:none}
+.vague svg{width:200%;height:clamp(60px,9vw,120px)}
+.vague svg path{fill:var(--nuit-2)}
+.vague .v1{animation:onde 14s linear infinite}
+.vague .v2{position:absolute;inset:auto 0 0 0;opacity:.5;animation:onde 9s linear infinite reverse}
+@keyframes onde{to{transform:translateX(-50%)}}
+
+/* ---------- ruban ---------- */
+.ruban{background:var(--cyan);color:var(--nuit);overflow:clip}
+.ruban-piste{display:flex;width:max-content;animation:glisse 32s linear infinite;padding-block:.9rem}
+.ruban:hover .ruban-piste{animation-play-state:paused}
+.ruban span{padding-inline:1.4rem;white-space:nowrap;font-weight:800;font-size:1.02rem;
+  display:flex;align-items:center;gap:1.4rem}
+.ruban span::after{content:"";width:6px;height:6px;background:var(--nuit);border-radius:50%;flex:none}
+@keyframes glisse{to{transform:translateX(-50%)}}
+
+/* ---------- révélations ---------- */
+[data-anim]{opacity:0;transform:translateY(26px);transition:opacity .8s var(--e),transform .8s var(--e);
+  transition-delay:var(--d,0s)}
+[data-anim="masque"]{transform:none;clip-path:inset(0 0 100% 0)}
+[data-anim].vu{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+
+/* ---------- formules ---------- */
+.formules{background:var(--nuit-2)}
+.f-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:3rem}
+.f-tete p{color:var(--gris);max-width:38ch}
+.f-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2vw,1.6rem)}
+.f-carte{background:var(--nuit);border:1px solid rgba(157,184,204,.2);padding:clamp(1.6rem,2.6vw,2.2rem);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+  transition:transform var(--t) var(--e),border-color var(--t) var(--e)}
+.f-carte::before{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--cyan);
+  transform:scaleX(0);transform-origin:0 50%;transition:transform var(--t) var(--e)}
+.f-carte:hover{transform:translateY(-8px);border-color:rgba(0,194,255,.5)}
+.f-carte:hover::before{transform:scaleX(1)}
+.f-carte.phare{border-color:var(--jaune);background:linear-gradient(180deg,rgba(255,209,102,.09),transparent 55%)}
+.f-carte.phare::before{background:var(--jaune)}
+.f-etiq{position:absolute;top:0;right:0;background:var(--jaune);color:var(--nuit);font-size:.76rem;
+  font-weight:800;padding:.35rem .8rem}
+.f-carte h3{margin-bottom:.3rem}
+.f-carte .duree{color:var(--gris-2);font-size:.92rem}
+.f-prix{font-size:clamp(3rem,5.5vw,4.2rem);font-weight:900;line-height:1;margin:1.2rem 0 .2rem;color:var(--cyan)}
+.f-carte.phare .f-prix{color:var(--jaune)}
+.f-prix small{font-size:.3em;font-weight:600}
+.f-par{color:var(--gris-2);font-size:.88rem}
+.f-carte ul{list-style:none;display:grid;gap:.6rem;margin:1.6rem 0;font-size:.96rem;color:var(--gris)}
+.f-carte li{display:flex;gap:.7rem;align-items:flex-start}
+.f-carte li::before{content:"";width:14px;height:8px;border-left:2px solid var(--cyan);
+  border-bottom:2px solid var(--cyan);transform:rotate(-45deg);flex:none;margin-top:.35rem}
+.f-carte .bouton{margin-top:auto;width:100%}
+.f-note{margin-top:2rem;color:var(--gris-2);font-size:.95rem}
+
+/* ---------- la flotte ---------- */
+.flotte-grille{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,4rem);align-items:center;margin-top:2.6rem}
+.flotte-img{position:relative;overflow:hidden}
+.flotte-img img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1.3s var(--e)}
+.flotte-img:hover img{transform:scale(1.05)}
+.jets{display:grid;gap:1rem}
+.jet{border:1px solid rgba(157,184,204,.2);padding:1.2rem 1.4rem;display:grid;
+  grid-template-columns:1fr auto;gap:.4rem 1.5rem;align-items:baseline;
+  transition:background var(--t) var(--e),border-color var(--t) var(--e)}
+.jet:hover{background:var(--nuit-3);border-color:rgba(0,194,255,.4)}
+.jet b{font-size:1.15rem;font-weight:800}
+.jet .places{color:var(--jaune);font-weight:700;font-size:.95rem;white-space:nowrap}
+.jet span.det{grid-column:1/-1;color:var(--gris-2);font-size:.92rem}
+
+/* ---------- randonnées ---------- */
+.rando{background:var(--nuit-2)}
+.r-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2vw,1.6rem);margin-top:3rem}
+.r-carte{position:relative;overflow:hidden;min-height:24rem;display:flex;align-items:flex-end;isolation:isolate}
+.r-carte img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+  transition:transform 1.4s var(--e)}
+.r-carte::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(4,24,43,.1),rgba(4,24,43,.93))}
+.r-carte:hover img{transform:scale(1.06)}
+.r-txt{padding:1.6rem;width:100%}
+.r-txt .km{display:inline-block;background:var(--cyan);color:var(--nuit);font-weight:800;font-size:.8rem;
+  padding:.25rem .7rem;margin-bottom:.8rem}
+.r-txt h3{margin-bottom:.5rem}
+.r-txt p{color:var(--gris);font-size:.95rem}
+.r-txt .bas{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;padding-top:1rem;
+  border-top:1px solid rgba(157,184,204,.25);font-size:.9rem;color:var(--gris-2)}
+.r-txt .bas b{color:var(--jaune);font-weight:800}
+
+/* ---------- déroulé ---------- */
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1rem,2vw,2rem);margin-top:3rem;
+  position:relative}
+.etapes::before{content:"";position:absolute;top:1.4rem;left:0;right:0;height:2px;
+  background:rgba(157,184,204,.22)}
+.etape{position:relative;padding-top:3.4rem}
+.etape b{position:absolute;top:0;left:0;width:2.8rem;height:2.8rem;border-radius:50%;background:var(--nuit);
+  border:2px solid var(--cyan);display:grid;place-items:center;font-weight:900;color:var(--cyan)}
+.etape h3{font-size:1.15rem;margin-bottom:.4rem}
+.etape p{color:var(--gris);font-size:.94rem}
+
+/* ---------- galerie ---------- */
+.galerie-grille{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(.6rem,1.2vw,1rem);margin-top:3rem}
+.gal{position:relative;overflow:hidden}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--e)}
+.gal:hover img{transform:scale(1.06)}
+.gal figcaption{position:absolute;inset:auto 0 0 0;padding:.9rem 1.1rem;font-size:.9rem;
+  background:linear-gradient(transparent,rgba(4,24,43,.9));transform:translateY(100%);
+  transition:transform var(--t) var(--e)}
+.gal:hover figcaption{transform:translateY(0)}
+.gA{grid-column:span 8;aspect-ratio:16/9}
+.gB{grid-column:span 4;aspect-ratio:3/4}
+.gC{grid-column:span 4;aspect-ratio:4/3}
+.gD{grid-column:span 4;aspect-ratio:4/3}
+.gE{grid-column:span 4;aspect-ratio:4/3}
+
+/* ---------- équipe ---------- */
+.equipe-grille{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:2.6rem;max-width:44rem}
+.tete{position:relative;overflow:hidden}
+.tete img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform 1.2s var(--e)}
+.tete:hover img{transform:scale(1.05)}
+.tete figcaption{position:absolute;inset:auto 0 0 0;padding:1.2rem;
+  background:linear-gradient(transparent,rgba(4,24,43,.94))}
+.tete b{display:block;font-size:1.2rem;font-weight:800}
+.tete span{font-size:.9rem;color:var(--cyan)}
+
+/* ---------- avis ---------- */
+.avis{background:var(--nuit-2);overflow:clip}
+.avis-tete{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:flex-end;justify-content:space-between}
+.note{display:flex;align-items:center;gap:.6rem;font-size:.96rem;color:var(--gris)}
+.note svg{width:16px;height:16px;fill:var(--jaune)}
+.avis-piste{display:flex;gap:1.2rem;width:max-content;margin-top:3rem;animation:glisse 55s linear infinite}
+.avis:hover .avis-piste{animation-play-state:paused}
+.carte-avis{width:min(84vw,24rem);flex:none;background:var(--nuit);border:1px solid rgba(157,184,204,.2);padding:1.7rem}
+.carte-avis p{font-size:1rem;color:var(--blanc)}
+.carte-avis .qui{margin-top:1.1rem;font-size:.88rem;color:var(--gris-2)}
+.carte-avis .qui b{display:block;color:var(--blanc);font-size:.98rem;font-weight:700}
+
+/* ---------- réserver ---------- */
+.res-grille{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4.5rem);margin-top:2.8rem}
+form{display:grid;gap:1.15rem}
+.champ{display:grid;gap:.4rem}
+.champ label{font-size:.9rem;color:var(--gris)}
+.champ input,.champ select,.champ textarea{background:var(--nuit-2);border:1px solid rgba(157,184,204,.3);
+  padding:.8rem 1rem;transition:border-color var(--t-vif)}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--cyan);outline:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem}
+.pot{position:absolute;left:-9999px}
+.form-note{font-size:.9rem;color:var(--gris-2)}
+.form-etat{font-size:.95rem;padding:.9rem 1.1rem;border:1px solid rgba(0,194,255,.45);
+  background:rgba(0,194,255,.08);display:none}
+.form-etat.montre{display:block}
+.pratique{display:grid;gap:1.8rem;align-content:start}
+.pratique h3{font-size:1.25rem;margin-bottom:.8rem}
+.liste-info{display:grid;gap:.5rem}
+.liste-info div{display:flex;justify-content:space-between;gap:1rem;font-size:.95rem;color:var(--gris);
+  padding-bottom:.5rem;border-bottom:1px dotted rgba(157,184,204,.25)}
+.liste-info b{color:var(--blanc);font-weight:700}
+.acces{display:grid;gap:.7rem;font-size:.95rem;color:var(--gris)}
+.acces div{display:flex;gap:.8rem;align-items:flex-start}
+.acces svg{width:18px;height:18px;flex:none;margin-top:.3rem;stroke:var(--cyan);fill:none;stroke-width:1.6}
+
+/* ---------- pied ---------- */
+footer{background:var(--nuit-2);border-top:1px solid rgba(157,184,204,.18)}
+.pied{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-block:clamp(3rem,6vw,4.5rem)}
+.pied h4{font-size:1rem;font-weight:800;margin-bottom:1rem}
+.pied ul{list-style:none;display:grid;gap:.55rem}
+.pied a,.pied li{color:var(--gris-2);font-size:.94rem}
+.pied a:hover{color:var(--cyan)}
+.pied .marque{font-size:1.9rem}
+.pied .mot{color:var(--gris-2);margin-top:1rem;max-width:32ch;font-size:.96rem}
+.bas{border-top:1px solid rgba(157,184,204,.15);padding-block:1.3rem;display:flex;flex-wrap:wrap;
+  gap:.5rem 2rem;font-size:.85rem;color:var(--gris-2)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .f-grille,.r-grille{grid-template-columns:1fr}
+  .flotte-grille,.res-grille{grid-template-columns:1fr}
+  .etapes{grid-template-columns:1fr 1fr}
+  .etapes::before{display:none}
+  .gA,.gB{grid-column:span 12}
+  .gC,.gD,.gE{grid-column:span 4}
+  .pied{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  nav{position:fixed;inset:0 0 auto 0;flex-direction:column;align-items:flex-start;gap:1.1rem;
+    background:var(--nuit-2);padding:5.6rem var(--px) 2.4rem;transform:translateY(-101%);
+    transition:transform var(--t) var(--e)}
+  nav.ouvert{transform:translateY(0)}
+  nav a{font-size:1.3rem}
+  .burger{display:block;margin-left:auto;position:relative;z-index:2}
+  header .bouton{display:none}
+  .etapes{grid-template-columns:1fr}
+  .gC,.gD,.gE{grid-column:span 12;aspect-ratio:4/3}
+  .duo{grid-template-columns:1fr}
+  .equipe-grille{grid-template-columns:1fr}
+  .pied{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  [data-anim]{opacity:1;transform:none;clip-path:none}
+  .hero h1 .l>span{transform:none}
+  .hero .eyebrow,.hero p.intro,.hero-actions,.hero-chiffres{opacity:1}
+}
 
 /* Bandeau Comète posé sur les démos */
-body{padding-bottom:5.5rem}
 .comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
  align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
  background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
- font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
- font-weight:400;letter-spacing:0;text-transform:none}
+ font-family:system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;font-weight:400}
 .comete-bandeau b{color:#FF4D00;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;flex:none}
 .comete-bandeau p{margin:0;opacity:.8;max-width:52ch}
 .comete-bandeau a{margin-left:auto;background:#FF4D00;color:#17130E;font-weight:700;text-decoration:none;
- padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem;letter-spacing:0;text-transform:none}
+ padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem}
 .comete-bandeau a:hover{background:#FAF5EC}
 @media(max-width:640px){.comete-bandeau a{margin-left:0;width:100%;text-align:center}}
 </style>
 </head>
 <body>
-<header>
-  <span class="logo">BLUE<span>WAVE</span></span>
-  <nav>
-    <a href="#decouvrir">Nos jets</a><a href="#decouvrir">Randonnées</a><a href="#decouvrir">Tarifs</a>
-    <a class="cta" href="#decouvrir">Réserver</a>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header id="entete">
+  <a class="marque" href="#haut">Blue<i>wave</i></a>
+  <nav id="menu">
+    <a href="#formules">Formules</a>
+    <a href="#flotte">La flotte</a>
+    <a href="#randos">Randonnées</a>
+    <a href="#deroule">Comment ça marche</a>
+    <a href="#reserver">Réserver</a>
   </nav>
+  <a class="bouton" href="#reserver"><span>Réserver un créneau</span></a>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
 </header>
 
-<section class="hero">
-  <div class="wave"></div>
-  <div class="hero-in">
-    <span class="tag">Palavas-les-Flots · sans permis</span>
-    <h1>Plein gaz sur<br><em>la Méditerranée.</em></h1>
-    <p>Location de jet ski à l'heure ou à la demi-journée, randonnées encadrées
-       jusqu'à la pointe de l'Espiguette. Départ toutes les heures, de mai à septembre.</p>
-    <div class="btns">
-      <a class="b1" href="#decouvrir">Réserver un créneau</a>
-      <a class="b2" href="#decouvrir">Voir les randonnées</a>
+<main id="contenu">
+
+<section class="hero" id="haut">
+  <div class="hero-fond" id="heroFond">
+    <picture>
+      <source type="image/avif" srcset="/assets/img/demos/jetski/hero-900.avif 900w, /assets/img/demos/jetski/hero-1800.avif 1800w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/img/demos/jetski/hero-900.webp 900w, /assets/img/demos/jetski/hero-1800.webp 1800w" sizes="100vw">
+      <img src="/assets/img/demos/jetski/hero-1800.jpg" alt="Pilote en plein saut sur un jet ski" width="1800" height="1200" fetchpriority="high">
+    </picture>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow">Palavas-les-Flots, sans permis dès 16 ans</p>
+    <h1>
+      <span class="l"><span>Plein gaz sur</span></span>
+      <span class="l"><span><em>la Méditerranée.</em></span></span>
+    </h1>
+    <p class="intro">Location à l'heure, randonnées encadrées jusqu'à la pointe de l'Espiguette,
+      moniteurs diplômés d'État. Départ toutes les heures, de mai à septembre.</p>
+    <div class="hero-actions">
+      <a class="bouton jaune" href="#reserver"><span>Réserver un créneau</span></a>
+      <a class="bouton creux" href="#randos"><span>Voir les randonnées</span></a>
+    </div>
+    <div class="hero-chiffres">
+      <div><b data-compteur="9">0</b><span>jets dans la flotte</span></div>
+      <div><b data-compteur="14">0</b><span>ans sur le port</span></div>
+      <div><b data-compteur="30">0</b><span>minutes de briefing offert</span></div>
+    </div>
+  </div>
+  <div class="vague" aria-hidden="true">
+    <svg class="v1" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 60c180 0 180 40 360 40s180-40 360-40 180 40 360 40 180-40 360-40 180 40 360 40 180-40 360-40 180 40 360 40 180-40 360-40v60H0z"/></svg>
+    <svg class="v2" viewBox="0 0 2880 120" preserveAspectRatio="none"><path d="M0 80c240 0 240-45 480-45s240 45 480 45 240-45 480-45 240 45 480 45 240-45 480-45 240 45 480 45v40H0z"/></svg>
+  </div>
+</section>
+
+<div class="ruban" aria-hidden="true">
+  <div class="ruban-piste">
+    <span>Sans permis</span><span>Équipement fourni</span><span>Départ toutes les heures</span>
+    <span>Moniteurs diplômés d'État</span><span>Photos offertes en randonnée</span>
+    <span>Sans permis</span><span>Équipement fourni</span><span>Départ toutes les heures</span>
+    <span>Moniteurs diplômés d'État</span><span>Photos offertes en randonnée</span>
+  </div>
+</div>
+
+<section class="section formules" id="formules">
+  <div class="wrap">
+    <div class="f-tete">
+      <div>
+        <p class="eyebrow" data-anim>Les formules</p>
+        <h2 data-anim style="--d:.06s">Trente minutes<br>ou une demi-journée.</h2>
+      </div>
+      <p data-anim style="--d:.12s">Les prix sont par jet, pas par personne. Combinaison, gilet et
+        caisson étanche compris. Carburant inclus sur toutes les formules.</p>
+    </div>
+    <div class="f-grille">
+      <article class="f-carte" data-anim>
+        <h3>Initiation</h3>
+        <p class="duree">30 minutes dans la zone abritée</p>
+        <p class="f-prix">45<small>&nbsp;€</small></p>
+        <p class="f-par">le jet, jusqu'à 2 personnes</p>
+        <ul>
+          <li>Briefing de 15 minutes avant le départ</li>
+          <li>Zone protégée entre les deux jetées</li>
+          <li>Accompagnement visuel depuis le ponton</li>
+          <li>Accessible dès 16 ans, sans permis</li>
+        </ul>
+        <a class="bouton creux" href="#reserver"><span>Réserver</span></a>
+      </article>
+
+      <article class="f-carte phare" data-anim style="--d:.08s">
+        <span class="f-etiq">Le plus demandé</span>
+        <h3>Randonnée encadrée</h3>
+        <p class="duree">2 heures avec un moniteur</p>
+        <p class="f-prix">120<small>&nbsp;€</small></p>
+        <p class="f-par">le jet, jusqu'à 2 personnes</p>
+        <ul>
+          <li>Sortie en convoi, 4 jets maximum</li>
+          <li>Pause baignade de 20 minutes</li>
+          <li>Photos prises par le moniteur, envoyées le soir</li>
+          <li>Trois itinéraires au choix selon la météo</li>
+        </ul>
+        <a class="bouton jaune" href="#reserver"><span>Réserver</span></a>
+      </article>
+
+      <article class="f-carte" data-anim style="--d:.16s">
+        <h3>Demi-journée libre</h3>
+        <p class="duree">4 heures, jet à vous</p>
+        <p class="f-prix">220<small>&nbsp;€</small></p>
+        <p class="f-par">le jet, jusqu'à 3 personnes</p>
+        <ul>
+          <li>Départ 9h ou 14h, retour à l'heure convenue</li>
+          <li>Carburant compris, sans limite de distance côtière</li>
+          <li>Glacière et caisson étanche prêtés</li>
+          <li>Permis côtier obligatoire pour cette formule</li>
+        </ul>
+        <a class="bouton creux" href="#reserver"><span>Réserver</span></a>
+      </article>
+    </div>
+    <p class="f-note" data-anim>Caution de 800&nbsp;€ par empreinte bancaire, restituée au retour du jet.
+      Annulation gratuite jusqu'à 24 heures avant, et remboursement intégral si la capitainerie ferme la sortie.</p>
+  </div>
+</section>
+
+<section class="section" id="flotte">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>La flotte</p>
+    <h2 data-anim style="--d:.06s">Neuf jets,<br>tous révisés chaque hiver.</h2>
+    <div class="flotte-grille">
+      <figure class="flotte-img" data-anim="masque">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/jet1-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/jet1-900.webp">
+          <img src="/assets/img/demos/jetski/jet1-900.jpg" alt="Jets skis alignés au bord de l'eau" width="900" height="675" loading="lazy">
+        </picture>
+      </figure>
+      <div class="jets">
+        <div class="jet" data-anim style="--d:.06s">
+          <b>Yamaha VX Cruiser</b><span class="places">3 places</span>
+          <span class="det">Le plus doux à piloter, celui qu'on donne en initiation. Quatre exemplaires.</span>
+        </div>
+        <div class="jet" data-anim style="--d:.1s">
+          <b>Sea-Doo GTI 130</b><span class="places">3 places</span>
+          <span class="det">Bon compromis pour les randonnées, marche-arrière et frein électronique. Trois exemplaires.</span>
+        </div>
+        <div class="jet" data-anim style="--d:.14s">
+          <b>Sea-Doo RXP-X 300</b><span class="places">2 places</span>
+          <span class="det">Le rapide, réservé aux titulaires du permis côtier. Deux exemplaires.</span>
+        </div>
+        <div class="jet" data-anim style="--d:.18s">
+          <b>Équipement fourni</b><span class="places">à chaque départ</span>
+          <span class="det">Gilet aux normes CE, combinaison shorty, chaussons, caisson étanche pour le téléphone.</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="band">✺ SANS PERMIS ✺ DÉPART TOUTES LES HEURES ✺ MONITEURS DIPLÔMÉS ✺ ÉQUIPEMENT FOURNI ✺ SANS PERMIS ✺</div>
+<section class="section rando" id="randos">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Les randonnées</p>
+    <h2 data-anim style="--d:.06s">Trois sorties,<br>trois paysages.</h2>
+    <div class="r-grille">
+      <article class="r-carte" data-anim="masque">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/plage-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/plage-900.webp">
+          <img src="/assets/img/demos/jetski/plage-900.jpg" alt="Littoral méditerranéen vu du ciel, eau turquoise" width="900" height="675" loading="lazy">
+        </picture>
+        <div class="r-txt">
+          <span class="km">22 km</span>
+          <h3>La pointe de l'Espiguette</h3>
+          <p>Longer la côte jusqu'au phare, pause baignade sur le banc de sable et retour vent arrière.</p>
+          <div class="bas"><span>Durée <b>2 h</b></span><span>Niveau <b>débutant</b></span><span>Départ <b>9h, 11h, 14h, 16h</b></span></div>
+        </div>
+      </article>
 
-<section class="prices" id="decouvrir">
-  <h2>Nos formules</h2>
-  <div class="grid">
-    <div class="p"><h3>Initiation</h3><div class="big">45<small> €</small></div>
-      <ul><li>30 minutes</li><li>Briefing inclus</li><li>Dès 16 ans</li></ul></div>
-    <div class="p hot"><h3>Randonnée</h3><div class="big">120<small> €</small></div>
-      <ul><li>2 heures encadrées</li><li>Pause baignade</li><li>Photos offertes</li></ul></div>
-    <div class="p"><h3>Demi-journée</h3><div class="big">220<small> €</small></div>
-      <ul><li>4 heures</li><li>Jet pour 2</li><li>Carburant compris</li></ul></div>
+      <article class="r-carte" data-anim="masque" style="--d:.08s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/rando-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/rando-900.webp">
+          <img src="/assets/img/demos/jetski/rando-900.jpg" alt="Deux pilotes en randonnée sur l'eau" width="900" height="675" loading="lazy">
+        </picture>
+        <div class="r-txt">
+          <span class="km">34 km</span>
+          <h3>Les cabanes de Maguelone</h3>
+          <p>Cap à l'ouest le long du lido, la cathédrale au loin, et un arrêt devant les cabanes de pêcheurs.</p>
+          <div class="bas"><span>Durée <b>2 h 30</b></span><span>Niveau <b>intermédiaire</b></span><span>Départ <b>10h, 15h</b></span></div>
+        </div>
+      </article>
+
+      <article class="r-carte" data-anim="masque" style="--d:.16s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/coucher-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/coucher-900.webp">
+          <img src="/assets/img/demos/jetski/coucher-900.jpg" alt="Coucher de soleil sur la mer" width="900" height="675" loading="lazy">
+        </picture>
+        <div class="r-txt">
+          <span class="km">18 km</span>
+          <h3>La sortie coucher de soleil</h3>
+          <p>Départ une heure avant le crépuscule, mer d'huile la plupart du temps, retour aux lumières du port.</p>
+          <div class="bas"><span>Durée <b>1 h 30</b></span><span>Niveau <b>débutant</b></span><span>Départ <b>selon la saison</b></span></div>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
+<section class="section" id="deroule">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Comment ça se passe</p>
+    <h2 data-anim style="--d:.06s">De l'arrivée au ponton<br>au retour du jet.</h2>
+    <div class="etapes">
+      <div class="etape" data-anim><b>1</b>
+        <h3>Vous arrivez</h3>
+        <p>Quinze minutes avant le créneau, avec une pièce d'identité et une carte bancaire pour la caution.</p></div>
+      <div class="etape" data-anim style="--d:.06s"><b>2</b>
+        <h3>Le briefing</h3>
+        <p>Quinze à trente minutes selon la formule : commandes, distances de sécurité, zones interdites, gestes en cas de chute.</p></div>
+      <div class="etape" data-anim style="--d:.12s"><b>3</b>
+        <h3>La sortie</h3>
+        <p>En autonomie dans la zone balisée, ou en convoi derrière le moniteur pour les randonnées.</p></div>
+      <div class="etape" data-anim style="--d:.18s"><b>4</b>
+        <h3>Le retour</h3>
+        <p>Rinçage du matériel, caution levée sur place, et les photos de la sortie envoyées dans la soirée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="galerie" style="background:var(--nuit-2)">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>En images</p>
+    <h2 data-anim style="--d:.06s">La saison dernière.</h2>
+    <div class="galerie-grille">
+      <figure class="gal gA" data-anim="masque">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/rando-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/rando-900.webp">
+          <img src="/assets/img/demos/jetski/rando-900.jpg" alt="Deux pilotes en sortie encadrée" width="900" height="506" loading="lazy">
+        </picture>
+        <figcaption>Sortie de 11h vers l'Espiguette</figcaption>
+      </figure>
+      <figure class="gal gB" data-anim="masque" style="--d:.06s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/equipement-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/equipement-900.webp">
+          <img src="/assets/img/demos/jetski/equipement-900.jpg" alt="Gilets de sauvetage suspendus à bord" width="900" height="1200" loading="lazy">
+        </picture>
+        <figcaption>Les gilets, contrôlés chaque matin</figcaption>
+      </figure>
+      <figure class="gal gC" data-anim="masque" style="--d:.1s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/port-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/port-900.webp">
+          <img src="/assets/img/demos/jetski/port-900.jpg" alt="Bateaux amarrés dans le port" width="900" height="675" loading="lazy">
+        </picture>
+        <figcaption>Notre ponton, quai Paul Cunq</figcaption>
+      </figure>
+      <figure class="gal gD" data-anim="masque" style="--d:.14s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/plage-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/plage-900.webp">
+          <img src="/assets/img/demos/jetski/plage-900.jpg" alt="Eau turquoise vue du ciel" width="900" height="675" loading="lazy">
+        </picture>
+        <figcaption>Le banc de sable, arrêt baignade</figcaption>
+      </figure>
+      <figure class="gal gE" data-anim="masque" style="--d:.18s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/coucher-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/coucher-900.webp">
+          <img src="/assets/img/demos/jetski/coucher-900.jpg" alt="Fin de journée sur la mer" width="900" height="675" loading="lazy">
+        </picture>
+        <figcaption>La sortie du soir, en août</figcaption>
+      </figure>
+    </div>
+
+    <p class="eyebrow" data-anim style="margin-top:4rem">Les moniteurs</p>
+    <h2 data-anim style="--d:.06s;font-size:clamp(1.8rem,3.6vw,2.6rem)">Ceux qui ouvrent la route.</h2>
+    <div class="equipe-grille">
+      <figure class="tete" data-anim="masque">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/moniteur-1-640.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/moniteur-1-640.webp">
+          <img src="/assets/img/demos/jetski/moniteur-1-640.jpg" alt="Moniteur sur la plage" width="640" height="853" loading="lazy">
+        </picture>
+        <figcaption><b>Yanis</b><span>Diplômé d'État, 9 saisons</span></figcaption>
+      </figure>
+      <figure class="tete" data-anim="masque" style="--d:.08s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/jetski/moniteur-2-640.avif">
+          <source type="image/webp" srcset="/assets/img/demos/jetski/moniteur-2-640.webp">
+          <img src="/assets/img/demos/jetski/moniteur-2-640.jpg" alt="Moniteur en combinaison au bord de l'eau" width="640" height="853" loading="lazy">
+        </picture>
+        <figcaption><b>Léa</b><span>Diplômée d'État, secourisme à jour</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section avis" id="avis">
+  <div class="wrap avis-tete">
+    <div>
+      <p class="eyebrow" data-anim>Les retours</p>
+      <h2 data-anim style="--d:.06s">Ce qu'en disent<br>ceux qui sont sortis.</h2>
+    </div>
+    <p class="note" data-anim style="--d:.12s">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 6.8L12 17.8 5.7 21l1.3-6.8-5-4.8 7-.9z"/></svg>
+      4,9 sur 528 avis
+    </p>
+  </div>
+  <div class="avis-piste">
+    <blockquote class="carte-avis"><p>« Premier jet ski de ma vie à 42 ans. Le briefing était clair,
+      je n'ai jamais eu peur une seconde. »</p><p class="qui"><b>Sandra L.</b>Randonnée de 2 h</p></blockquote>
+    <blockquote class="carte-avis"><p>« Les photos de la sortie sont arrivées le soir même, sans qu'on les
+      demande et sans supplément. »</p><p class="qui"><b>Kevin M.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Mer trop agitée le jour prévu, ils ont annulé et remboursé sans
+      discuter. On est revenus le lendemain. »</p><p class="qui"><b>Farid B.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« La sortie coucher de soleil vaut vraiment le coup. On était quatre
+      jets, personne d'autre sur l'eau. »</p><p class="qui"><b>Marion D.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Matériel nickel, gilets qui sentent le propre, moteur qui ne
+      broute pas. Ça se voit qu'ils entretiennent. »</p><p class="qui"><b>Jean-Baptiste R.</b>Demi-journée</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Premier jet ski de ma vie à 42 ans. Le briefing était clair,
+      je n'ai jamais eu peur une seconde. »</p><p class="qui"><b>Sandra L.</b>Randonnée de 2 h</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Les photos de la sortie sont arrivées le soir même, sans qu'on les
+      demande et sans supplément. »</p><p class="qui"><b>Kevin M.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Mer trop agitée le jour prévu, ils ont annulé et remboursé sans
+      discuter. On est revenus le lendemain. »</p><p class="qui"><b>Farid B.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« La sortie coucher de soleil vaut vraiment le coup. On était quatre
+      jets, personne d'autre sur l'eau. »</p><p class="qui"><b>Marion D.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Matériel nickel, gilets qui sentent le propre, moteur qui ne
+      broute pas. Ça se voit qu'ils entretiennent. »</p><p class="qui"><b>Jean-Baptiste R.</b>Demi-journée</p></blockquote>
+  </div>
+</section>
+
+<section class="section" id="reserver">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Réserver</p>
+    <h2 data-anim style="--d:.06s">Choisissez votre créneau.</h2>
+    <div class="res-grille">
+      <form id="formulaire" data-anim style="--d:.1s" novalidate>
+        <div class="duo">
+          <div class="champ"><label for="nom">Votre nom</label>
+            <input id="nom" name="nom" type="text" autocomplete="name" required></div>
+          <div class="champ"><label for="tel">Téléphone</label>
+            <input id="tel" name="tel" type="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="champ"><label for="formule">Formule</label>
+          <select id="formule" name="formule">
+            <option>Initiation, 30 minutes (45 €)</option>
+            <option selected>Randonnée encadrée, 2 heures (120 €)</option>
+            <option>Demi-journée libre, 4 heures (220 €)</option>
+          </select></div>
+        <div class="duo">
+          <div class="champ"><label for="jour">Jour</label><input id="jour" name="jour" type="date"></div>
+          <div class="champ"><label for="creneau">Créneau</label>
+            <select id="creneau" name="creneau">
+              <option>9h</option><option>10h</option><option>11h</option><option>14h</option>
+              <option>15h</option><option>16h</option><option>17h</option><option>Coucher de soleil</option>
+            </select></div>
+        </div>
+        <div class="duo">
+          <div class="champ"><label for="jets">Nombre de jets</label>
+            <select id="jets" name="jets"><option>1</option><option>2</option><option>3</option><option>4 ou plus</option></select></div>
+          <div class="champ"><label for="pilotes">Pilotes</label>
+            <select id="pilotes" name="pilotes">
+              <option>Débutants, jamais pilotés</option>
+              <option>Déjà pilotés une ou deux fois</option>
+              <option>Titulaires du permis côtier</option>
+            </select></div>
+        </div>
+        <div class="champ"><label for="mot">Une question, un anniversaire, un groupe ?</label>
+          <textarea id="mot" name="message" rows="3"></textarea></div>
+        <input class="pot" type="text" name="societe" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="bouton jaune" type="submit"><span>Demander ce créneau</span></button>
+        <p class="form-note">On confirme par SMS dans l'heure, avec la météo prévue et l'heure exacte de rendez-vous.</p>
+        <p class="form-etat" id="etat" role="status"></p>
+      </form>
+
+      <div class="pratique">
+        <div data-anim style="--d:.14s">
+          <h3>Bon à savoir</h3>
+          <div class="liste-info">
+            <div><span>Saison</span><b>du 1er mai au 30 septembre</b></div>
+            <div><span>Ouvert</span><b>7 jours sur 7, 9h à 19h</b></div>
+            <div><span>Âge minimum</span><b>16 ans accompagné, 18 ans seul</b></div>
+            <div><span>Permis</span><b>inutile sauf demi-journée libre</b></div>
+            <div><span>Caution</span><b>800 € en empreinte bancaire</b></div>
+            <div><span>Annulation</span><b>gratuite jusqu'à 24h avant</b></div>
+          </div>
+        </div>
+        <div data-anim style="--d:.2s">
+          <h3>Venir</h3>
+          <div class="acces">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              <span>Ponton 4, quai Paul Cunq, 34250 Palavas-les-Flots</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 16V8h3.5a2.5 2.5 0 010 5H9"/></svg>
+              <span>Parking du port à 100 mètres, 2 € l'heure</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 21h8M9 17v4M15 17v4"/></svg>
+              <span>Ligne 131 depuis Montpellier, arrêt Palavas Centre</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4h2.2c.7 0 1.3.5 1.4 1.2l.6 3c.1.6-.1 1.2-.6 1.5l-1.4 1a12 12 0 005.6 5.6l1-1.4c.3-.5.9-.7 1.5-.6l3 .6c.7.1 1.2.7 1.2 1.4v2.2c0 .8-.7 1.5-1.5 1.5A15.5 15.5 0 014 5.5z"/></svg>
+              <span><a href="tel:+33700000000">07 00 00 00 00</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <footer>
-  <b>BLUE<span style="color:#FFD166">WAVE</span></b>
-  <span>Port de Palavas · 07 00 00 00 00 · ouvert 7j/7 de mai à septembre</span>
+  <div class="wrap pied">
+    <div>
+      <span class="marque">Blue<i>wave</i></span>
+      <p class="mot">Location de jet ski et randonnées encadrées au départ de Palavas, depuis 2011.</p>
+    </div>
+    <div>
+      <h4>La base</h4>
+      <ul>
+        <li>Ponton 4, quai Paul Cunq</li>
+        <li>34250 Palavas-les-Flots</li>
+        <li><a href="tel:+33700000000">07 00 00 00 00</a></li>
+        <li><a href="mailto:bonjour@bluewave-palavas.fr">bonjour@bluewave-palavas.fr</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Le site</h4>
+      <ul>
+        <li><a href="#formules">Formules et tarifs</a></li>
+        <li><a href="#randos">Randonnées</a></li>
+        <li><a href="#deroule">Comment ça marche</a></li>
+        <li><a href="#reserver">Réserver</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap bas">
+    <span>Ouvert de mai à septembre, 7 jours sur 7</span>
+    <span>Site de démonstration réalisé par Comète</span>
+  </div>
 </footer>
+
 <div class="comete-bandeau">
   <b>Démo</b>
-  <p>Ce site n’existe pas : c’est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599 €.</p>
-  <a href="../index.html#offre">Voir l’offre Comète →</a>
+  <p>Ce site n'existe pas : c'est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
+  <a href="../index.html#offre">Voir l'offre Comète</a>
 </div>
+
+<script>
+(function(){
+  var doux = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var cibles = document.querySelectorAll('[data-anim]');
+  if (doux) { cibles.forEach(function(el){ el.classList.add('vu'); }); }
+  else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+    cibles.forEach(function(el){ io.observe(el); });
+  }
+
+  var entete = document.getElementById('entete');
+  var fond = document.getElementById('heroFond');
+  var tic = false;
+  function auDefilement(){
+    var y = window.scrollY;
+    entete.classList.toggle('colle', y > 40);
+    if (!doux && fond && y < innerHeight * 1.2) fond.style.transform = 'translate3d(0,' + (y * .18) + 'px,0)';
+    tic = false;
+  }
+  addEventListener('scroll', function(){ if (!tic) { tic = true; requestAnimationFrame(auDefilement); } }, { passive: true });
+  auDefilement();
+
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){
+    var ouvert = menu.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded', ouvert);
+    burger.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+  menu.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  var ioc = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      ioc.unobserve(e.target);
+      var cible = parseInt(e.target.dataset.compteur, 10), debut = null;
+      if (doux) { e.target.textContent = cible; return; }
+      (function pas(t){
+        if (!debut) debut = t;
+        var p = Math.min((t - debut) / 1100, 1);
+        e.target.textContent = Math.round(cible * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(pas);
+      })(performance.now());
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('[data-compteur]').forEach(function(el){ ioc.observe(el); });
+
+  var form = document.getElementById('formulaire');
+  var etat = document.getElementById('etat');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (form.societe.value) return;
+    if (!form.nom.value.trim() || !form.tel.value.trim()) {
+      etat.textContent = 'Il nous faut votre nom et un numéro pour confirmer le créneau.';
+      etat.classList.add('montre'); return;
+    }
+    etat.textContent = 'Demande enregistrée. Sur un vrai site, elle partirait vers la base de Palavas.';
+    etat.classList.add('montre');
+    form.reset();
+  });
+})();
+</script>
 </body>
 </html>

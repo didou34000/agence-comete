@@ -4,106 +4,722 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Démonstration Comète : site vitrine d'un hôtel à Sète. Chambres, piscine, spa, table et réservation.">
+<meta name="theme-color" content="#1B2E30">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Démo · Hôtel des Cigales · Sète | Comète</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Démo · Hôtel des Cigales, Sète | Comète</title>
+<link rel="preload" as="image" href="/assets/img/demos/hotel/hero-1800.avif" fetchpriority="high">
+<link rel="stylesheet" href="/assets/fonts/demos/hotel.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:2rem}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-:root{--creme:#F7F2E8;--vert:#2C3A32;--dore:#C08A5E}
-body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--vert);line-height:1.6}
-header{display:flex;justify-content:space-between;align-items:center;padding:1.6rem 4rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
-nav a{margin-left:2.4rem;color:var(--vert);text-decoration:none;opacity:.75}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.06em;text-transform:none}
-.hero{padding:5rem 4rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.hero h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:4.4rem;line-height:1.05;letter-spacing:-.01em}
-.hero h1 em{color:var(--dore)}
-.hero p{margin:1.6rem 0 2.4rem;max-width:30rem;font-weight:300;opacity:.8}
-.btn{display:inline-block;padding:.9rem 2.2rem;border:1px solid var(--vert);color:var(--vert);text-decoration:none;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase}
-.btn-fill{background:var(--vert);color:var(--creme);margin-right:.8rem}
-.frame{aspect-ratio:4/5;border-radius:220px 220px 8px 8px;background:
-  radial-gradient(circle at 30% 22%,rgba(255,255,255,.45),transparent 45%),
-  linear-gradient(170deg,#7E9384 0%,#4A6355 45%,#2C3A32 100%);
-  position:relative;overflow:hidden}
-.frame::after{content:"";position:absolute;left:12%;right:12%;bottom:0;height:44%;
-  background:linear-gradient(to top,rgba(192,138,94,.55),transparent);}
-.frame span{position:absolute;left:50%;bottom:2.5rem;transform:translateX(-50%);color:var(--creme);
-  font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.2em}
-.strip{display:flex;justify-content:space-around;padding:2rem 4rem;border-block:1px solid rgba(44,58,50,.18);
-  font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
-.rooms{padding:5rem 4rem}
-.rooms h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.6rem;margin-bottom:2.6rem}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
-.card{background:#fff}
-.card .ph{aspect-ratio:3/2}
-.c1 .ph{background:linear-gradient(140deg,#D9C3A9,#B08560)}
-.c2 .ph{background:linear-gradient(140deg,#A9BDB0,#54705F)}
-.c3 .ph{background:linear-gradient(140deg,#E2D2BC,#C08A5E)}
-.card .txt{padding:1.4rem 1.6rem}
-.card h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.5rem}
-.card p{font-size:.86rem;opacity:.7;margin-top:.2rem}
-.card .price{margin-top:.9rem;font-size:.8rem;letter-spacing:.14em;color:var(--dore);text-transform:uppercase}
-footer{background:var(--vert);color:var(--creme);padding:3.5rem 4rem;display:flex;justify-content:space-between;align-items:flex-end}
-footer .fl{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300}
-footer p{font-size:.84rem;opacity:.7;line-height:1.9}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sable:#F6F1E8; --sable-2:#EDE5D7; --blanc:#FDFBF7;
+  --encre:#1B2E30; --encre-2:#48605F; --encre-3:#7D908D;
+  --terre:#B3714A; --olive:#7A8A5F;
+  --px:clamp(1.25rem,5vw,5rem);
+  --page:1340px;
+  --t:.6s; --t-vif:.3s; --e:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;-webkit-text-size-adjust:100%}
+body{font-family:'Jost',system-ui,sans-serif;font-weight:300;background:var(--sable);color:var(--encre);
+  line-height:1.7;overflow-x:clip;padding-bottom:5.5rem}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--terre);outline-offset:3px}
+.wrap{max-width:var(--page);margin-inline:auto;padding-inline:var(--px)}
+.section{padding-block:clamp(4rem,8.5vw,7.5rem);position:relative}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;line-height:1.06;letter-spacing:-.005em}
+h2{font-size:clamp(2.6rem,6vw,4.8rem)}
+h3{font-size:1.9rem;line-height:1.15}
+p{max-width:62ch}
+.eyebrow{font-size:.86rem;color:var(--terre);font-weight:400;display:flex;align-items:center;gap:.7rem}
+.eyebrow::before{content:"";width:2rem;height:1px;background:var(--terre);flex:none}
+
+/* ---------- entête ---------- */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--encre);color:var(--sable);padding:.7rem 1.2rem}
+.skip:focus{left:.5rem;top:.5rem}
+header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:1.5rem;
+  padding:1.3rem var(--px);color:var(--blanc);transition:background var(--t) var(--e),padding var(--t) var(--e)}
+header.colle{background:rgba(27,46,48,.94);backdrop-filter:blur(12px);padding-block:.8rem}
+.marque{font-family:'Cormorant Garamond',serif;font-size:1.65rem;line-height:1.05;flex:none}
+.marque span{display:block;font-family:'Jost',sans-serif;font-size:.72rem;opacity:.72;letter-spacing:.06em}
+nav{margin-left:auto;display:flex;align-items:center;gap:1.9rem}
+nav a{font-size:.95rem;position:relative;padding-block:.2rem;opacity:.86;transition:opacity var(--t-vif)}
+nav a::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:100% 50%;transition:transform var(--t) var(--e)}
+nav a:hover{opacity:1}
+nav a:hover::after{transform:scaleX(1);transform-origin:0 50%}
+.bouton{display:inline-flex;align-items:center;justify-content:center;background:var(--terre);color:var(--blanc);
+  padding:.8rem 1.7rem;font-size:.92rem;font-weight:400;border:1px solid var(--terre);cursor:pointer;
+  position:relative;overflow:hidden;transition:color var(--t) var(--e)}
+.bouton span{position:relative;z-index:2}
+.bouton::before{content:"";position:absolute;inset:0;background:var(--encre);transform:translateY(101%);
+  transition:transform var(--t) var(--e)}
+.bouton:hover::before{transform:translateY(0)}
+.bouton.ligne{background:transparent;color:inherit;border-color:currentColor}
+.bouton.ligne::before{background:var(--blanc)}
+.bouton.ligne:hover{color:var(--encre)}
+.bouton.sombre{background:var(--encre);border-color:var(--encre)}
+.bouton.sombre::before{background:var(--terre)}
+.burger{display:none;background:none;border:1px solid currentColor;padding:.55rem .7rem;cursor:pointer;color:inherit}
+.burger i{display:block;width:20px;height:1px;background:currentColor;margin:4px 0}
+
+/* ---------- héros ---------- */
+.hero{position:relative;min-height:calc(100svh - 5.5rem);display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:clip;color:var(--blanc)}
+.hero-fond{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.hero-fond img{width:100%;height:100%;object-fit:cover;animation:zoomLent 22s var(--e) forwards}
+@keyframes zoomLent{from{transform:scale(1.1)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(27,46,48,.62) 0%,rgba(27,46,48,.18) 38%,rgba(27,46,48,.72) 100%)}
+.hero .wrap{width:100%;padding-top:9rem;padding-bottom:2.5rem}
+.hero .eyebrow{color:var(--blanc);opacity:0;animation:fondu .9s .2s var(--e) forwards}
+.hero .eyebrow::before{background:var(--blanc)}
+.hero h1{font-size:clamp(3rem,9.5vw,7.6rem);margin:1.2rem 0 1.4rem;max-width:16ch}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l>span{display:block;transform:translateY(105%);animation:monte 1s var(--e) forwards}
+.hero h1 .l:nth-child(1)>span{animation-delay:.3s}
+.hero h1 .l:nth-child(2)>span{animation-delay:.42s}
+.hero h1 em{font-style:italic;color:#E9C9A8}
+@keyframes monte{to{transform:translateY(0)}}
+@keyframes fondu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero p.intro{max-width:42ch;color:rgba(253,251,247,.86);opacity:0;animation:fondu .9s .8s var(--e) forwards}
+
+/* barre de réservation */
+.barre-res{position:relative;z-index:3;background:rgba(253,251,247,.94);backdrop-filter:blur(10px);
+  color:var(--encre);display:grid;grid-template-columns:repeat(3,1fr) auto;
+  opacity:0;animation:fondu .9s 1s var(--e) forwards}
+.barre-res .bloc{padding:1.1rem 1.5rem;border-right:1px solid rgba(27,46,48,.14)}
+.barre-res label{display:block;font-size:.74rem;color:var(--encre-3);margin-bottom:.2rem}
+.barre-res input,.barre-res select{width:100%;border:0;background:transparent;font-size:1rem;padding:0}
+.barre-res input:focus,.barre-res select:focus{outline:none}
+.barre-res .bouton{border:0;padding-inline:2.2rem}
+
+/* ---------- atouts ---------- */
+.atouts{background:var(--encre);color:var(--sable)}
+.atouts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;padding-block:clamp(2.5rem,5vw,4rem)}
+.atout b{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);display:block;
+  line-height:1;color:#E9C9A8;font-weight:300}
+.atout span{display:block;margin-top:.5rem;font-size:.94rem;color:rgba(246,241,232,.72)}
+
+/* ---------- révélations ---------- */
+[data-anim]{opacity:0;transform:translateY(26px);transition:opacity 1s var(--e),transform 1s var(--e);
+  transition-delay:var(--d,0s)}
+[data-anim="masque"]{transform:none;clip-path:inset(0 0 100% 0)}
+[data-anim].vu{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+
+/* ---------- la maison ---------- */
+.maison-grille{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.maison-img{position:relative;overflow:hidden}
+.maison-img img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform 1.5s var(--e)}
+.maison-img:hover img{transform:scale(1.04)}
+.maison h2{margin:1.1rem 0 1.5rem}
+.maison p{color:var(--encre-2)}
+.maison p+p{margin-top:1rem}
+.signature{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--terre);margin-top:1.6rem}
+
+/* ---------- chambres ---------- */
+.chambres{background:var(--blanc)}
+.ch-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:3rem}
+.ch-tete p{color:var(--encre-2);max-width:38ch}
+.ch-liste{display:grid;gap:clamp(2rem,4vw,3.5rem)}
+.chambre{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.6rem,4vw,3.5rem);align-items:center}
+.chambre:nth-child(even) .ch-img{order:2}
+.ch-img{position:relative;overflow:hidden}
+.ch-img img{width:100%;aspect-ratio:16/11;object-fit:cover;transition:transform 1.5s var(--e)}
+.chambre:hover .ch-img img{transform:scale(1.05)}
+.ch-num{position:absolute;top:1rem;left:1rem;background:rgba(253,251,247,.92);color:var(--encre);
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;padding:.3rem .8rem}
+.ch-txt h3{margin-bottom:.8rem}
+.ch-txt p{color:var(--encre-2)}
+.ch-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.ch-tags span{border:1px solid rgba(27,46,48,.2);padding:.35rem .8rem;font-size:.85rem;color:var(--encre-2)}
+.ch-prix{display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1.2rem;
+  border-top:1px solid rgba(27,46,48,.14);padding-top:1.2rem;margin-top:1.4rem}
+.ch-prix b{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:400;color:var(--terre)}
+.ch-prix small{font-size:.9rem;color:var(--encre-3)}
+.ch-prix .bouton{margin-left:auto}
+
+/* ---------- la table / le spa ---------- */
+.duo-blocs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,2.5rem)}
+.bloc-photo{position:relative;overflow:hidden;min-height:26rem;display:flex;align-items:flex-end;
+  color:var(--blanc);isolation:isolate}
+.bloc-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+  transition:transform 1.6s var(--e)}
+.bloc-photo::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(27,46,48,.15),rgba(27,46,48,.88))}
+.bloc-photo:hover img{transform:scale(1.05)}
+.bloc-photo .txt{padding:clamp(1.6rem,3vw,2.6rem)}
+.bloc-photo h3{margin-bottom:.7rem}
+.bloc-photo p{color:rgba(253,251,247,.84);font-size:.98rem}
+.bloc-photo ul{list-style:none;margin-top:1.1rem;display:grid;gap:.4rem;font-size:.94rem;color:rgba(253,251,247,.8)}
+.bloc-photo li{display:flex;gap:.7rem;align-items:flex-start}
+.bloc-photo li::before{content:"";width:5px;height:5px;background:#E9C9A8;border-radius:50%;flex:none;margin-top:.62rem}
+
+/* ---------- autour ---------- */
+.autour{background:var(--sable-2);padding-block:clamp(4rem,8vw,7rem);overflow:clip}
+.autour .wrap{margin-bottom:2.5rem}
+.rail{display:flex;gap:clamp(.8rem,1.6vw,1.4rem);padding-inline:var(--px);overflow-x:auto;
+  scroll-snap-type:x mandatory;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail figure{flex:none;width:min(78vw,24rem);scroll-snap-align:center;position:relative;overflow:hidden}
+.rail img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform 1.3s var(--e)}
+.rail figure:hover img{transform:scale(1.05)}
+.rail figcaption{position:absolute;inset:auto 0 0 0;padding:1.2rem;color:var(--blanc);
+  background:linear-gradient(transparent,rgba(27,46,48,.9))}
+.rail figcaption b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400}
+.rail figcaption span{font-size:.88rem;color:rgba(253,251,247,.78)}
+.rail-aide{margin-top:1.2rem;font-size:.9rem;color:var(--encre-3)}
+
+/* ---------- avis ---------- */
+.avis{background:var(--encre);color:var(--sable);overflow:clip}
+.avis h2{color:var(--sable)}
+.avis .eyebrow{color:#E9C9A8}
+.avis .eyebrow::before{background:#E9C9A8}
+.avis-tete{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:flex-end;justify-content:space-between}
+.note{display:flex;align-items:center;gap:.6rem;font-size:.96rem;color:rgba(246,241,232,.76)}
+.note svg{width:16px;height:16px;fill:#E9C9A8}
+.avis-piste{display:flex;gap:1.3rem;width:max-content;margin-top:3rem;animation:glisse 60s linear infinite}
+.avis:hover .avis-piste{animation-play-state:paused}
+@keyframes glisse{to{transform:translateX(-50%)}}
+.carte-avis{width:min(84vw,25rem);flex:none;border:1px solid rgba(246,241,232,.2);padding:1.9rem}
+.carte-avis p{font-family:'Cormorant Garamond',serif;font-size:1.18rem;line-height:1.55}
+.carte-avis .qui{margin-top:1.2rem;font-family:'Jost',sans-serif;font-size:.88rem;color:rgba(246,241,232,.6)}
+.carte-avis .qui b{display:block;color:var(--sable);font-weight:400;font-size:.98rem}
+
+/* ---------- réserver ---------- */
+.reserver{background:var(--blanc)}
+.res-grille{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4.5rem);margin-top:2.8rem}
+form{display:grid;gap:1.15rem}
+.champ{display:grid;gap:.4rem}
+.champ label{font-size:.88rem;color:var(--encre-2)}
+.champ input,.champ select,.champ textarea{background:var(--sable);border:1px solid rgba(27,46,48,.18);
+  padding:.8rem 1rem;transition:border-color var(--t-vif)}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--terre);outline:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem}
+.pot{position:absolute;left:-9999px}
+.form-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--encre-3)}
+.form-etat{font-size:.95rem;padding:.9rem 1.1rem;border:1px solid rgba(179,113,74,.4);
+  background:rgba(179,113,74,.07);display:none}
+.form-etat.montre{display:block}
+.pratique{display:grid;gap:1.8rem;align-content:start}
+.pratique h3{font-size:1.4rem;margin-bottom:.8rem}
+.tarifs{display:grid;gap:.5rem}
+.tarifs div{display:flex;justify-content:space-between;gap:1rem;font-size:.95rem;color:var(--encre-2);
+  padding-bottom:.5rem;border-bottom:1px dotted rgba(27,46,48,.2)}
+.tarifs b{font-weight:400;color:var(--encre)}
+.acces{display:grid;gap:.7rem;font-size:.95rem;color:var(--encre-2)}
+.acces div{display:flex;gap:.8rem;align-items:flex-start}
+.acces svg{width:18px;height:18px;flex:none;margin-top:.35rem;stroke:var(--terre);fill:none;stroke-width:1.4}
+
+/* ---------- pied ---------- */
+footer{background:var(--encre);color:var(--sable)}
+.pied{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-block:clamp(3rem,6vw,4.5rem)}
+.pied h4{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;margin-bottom:1rem}
+.pied ul{list-style:none;display:grid;gap:.55rem}
+.pied a,.pied li{color:rgba(246,241,232,.62);font-size:.94rem}
+.pied a:hover{color:#E9C9A8}
+.pied .marque{font-size:2rem}
+.pied .mot{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;
+  color:rgba(246,241,232,.6);margin-top:1rem;max-width:30ch}
+.bas{border-top:1px solid rgba(246,241,232,.14);padding-block:1.3rem;display:flex;flex-wrap:wrap;
+  gap:.5rem 2rem;font-size:.84rem;color:rgba(246,241,232,.48)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .barre-res{grid-template-columns:1fr 1fr}
+  .barre-res .bouton{grid-column:1/-1}
+  .atouts .wrap{grid-template-columns:1fr 1fr}
+  .maison-grille,.chambre,.duo-blocs,.res-grille{grid-template-columns:1fr}
+  .chambre:nth-child(even) .ch-img{order:0}
+  .pied{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  nav{position:fixed;inset:0 0 auto 0;flex-direction:column;align-items:flex-start;gap:1.1rem;
+    background:var(--encre);padding:5.6rem var(--px) 2.4rem;transform:translateY(-101%);
+    transition:transform var(--t) var(--e)}
+  nav.ouvert{transform:translateY(0)}
+  nav a{font-size:1.3rem}
+  .burger{display:block;margin-left:auto;position:relative;z-index:2}
+  header .bouton{display:none}
+  .barre-res{grid-template-columns:1fr}
+  .barre-res .bloc{border-right:0;border-bottom:1px solid rgba(27,46,48,.14)}
+  .duo{grid-template-columns:1fr}
+  .ch-prix .bouton{margin-left:0;width:100%}
+  .pied{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  [data-anim]{opacity:1;transform:none;clip-path:none}
+  .hero h1 .l>span{transform:none}
+  .hero .eyebrow,.hero p.intro,.barre-res{opacity:1}
+}
 
 /* Bandeau Comète posé sur les démos */
-body{padding-bottom:5.5rem}
 .comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
  align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
  background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
- font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
- font-weight:400;letter-spacing:0;text-transform:none}
+ font-family:system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;font-weight:400}
 .comete-bandeau b{color:#FF4D00;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;flex:none}
 .comete-bandeau p{margin:0;opacity:.8;max-width:52ch}
 .comete-bandeau a{margin-left:auto;background:#FF4D00;color:#17130E;font-weight:700;text-decoration:none;
- padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem;letter-spacing:0;text-transform:none}
+ padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem}
 .comete-bandeau a:hover{background:#FAF5EC}
 @media(max-width:640px){.comete-bandeau a{margin-left:0;width:100%;text-align:center}}
 </style>
 </head>
 <body>
-<header>
-  <span class="logo">Hôtel des Cigales</span>
-  <nav><a href="#decouvrir">Chambres</a><a href="#decouvrir">La table</a><a href="#decouvrir">Spa</a><a href="#decouvrir">Réserver</a></nav>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header id="entete">
+  <a class="marque" href="#haut">Hôtel des Cigales<span>Sète, bord de l'étang de Thau</span></a>
+  <nav id="menu">
+    <a href="#maison">L'hôtel</a>
+    <a href="#chambres">Les chambres</a>
+    <a href="#table">La table</a>
+    <a href="#autour">Autour</a>
+    <a href="#reserver">Réserver</a>
+  </nav>
+  <a class="bouton" href="#reserver"><span>Réserver</span></a>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
 </header>
 
-<section class="hero">
-  <div>
-    <h1>Le sud,<br>comme <em>une parenthèse.</em></h1>
-    <p>Douze chambres face à l'étang de Thau, un jardin de pins et le silence
-       qui va avec. À dix minutes des plages de Sète.</p>
-    <a class="btn btn-fill" href="#decouvrir">Réserver un séjour</a>
-    <a class="btn" href="#decouvrir">Voir les chambres</a>
+<main id="contenu">
+
+<section class="hero" id="haut">
+  <div class="hero-fond">
+    <picture>
+      <source type="image/avif" srcset="/assets/img/demos/hotel/hero-900.avif 900w, /assets/img/demos/hotel/hero-1800.avif 1800w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/img/demos/hotel/hero-900.webp 900w, /assets/img/demos/hotel/hero-1800.webp 1800w" sizes="100vw">
+      <img src="/assets/img/demos/hotel/hero-1800.jpg" alt="Piscine de l'hôtel bordée de bougainvilliers, en plein soleil" width="1800" height="1200" fetchpriority="high">
+    </picture>
   </div>
-  <div class="frame"><span>SÈTE · HÉRAULT</span></div>
+  <div class="wrap">
+    <p class="eyebrow">Douze chambres, à dix minutes des plages</p>
+    <h1>
+      <span class="l"><span>Le sud, comme</span></span>
+      <span class="l"><span><em>une parenthèse.</em></span></span>
+    </h1>
+    <p class="intro">Une maison de famille des années trente, reprise en 2015, posée entre les pins et
+      l'étang de Thau. Piscine chauffée d'avril à octobre, petit-déjeuner servi sous la treille.</p>
+  </div>
+  <form class="barre-res" id="barreRes" aria-label="Vérifier les disponibilités">
+    <div class="bloc"><label for="arrivee">Arrivée</label><input id="arrivee" type="date"></div>
+    <div class="bloc"><label for="depart">Départ</label><input id="depart" type="date"></div>
+    <div class="bloc"><label for="pers">Voyageurs</label>
+      <select id="pers"><option>1 personne</option><option selected>2 personnes</option>
+        <option>2 adultes et 1 enfant</option><option>4 personnes</option></select></div>
+    <button class="bouton" type="submit"><span>Voir les disponibilités</span></button>
+  </form>
 </section>
 
-<div class="strip">
-  <span>12 chambres</span><span>Piscine chauffée</span><span>Petit-déjeuner maison</span><span>Vue sur l'étang</span>
-</div>
-
-<section class="rooms" id="decouvrir">
-  <h2>Nos chambres</h2>
-  <div class="grid">
-    <div class="card c1"><div class="ph"></div><div class="txt">
-      <h3>La Terrasse</h3><p>28 m² · terrasse privée</p><p class="price">Dès 145 € la nuit</p></div></div>
-    <div class="card c2"><div class="ph"></div><div class="txt">
-      <h3>Le Jardin</h3><p>22 m² · accès jardin</p><p class="price">Dès 120 € la nuit</p></div></div>
-    <div class="card c3"><div class="ph"></div><div class="txt">
-      <h3>La Suite Thau</h3><p>40 m² · vue sur l'étang</p><p class="price">Dès 210 € la nuit</p></div></div>
+<section class="atouts">
+  <div class="wrap">
+    <div class="atout" data-anim><b data-compteur="12">0</b><span>chambres, pas une de plus</span></div>
+    <div class="atout" data-anim style="--d:.06s"><b data-compteur="28">0</b><span>degrés dans la piscine</span></div>
+    <div class="atout" data-anim style="--d:.12s"><b data-compteur="10">0</b><span>minutes des plages de Sète</span></div>
+    <div class="atout" data-anim style="--d:.18s"><b>1934</b><span>année de la bâtisse</span></div>
   </div>
 </section>
+
+<section class="section maison" id="maison">
+  <div class="wrap maison-grille">
+    <div>
+      <p class="eyebrow" data-anim>La maison</p>
+      <h2 data-anim style="--d:.06s">Douze chambres<br>et beaucoup de silence.</h2>
+      <p data-anim style="--d:.12s">La maison a été construite en 1934 par un négociant en vin de Sète.
+        Nous l'avons reprise en 2015, gardé les carrelages d'origine, refait les toitures et ouvert les
+        chambres sur le jardin.</p>
+      <p data-anim style="--d:.16s">Il n'y a pas de télévision dans les chambres, pas de séminaire, pas de
+        groupe. Le portail se ferme à 23h et le seul bruit qui reste est celui des cigales, jusqu'à la
+        tombée de la nuit.</p>
+      <p class="signature" data-anim style="--d:.2s">Claire et Vincent Aubanel, Sète</p>
+    </div>
+    <figure class="maison-img" data-anim="masque" style="--d:.1s">
+      <picture>
+        <source type="image/avif" srcset="/assets/img/demos/hotel/jardin-900.avif">
+        <source type="image/webp" srcset="/assets/img/demos/hotel/jardin-900.webp">
+        <img src="/assets/img/demos/hotel/jardin-900.jpg" alt="Végétation méditerranéenne et vue sur la mer depuis le jardin" width="900" height="1125" loading="lazy">
+      </picture>
+    </figure>
+  </div>
+</section>
+
+<section class="section chambres" id="chambres">
+  <div class="wrap">
+    <div class="ch-tete">
+      <div>
+        <p class="eyebrow" data-anim>Les chambres</p>
+        <h2 data-anim style="--d:.06s">Trois catégories,<br>toutes sur le jardin.</h2>
+      </div>
+      <p data-anim style="--d:.12s">Draps en lin lavé, savon de Marseille, ventilateur de plafond et
+        climatisation. Petit-déjeuner à 14&nbsp;€ par personne, servi de 8h à 10h30.</p>
+    </div>
+
+    <div class="ch-liste">
+      <article class="chambre" data-anim>
+        <figure class="ch-img">
+          <picture>
+            <source type="image/avif" srcset="/assets/img/demos/hotel/chambre1-900.avif">
+            <source type="image/webp" srcset="/assets/img/demos/hotel/chambre1-900.webp">
+            <img src="/assets/img/demos/hotel/chambre1-900.jpg" alt="Chambre claire avec lit fait et fauteuil près de la fenêtre" width="900" height="619" loading="lazy">
+          </picture>
+          <span class="ch-num">01</span>
+        </figure>
+        <div class="ch-txt">
+          <h3>Le Jardin</h3>
+          <p>Vingt-deux mètres carrés au rez-de-chaussée, porte-fenêtre qui donne de plain-pied sur le
+            jardin et deux chaises longues à vous. C'est la chambre la plus fraîche de la maison l'été.</p>
+          <div class="ch-tags"><span>22 m²</span><span>lit 160</span><span>accès jardin</span><span>douche à l'italienne</span></div>
+          <div class="ch-prix"><b>120&nbsp;€</b><small>la nuit, hors saison</small>
+            <a class="bouton sombre" href="#reserver"><span>Réserver</span></a></div>
+        </div>
+      </article>
+
+      <article class="chambre" data-anim>
+        <figure class="ch-img">
+          <picture>
+            <source type="image/avif" srcset="/assets/img/demos/hotel/chambre3-900.avif">
+            <source type="image/webp" srcset="/assets/img/demos/hotel/chambre3-900.webp">
+            <img src="/assets/img/demos/hotel/chambre3-900.jpg" alt="Terrasse privative avec deux fauteuils et une table basse" width="900" height="619" loading="lazy">
+          </picture>
+          <span class="ch-num">02</span>
+        </figure>
+        <div class="ch-txt">
+          <h3>La Terrasse</h3>
+          <p>Vingt-huit mètres carrés à l'étage, avec une terrasse privée de douze mètres carrés orientée
+            à l'ouest. On y prend l'apéritif quand le soleil descend derrière les pins.</p>
+          <div class="ch-tags"><span>28 m²</span><span>lit 180</span><span>terrasse privée</span><span>baignoire</span></div>
+          <div class="ch-prix"><b>145&nbsp;€</b><small>la nuit, hors saison</small>
+            <a class="bouton sombre" href="#reserver"><span>Réserver</span></a></div>
+        </div>
+      </article>
+
+      <article class="chambre" data-anim>
+        <figure class="ch-img">
+          <picture>
+            <source type="image/avif" srcset="/assets/img/demos/hotel/chambre2-900.avif">
+            <source type="image/webp" srcset="/assets/img/demos/hotel/chambre2-900.webp">
+            <img src="/assets/img/demos/hotel/chambre2-900.jpg" alt="Grande chambre avec vue dégagée sur la mer" width="900" height="619" loading="lazy">
+          </picture>
+          <span class="ch-num">03</span>
+        </figure>
+        <div class="ch-txt">
+          <h3>La Suite Thau</h3>
+          <p>Quarante mètres carrés sous les combles, deux fenêtres plein sud et la vue sur l'étang
+            jusqu'au mont Saint-Clair. Un canapé-lit permet d'y loger un enfant.</p>
+          <div class="ch-tags"><span>40 m²</span><span>lit 180</span><span>vue sur l'étang</span><span>coin salon</span></div>
+          <div class="ch-prix"><b>210&nbsp;€</b><small>la nuit, hors saison</small>
+            <a class="bouton sombre" href="#reserver"><span>Réserver</span></a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="table">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>La table et le spa</p>
+    <h2 data-anim style="--d:.06s">Deux raisons<br>de ne pas ressortir.</h2>
+    <div class="duo-blocs" style="margin-top:2.8rem">
+      <article class="bloc-photo" data-anim="masque">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/hotel/petitdej-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/hotel/petitdej-900.webp">
+          <img src="/assets/img/demos/hotel/petitdej-900.jpg" alt="Petit-déjeuner servi en terrasse, café et viennoiseries" width="900" height="675" loading="lazy">
+        </picture>
+        <div class="txt">
+          <h3>Le petit-déjeuner</h3>
+          <p>Servi sous la treille de 8h à 10h30, ou dans la chambre si vous préférez.</p>
+          <ul>
+            <li>Pains et viennoiseries de la boulangerie du quai</li>
+            <li>Confitures faites par Claire, abricot et figue</li>
+            <li>Œufs à la demande, fromages de Pézenas</li>
+            <li>14&nbsp;€ par personne, 8&nbsp;€ pour les moins de douze ans</li>
+          </ul>
+        </div>
+      </article>
+      <article class="bloc-photo" data-anim="masque" style="--d:.08s">
+        <picture>
+          <source type="image/avif" srcset="/assets/img/demos/hotel/spa-900.avif">
+          <source type="image/webp" srcset="/assets/img/demos/hotel/spa-900.webp">
+          <img src="/assets/img/demos/hotel/spa-900.jpg" alt="Serviettes et flacons posés dans la salle de soin" width="900" height="675" loading="lazy">
+        </picture>
+        <div class="txt">
+          <h3>La salle de soin</h3>
+          <p>Une praticienne vient trois jours par semaine, sur rendez-vous pris la veille.</p>
+          <ul>
+            <li>Massage du dos, 30 minutes, 55&nbsp;€</li>
+            <li>Massage complet, 60 minutes, 95&nbsp;€</li>
+            <li>Soin du visage aux huiles de Nyons, 70&nbsp;€</li>
+            <li>Mardi, jeudi et samedi, de 10h à 18h</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="autour" id="autour">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Autour de l'hôtel</p>
+    <h2 data-anim style="--d:.06s">Ce qu'il y a<br>à faire dehors.</h2>
+  </div>
+  <div class="rail" id="rail">
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/hotel/etang-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/hotel/etang-900.webp">
+      <img src="/assets/img/demos/hotel/etang-900.jpg" alt="Coucher de soleil sur un plan d'eau calme" width="900" height="1200" loading="lazy"></picture>
+      <figcaption><b>L'étang de Thau</b><span>Dégustation d'huîtres à Bouzigues, 15 minutes</span></figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/hotel/bateau-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/hotel/bateau-900.webp">
+      <img src="/assets/img/demos/hotel/bateau-900.jpg" alt="Barques amarrées dans une crique" width="900" height="1200" loading="lazy"></picture>
+      <figcaption><b>Le port de Sète</b><span>Criée du matin et joutes au mois d'août</span></figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/hotel/piscine-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/hotel/piscine-900.webp">
+      <img src="/assets/img/demos/hotel/piscine-900.jpg" alt="Transats et parasol au bord de la piscine" width="900" height="1200" loading="lazy"></picture>
+      <figcaption><b>La piscine</b><span>Chauffée à 28 degrés d'avril à octobre</span></figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/hotel/jardin-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/hotel/jardin-900.webp">
+      <img src="/assets/img/demos/hotel/jardin-900.jpg" alt="Sentier bordé de végétation avec vue sur la mer" width="900" height="1200" loading="lazy"></picture>
+      <figcaption><b>Le mont Saint-Clair</b><span>Sentier de 40 minutes depuis la maison</span></figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/hotel/chambre3-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/hotel/chambre3-900.webp">
+      <img src="/assets/img/demos/hotel/chambre3-900.jpg" alt="Terrasse avec fauteuils face au large" width="900" height="1200" loading="lazy"></picture>
+      <figcaption><b>Les plages</b><span>Villeroy et la corniche, 10 minutes en voiture</span></figcaption></figure>
+  </div>
+  <div class="wrap"><p class="rail-aide">Faites glisser pour voir la suite.</p></div>
+</section>
+
+<section class="section avis" id="avis">
+  <div class="wrap avis-tete">
+    <div>
+      <p class="eyebrow" data-anim>Les voyageurs</p>
+      <h2 data-anim style="--d:.06s">Ce qu'on nous laisse<br>dans le livre d'or.</h2>
+    </div>
+    <p class="note" data-anim style="--d:.12s">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 6.8L12 17.8 5.7 21l1.3-6.8-5-4.8 7-.9z"/></svg>
+      9,2 sur 10, 274 séjours notés
+    </p>
+  </div>
+  <div class="avis-piste">
+    <blockquote class="carte-avis"><p>« Douze chambres, ça change tout. On a eu l'impression d'être chez
+      des amis qui auraient une très belle maison. »</p><p class="qui"><b>Isabelle et Marc</b>Trois nuits en juin</p></blockquote>
+    <blockquote class="carte-avis"><p>« La suite sous les combles a une vue qu'aucune photo ne rend.
+      On y est retournés l'année suivante. »</p><p class="qui"><b>Paul G.</b>Avis Booking</p></blockquote>
+    <blockquote class="carte-avis"><p>« Petit-déjeuner à 14 euros qui vaut largement les 25 euros
+      demandés ailleurs. Les confitures sont mémorables. »</p><p class="qui"><b>Anne-Laure D.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Vincent nous a réservé une table à Bouzigues et prêté deux vélos.
+      Rien de tout ça n'était facturé. »</p><p class="qui"><b>Thomas R.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Le portail ferme à 23h et on entend les cigales jusque tard.
+      C'est exactement ce qu'on venait chercher. »</p><p class="qui"><b>Camille B.</b>Avis Booking</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Douze chambres, ça change tout. On a eu l'impression d'être chez
+      des amis qui auraient une très belle maison. »</p><p class="qui"><b>Isabelle et Marc</b>Trois nuits en juin</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« La suite sous les combles a une vue qu'aucune photo ne rend.
+      On y est retournés l'année suivante. »</p><p class="qui"><b>Paul G.</b>Avis Booking</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Petit-déjeuner à 14 euros qui vaut largement les 25 euros
+      demandés ailleurs. Les confitures sont mémorables. »</p><p class="qui"><b>Anne-Laure D.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Vincent nous a réservé une table à Bouzigues et prêté deux vélos.
+      Rien de tout ça n'était facturé. »</p><p class="qui"><b>Thomas R.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Le portail ferme à 23h et on entend les cigales jusque tard.
+      C'est exactement ce qu'on venait chercher. »</p><p class="qui"><b>Camille B.</b>Avis Booking</p></blockquote>
+  </div>
+</section>
+
+<section class="section reserver" id="reserver">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Réserver</p>
+    <h2 data-anim style="--d:.06s">Dites-nous vos dates.</h2>
+    <div class="res-grille">
+      <form id="formulaire" data-anim style="--d:.1s" novalidate>
+        <div class="duo">
+          <div class="champ"><label for="nom">Votre nom</label>
+            <input id="nom" name="nom" type="text" autocomplete="name" required></div>
+          <div class="champ"><label for="courriel">Courriel</label>
+            <input id="courriel" name="courriel" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="duo">
+          <div class="champ"><label for="d1">Arrivée</label><input id="d1" name="arrivee" type="date"></div>
+          <div class="champ"><label for="d2">Départ</label><input id="d2" name="depart" type="date"></div>
+        </div>
+        <div class="duo">
+          <div class="champ"><label for="chambre">Chambre</label>
+            <select id="chambre" name="chambre">
+              <option>Le Jardin (22 m², dès 120 €)</option>
+              <option>La Terrasse (28 m², dès 145 €)</option>
+              <option>La Suite Thau (40 m², dès 210 €)</option>
+              <option>Peu importe, conseillez-nous</option>
+            </select></div>
+          <div class="champ"><label for="voyageurs">Voyageurs</label>
+            <select id="voyageurs" name="voyageurs">
+              <option>1 personne</option><option selected>2 personnes</option>
+              <option>2 adultes et 1 enfant</option><option>4 personnes</option>
+            </select></div>
+        </div>
+        <div class="champ"><label for="mot">Arrivée tardive, allergie, occasion particulière ?</label>
+          <textarea id="mot" name="message" rows="3"></textarea></div>
+        <input class="pot" type="text" name="societe" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="bouton" type="submit"><span>Envoyer la demande</span></button>
+        <p class="form-note">Réponse sous 24 heures, avec la disponibilité réelle et le tarif exact.</p>
+        <p class="form-etat" id="etat" role="status"></p>
+      </form>
+
+      <div class="pratique">
+        <div data-anim style="--d:.14s">
+          <h3>Bon à savoir</h3>
+          <div class="tarifs">
+            <div><span>Arrivée</span><b>à partir de 15h</b></div>
+            <div><span>Départ</span><b>avant 11h</b></div>
+            <div><span>Petit-déjeuner</span><b>14 € par personne</b></div>
+            <div><span>Animaux</span><b>acceptés, 12 € la nuit</b></div>
+            <div><span>Annulation</span><b>gratuite jusqu'à 48h avant</b></div>
+            <div><span>Saison haute</span><b>du 1er juillet au 31 août</b></div>
+          </div>
+        </div>
+        <div data-anim style="--d:.2s">
+          <h3>Venir</h3>
+          <div class="acces">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              <span>4 chemin des Pins, 34200 Sète</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M3 10h18M7 21l2-4M17 21l-2-4"/></svg>
+              <span>Gare de Sète à 8 minutes, navette sur demande</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 16V8h3.5a2.5 2.5 0 010 5H9"/></svg>
+              <span>Parking fermé dans la propriété, gratuit</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4h2.2c.7 0 1.3.5 1.4 1.2l.6 3c.1.6-.1 1.2-.6 1.5l-1.4 1a12 12 0 005.6 5.6l1-1.4c.3-.5.9-.7 1.5-.6l3 .6c.7.1 1.2.7 1.2 1.4v2.2c0 .8-.7 1.5-1.5 1.5A15.5 15.5 0 014 5.5z"/></svg>
+              <span><a href="tel:+33467000000">04 67 00 00 00</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <footer>
-  <span class="fl">Hôtel des Cigales</span>
-  <p>4 chemin des Pins, 34200 Sète<br>04 67 00 00 00 · bonjour@hoteldescigales.fr</p>
+  <div class="wrap pied">
+    <div>
+      <span class="marque">Hôtel des Cigales</span>
+      <p class="mot">Douze chambres entre les pins et l'étang, et le portail qui se ferme à 23h.</p>
+    </div>
+    <div>
+      <h4>La maison</h4>
+      <ul>
+        <li>4 chemin des Pins</li>
+        <li>34200 Sète</li>
+        <li><a href="tel:+33467000000">04 67 00 00 00</a></li>
+        <li><a href="mailto:bonjour@hoteldescigales.fr">bonjour@hoteldescigales.fr</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Le site</h4>
+      <ul>
+        <li><a href="#chambres">Les chambres</a></li>
+        <li><a href="#table">La table et le spa</a></li>
+        <li><a href="#autour">Autour de l'hôtel</a></li>
+        <li><a href="#reserver">Réserver</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap bas">
+    <span>Ouvert du 15 mars au 5 novembre</span>
+    <span>Site de démonstration réalisé par Comète</span>
+  </div>
 </footer>
+
 <div class="comete-bandeau">
   <b>Démo</b>
-  <p>Ce site n’existe pas : c’est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599 €.</p>
-  <a href="../index.html#offre">Voir l’offre Comète →</a>
+  <p>Ce site n'existe pas : c'est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
+  <a href="../index.html#offre">Voir l'offre Comète</a>
 </div>
+
+<script>
+(function(){
+  var doux = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var cibles = document.querySelectorAll('[data-anim]');
+  if (doux) { cibles.forEach(function(el){ el.classList.add('vu'); }); }
+  else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+    cibles.forEach(function(el){ io.observe(el); });
+  }
+
+  var entete = document.getElementById('entete');
+  var tic = false;
+  function auDefilement(){ entete.classList.toggle('colle', window.scrollY > 40); tic = false; }
+  addEventListener('scroll', function(){ if (!tic) { tic = true; requestAnimationFrame(auDefilement); } }, { passive: true });
+  auDefilement();
+
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){
+    var ouvert = menu.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded', ouvert);
+    burger.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+  menu.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  var ioc = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      ioc.unobserve(e.target);
+      var cible = parseInt(e.target.dataset.compteur, 10), debut = null;
+      if (doux) { e.target.textContent = cible; return; }
+      (function pas(t){
+        if (!debut) debut = t;
+        var p = Math.min((t - debut) / 1200, 1);
+        e.target.textContent = Math.round(cible * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(pas);
+      })(performance.now());
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('[data-compteur]').forEach(function(el){ ioc.observe(el); });
+
+  var rail = document.getElementById('rail');
+  rail.addEventListener('wheel', function(e){
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    var avant = rail.scrollLeft;
+    rail.scrollLeft += e.deltaY;
+    if (rail.scrollLeft !== avant) e.preventDefault();
+  }, { passive: false });
+
+  /* la barre du héros reporte les dates dans le formulaire */
+  var barre = document.getElementById('barreRes');
+  barre.addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('d1').value = document.getElementById('arrivee').value;
+    document.getElementById('d2').value = document.getElementById('depart').value;
+    var p = document.getElementById('pers').value;
+    var sel = document.getElementById('voyageurs');
+    for (var i = 0; i < sel.options.length; i++) if (sel.options[i].text === p) sel.selectedIndex = i;
+    document.getElementById('reserver').scrollIntoView({ behavior: doux ? 'auto' : 'smooth' });
+  });
+
+  var form = document.getElementById('formulaire');
+  var etat = document.getElementById('etat');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (form.societe.value) return;
+    if (!form.nom.value.trim() || !form.courriel.value.trim()) {
+      etat.textContent = 'Il nous faut votre nom et une adresse pour vous répondre.';
+      etat.classList.add('montre'); return;
+    }
+    etat.textContent = 'Demande enregistrée. Sur un vrai site, elle partirait vers la boîte mail de la réception.';
+    etat.classList.add('montre');
+    form.reset();
+  });
+})();
+</script>
 </body>
 </html>

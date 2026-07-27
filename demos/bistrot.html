@@ -4,118 +4,780 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Démonstration Comète : site vitrine d'un bistrot à Montpellier. Carte du jour, cave, formule du midi, réservation.">
+<meta name="theme-color" content="#6E1B26">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Démo · Le Comptoir du Peyrou · Bistrot à Montpellier | Comète</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Karla:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Démo · Le Comptoir du Peyrou, bistrot à Montpellier | Comète</title>
+<link rel="preload" as="image" href="/assets/img/demos/bistrot/hero-1800.avif" fetchpriority="high">
+<link rel="stylesheet" href="/assets/fonts/demos/bistrot.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:2rem}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-:root{--creme:#FCF7EF;--bordeaux:#7A1F2B;--dore:#E8C87A;--encre:#241713}
-body{font-family:'Karla',sans-serif;background:var(--creme);color:var(--encre);line-height:1.6}
-header{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3.5rem;
-  background:var(--bordeaux);color:var(--creme)}
-.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;letter-spacing:.01em}
-nav a{margin-left:2rem;color:var(--creme);text-decoration:none;font-size:.9rem;opacity:.9}
-.book{border:1px solid var(--dore);color:var(--dore);padding:.55rem 1.3rem;border-radius:2px;font-weight:600}
-.hero{display:grid;grid-template-columns:1.15fr .85fr;min-height:26rem}
-.hero-txt{padding:4.5rem 3.5rem}
-.kick{font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--bordeaux);font-weight:600}
-h1{font-family:'Playfair Display',serif;font-size:4.2rem;line-height:1.05;margin:1rem 0 1.2rem;font-weight:700}
-h1 em{color:var(--bordeaux)}
-.hero-txt p{max-width:32rem;font-weight:300;font-size:1.05rem;margin-bottom:2rem}
-.btn{display:inline-block;background:var(--bordeaux);color:var(--creme);padding:.9rem 2rem;
-  text-decoration:none;font-weight:600;font-size:.95rem;border-radius:2px;margin-right:.7rem}
-.btn.alt{background:transparent;color:var(--bordeaux);border:1px solid var(--bordeaux)}
-.hero-img{background:
-  radial-gradient(circle at 65% 30%,rgba(232,200,122,.5),transparent 55%),
-  linear-gradient(155deg,#A6444F 0%,#7A1F2B 55%,#4A1119 100%);
-  position:relative}
-.hero-img span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-4deg);
-  font-family:'Playfair Display',serif;font-style:italic;color:var(--dore);font-size:2rem;text-align:center;line-height:1.5}
-.info{display:flex;justify-content:center;gap:3.5rem;padding:1.4rem;background:var(--encre);color:var(--creme);
-  font-size:.86rem;letter-spacing:.06em}
-.info b{color:var(--dore);font-weight:600}
-.menu{padding:4.5rem 3.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:3rem}
-.menu h2{grid-column:1/-1;font-family:'Playfair Display',serif;font-size:2.6rem;text-align:center;margin-bottom:.5rem}
-.menu h3{font-family:'Playfair Display',serif;font-style:italic;color:var(--bordeaux);font-size:1.5rem;margin-bottom:1rem}
-.plat{padding:.7rem 0;border-bottom:1px dotted rgba(36,23,19,.22)}
-.plat .t{display:flex;justify-content:space-between;gap:1rem;font-weight:600;font-size:.98rem}
-.plat p{font-size:.85rem;font-weight:300;opacity:.7}
-footer{background:var(--bordeaux);color:var(--creme);text-align:center;padding:3rem}
-footer .fl{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700}
-footer p{font-size:.9rem;opacity:.85;margin-top:.5rem}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --creme:#FBF6EC; --creme-2:#F3EADA; --papier:#FFFDF8;
+  --bordeaux:#6E1B26; --bordeaux-clair:#8E2B38; --dore:#B58B39;
+  --encre:#231A16; --encre-2:#5C4E46; --encre-3:#8B7C72;
+  --px:clamp(1.25rem,5vw,5rem);
+  --page:1320px;
+  --t:.55s; --t-vif:.28s; --e:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;-webkit-text-size-adjust:100%}
+body{font-family:'Karla',system-ui,sans-serif;background:var(--creme);color:var(--encre);
+  line-height:1.65;overflow-x:clip;padding-bottom:5.5rem;font-weight:400}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--bordeaux);outline-offset:3px}
+.wrap{max-width:var(--page);margin-inline:auto;padding-inline:var(--px)}
+.section{padding-block:clamp(4rem,8.5vw,7.5rem);position:relative}
+h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif;font-weight:700;line-height:1.06;letter-spacing:-.01em}
+h2{font-size:clamp(2.2rem,5vw,3.9rem)}
+h3{font-size:1.4rem;line-height:1.2}
+p{max-width:62ch}
+em{font-style:italic}
+.eyebrow{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;color:var(--bordeaux);font-size:1.1rem}
+
+/* ---------- entête ---------- */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--bordeaux);color:var(--creme);padding:.7rem 1.2rem}
+.skip:focus{left:.5rem;top:.5rem}
+header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:1.5rem;
+  padding:1.1rem var(--px);color:var(--creme);transition:background var(--t) var(--e),padding var(--t) var(--e),color var(--t)}
+header.colle{background:var(--bordeaux);padding-block:.7rem;box-shadow:0 1px 0 rgba(35,26,22,.12)}
+.marque{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;line-height:1.1;flex:none}
+.marque span{display:block;font-family:'Karla',sans-serif;font-size:.78rem;font-weight:400;opacity:.75}
+nav{margin-left:auto;display:flex;align-items:center;gap:1.9rem}
+nav a{font-size:.98rem;position:relative;padding-block:.2rem;opacity:.9;transition:opacity var(--t-vif)}
+nav a::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:100% 50%;transition:transform var(--t) var(--e)}
+nav a:hover{opacity:1}
+nav a:hover::after{transform:scaleX(1);transform-origin:0 50%}
+.bouton{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--bordeaux);
+  color:var(--creme);padding:.78rem 1.6rem;font-weight:600;font-size:.95rem;border:1px solid var(--bordeaux);
+  cursor:pointer;position:relative;overflow:hidden;transition:color var(--t) var(--e),border-color var(--t)}
+.bouton span{position:relative;z-index:2}
+.bouton::before{content:"";position:absolute;inset:0;background:var(--dore);transform:translateY(101%);
+  transition:transform var(--t) var(--e)}
+.bouton:hover::before{transform:translateY(0)}
+.bouton:hover{color:var(--encre)}
+.bouton.or{background:var(--dore);border-color:var(--dore);color:var(--encre)}
+.bouton.or::before{background:var(--bordeaux)}
+.bouton.or:hover{color:var(--creme)}
+.bouton.ligne{background:transparent;border-color:currentColor;color:inherit}
+.bouton.ligne::before{background:var(--creme)}
+.bouton.ligne:hover{color:var(--bordeaux)}
+.burger{display:none;background:none;border:1px solid currentColor;padding:.55rem .7rem;cursor:pointer;color:inherit}
+.burger i{display:block;width:20px;height:1px;background:currentColor;margin:4px 0}
+
+/* ---------- héros ---------- */
+.hero{position:relative;min-height:calc(100svh - 5.5rem);display:flex;align-items:center;overflow:clip;color:var(--creme)}
+.hero-fond{position:absolute;inset:-8% 0;z-index:-2}
+.hero-fond img{width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(105deg,rgba(35,26,22,.9) 0%,rgba(35,26,22,.62) 46%,rgba(35,26,22,.32) 100%)}
+.hero .wrap{width:100%;padding-top:6rem}
+.hero-eyebrow{color:var(--dore);opacity:0;animation:fondu .8s .25s var(--e) forwards}
+.hero h1{font-size:clamp(2.9rem,8.6vw,7rem);margin:.9rem 0 1.5rem;max-width:15ch}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l>span{display:block;transform:translateY(105%);animation:monte .95s var(--e) forwards}
+.hero h1 .l:nth-child(1)>span{animation-delay:.35s}
+.hero h1 .l:nth-child(2)>span{animation-delay:.46s}
+.hero h1 em{color:var(--dore)}
+@keyframes monte{to{transform:translateY(0)}}
+@keyframes fondu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero-txt{max-width:44ch;opacity:0;animation:fondu .9s .8s var(--e) forwards;color:rgba(251,246,236,.86)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;opacity:0;animation:fondu .9s .95s var(--e) forwards}
+.ouvert{position:absolute;right:var(--px);bottom:clamp(2rem,6vw,4rem);display:flex;align-items:center;gap:.7rem;
+  background:rgba(251,246,236,.1);border:1px solid rgba(251,246,236,.28);backdrop-filter:blur(8px);
+  padding:.7rem 1.1rem;font-size:.9rem;opacity:0;animation:fondu .9s 1.1s var(--e) forwards}
+.ouvert i{width:8px;height:8px;border-radius:50%;background:#7FBF6A;box-shadow:0 0 0 0 rgba(127,191,106,.7);
+  animation:pouls 2.4s ease-out infinite}
+@keyframes pouls{70%{box-shadow:0 0 0 10px rgba(127,191,106,0)}100%{box-shadow:0 0 0 0 rgba(127,191,106,0)}}
+
+/* ---------- bandeau ---------- */
+.infos{background:var(--bordeaux);color:var(--creme);overflow:clip}
+.infos-piste{display:flex;width:max-content;animation:glisse 40s linear infinite;padding-block:.95rem}
+.infos:hover .infos-piste{animation-play-state:paused}
+.infos-piste span{padding-inline:1.5rem;white-space:nowrap;display:flex;align-items:center;gap:1.5rem;font-size:1rem}
+.infos-piste span::after{content:"";width:4px;height:4px;background:var(--dore);border-radius:50%;flex:none}
+@keyframes glisse{to{transform:translateX(-50%)}}
+
+/* ---------- révélations ---------- */
+[data-anim]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--e),transform .9s var(--e);
+  transition-delay:var(--d,0s)}
+[data-anim="masque"]{transform:none;clip-path:inset(0 0 100% 0)}
+[data-anim].vu{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+
+/* ---------- la carte ---------- */
+.carte{background:var(--papier)}
+.carte-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:3rem}
+.carte-tete p{color:var(--encre-2);max-width:40ch}
+.ardoise{display:grid;grid-template-columns:1fr 1fr 1fr .9fr;gap:clamp(1.6rem,3.4vw,3.2rem);align-items:start}
+.colonne h3{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;color:var(--bordeaux);
+  font-size:1.6rem;padding-bottom:.9rem;border-bottom:1px solid rgba(110,27,38,.22);margin-bottom:.4rem}
+.plat{padding:.95rem 0;border-bottom:1px dotted rgba(35,26,22,.2);cursor:default;
+  transition:padding-left var(--t) var(--e)}
+.plat:hover{padding-left:.7rem}
+.plat .t{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;font-weight:600;font-size:1.02rem}
+.plat .t .prix{color:var(--bordeaux);white-space:nowrap;font-weight:700}
+.plat p{font-size:.9rem;color:var(--encre-3);margin-top:.15rem}
+.vitrine{position:sticky;top:6.5rem;aspect-ratio:3/4;overflow:hidden;background:var(--creme-2)}
+.vitrine img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+  transition:opacity .6s var(--e),transform 1.4s var(--e);transform:scale(1.06)}
+.vitrine img.actif{opacity:1;transform:scale(1)}
+.vitrine figcaption{position:absolute;inset:auto 0 0 0;padding:1.1rem;font-size:.9rem;color:var(--creme);
+  background:linear-gradient(transparent,rgba(35,26,22,.85))}
+.carte-pied{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;
+  font-family:'Playfair Display',serif;font-style:italic;color:var(--encre-2)}
+
+/* ---------- formule ---------- */
+.midi{background:var(--bordeaux);color:var(--creme)}
+.midi-grille{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.midi h2{color:var(--creme)}
+.midi p{color:rgba(251,246,236,.82)}
+.formule{background:rgba(251,246,236,.08);border:1px solid rgba(251,246,236,.25);padding:clamp(1.6rem,3vw,2.6rem)}
+.formule .gros{font-family:'Playfair Display',serif;font-size:clamp(3.4rem,7vw,5.4rem);line-height:1;color:var(--dore)}
+.formule .gros small{font-size:.3em;vertical-align:super}
+.formule ul{list-style:none;display:grid;gap:.8rem;margin-top:1.6rem}
+.formule li{display:flex;gap:.8rem;align-items:flex-start;font-size:1rem}
+.formule li::before{content:"";width:6px;height:6px;background:var(--dore);border-radius:50%;flex:none;margin-top:.62rem}
+.formule .fin{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid rgba(251,246,236,.22);
+  font-family:'Playfair Display',serif;font-style:italic;color:rgba(251,246,236,.8);font-size:.98rem}
+
+/* ---------- la cave ---------- */
+.cave-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.6rem,3vw,2.8rem);margin-top:3rem}
+.region{background:var(--papier);padding:clamp(1.4rem,2.4vw,2rem);border:1px solid rgba(35,26,22,.1);
+  transition:transform var(--t) var(--e),box-shadow var(--t) var(--e)}
+.region:hover{transform:translateY(-6px);box-shadow:0 18px 40px -24px rgba(35,26,22,.4)}
+.region h3{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;color:var(--bordeaux);margin-bottom:1rem}
+.region div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;font-size:.96rem;
+  border-bottom:1px dotted rgba(35,26,22,.16)}
+.region div:last-child{border:0}
+.region span:last-child{color:var(--bordeaux);white-space:nowrap;font-weight:600}
+.cave-note{margin-top:2rem;font-family:'Playfair Display',serif;font-style:italic;color:var(--encre-2)}
+
+/* ---------- galerie horizontale ---------- */
+.galerie{overflow:clip;background:var(--creme-2);padding-block:clamp(3.5rem,7vw,6rem)}
+.galerie .wrap{margin-bottom:2.5rem}
+.rail{display:flex;gap:clamp(.8rem,1.6vw,1.4rem);padding-inline:var(--px);overflow-x:auto;
+  scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:.5rem}
+.rail::-webkit-scrollbar{display:none}
+.rail figure{flex:none;width:min(78vw,26rem);scroll-snap-align:center;position:relative;overflow:hidden}
+.rail img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1.2s var(--e)}
+.rail figure:hover img{transform:scale(1.05)}
+.rail figcaption{position:absolute;inset:auto 0 0 0;padding:1rem 1.2rem;color:var(--creme);font-size:.92rem;
+  background:linear-gradient(transparent,rgba(35,26,22,.85))}
+.rail-aide{margin-top:1.2rem;font-size:.9rem;color:var(--encre-3)}
+
+/* ---------- la maison ---------- */
+.maison-grille{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.maison-img{position:relative;overflow:hidden}
+.maison-img img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform 1.4s var(--e)}
+.maison-img:hover img{transform:scale(1.04)}
+.maison h2{margin:.9rem 0 1.4rem}
+.maison p{color:var(--encre-2)}
+.maison p+p{margin-top:1rem}
+.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem;
+  border-top:1px solid rgba(35,26,22,.16);padding-top:1.8rem}
+.chiffres b{display:block;font-family:'Playfair Display',serif;font-size:clamp(2rem,3.4vw,2.7rem);
+  color:var(--bordeaux);line-height:1}
+.chiffres span{font-size:.92rem;color:var(--encre-3);display:block;margin-top:.3rem}
+.equipe-duo{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.equipe-duo figure{position:relative;overflow:hidden}
+.equipe-duo img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(.5);transition:filter .7s var(--e),transform 1.2s var(--e)}
+.equipe-duo figure:hover img{filter:grayscale(0);transform:scale(1.04)}
+.equipe-duo figcaption{position:absolute;inset:auto 0 0 0;padding:.9rem 1rem;color:var(--creme);font-size:.9rem;
+  background:linear-gradient(transparent,rgba(35,26,22,.88))}
+.equipe-duo b{display:block;font-family:'Playfair Display',serif;font-size:1.1rem}
+
+/* ---------- avis ---------- */
+.avis{background:var(--papier);overflow:clip;border-block:1px solid rgba(35,26,22,.1)}
+.avis-tete{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;justify-content:space-between}
+.note{display:flex;align-items:center;gap:.6rem;color:var(--encre-2);font-size:.98rem}
+.note svg{width:16px;height:16px;fill:var(--dore)}
+.avis-piste{display:flex;gap:1.3rem;width:max-content;margin-top:2.8rem;animation:glisse 58s linear infinite}
+.avis:hover .avis-piste{animation-play-state:paused}
+.carte-avis{width:min(84vw,24rem);flex:none;background:var(--creme);border:1px solid rgba(35,26,22,.12);padding:1.8rem}
+.carte-avis p{font-family:'Playfair Display',serif;font-size:1.05rem;line-height:1.6}
+.carte-avis .qui{margin-top:1.2rem;font-family:'Karla',sans-serif;font-size:.9rem;color:var(--encre-3)}
+.carte-avis .qui b{display:block;color:var(--encre);font-size:.98rem}
+
+/* ---------- réserver ---------- */
+.reserver{background:var(--creme-2)}
+.res-grille{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4.5rem);margin-top:2.8rem}
+form{display:grid;gap:1.15rem}
+.champ{display:grid;gap:.4rem}
+.champ label{font-size:.9rem;color:var(--encre-2)}
+.champ input,.champ select,.champ textarea{background:var(--papier);border:1px solid rgba(35,26,22,.22);
+  padding:.8rem 1rem;transition:border-color var(--t-vif)}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--bordeaux);outline:none}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1.15rem}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem}
+.pot{position:absolute;left:-9999px}
+.form-note{font-family:'Playfair Display',serif;font-style:italic;font-size:.94rem;color:var(--encre-3)}
+.form-etat{font-size:.95rem;padding:.9rem 1.1rem;border:1px solid rgba(110,27,38,.35);
+  background:rgba(110,27,38,.06);display:none}
+.form-etat.montre{display:block}
+.pratique{display:grid;gap:1.8rem;align-content:start}
+.pratique h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.9rem}
+.horaires{display:grid;gap:.5rem}
+.horaires div{display:flex;justify-content:space-between;gap:1rem;font-size:.96rem;color:var(--encre-2);
+  padding-bottom:.5rem;border-bottom:1px dotted rgba(35,26,22,.2)}
+.horaires div.ferme{color:var(--encre-3)}
+.horaires b{font-weight:600;color:var(--encre)}
+.acces{display:grid;gap:.7rem;font-size:.95rem;color:var(--encre-2)}
+.acces div{display:flex;gap:.8rem;align-items:flex-start}
+.acces svg{width:18px;height:18px;flex:none;margin-top:.25rem;stroke:var(--bordeaux);fill:none;stroke-width:1.5}
+
+/* ---------- pied ---------- */
+footer{background:var(--encre);color:var(--creme)}
+.pied{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;padding-block:clamp(3rem,6vw,4.5rem)}
+.pied h4{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:1rem;font-weight:500}
+.pied ul{list-style:none;display:grid;gap:.55rem}
+.pied a,.pied li{color:rgba(251,246,236,.66);font-size:.95rem}
+.pied a:hover{color:var(--dore)}
+.pied .marque{font-size:1.9rem}
+.pied .mot{font-family:'Playfair Display',serif;font-style:italic;color:rgba(251,246,236,.6);
+  margin-top:1rem;max-width:32ch}
+.bas{border-top:1px solid rgba(251,246,236,.14);padding-block:1.3rem;display:flex;flex-wrap:wrap;
+  gap:.5rem 2rem;font-size:.85rem;color:rgba(251,246,236,.5)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .ardoise{grid-template-columns:1fr 1fr}
+  .vitrine{grid-column:1/-1;position:relative;top:auto;aspect-ratio:16/9}
+  .cave-grille{grid-template-columns:1fr}
+  .midi-grille,.maison-grille,.res-grille{grid-template-columns:1fr}
+  .pied{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  nav{position:fixed;inset:0 0 auto 0;flex-direction:column;align-items:flex-start;gap:1.1rem;
+    background:var(--bordeaux);padding:5.5rem var(--px) 2.4rem;transform:translateY(-101%);
+    transition:transform var(--t) var(--e)}
+  nav.ouvert{transform:translateY(0)}
+  nav a{font-size:1.3rem}
+  .burger{display:block;margin-left:auto;position:relative;z-index:2}
+  header .bouton{display:none}
+  .ardoise{grid-template-columns:1fr}
+  .trio{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr}
+  .pied{grid-template-columns:1fr}
+  .ouvert{position:static;margin-top:2rem;display:inline-flex}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  [data-anim]{opacity:1;transform:none;clip-path:none}
+  .hero h1 .l>span{transform:none}
+  .hero-eyebrow,.hero-txt,.hero-actions,.ouvert{opacity:1}
+}
 
 /* Bandeau Comète posé sur les démos */
-body{padding-bottom:5.5rem}
 .comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
  align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
  background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
- font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4;
- font-weight:400;letter-spacing:0;text-transform:none}
+ font-family:system-ui,-apple-system,sans-serif;font-size:.8125rem;line-height:1.4}
 .comete-bandeau b{color:#FF4D00;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;flex:none}
 .comete-bandeau p{margin:0;opacity:.8;max-width:52ch}
 .comete-bandeau a{margin-left:auto;background:#FF4D00;color:#17130E;font-weight:700;text-decoration:none;
- padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem;letter-spacing:0;text-transform:none}
+ padding:.5rem 1.1rem;border-radius:100px;white-space:nowrap;font-size:.8125rem}
 .comete-bandeau a:hover{background:#FAF5EC}
 @media(max-width:640px){.comete-bandeau a{margin-left:0;width:100%;text-align:center}}
 </style>
 </head>
 <body>
-<header>
-  <span class="logo">Le Comptoir du Peyrou</span>
-  <nav><a href="#decouvrir">La carte</a><a href="#decouvrir">Les vins</a><a href="#decouvrir">Le midi</a>
-       <a class="book" href="#decouvrir">Réserver une table</a></nav>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header id="entete">
+  <a class="marque" href="#haut">Le Comptoir du Peyrou<span>Bistrot, Montpellier centre</span></a>
+  <nav id="menu">
+    <a href="#carte">La carte</a>
+    <a href="#midi">Le midi</a>
+    <a href="#cave">La cave</a>
+    <a href="#maison">La maison</a>
+    <a href="#reserver">Réserver</a>
+  </nav>
+  <a class="bouton or" href="#reserver"><span>Réserver une table</span></a>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
 </header>
 
-<section class="hero">
-  <div class="hero-txt">
-    <p class="kick">Bistrot · Montpellier centre</p>
-    <h1>La cuisine du marché,<br><em>tous les jours.</em></h1>
-    <p>Une ardoise qui change chaque matin selon les Halles Castellane,
-       une cave courte mais bien choisie, et une terrasse à l'ombre des platanes.</p>
-    <a class="btn" href="#decouvrir">Réserver une table</a>
-    <a class="btn alt" href="#decouvrir">Voir la carte</a>
+<main id="contenu">
+
+<section class="hero" id="haut">
+  <div class="hero-fond" id="heroFond">
+    <picture>
+      <source type="image/avif" srcset="/assets/img/demos/bistrot/hero-900.avif 900w, /assets/img/demos/bistrot/hero-1800.avif 1800w" sizes="100vw">
+      <source type="image/webp" srcset="/assets/img/demos/bistrot/hero-900.webp 900w, /assets/img/demos/bistrot/hero-1800.webp 1800w" sizes="100vw">
+      <img src="/assets/img/demos/bistrot/hero-1800.jpg" alt="Salle du bistrot en fin de journée, comptoir et suspensions allumées" width="1800" height="1200" fetchpriority="high">
+    </picture>
   </div>
-  <div class="hero-img"><span>« Trois entrées,<br>trois plats,<br>trois desserts. »</span></div>
+  <div class="wrap">
+    <p class="eyebrow hero-eyebrow">Place du Peyrou, depuis 2011</p>
+    <h1>
+      <span class="l"><span>La cuisine du marché,</span></span>
+      <span class="l"><span><em>tous les jours.</em></span></span>
+    </h1>
+    <p class="hero-txt">L'ardoise change chaque matin selon ce qu'on trouve aux Halles Castellane.
+      Une cave courte, choisie chez des vignerons qu'on connaît, et une terrasse à l'ombre des platanes.</p>
+    <div class="hero-actions">
+      <a class="bouton or" href="#reserver"><span>Réserver une table</span></a>
+      <a class="bouton ligne" href="#carte"><span>Voir la carte du jour</span></a>
+    </div>
+  </div>
+  <p class="ouvert"><i></i> Ouvert ce soir, service jusqu'à 22h30</p>
 </section>
 
-<div class="info">
-  <span>Ouvert <b>du mardi au samedi</b></span>
-  <span>Formule midi <b>19 €</b></span>
-  <span>Terrasse <b>ombragée</b></span>
+<div class="infos" aria-hidden="true">
+  <div class="infos-piste">
+    <span>Formule du midi à 19&nbsp;€</span><span>Ardoise renouvelée chaque matin</span>
+    <span>Terrasse ombragée</span><span>Vins nature et bio</span><span>Service continu</span>
+    <span>Formule du midi à 19&nbsp;€</span><span>Ardoise renouvelée chaque matin</span>
+    <span>Terrasse ombragée</span><span>Vins nature et bio</span><span>Service continu</span>
+  </div>
 </div>
 
-<section class="menu" id="decouvrir">
-  <h2>L'ardoise du jour</h2>
-  <div>
-    <h3>Entrées</h3>
-    <div class="plat"><div class="t"><span>Tielle sétoise revisitée</span><span>9 €</span></div><p>poulpe, tomate confite</p></div>
-    <div class="plat"><div class="t"><span>Velouté de courge</span><span>8 €</span></div><p>huile de noisette, brousse</p></div>
-    <div class="plat"><div class="t"><span>Anchois de Collioure</span><span>11 €</span></div><p>pain grillé, beurre demi-sel</p></div>
-  </div>
-  <div>
-    <h3>Plats</h3>
-    <div class="plat"><div class="t"><span>Encornets à la plancha</span><span>21 €</span></div><p>persillade, riz de Camargue</p></div>
-    <div class="plat"><div class="t"><span>Épaule d'agneau confite</span><span>24 €</span></div><p>sept heures, jus au thym</p></div>
-    <div class="plat"><div class="t"><span>Risotto de petit épeautre</span><span>18 €</span></div><p>légumes du jour, pecorino</p></div>
-  </div>
-  <div>
-    <h3>Desserts</h3>
-    <div class="plat"><div class="t"><span>Tarte au citron</span><span>8 €</span></div><p>meringue légèrement brûlée</p></div>
-    <div class="plat"><div class="t"><span>Grenache et figues</span><span>9 €</span></div><p>glace au miel de garrigue</p></div>
-    <div class="plat"><div class="t"><span>Chocolat noir 70 %</span><span>8 €</span></div><p>fleur de sel, huile d'olive</p></div>
+<section class="section carte" id="carte">
+  <div class="wrap">
+    <div class="carte-tete">
+      <div>
+        <p class="eyebrow" data-anim>L'ardoise</p>
+        <h2 data-anim style="--d:.06s">Ce qu'on sert<br>aujourd'hui.</h2>
+      </div>
+      <p data-anim style="--d:.12s">La carte tient sur une ardoise parce qu'elle dépend du marché.
+        Trois entrées, trois plats, trois desserts, et rien qui traîne au congélateur.</p>
+    </div>
+
+    <div class="ardoise" id="ardoise">
+      <div class="colonne" data-anim>
+        <h3>Entrées</h3>
+        <div class="plat" data-vitrine="entree">
+          <div class="t"><span>Tielle sétoise revisitée</span><span class="prix">9&nbsp;€</span></div>
+          <p>poulpe mijoté, tomate confite, pâte fine</p>
+        </div>
+        <div class="plat" data-vitrine="entree">
+          <div class="t"><span>Velouté de courge</span><span class="prix">8&nbsp;€</span></div>
+          <p>huile de noisette, brousse du Rove</p>
+        </div>
+        <div class="plat" data-vitrine="marche">
+          <div class="t"><span>Anchois de Collioure</span><span class="prix">11&nbsp;€</span></div>
+          <p>pain grillé, beurre demi-sel, cébettes</p>
+        </div>
+      </div>
+
+      <div class="colonne" data-anim style="--d:.06s">
+        <h3>Plats</h3>
+        <div class="plat" data-vitrine="plat">
+          <div class="t"><span>Encornets à la plancha</span><span class="prix">21&nbsp;€</span></div>
+          <p>persillade, riz rouge de Camargue</p>
+        </div>
+        <div class="plat" data-vitrine="plat">
+          <div class="t"><span>Épaule d'agneau confite</span><span class="prix">24&nbsp;€</span></div>
+          <p>sept heures au four, jus au thym, pommes fondantes</p>
+        </div>
+        <div class="plat" data-vitrine="chef">
+          <div class="t"><span>Risotto de petit épeautre</span><span class="prix">18&nbsp;€</span></div>
+          <p>légumes du jour, pecorino, huile de basilic</p>
+        </div>
+      </div>
+
+      <div class="colonne" data-anim style="--d:.12s">
+        <h3>Desserts</h3>
+        <div class="plat" data-vitrine="dessert">
+          <div class="t"><span>Tarte au citron</span><span class="prix">8&nbsp;€</span></div>
+          <p>meringue légèrement brûlée au chalumeau</p>
+        </div>
+        <div class="plat" data-vitrine="dessert">
+          <div class="t"><span>Figues au grenache</span><span class="prix">9&nbsp;€</span></div>
+          <p>glace au miel de garrigue</p>
+        </div>
+        <div class="plat" data-vitrine="vin">
+          <div class="t"><span>Chocolat noir 70&nbsp;%</span><span class="prix">8&nbsp;€</span></div>
+          <p>fleur de sel, huile d'olive de Clermont-l'Hérault</p>
+        </div>
+      </div>
+
+      <figure class="vitrine" data-anim="masque" style="--d:.16s">
+        <img class="actif" data-cle="entree" src="/assets/img/demos/bistrot/entree-900.webp" alt="Assiette d'entrée dressée" width="900" height="1200" loading="lazy">
+        <img data-cle="plat" src="/assets/img/demos/bistrot/plat-900.webp" alt="Plat principal dressé à l'assiette" width="900" height="1200" loading="lazy">
+        <img data-cle="dessert" src="/assets/img/demos/bistrot/dessert-900.webp" alt="Dessert servi à l'assiette" width="900" height="1200" loading="lazy">
+        <img data-cle="vin" src="/assets/img/demos/bistrot/vin-900.webp" alt="Verres de vin rouge sur une table" width="900" height="1200" loading="lazy">
+        <img data-cle="marche" src="/assets/img/demos/bistrot/marche-900.webp" alt="Étal de légumes au marché" width="900" height="1200" loading="lazy">
+        <img data-cle="chef" src="/assets/img/demos/bistrot/chef-900.webp" alt="Cuisinier en train de dresser une assiette" width="900" height="1200" loading="lazy">
+        <figcaption id="vitrineLegende">Les entrées, dressées au moment</figcaption>
+      </figure>
+    </div>
+
+    <p class="carte-pied" data-anim>Allergènes et provenance des viandes affichés en salle. Plats végétariens signalés à l'ardoise.</p>
   </div>
 </section>
+
+<section class="section midi" id="midi">
+  <div class="wrap midi-grille">
+    <div>
+      <p class="eyebrow" style="color:var(--dore)" data-anim>Du mardi au vendredi</p>
+      <h2 data-anim style="--d:.06s">La formule du midi.</h2>
+      <p data-anim style="--d:.12s">Servie de 12h à 14h. Un plat qui change tous les jours, une entrée ou un
+        dessert selon votre faim, et un café pour finir. On tient l'heure : si vous reprenez le travail à 14h,
+        prévenez en arrivant, on vous sert en premier.</p>
+      <div class="chiffres" style="border-color:rgba(251,246,236,.24)">
+        <div data-anim style="--d:.16s"><b style="color:var(--dore)" data-compteur="45">0</b><span style="color:rgba(251,246,236,.68)">couverts en salle</span></div>
+        <div data-anim style="--d:.2s"><b style="color:var(--dore)" data-compteur="30">0</b><span style="color:rgba(251,246,236,.68)">en terrasse</span></div>
+        <div data-anim style="--d:.24s"><b style="color:var(--dore)" data-compteur="14">0</b><span style="color:rgba(251,246,236,.68)">ans place du Peyrou</span></div>
+      </div>
+    </div>
+    <div class="formule" data-anim style="--d:.1s">
+      <p class="gros">19<small>&nbsp;€</small></p>
+      <ul>
+        <li>Plat du jour, annoncé à l'ardoise le matin</li>
+        <li>Entrée ou dessert au choix</li>
+        <li>Café ou infusion</li>
+        <li>Pain de la boulangerie de la rue Foch</li>
+      </ul>
+      <p class="fin">Entrée, plat et dessert : 24&nbsp;€. Verre de vin du mois : 4,50&nbsp;€.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cave">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>La cave</p>
+    <h2 data-anim style="--d:.06s">Quarante références,<br>pas une de plus.</h2>
+    <div class="cave-grille">
+      <div class="region" data-anim style="--d:.1s">
+        <h3>Languedoc</h3>
+        <div><span>Pic Saint-Loup, Domaine de l'Hortus</span><span>32&nbsp;€</span></div>
+        <div><span>Terrasses du Larzac, Mas Cal Demoura</span><span>38&nbsp;€</span></div>
+        <div><span>Faugères, Domaine Léon Barral</span><span>46&nbsp;€</span></div>
+        <div><span>Picpoul de Pinet, Félines Jourdan</span><span>24&nbsp;€</span></div>
+      </div>
+      <div class="region" data-anim style="--d:.16s">
+        <h3>Rhône et Provence</h3>
+        <div><span>Côtes du Rhône, Domaine Gramenon</span><span>36&nbsp;€</span></div>
+        <div><span>Cairanne, Domaine Oratoire Saint-Martin</span><span>34&nbsp;€</span></div>
+        <div><span>Bandol rosé, Domaine Tempier</span><span>42&nbsp;€</span></div>
+      </div>
+      <div class="region" data-anim style="--d:.22s">
+        <h3>Au verre</h3>
+        <div><span>Le blanc du mois</span><span>4,50&nbsp;€</span></div>
+        <div><span>Le rouge du mois</span><span>4,50&nbsp;€</span></div>
+        <div><span>Le rosé de Saint-Christol</span><span>4&nbsp;€</span></div>
+        <div><span>Vin doux naturel, Rivesaltes</span><span>6&nbsp;€</span></div>
+      </div>
+    </div>
+    <p class="cave-note" data-anim>Emmanuelle passe chez les vignerons deux fois par an. Si une bouteille vous plaît,
+      elle repart avec vous au prix de la cave plus sept euros.</p>
+  </div>
+</section>
+
+<section class="galerie" id="galerie">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>En salle</p>
+    <h2 data-anim style="--d:.06s">Le service, l'assiette,<br>la terrasse.</h2>
+  </div>
+  <div class="rail" id="rail">
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/bistrot/terrasse-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/bistrot/terrasse-900.webp">
+      <img src="/assets/img/demos/bistrot/terrasse-900.jpg" alt="Tables en terrasse sur une rue pavée" width="900" height="675" loading="lazy"></picture>
+      <figcaption>La terrasse, à l'ombre à partir de 13h</figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/bistrot/plat-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/bistrot/plat-900.webp">
+      <img src="/assets/img/demos/bistrot/plat-900.jpg" alt="Assiette dressée en cuisine" width="900" height="675" loading="lazy"></picture>
+      <figcaption>Le plat du jour, dressé au passe</figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/bistrot/marche-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/bistrot/marche-900.webp">
+      <img src="/assets/img/demos/bistrot/marche-900.jpg" alt="Cageots de légumes sur un étal de marché" width="900" height="675" loading="lazy"></picture>
+      <figcaption>Les Halles Castellane, tous les matins à 7h</figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/bistrot/vin-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/bistrot/vin-900.webp">
+      <img src="/assets/img/demos/bistrot/vin-900.jpg" alt="Bouteille et verre de vin rouge" width="900" height="675" loading="lazy"></picture>
+      <figcaption>Le rouge du mois, servi au verre</figcaption></figure>
+    <figure><picture>
+      <source type="image/avif" srcset="/assets/img/demos/bistrot/dessert-900.avif">
+      <source type="image/webp" srcset="/assets/img/demos/bistrot/dessert-900.webp">
+      <img src="/assets/img/demos/bistrot/dessert-900.jpg" alt="Dessert à la crème servi à l'assiette" width="900" height="675" loading="lazy"></picture>
+      <figcaption>La tarte au citron, meringue brûlée</figcaption></figure>
+  </div>
+  <div class="wrap"><p class="rail-aide">Faites glisser pour voir la suite.</p></div>
+</section>
+
+<section class="section maison" id="maison">
+  <div class="wrap maison-grille">
+    <figure class="maison-img" data-anim="masque">
+      <picture>
+        <source type="image/avif" srcset="/assets/img/demos/bistrot/chef-900.avif">
+        <source type="image/webp" srcset="/assets/img/demos/bistrot/chef-900.webp">
+        <img src="/assets/img/demos/bistrot/chef-900.jpg" alt="Cuisinier au piano pendant le service" width="900" height="1125" loading="lazy">
+      </picture>
+    </figure>
+    <div>
+      <p class="eyebrow" data-anim>La maison</p>
+      <h2 data-anim style="--d:.06s">Une cuisine,<br>une salle, personne d'autre.</h2>
+      <p data-anim style="--d:.12s">Rémi a ouvert en 2011 après huit ans passés en cuisine à Sète et à Lyon.
+        Emmanuelle tient la salle et la cave. Ils sont quatre au total, et c'est toujours l'un d'eux
+        qui prend votre commande.</p>
+      <p data-anim style="--d:.16s">Le poisson vient de la criée de Sète, la viande d'un éleveur de l'Aveyron,
+        les légumes des Halles. Quand un produit manque, le plat saute : ça arrive, et on préfère ça au congélateur.</p>
+      <div class="equipe-duo">
+        <figure data-anim="masque" style="--d:.2s">
+          <picture>
+            <source type="image/avif" srcset="/assets/img/demos/bistrot/equipe-1-640.avif">
+            <source type="image/webp" srcset="/assets/img/demos/bistrot/equipe-1-640.webp">
+            <img src="/assets/img/demos/bistrot/equipe-1-640.jpg" alt="Portrait du chef en cuisine" width="640" height="853" loading="lazy">
+          </picture>
+          <figcaption><b>Rémi</b>En cuisine</figcaption>
+        </figure>
+        <figure data-anim="masque" style="--d:.26s">
+          <picture>
+            <source type="image/avif" srcset="/assets/img/demos/bistrot/equipe-2-640.avif">
+            <source type="image/webp" srcset="/assets/img/demos/bistrot/equipe-2-640.webp">
+            <img src="/assets/img/demos/bistrot/equipe-2-640.jpg" alt="Portrait en salle, tablier noir" width="640" height="853" loading="lazy">
+          </picture>
+          <figcaption><b>Emmanuelle</b>En salle et à la cave</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section avis" id="avis">
+  <div class="wrap avis-tete">
+    <div>
+      <p class="eyebrow" data-anim>Ce qu'on nous écrit</p>
+      <h2 data-anim style="--d:.06s">Les avis des clients.</h2>
+    </div>
+    <p class="note" data-anim style="--d:.12s">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 6.8L12 17.8 5.7 21l1.3-6.8-5-4.8 7-.9z"/></svg>
+      4,7 sur 486 avis
+    </p>
+  </div>
+  <div class="avis-piste">
+    <blockquote class="carte-avis"><p>« L'agneau confite sept heures vaut le détour. On a demandé la recette,
+      on a eu droit à un sourire et à un verre de grenache. »</p><p class="qui"><b>Claire V.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Formule à 19 euros le midi, servie en vingt minutes, et le plat était
+      meilleur que dans des maisons à quarante. »</p><p class="qui"><b>Damien R.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« On y va une fois par mois depuis quatre ans et la carte n'a jamais
+      été deux fois la même. »</p><p class="qui"><b>Hélène et Marc</b>Habitués</p></blockquote>
+    <blockquote class="carte-avis"><p>« Terrasse au calme, service qui connaît ses vins, addition sans
+      mauvaise surprise. »</p><p class="qui"><b>Sofia L.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis"><p>« Ils ont accepté de décaler notre table de vingt minutes un soir de
+      complet, sans faire d'histoires. »</p><p class="qui"><b>Bruno T.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« L'agneau confite sept heures vaut le détour. On a demandé la recette,
+      on a eu droit à un sourire et à un verre de grenache. »</p><p class="qui"><b>Claire V.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Formule à 19 euros le midi, servie en vingt minutes, et le plat était
+      meilleur que dans des maisons à quarante. »</p><p class="qui"><b>Damien R.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« On y va une fois par mois depuis quatre ans et la carte n'a jamais
+      été deux fois la même. »</p><p class="qui"><b>Hélène et Marc</b>Habitués</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Terrasse au calme, service qui connaît ses vins, addition sans
+      mauvaise surprise. »</p><p class="qui"><b>Sofia L.</b>Avis Google</p></blockquote>
+    <blockquote class="carte-avis" aria-hidden="true"><p>« Ils ont accepté de décaler notre table de vingt minutes un soir de
+      complet, sans faire d'histoires. »</p><p class="qui"><b>Bruno T.</b>Avis Google</p></blockquote>
+  </div>
+</section>
+
+<section class="section reserver" id="reserver">
+  <div class="wrap">
+    <p class="eyebrow" data-anim>Réserver</p>
+    <h2 data-anim style="--d:.06s">Une table, un soir,<br>un nombre de couverts.</h2>
+    <div class="res-grille">
+      <form id="formulaire" data-anim style="--d:.1s" novalidate>
+        <div class="duo">
+          <div class="champ"><label for="nom">Votre nom</label>
+            <input id="nom" name="nom" type="text" autocomplete="name" required></div>
+          <div class="champ"><label for="tel">Téléphone</label>
+            <input id="tel" name="tel" type="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="trio">
+          <div class="champ"><label for="jour">Jour</label>
+            <input id="jour" name="jour" type="date"></div>
+          <div class="champ"><label for="heure">Heure</label>
+            <select id="heure" name="heure">
+              <option>12h00</option><option>12h30</option><option>13h00</option><option>13h30</option>
+              <option>19h30</option><option>20h00</option><option>20h30</option><option>21h00</option>
+            </select></div>
+          <div class="champ"><label for="couverts">Couverts</label>
+            <select id="couverts" name="couverts">
+              <option>1</option><option selected>2</option><option>3</option><option>4</option>
+              <option>5</option><option>6</option><option>Plus de 6</option>
+            </select></div>
+        </div>
+        <div class="champ"><label for="mot">Allergie, poussette, terrasse : dites-nous</label>
+          <textarea id="mot" name="message" rows="3"></textarea></div>
+        <input class="pot" type="text" name="societe" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="bouton" type="submit"><span>Demander cette table</span></button>
+        <p class="form-note">On confirme par téléphone dans l'heure qui suit, sur les horaires de service.</p>
+        <p class="form-etat" id="etat" role="status"></p>
+      </form>
+
+      <div class="pratique">
+        <div data-anim style="--d:.14s">
+          <h3>Horaires</h3>
+          <div class="horaires">
+            <div class="ferme"><span>Lundi</span><b>Fermé</b></div>
+            <div><span>Mardi au jeudi</span><b>12h à 14h, 19h à 22h</b></div>
+            <div><span>Vendredi et samedi</span><b>12h à 14h30, 19h à 22h30</b></div>
+            <div><span>Dimanche</span><b>12h à 15h</b></div>
+          </div>
+        </div>
+        <div data-anim style="--d:.2s">
+          <h3>Venir</h3>
+          <div class="acces">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              <span>3 place du Peyrou, 34000 Montpellier</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 21h8M9 17v4M15 17v4"/></svg>
+              <span>Tram L1, arrêt Peyrou Arc de Triomphe, à 200 mètres</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 16V8h3.5a2.5 2.5 0 010 5H9"/></svg>
+              <span>Parking Peyrou, sortie à 100 mètres</span></div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4h2.2c.7 0 1.3.5 1.4 1.2l.6 3c.1.6-.1 1.2-.6 1.5l-1.4 1a12 12 0 005.6 5.6l1-1.4c.3-.5.9-.7 1.5-.6l3 .6c.7.1 1.2.7 1.2 1.4v2.2c0 .8-.7 1.5-1.5 1.5A15.5 15.5 0 014 5.5z"/></svg>
+              <span><a href="tel:+33467000000">04 67 00 00 00</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <footer>
-  <span class="fl">Le Comptoir du Peyrou</span>
-  <p>3 place du Peyrou, 34000 Montpellier · 04 67 00 00 00 · service continu jusqu'à 22h30</p>
+  <div class="wrap pied">
+    <div>
+      <span class="marque">Le Comptoir du Peyrou</span>
+      <p class="mot">Trois entrées, trois plats, trois desserts. Ce qu'il y a au marché le matin,
+        dans l'assiette le midi.</p>
+    </div>
+    <div>
+      <h4>Le bistrot</h4>
+      <ul>
+        <li>3 place du Peyrou</li>
+        <li>34000 Montpellier</li>
+        <li><a href="tel:+33467000000">04 67 00 00 00</a></li>
+        <li><a href="mailto:bonjour@comptoir-peyrou.fr">bonjour@comptoir-peyrou.fr</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Le site</h4>
+      <ul>
+        <li><a href="#carte">La carte</a></li>
+        <li><a href="#midi">Formule du midi</a></li>
+        <li><a href="#cave">La cave</a></li>
+        <li><a href="#reserver">Réserver</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap bas">
+    <span>Fermé le lundi</span>
+    <span>Site de démonstration réalisé par Comète</span>
+  </div>
 </footer>
+
 <div class="comete-bandeau">
   <b>Démo</b>
-  <p>Ce site n’existe pas : c’est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599 €.</p>
-  <a href="../index.html#offre">Voir l’offre Comète →</a>
+  <p>Ce site n'existe pas : c'est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
+  <a href="../index.html#offre">Voir l'offre Comète</a>
 </div>
+
+<script>
+(function(){
+  var doux = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var cibles = document.querySelectorAll('[data-anim]');
+  if (doux) { cibles.forEach(function(el){ el.classList.add('vu'); }); }
+  else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+    cibles.forEach(function(el){ io.observe(el); });
+  }
+
+  var entete = document.getElementById('entete');
+  var fond = document.getElementById('heroFond');
+  var tic = false;
+  function auDefilement(){
+    var y = window.scrollY;
+    entete.classList.toggle('colle', y > 40);
+    if (!doux && fond && y < innerHeight * 1.2) fond.style.transform = 'translate3d(0,' + (y * .16) + 'px,0)';
+    tic = false;
+  }
+  addEventListener('scroll', function(){ if (!tic) { tic = true; requestAnimationFrame(auDefilement); } }, { passive: true });
+  auDefilement();
+
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){
+    var ouvert = menu.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded', ouvert);
+    burger.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+  menu.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  /* compteurs */
+  var ioc = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      ioc.unobserve(e.target);
+      var cible = parseInt(e.target.dataset.compteur, 10), debut = null;
+      if (doux) { e.target.textContent = cible; return; }
+      (function pas(t){
+        if (!debut) debut = t;
+        var p = Math.min((t - debut) / 1100, 1);
+        e.target.textContent = Math.round(cible * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(pas);
+      })(performance.now());
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('[data-compteur]').forEach(function(el){ ioc.observe(el); });
+
+  /* la vitrine change de photo selon le plat survolé */
+  var legendes = {
+    entree: 'Les entrées, dressées au moment',
+    plat: 'Le plat du jour, dressé au passe',
+    dessert: 'Les desserts, faits le matin même',
+    vin: 'Le rouge du mois, servi au verre',
+    marche: 'Les Halles Castellane, tous les matins',
+    chef: 'Rémi au piano, service du soir'
+  };
+  var vitrine = document.querySelector('.vitrine');
+  var legende = document.getElementById('vitrineLegende');
+  document.querySelectorAll('.plat[data-vitrine]').forEach(function(plat){
+    function montre(){
+      var cle = plat.dataset.vitrine;
+      vitrine.querySelectorAll('img').forEach(function(img){
+        img.classList.toggle('actif', img.dataset.cle === cle);
+      });
+      legende.textContent = legendes[cle] || '';
+    }
+    plat.addEventListener('pointerenter', montre);
+    plat.addEventListener('focusin', montre);
+  });
+
+  /* le rail défile aussi à la molette verticale */
+  var rail = document.getElementById('rail');
+  rail.addEventListener('wheel', function(e){
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    var avant = rail.scrollLeft;
+    rail.scrollLeft += e.deltaY;
+    if (rail.scrollLeft !== avant) e.preventDefault();
+  }, { passive: false });
+
+  var form = document.getElementById('formulaire');
+  var etat = document.getElementById('etat');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (form.societe.value) return;
+    if (!form.nom.value.trim() || !form.tel.value.trim()) {
+      etat.textContent = 'Il nous faut votre nom et un numéro pour confirmer la table.';
+      etat.classList.add('montre'); return;
+    }
+    etat.textContent = 'Demande enregistrée. Sur un vrai site, elle partirait vers la boîte mail du restaurant.';
+    etat.classList.add('montre');
+    form.reset();
+  });
+})();
+</script>
 </body>
 </html>
