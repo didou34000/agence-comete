@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Démonstration Comète : site vitrine d'un barbier à Montpellier. Coupe, barbe, rasage traditionnel, prise de rendez-vous.">
+<meta name="description" content="Démonstration L'Agence du Sud : site vitrine d'un barbier à Montpellier. Coupe, barbe, rasage traditionnel, prise de rendez-vous.">
 <meta name="theme-color" content="#0C0A08">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Démo · L'Atelier du Barbier, Montpellier | Comète</title>
+<title>Démo · L'Atelier du Barbier, Montpellier | L'Agence du Sud</title>
 <link rel="preload" as="image" href="/assets/img/demos/barbier/hero-1800.avif" fetchpriority="high">
 <link rel="stylesheet" href="/assets/fonts/demos/barbier.css">
 <style>
@@ -119,10 +119,21 @@ nav a:hover::after{transform:scaleX(1);transform-origin:0 50%}
 @keyframes glisse{to{transform:translateX(-50%)}}
 
 /* ---------- révélations ---------- */
-[data-anim]{opacity:0;transform:translateY(28px);
-  transition:opacity .9s var(--e),transform .9s var(--e);transition-delay:var(--d,0s)}
-[data-anim="masque"]{transform:none;clip-path:inset(0 0 100% 0)}
-[data-anim].vu{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+/* Apparition au défilement, pilotée par le défilement lui-même, sans JavaScript.
+   Le contenu est visible par défaut : si le navigateur ne connaît pas
+   animation-timeline, il ne se passe rien et rien ne manque. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-anim]{
+      animation: apparition linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 24%;
+    }
+    [data-anim="masque"]{ animation-name: devoile }
+    @keyframes apparition{ from{opacity:0;translate:0 20px} to{opacity:1;translate:0 0} }
+    @keyframes devoile{ from{opacity:0;clip-path:inset(0 0 100% 0)} to{opacity:1;clip-path:inset(0 0 0 0)} }
+  }
+}
 
 /* ---------- la maison ---------- */
 .maison{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,5rem);align-items:center}
@@ -298,13 +309,12 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
-  [data-anim]{opacity:1;transform:none;clip-path:none}
   .rideau{display:none}
   .hero h1 .l>span{transform:none}
   .hero-bas,.defile{opacity:1}
 }
 
-/* Bandeau Comète posé sur les démos */
+/* Bandeau L'Agence du Sud posé sur les démos */
 .comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
  align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
  background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
@@ -389,19 +399,19 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
   <div class="wrap maison">
     <div>
       <p class="eyebrow" data-anim>La maison</p>
-      <h2 data-anim style="--d:.06s">Vingt-sept ans<br>au même comptoir.</h2>
-      <p data-anim style="--d:.12s">Jean-Pierre a ouvert la boutique en 1998, rue de l'Aiguillerie, avec deux fauteuils
+      <h2 data-anim>Vingt-sept ans<br>au même comptoir.</h2>
+      <p data-anim>Jean-Pierre a ouvert la boutique en 1998, rue de l'Aiguillerie, avec deux fauteuils
         rachetés à un coiffeur de Nîmes qui partait à la retraite. Ils sont toujours là, regarnis deux fois.</p>
-      <p data-anim style="--d:.16s">On travaille au rasoir et à la tondeuse manuelle quand la coupe le demande, avec des
+      <p data-anim>On travaille au rasoir et à la tondeuse manuelle quand la coupe le demande, avec des
         produits qu'on utilise nous-mêmes. Pas de forfait à la minute, pas de vente forcée : vous repartez avec la coupe
         que vous vouliez, et on vous dit franchement quand une idée ne tiendra pas sur vos cheveux.</p>
       <div class="chiffres">
-        <div data-anim style="--d:.2s"><b data-compteur="27">0</b><span>ans rue de l'Aiguillerie</span></div>
-        <div data-anim style="--d:.26s"><b data-compteur="4">0</b><span>barbiers au fauteuil</span></div>
-        <div data-anim style="--d:.32s"><b data-compteur="45">0</b><span>minutes par rendez-vous</span></div>
+        <div data-anim><b data-compteur="27">0</b><span>ans rue de l'Aiguillerie</span></div>
+        <div data-anim><b data-compteur="3">0</b><span>barbiers au fauteuil</span></div>
+        <div data-anim><b data-compteur="45">0</b><span>minutes par rendez-vous</span></div>
       </div>
     </div>
-    <figure class="maison-img" data-anim="masque" style="--d:.1s">
+    <figure class="maison-img" data-anim="masque">
       <picture>
         <source type="image/avif" srcset="/assets/img/demos/barbier/salon-900.avif">
         <source type="image/webp" srcset="/assets/img/demos/barbier/salon-900.webp">
@@ -417,9 +427,9 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
     <div class="presta-tete">
       <div>
         <p class="eyebrow" data-anim>Prestations</p>
-        <h2 data-anim style="--d:.06s">Ce qu'on fait,<br>et ce que ça coûte.</h2>
+        <h2 data-anim>Ce qu'on fait,<br>et ce que ça coûte.</h2>
       </div>
-      <p data-anim style="--d:.12s">Les prix sont affichés en boutique et ne bougent pas selon le barbier
+      <p data-anim>Les prix sont affichés en boutique et ne bougent pas selon le barbier
         qui vous reçoit. Paiement carte ou espèces.</p>
     </div>
 
@@ -429,32 +439,32 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
         <span class="duree">30 min</span>
         <span class="prix">28&nbsp;€</span>
       </div>
-      <div class="ligne" data-anim style="--d:.04s" data-img="/assets/img/demos/barbier/barbe-900.avif">
+      <div class="ligne" data-anim data-img="/assets/img/demos/barbier/barbe-900.avif">
         <span class="nom">Taille de barbe<span class="det" style="display:block">Tondeuse, contours au rasoir, huile</span></span>
         <span class="duree">25 min</span>
         <span class="prix">22&nbsp;€</span>
       </div>
-      <div class="ligne" data-anim style="--d:.08s" data-img="/assets/img/demos/barbier/rasage-900.avif">
+      <div class="ligne" data-anim data-img="/assets/img/demos/barbier/rasage-900.avif">
         <span class="nom">Rasage traditionnel<span class="det" style="display:block">Serviette chaude, blaireau, rasoir droit, baume</span></span>
         <span class="duree">40 min</span>
         <span class="prix">35&nbsp;€</span>
       </div>
-      <div class="ligne" data-anim style="--d:.12s" data-img="/assets/img/demos/barbier/coupe-900.avif">
+      <div class="ligne" data-anim data-img="/assets/img/demos/barbier/coupe-900.avif">
         <span class="nom">Coupe et barbe<span class="det" style="display:block">Le rendez-vous complet, une heure au fauteuil</span></span>
         <span class="duree">60 min</span>
         <span class="prix">45&nbsp;€</span>
       </div>
-      <div class="ligne" data-anim style="--d:.16s" data-img="/assets/img/demos/barbier/outils-900.avif">
+      <div class="ligne" data-anim data-img="/assets/img/demos/barbier/outils-900.avif">
         <span class="nom">Contour et finitions<span class="det" style="display:block">Entre deux coupes, nuque et contours repris</span></span>
         <span class="duree">15 min</span>
         <span class="prix">14&nbsp;€</span>
       </div>
-      <div class="ligne" data-anim style="--d:.2s" data-img="/assets/img/demos/barbier/produit-900.avif">
+      <div class="ligne" data-anim data-img="/assets/img/demos/barbier/produit-900.avif">
         <span class="nom">Soin du visage<span class="det" style="display:block">Gommage, masque à l'argile, massage</span></span>
         <span class="duree">30 min</span>
         <span class="prix">32&nbsp;€</span>
       </div>
-      <div class="ligne" data-anim style="--d:.24s" data-img="/assets/img/demos/barbier/salon-900.avif">
+      <div class="ligne" data-anim data-img="/assets/img/demos/barbier/salon-900.avif">
         <span class="nom">Coupe enfant<span class="det" style="display:block">Jusqu'à 12 ans, sans shampooing</span></span>
         <span class="duree">20 min</span>
         <span class="prix">18&nbsp;€</span>
@@ -462,13 +472,13 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
     </div>
     <p class="presta-note" data-anim>Le mardi, deux fauteuils restent libres pour ceux qui passent sans avoir réservé.</p>
   </div>
-  <div class="apercu" id="apercu" aria-hidden="true"><img src="" alt=""></div>
+  <div class="apercu" id="apercu" aria-hidden="true"><img alt="" width="250" height="188"></div>
 </section>
 
 <section class="section" id="galerie">
   <div class="wrap">
     <p class="eyebrow" data-anim>En images</p>
-    <h2 data-anim style="--d:.06s">La boutique<br>et ce qui s'y passe.</h2>
+    <h2 data-anim>La boutique<br>et ce qui s'y passe.</h2>
     <div class="galerie-grille">
       <figure class="gal g1" data-anim="masque">
         <picture>
@@ -478,7 +488,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
         </picture>
         <figcaption>Coupe classique, tondeuse et ciseaux</figcaption>
       </figure>
-      <figure class="gal g2" data-anim="masque" style="--d:.08s">
+      <figure class="gal g2" data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/barbier/rasage-900.avif">
           <source type="image/webp" srcset="/assets/img/demos/barbier/rasage-900.webp">
@@ -486,7 +496,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
         </picture>
         <figcaption>Rasage au coupe-chou</figcaption>
       </figure>
-      <figure class="gal g3" data-anim="masque" style="--d:.12s">
+      <figure class="gal g3" data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/barbier/barbe-900.avif">
           <source type="image/webp" srcset="/assets/img/demos/barbier/barbe-900.webp">
@@ -494,7 +504,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
         </picture>
         <figcaption>Taille de barbe</figcaption>
       </figure>
-      <figure class="gal g4" data-anim="masque" style="--d:.16s">
+      <figure class="gal g4" data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/barbier/outils-900.avif">
           <source type="image/webp" srcset="/assets/img/demos/barbier/outils-900.webp">
@@ -502,7 +512,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
         </picture>
         <figcaption>Les ciseaux, affûtés tous les deux mois</figcaption>
       </figure>
-      <figure class="gal g5" data-anim="masque" style="--d:.2s">
+      <figure class="gal g5" data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/barbier/produit-900.avif">
           <source type="image/webp" srcset="/assets/img/demos/barbier/produit-900.webp">
@@ -517,7 +527,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
 <section class="section equipe" id="equipe">
   <div class="wrap">
     <p class="eyebrow" data-anim>Au fauteuil</p>
-    <h2 data-anim style="--d:.06s">Quatre paires de mains,<br>quatre façons de couper.</h2>
+    <h2 data-anim>Trois paires de mains,<br>trois façons de couper.</h2>
     <div class="equipe-grille">
       <figure class="tete" data-anim="masque">
         <picture>
@@ -532,7 +542,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
             de couper à la tondeuse ce qui peut se couper aux ciseaux.</p>
         </figcaption>
       </figure>
-      <figure class="tete" data-anim="masque" style="--d:.08s">
+      <figure class="tete" data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/barbier/equipe-2-640.avif">
           <source type="image/webp" srcset="/assets/img/demos/barbier/equipe-2-640.webp">
@@ -545,7 +555,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
             et il travaille vite sans jamais bâcler la finition.</p>
         </figcaption>
       </figure>
-      <figure class="tete" data-anim="masque" style="--d:.16s">
+      <figure class="tete" data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/barbier/equipe-3-640.avif">
           <source type="image/webp" srcset="/assets/img/demos/barbier/equipe-3-640.webp">
@@ -565,17 +575,17 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
 <section class="section produits" id="produits">
   <div class="wrap">
     <p class="eyebrow" data-anim>À emporter</p>
-    <h2 data-anim style="--d:.06s">Ce qu'on utilise,<br>vous pouvez le rapporter chez vous.</h2>
+    <h2 data-anim>Ce qu'on utilise,<br>vous pouvez le rapporter chez vous.</h2>
     <div class="produits-grille">
       <div class="produits-liste">
-        <div class="prod" data-anim style="--d:.1s"><b>Huile à barbe</b><span>cèdre et petit grain, 30 ml</span><span class="p">19&nbsp;€</span></div>
-        <div class="prod" data-anim style="--d:.14s"><b>Baume après-rasage</b><span>sans alcool, 100 ml</span><span class="p">16&nbsp;€</span></div>
-        <div class="prod" data-anim style="--d:.18s"><b>Pommade coiffante</b><span>tenue moyenne, effet mat, 100 ml</span><span class="p">18&nbsp;€</span></div>
-        <div class="prod" data-anim style="--d:.22s"><b>Savon de rasage</b><span>bol en céramique de Saint-Jean-de-Fos</span><span class="p">24&nbsp;€</span></div>
-        <div class="prod" data-anim style="--d:.26s"><b>Blaireau</b><span>poils synthétiques, manche en olivier</span><span class="p">39&nbsp;€</span></div>
-        <div class="prod" data-anim style="--d:.3s"><b>Peigne en corne</b><span>fabriqué dans l'Ariège</span><span class="p">22&nbsp;€</span></div>
+        <div class="prod" data-anim><b>Huile à barbe</b><span>cèdre et petit grain, 30 ml</span><span class="p">19&nbsp;€</span></div>
+        <div class="prod" data-anim><b>Baume après-rasage</b><span>sans alcool, 100 ml</span><span class="p">16&nbsp;€</span></div>
+        <div class="prod" data-anim><b>Pommade coiffante</b><span>tenue moyenne, effet mat, 100 ml</span><span class="p">18&nbsp;€</span></div>
+        <div class="prod" data-anim><b>Savon de rasage</b><span>bol en céramique de Saint-Jean-de-Fos</span><span class="p">24&nbsp;€</span></div>
+        <div class="prod" data-anim><b>Blaireau</b><span>poils synthétiques, manche en olivier</span><span class="p">39&nbsp;€</span></div>
+        <div class="prod" data-anim><b>Peigne en corne</b><span>fabriqué dans l'Ariège</span><span class="p">22&nbsp;€</span></div>
       </div>
-      <figure data-anim="masque" style="--d:.12s">
+      <figure data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/barbier/produit-900.avif">
           <source type="image/webp" srcset="/assets/img/demos/barbier/produit-900.webp">
@@ -590,9 +600,9 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
   <div class="wrap avis-tete">
     <div>
       <p class="eyebrow" data-anim>Ce qu'on nous dit</p>
-      <h2 data-anim style="--d:.06s">Les clients parlent<br>mieux que nous.</h2>
+      <h2 data-anim>Les clients parlent<br>mieux que nous.</h2>
     </div>
-    <p class="note" data-anim style="--d:.12s">
+    <p class="note" data-anim>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 6.8L12 17.8 5.7 21l1.3-6.8-5-4.8 7-.9z"/></svg>
       4,8 sur 312 avis Google
     </p>
@@ -624,7 +634,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
 <section class="section" id="faq">
   <div class="wrap">
     <p class="eyebrow" data-anim>Questions fréquentes</p>
-    <h2 data-anim style="--d:.06s">Avant de venir.</h2>
+    <h2 data-anim>Avant de venir.</h2>
     <div class="faq-liste">
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Faut-il réserver ?<i></i></button>
@@ -658,9 +668,9 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
 <section class="section presta" id="rdv">
   <div class="wrap">
     <p class="eyebrow" data-anim>Rendez-vous</p>
-    <h2 data-anim style="--d:.06s">Choisissez votre créneau.</h2>
+    <h2 data-anim>Choisissez votre créneau.</h2>
     <div class="rdv-grille">
-      <form id="formulaire" data-anim style="--d:.1s" novalidate>
+      <form id="formulaire" data-anim novalidate>
         <div class="duo">
           <div class="champ">
             <label for="nom">Votre nom</label>
@@ -709,7 +719,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
       </form>
 
       <div class="infos">
-        <div class="bloc-info" data-anim style="--d:.14s">
+        <div class="bloc-info" data-anim>
           <h3>Horaires</h3>
           <div class="horaires">
             <div class="ferme"><span>Lundi</span><b>Fermé</b></div>
@@ -721,7 +731,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
             <div class="ferme"><span>Dimanche</span><b>Fermé</b></div>
           </div>
         </div>
-        <div class="bloc-info" data-anim style="--d:.2s">
+        <div class="bloc-info" data-anim>
           <h3>Venir</h3>
           <div class="acces">
             <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
@@ -769,14 +779,14 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
   </div>
   <div class="wrap bas">
     <span>Mardi au samedi, fermé dimanche et lundi</span>
-    <span>Site de démonstration réalisé par Comète</span>
+    <span>Site de démonstration réalisé par L'Agence du Sud</span>
   </div>
 </footer>
 
 <div class="comete-bandeau">
   <b>Démo</b>
-  <p>Ce site n'existe pas : c'est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
-  <a href="../index.html#offre">Voir l'offre Comète</a>
+  <p>Ce site n'existe pas : c'est une démonstration réalisée par L'Agence du Sud pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
+  <a href="../index.html#offre">Voir l'offre de l'agence</a>
 </div>
 
 <script>
@@ -784,16 +794,7 @@ footer{background:var(--noir-2);border-top:1px solid rgba(240,233,220,.14);posit
   var doux = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* révélations au défilement */
-  var cibles = document.querySelectorAll('[data-anim]');
-  if (doux) { cibles.forEach(function(el){ el.classList.add('vu'); }); }
-  else {
-    var io = new IntersectionObserver(function(entrees){
-      entrees.forEach(function(e){
-        if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); }
-      });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
-    cibles.forEach(function(el){ io.observe(el); });
-  }
+  // les apparitions sont en CSS : rien à piloter ici
 
   /* entête collée + barre de progression + parallaxe */
   var entete = document.getElementById('entete');

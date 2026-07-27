@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Démonstration Comète : site vitrine d'un hôtel à Sète. Chambres, piscine, spa, table et réservation.">
+<meta name="description" content="Démonstration L'Agence du Sud : site vitrine d'un hôtel à Sète. Chambres, piscine, spa, table et réservation.">
 <meta name="theme-color" content="#1B2E30">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Démo · Hôtel des Cigales, Sète | Comète</title>
+<title>Démo · Hôtel des Cigales, Sète | L'Agence du Sud</title>
 <link rel="preload" as="image" href="/assets/img/demos/hotel/hero-1800.avif" fetchpriority="high">
 <link rel="stylesheet" href="/assets/fonts/demos/hotel.css">
 <style>
@@ -104,10 +104,21 @@ nav a:hover::after{transform:scaleX(1);transform-origin:0 50%}
 .atout span{display:block;margin-top:.5rem;font-size:.94rem;color:rgba(246,241,232,.72)}
 
 /* ---------- révélations ---------- */
-[data-anim]{opacity:0;transform:translateY(26px);transition:opacity 1s var(--e),transform 1s var(--e);
-  transition-delay:var(--d,0s)}
-[data-anim="masque"]{transform:none;clip-path:inset(0 0 100% 0)}
-[data-anim].vu{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+/* Apparition au défilement, pilotée par le défilement lui-même, sans JavaScript.
+   Le contenu est visible par défaut : si le navigateur ne connaît pas
+   animation-timeline, il ne se passe rien et rien ne manque. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-anim]{
+      animation: apparition linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 24%;
+    }
+    [data-anim="masque"]{ animation-name: devoile }
+    @keyframes apparition{ from{opacity:0;translate:0 20px} to{opacity:1;translate:0 0} }
+    @keyframes devoile{ from{opacity:0;clip-path:inset(0 0 100% 0)} to{opacity:1;clip-path:inset(0 0 0 0)} }
+  }
+}
 
 /* ---------- la maison ---------- */
 .maison-grille{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
@@ -253,12 +264,11 @@ footer{background:var(--encre);color:var(--sable)}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
-  [data-anim]{opacity:1;transform:none;clip-path:none}
   .hero h1 .l>span{transform:none}
   .hero .eyebrow,.hero p.intro,.barre-res{opacity:1}
 }
 
-/* Bandeau Comète posé sur les démos */
+/* Bandeau L'Agence du Sud posé sur les démos */
 .comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
  align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
  background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
@@ -319,9 +329,9 @@ footer{background:var(--encre);color:var(--sable)}
 <section class="atouts">
   <div class="wrap">
     <div class="atout" data-anim><b data-compteur="12">0</b><span>chambres, pas une de plus</span></div>
-    <div class="atout" data-anim style="--d:.06s"><b data-compteur="28">0</b><span>degrés dans la piscine</span></div>
-    <div class="atout" data-anim style="--d:.12s"><b data-compteur="10">0</b><span>minutes des plages de Sète</span></div>
-    <div class="atout" data-anim style="--d:.18s"><b>1934</b><span>année de la bâtisse</span></div>
+    <div class="atout" data-anim><b data-compteur="28">0</b><span>degrés dans la piscine</span></div>
+    <div class="atout" data-anim><b data-compteur="10">0</b><span>minutes des plages de Sète</span></div>
+    <div class="atout" data-anim><b>1934</b><span>année de la bâtisse</span></div>
   </div>
 </section>
 
@@ -329,16 +339,16 @@ footer{background:var(--encre);color:var(--sable)}
   <div class="wrap maison-grille">
     <div>
       <p class="eyebrow" data-anim>La maison</p>
-      <h2 data-anim style="--d:.06s">Douze chambres<br>et beaucoup de silence.</h2>
-      <p data-anim style="--d:.12s">La maison a été construite en 1934 par un négociant en vin de Sète.
+      <h2 data-anim>Douze chambres<br>et beaucoup de silence.</h2>
+      <p data-anim>La maison a été construite en 1934 par un négociant en vin de Sète.
         Nous l'avons reprise en 2015, gardé les carrelages d'origine, refait les toitures et ouvert les
         chambres sur le jardin.</p>
-      <p data-anim style="--d:.16s">Il n'y a pas de télévision dans les chambres, pas de séminaire, pas de
+      <p data-anim>Il n'y a pas de télévision dans les chambres, pas de séminaire, pas de
         groupe. Le portail se ferme à 23h et le seul bruit qui reste est celui des cigales, jusqu'à la
         tombée de la nuit.</p>
-      <p class="signature" data-anim style="--d:.2s">Claire et Vincent Aubanel, Sète</p>
+      <p class="signature" data-anim>Claire et Vincent Aubanel, Sète</p>
     </div>
-    <figure class="maison-img" data-anim="masque" style="--d:.1s">
+    <figure class="maison-img" data-anim="masque">
       <picture>
         <source type="image/avif" srcset="/assets/img/demos/hotel/jardin-900.avif">
         <source type="image/webp" srcset="/assets/img/demos/hotel/jardin-900.webp">
@@ -353,9 +363,9 @@ footer{background:var(--encre);color:var(--sable)}
     <div class="ch-tete">
       <div>
         <p class="eyebrow" data-anim>Les chambres</p>
-        <h2 data-anim style="--d:.06s">Trois catégories,<br>toutes sur le jardin.</h2>
+        <h2 data-anim>Trois catégories,<br>toutes sur le jardin.</h2>
       </div>
-      <p data-anim style="--d:.12s">Draps en lin lavé, savon de Marseille, ventilateur de plafond et
+      <p data-anim>Draps en lin lavé, savon de Marseille, ventilateur de plafond et
         climatisation. Petit-déjeuner à 14&nbsp;€ par personne, servi de 8h à 10h30.</p>
     </div>
 
@@ -423,7 +433,7 @@ footer{background:var(--encre);color:var(--sable)}
 <section class="section" id="table">
   <div class="wrap">
     <p class="eyebrow" data-anim>La table et le spa</p>
-    <h2 data-anim style="--d:.06s">Deux raisons<br>de ne pas ressortir.</h2>
+    <h2 data-anim>Deux raisons<br>de ne pas ressortir.</h2>
     <div class="duo-blocs" style="margin-top:2.8rem">
       <article class="bloc-photo" data-anim="masque">
         <picture>
@@ -442,7 +452,7 @@ footer{background:var(--encre);color:var(--sable)}
           </ul>
         </div>
       </article>
-      <article class="bloc-photo" data-anim="masque" style="--d:.08s">
+      <article class="bloc-photo" data-anim="masque">
         <picture>
           <source type="image/avif" srcset="/assets/img/demos/hotel/spa-900.avif">
           <source type="image/webp" srcset="/assets/img/demos/hotel/spa-900.webp">
@@ -466,7 +476,7 @@ footer{background:var(--encre);color:var(--sable)}
 <section class="autour" id="autour">
   <div class="wrap">
     <p class="eyebrow" data-anim>Autour de l'hôtel</p>
-    <h2 data-anim style="--d:.06s">Ce qu'il y a<br>à faire dehors.</h2>
+    <h2 data-anim>Ce qu'il y a<br>à faire dehors.</h2>
   </div>
   <div class="rail" id="rail">
     <figure><picture>
@@ -502,9 +512,9 @@ footer{background:var(--encre);color:var(--sable)}
   <div class="wrap avis-tete">
     <div>
       <p class="eyebrow" data-anim>Les voyageurs</p>
-      <h2 data-anim style="--d:.06s">Ce qu'on nous laisse<br>dans le livre d'or.</h2>
+      <h2 data-anim>Ce qu'on nous laisse<br>dans le livre d'or.</h2>
     </div>
-    <p class="note" data-anim style="--d:.12s">
+    <p class="note" data-anim>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 6.8L12 17.8 5.7 21l1.3-6.8-5-4.8 7-.9z"/></svg>
       9,2 sur 10, 274 séjours notés
     </p>
@@ -536,9 +546,9 @@ footer{background:var(--encre);color:var(--sable)}
 <section class="section reserver" id="reserver">
   <div class="wrap">
     <p class="eyebrow" data-anim>Réserver</p>
-    <h2 data-anim style="--d:.06s">Dites-nous vos dates.</h2>
+    <h2 data-anim>Dites-nous vos dates.</h2>
     <div class="res-grille">
-      <form id="formulaire" data-anim style="--d:.1s" novalidate>
+      <form id="formulaire" data-anim novalidate>
         <div class="duo">
           <div class="champ"><label for="nom">Votre nom</label>
             <input id="nom" name="nom" type="text" autocomplete="name" required></div>
@@ -572,7 +582,7 @@ footer{background:var(--encre);color:var(--sable)}
       </form>
 
       <div class="pratique">
-        <div data-anim style="--d:.14s">
+        <div data-anim>
           <h3>Bon à savoir</h3>
           <div class="tarifs">
             <div><span>Arrivée</span><b>à partir de 15h</b></div>
@@ -583,7 +593,7 @@ footer{background:var(--encre);color:var(--sable)}
             <div><span>Saison haute</span><b>du 1er juillet au 31 août</b></div>
           </div>
         </div>
-        <div data-anim style="--d:.2s">
+        <div data-anim>
           <h3>Venir</h3>
           <div class="acces">
             <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
@@ -630,28 +640,21 @@ footer{background:var(--encre);color:var(--sable)}
   </div>
   <div class="wrap bas">
     <span>Ouvert du 15 mars au 5 novembre</span>
-    <span>Site de démonstration réalisé par Comète</span>
+    <span>Site de démonstration réalisé par L'Agence du Sud</span>
   </div>
 </footer>
 
 <div class="comete-bandeau">
   <b>Démo</b>
-  <p>Ce site n'existe pas : c'est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
-  <a href="../index.html#offre">Voir l'offre Comète</a>
+  <p>Ce site n'existe pas : c'est une démonstration réalisée par L'Agence du Sud pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
+  <a href="../index.html#offre">Voir l'offre de l'agence</a>
 </div>
 
 <script>
 (function(){
   var doux = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var cibles = document.querySelectorAll('[data-anim]');
-  if (doux) { cibles.forEach(function(el){ el.classList.add('vu'); }); }
-  else {
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
-    cibles.forEach(function(el){ io.observe(el); });
-  }
+  // les apparitions sont en CSS : rien à piloter ici
 
   var entete = document.getElementById('entete');
   var tic = false;

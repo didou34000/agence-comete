@@ -1,5 +1,5 @@
 /* =============================================================
-   COMÈTE, feuille de style unique
+   L'AGENCE DU SUD, feuille de style unique
    -------------------------------------------------------------
    Sommaire
    01. Polices
@@ -540,8 +540,8 @@ p { text-wrap: pretty; }
 
 /* Soulignement manuscrit */
 .griffe {
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8Q15 2 30 7T60 7T90 7T118 6' fill='none' stroke='%23FF4D00' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat bottom / 100% .13em;
-  padding-bottom: .15em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8Q15 2 30 7T60 7T90 7T118 6' fill='none' stroke='%23FF4D00' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat bottom .06em left / 100% .13em;
+  padding-bottom: .08em;
 }
 
 .hero__sous-titre {
@@ -663,36 +663,46 @@ p { text-wrap: pretty; }
 .badge-prix:hover .badge-prix__anneau { rotate: 40deg; }
 
 /* ====================== 09. BANDEAU DÉFILANT ====================== *
- * Réparé : la piste contient deux groupes identiques, chaque groupe
- * dépasse 3000px, donc translater de -50 % boucle sans trou jusqu'à
- * un écran de 3000px de large.                                      */
+ * L'inclinaison est portée par le ruban, jamais par la piste : une piste
+ * large de plusieurs milliers de pixels, inclinée, verrait son extrémité
+ * dériver de plus de cent pixels vers le haut et sortir du bandeau.
+ * Le ruban est plus large que la page pour que ses coins inclinés la
+ * couvrent, et il rogne lui-même sa piste, donc avant sa propre rotation.
+ * La piste tient deux groupes identiques : translater de -50 % ramène
+ * exactement au même point, la boucle est invisible à toute largeur.   */
 
 .ruban {
   background: var(--encre); color: var(--txt-inv);
   overflow: clip;
-}
-.ruban__bande {
-  rotate: -1.1deg;
-  scale: 1.06;
-  padding-block: var(--sp-3);
-  white-space: nowrap;
+  rotate: -1.2deg;
+  width: 106%; margin-inline: -3%;
+  margin-block: clamp(var(--sp-5), 3vw, var(--sp-7));
+  border-block: 1px solid color-mix(in oklab, var(--soleil) 55%, transparent);
 }
 .ruban__piste {
   display: flex; width: max-content;
-  animation: defile 42s linear infinite;
+  padding-block: var(--sp-3);
+  animation: defile 38s linear infinite;
 }
-.ruban__piste > span {
+.ruban:hover .ruban__piste { animation-play-state: paused; }
+.ruban__groupe { display: flex; align-items: center; }
+.ruban__groupe > span {
+  display: flex; align-items: center; gap: var(--sp-5);
+  padding-right: var(--sp-5);
   font-size: var(--fs-m); font-weight: 500;
-  letter-spacing: .04em;
-  padding-right: var(--sp-6);
+  white-space: nowrap;
 }
-.ruban__piste b { color: var(--soleil); font-weight: 400; padding-inline: var(--sp-2); }
+.ruban__groupe > span::after {
+  content: ""; flex: none;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--soleil);
+}
 @keyframes defile { to { translate: -50% 0; } }
 
 /* ====================== 10. BANDE DE PREUVE ====================== */
 
 .preuve__clients {
-  display: flex; flex-wrap: wrap; align-items: baseline;
+  display: flex; flex-wrap: wrap; align-items: center;
   gap: var(--sp-3) var(--sp-7);
 }
 .preuve__label {
@@ -701,15 +711,40 @@ p { text-wrap: pretty; }
   color: var(--txt-3);
   flex: none;
 }
-.preuve__clients ul { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-6); }
-.preuve__clients a {
-  font-family: var(--font-display);
-  font-size: var(--fs-l);
-  color: var(--txt-2);
-  text-decoration: none;
-  transition: color var(--t) var(--ease);
+/* Bande de logos clients. Les trois marques n'ont pas la même couleur
+   d'origine (une claire, une sombre, une verte) : on les ramène toutes à
+   l'encre du site pour que la bande se lise comme une seule ligne, et la
+   couleur revient au survol. */
+.preuve__logos {
+  list-style: none;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--sp-4) var(--sp-7);
 }
-.preuve__clients a:hover { color: var(--txt); }
+.preuve__logos li { display: flex; }
+.preuve__logos a {
+  display: flex; align-items: center;
+  text-decoration: none;
+  color: var(--txt-2);
+}
+.preuve__logos img {
+  height: clamp(2.1rem, 3.6vw, 3rem); width: auto;
+  filter: brightness(0);
+  opacity: .55;
+  transition: opacity var(--t) var(--ease), filter var(--t) var(--ease);
+}
+.preuve__logos a:hover img,
+.preuve__logos a:focus-visible img { opacity: 1; }
+.logo-iksee {
+  gap: .45em;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.9vw, 2.35rem);
+  line-height: 1;
+  color: var(--encre);
+  opacity: .55;
+  transition: opacity var(--t) var(--ease), color var(--t) var(--ease);
+}
+.logo-iksee svg { height: .72em; width: auto; }
+.logo-iksee:hover, .logo-iksee:focus-visible { opacity: 1; }
 
 .faits {
   display: grid;

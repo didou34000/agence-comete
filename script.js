@@ -1,5 +1,5 @@
 /* =============================================================
-   COMÈTE, comportements
+   L'AGENCE DU SUD, comportements
    -------------------------------------------------------------
    Doctrine : le CSS s'occupe de l'apparence et des apparitions au
    défilement (`animation-timeline: view()`). Le JavaScript ne gère
@@ -17,7 +17,7 @@
    Exemple : "https://formspree.io/f/xxxxxxxx"
    ------------------------------------------------------------- */
 const POINT_ENVOI = '';
-const MAIL_CONTACT = 'bonjour@agence-comete.fr';
+const MAIL_CONTACT = 'bonjour@agence-du-sud.fr';
 
 const mouvementReduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $  = (s, r = document) => r.querySelector(s);

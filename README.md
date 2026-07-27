@@ -1,4 +1,4 @@
-# Comète · Agence web à Montpellier
+# L'Agence du Sud · Agence web à Montpellier
 
 Site vitrine statique de l'agence : offre « site 4 pages à 599 € avec maquette
 offerte », réalisations détaillées, pages services, process, FAQ et contact.
@@ -68,7 +68,7 @@ Puis ouvrir http://localhost:4173
    serverless…). Tant que la constante est vide, le formulaire ouvre le
    logiciel de mail, ça fonctionne, mais beaucoup de visiteurs mobiles n'ont
    pas de client mail configuré, donc c'est le premier point à traiter.
-2. **Vérifier l'adresse e-mail** `bonjour@agence-comete.fr` (elle apparaît
+2. **Vérifier l'adresse e-mail** `bonjour@agence-du-sud.fr` (elle apparaît
    dans `script.js`, les pages légales et le pied de page).
 3. **Renseigner les réseaux sociaux** dans le pied de page : les liens
    Instagram et LinkedIn pointent aujourd'hui vers les pages d'accueil des

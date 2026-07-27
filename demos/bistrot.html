@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Démonstration Comète : site vitrine d'un bistrot à Montpellier. Carte du jour, cave, formule du midi, réservation.">
+<meta name="description" content="Démonstration L'Agence du Sud : site vitrine d'un bistrot à Montpellier. Carte du jour, cave, formule du midi, réservation.">
 <meta name="theme-color" content="#6E1B26">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Démo · Le Comptoir du Peyrou, bistrot à Montpellier | Comète</title>
+<title>Démo · Le Comptoir du Peyrou, bistrot à Montpellier | L'Agence du Sud</title>
 <link rel="preload" as="image" href="/assets/img/demos/bistrot/hero-1800.avif" fetchpriority="high">
 <link rel="stylesheet" href="/assets/fonts/demos/bistrot.css">
 <style>
@@ -101,10 +101,21 @@ nav a:hover::after{transform:scaleX(1);transform-origin:0 50%}
 @keyframes glisse{to{transform:translateX(-50%)}}
 
 /* ---------- révélations ---------- */
-[data-anim]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--e),transform .9s var(--e);
-  transition-delay:var(--d,0s)}
-[data-anim="masque"]{transform:none;clip-path:inset(0 0 100% 0)}
-[data-anim].vu{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+/* Apparition au défilement, pilotée par le défilement lui-même, sans JavaScript.
+   Le contenu est visible par défaut : si le navigateur ne connaît pas
+   animation-timeline, il ne se passe rien et rien ne manque. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-anim]{
+      animation: apparition linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 24%;
+    }
+    [data-anim="masque"]{ animation-name: devoile }
+    @keyframes apparition{ from{opacity:0;translate:0 20px} to{opacity:1;translate:0 0} }
+    @keyframes devoile{ from{opacity:0;clip-path:inset(0 0 100% 0)} to{opacity:1;clip-path:inset(0 0 0 0)} }
+  }
+}
 
 /* ---------- la carte ---------- */
 .carte{background:var(--papier)}
@@ -266,12 +277,11 @@ footer{background:var(--encre);color:var(--creme)}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
-  [data-anim]{opacity:1;transform:none;clip-path:none}
   .hero h1 .l>span{transform:none}
   .hero-eyebrow,.hero-txt,.hero-actions,.ouvert{opacity:1}
 }
 
-/* Bandeau Comète posé sur les démos */
+/* Bandeau L'Agence du Sud posé sur les démos */
 .comete-bandeau{position:fixed;inset:auto 0 0 0;z-index:9999;display:flex;flex-wrap:wrap;
  align-items:center;gap:.4rem 1.25rem;padding:.7rem clamp(1rem,4vw,3.5rem) calc(.7rem + env(safe-area-inset-bottom));
  background:#17130E;color:#FAF5EC;border-top:2px solid #FF4D00;
@@ -340,9 +350,9 @@ footer{background:var(--encre);color:var(--creme)}
     <div class="carte-tete">
       <div>
         <p class="eyebrow" data-anim>L'ardoise</p>
-        <h2 data-anim style="--d:.06s">Ce qu'on sert<br>aujourd'hui.</h2>
+        <h2 data-anim>Ce qu'on sert<br>aujourd'hui.</h2>
       </div>
-      <p data-anim style="--d:.12s">La carte tient sur une ardoise parce qu'elle dépend du marché.
+      <p data-anim>La carte tient sur une ardoise parce qu'elle dépend du marché.
         Trois entrées, trois plats, trois desserts, et rien qui traîne au congélateur.</p>
     </div>
 
@@ -363,7 +373,7 @@ footer{background:var(--encre);color:var(--creme)}
         </div>
       </div>
 
-      <div class="colonne" data-anim style="--d:.06s">
+      <div class="colonne" data-anim>
         <h3>Plats</h3>
         <div class="plat" data-vitrine="plat">
           <div class="t"><span>Encornets à la plancha</span><span class="prix">21&nbsp;€</span></div>
@@ -379,7 +389,7 @@ footer{background:var(--encre);color:var(--creme)}
         </div>
       </div>
 
-      <div class="colonne" data-anim style="--d:.12s">
+      <div class="colonne" data-anim>
         <h3>Desserts</h3>
         <div class="plat" data-vitrine="dessert">
           <div class="t"><span>Tarte au citron</span><span class="prix">8&nbsp;€</span></div>
@@ -395,7 +405,7 @@ footer{background:var(--encre);color:var(--creme)}
         </div>
       </div>
 
-      <figure class="vitrine" data-anim="masque" style="--d:.16s">
+      <figure class="vitrine" data-anim="masque">
         <img class="actif" data-cle="entree" src="/assets/img/demos/bistrot/entree-900.webp" alt="Assiette d'entrée dressée" width="900" height="1200" loading="lazy">
         <img data-cle="plat" src="/assets/img/demos/bistrot/plat-900.webp" alt="Plat principal dressé à l'assiette" width="900" height="1200" loading="lazy">
         <img data-cle="dessert" src="/assets/img/demos/bistrot/dessert-900.webp" alt="Dessert servi à l'assiette" width="900" height="1200" loading="lazy">
@@ -414,17 +424,17 @@ footer{background:var(--encre);color:var(--creme)}
   <div class="wrap midi-grille">
     <div>
       <p class="eyebrow" style="color:var(--dore)" data-anim>Du mardi au vendredi</p>
-      <h2 data-anim style="--d:.06s">La formule du midi.</h2>
-      <p data-anim style="--d:.12s">Servie de 12h à 14h. Un plat qui change tous les jours, une entrée ou un
+      <h2 data-anim>La formule du midi.</h2>
+      <p data-anim>Servie de 12h à 14h. Un plat qui change tous les jours, une entrée ou un
         dessert selon votre faim, et un café pour finir. On tient l'heure : si vous reprenez le travail à 14h,
         prévenez en arrivant, on vous sert en premier.</p>
       <div class="chiffres" style="border-color:rgba(251,246,236,.24)">
-        <div data-anim style="--d:.16s"><b style="color:var(--dore)" data-compteur="45">0</b><span style="color:rgba(251,246,236,.68)">couverts en salle</span></div>
-        <div data-anim style="--d:.2s"><b style="color:var(--dore)" data-compteur="30">0</b><span style="color:rgba(251,246,236,.68)">en terrasse</span></div>
-        <div data-anim style="--d:.24s"><b style="color:var(--dore)" data-compteur="14">0</b><span style="color:rgba(251,246,236,.68)">ans place du Peyrou</span></div>
+        <div data-anim><b style="color:var(--dore)" data-compteur="45">0</b><span style="color:rgba(251,246,236,.68)">couverts en salle</span></div>
+        <div data-anim><b style="color:var(--dore)" data-compteur="30">0</b><span style="color:rgba(251,246,236,.68)">en terrasse</span></div>
+        <div data-anim><b style="color:var(--dore)" data-compteur="14">0</b><span style="color:rgba(251,246,236,.68)">ans place du Peyrou</span></div>
       </div>
     </div>
-    <div class="formule" data-anim style="--d:.1s">
+    <div class="formule" data-anim>
       <p class="gros">19<small>&nbsp;€</small></p>
       <ul>
         <li>Plat du jour, annoncé à l'ardoise le matin</li>
@@ -440,22 +450,22 @@ footer{background:var(--encre);color:var(--creme)}
 <section class="section" id="cave">
   <div class="wrap">
     <p class="eyebrow" data-anim>La cave</p>
-    <h2 data-anim style="--d:.06s">Quarante références,<br>pas une de plus.</h2>
+    <h2 data-anim>Quarante références,<br>pas une de plus.</h2>
     <div class="cave-grille">
-      <div class="region" data-anim style="--d:.1s">
+      <div class="region" data-anim>
         <h3>Languedoc</h3>
         <div><span>Pic Saint-Loup, Domaine de l'Hortus</span><span>32&nbsp;€</span></div>
         <div><span>Terrasses du Larzac, Mas Cal Demoura</span><span>38&nbsp;€</span></div>
         <div><span>Faugères, Domaine Léon Barral</span><span>46&nbsp;€</span></div>
         <div><span>Picpoul de Pinet, Félines Jourdan</span><span>24&nbsp;€</span></div>
       </div>
-      <div class="region" data-anim style="--d:.16s">
+      <div class="region" data-anim>
         <h3>Rhône et Provence</h3>
         <div><span>Côtes du Rhône, Domaine Gramenon</span><span>36&nbsp;€</span></div>
         <div><span>Cairanne, Domaine Oratoire Saint-Martin</span><span>34&nbsp;€</span></div>
         <div><span>Bandol rosé, Domaine Tempier</span><span>42&nbsp;€</span></div>
       </div>
-      <div class="region" data-anim style="--d:.22s">
+      <div class="region" data-anim>
         <h3>Au verre</h3>
         <div><span>Le blanc du mois</span><span>4,50&nbsp;€</span></div>
         <div><span>Le rouge du mois</span><span>4,50&nbsp;€</span></div>
@@ -471,7 +481,7 @@ footer{background:var(--encre);color:var(--creme)}
 <section class="galerie" id="galerie">
   <div class="wrap">
     <p class="eyebrow" data-anim>En salle</p>
-    <h2 data-anim style="--d:.06s">Le service, l'assiette,<br>la terrasse.</h2>
+    <h2 data-anim>Le service, l'assiette,<br>la terrasse.</h2>
   </div>
   <div class="rail" id="rail">
     <figure><picture>
@@ -514,14 +524,14 @@ footer{background:var(--encre);color:var(--creme)}
     </figure>
     <div>
       <p class="eyebrow" data-anim>La maison</p>
-      <h2 data-anim style="--d:.06s">Une cuisine,<br>une salle, personne d'autre.</h2>
-      <p data-anim style="--d:.12s">Rémi a ouvert en 2011 après huit ans passés en cuisine à Sète et à Lyon.
+      <h2 data-anim>Une cuisine,<br>une salle, personne d'autre.</h2>
+      <p data-anim>Rémi a ouvert en 2011 après huit ans passés en cuisine à Sète et à Lyon.
         Emmanuelle tient la salle et la cave. Ils sont quatre au total, et c'est toujours l'un d'eux
         qui prend votre commande.</p>
-      <p data-anim style="--d:.16s">Le poisson vient de la criée de Sète, la viande d'un éleveur de l'Aveyron,
+      <p data-anim>Le poisson vient de la criée de Sète, la viande d'un éleveur de l'Aveyron,
         les légumes des Halles. Quand un produit manque, le plat saute : ça arrive, et on préfère ça au congélateur.</p>
       <div class="equipe-duo">
-        <figure data-anim="masque" style="--d:.2s">
+        <figure data-anim="masque">
           <picture>
             <source type="image/avif" srcset="/assets/img/demos/bistrot/equipe-1-640.avif">
             <source type="image/webp" srcset="/assets/img/demos/bistrot/equipe-1-640.webp">
@@ -529,7 +539,7 @@ footer{background:var(--encre);color:var(--creme)}
           </picture>
           <figcaption><b>Rémi</b>En cuisine</figcaption>
         </figure>
-        <figure data-anim="masque" style="--d:.26s">
+        <figure data-anim="masque">
           <picture>
             <source type="image/avif" srcset="/assets/img/demos/bistrot/equipe-2-640.avif">
             <source type="image/webp" srcset="/assets/img/demos/bistrot/equipe-2-640.webp">
@@ -546,9 +556,9 @@ footer{background:var(--encre);color:var(--creme)}
   <div class="wrap avis-tete">
     <div>
       <p class="eyebrow" data-anim>Ce qu'on nous écrit</p>
-      <h2 data-anim style="--d:.06s">Les avis des clients.</h2>
+      <h2 data-anim>Les avis des clients.</h2>
     </div>
-    <p class="note" data-anim style="--d:.12s">
+    <p class="note" data-anim>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 6.8L12 17.8 5.7 21l1.3-6.8-5-4.8 7-.9z"/></svg>
       4,7 sur 486 avis
     </p>
@@ -580,9 +590,9 @@ footer{background:var(--encre);color:var(--creme)}
 <section class="section reserver" id="reserver">
   <div class="wrap">
     <p class="eyebrow" data-anim>Réserver</p>
-    <h2 data-anim style="--d:.06s">Une table, un soir,<br>un nombre de couverts.</h2>
+    <h2 data-anim>Une table, un soir,<br>un nombre de couverts.</h2>
     <div class="res-grille">
-      <form id="formulaire" data-anim style="--d:.1s" novalidate>
+      <form id="formulaire" data-anim novalidate>
         <div class="duo">
           <div class="champ"><label for="nom">Votre nom</label>
             <input id="nom" name="nom" type="text" autocomplete="name" required></div>
@@ -612,7 +622,7 @@ footer{background:var(--encre);color:var(--creme)}
       </form>
 
       <div class="pratique">
-        <div data-anim style="--d:.14s">
+        <div data-anim>
           <h3>Horaires</h3>
           <div class="horaires">
             <div class="ferme"><span>Lundi</span><b>Fermé</b></div>
@@ -621,7 +631,7 @@ footer{background:var(--encre);color:var(--creme)}
             <div><span>Dimanche</span><b>12h à 15h</b></div>
           </div>
         </div>
-        <div data-anim style="--d:.2s">
+        <div data-anim>
           <h3>Venir</h3>
           <div class="acces">
             <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
@@ -669,28 +679,21 @@ footer{background:var(--encre);color:var(--creme)}
   </div>
   <div class="wrap bas">
     <span>Fermé le lundi</span>
-    <span>Site de démonstration réalisé par Comète</span>
+    <span>Site de démonstration réalisé par L'Agence du Sud</span>
   </div>
 </footer>
 
 <div class="comete-bandeau">
   <b>Démo</b>
-  <p>Ce site n'existe pas : c'est une démonstration réalisée par Comète pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
-  <a href="../index.html#offre">Voir l'offre Comète</a>
+  <p>Ce site n'existe pas : c'est une démonstration réalisée par L'Agence du Sud pour montrer à quoi ressemble un site à 599&nbsp;€.</p>
+  <a href="../index.html#offre">Voir l'offre de l'agence</a>
 </div>
 
 <script>
 (function(){
   var doux = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var cibles = document.querySelectorAll('[data-anim]');
-  if (doux) { cibles.forEach(function(el){ el.classList.add('vu'); }); }
-  else {
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
-    cibles.forEach(function(el){ io.observe(el); });
-  }
+  // les apparitions sont en CSS : rien à piloter ici
 
   var entete = document.getElementById('entete');
   var fond = document.getElementById('heroFond');
