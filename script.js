@@ -17,7 +17,7 @@
    Exemple : "https://formspree.io/f/xxxxxxxx"
    ------------------------------------------------------------- */
 const POINT_ENVOI = '';
-const MAIL_CONTACT = 'bonjour@agence-du-sud.fr';
+const MAIL_CONTACT = 'bonjour@lagencedusud.com';
 
 const mouvementReduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $  = (s, r = document) => r.querySelector(s);

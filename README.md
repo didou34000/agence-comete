@@ -68,7 +68,7 @@ Puis ouvrir http://localhost:4173
    serverless…). Tant que la constante est vide, le formulaire ouvre le
    logiciel de mail, ça fonctionne, mais beaucoup de visiteurs mobiles n'ont
    pas de client mail configuré, donc c'est le premier point à traiter.
-2. **Vérifier l'adresse e-mail** `bonjour@agence-du-sud.fr` (elle apparaît
+2. **Vérifier l'adresse e-mail** `bonjour@lagencedusud.com` (elle apparaît
    dans `script.js`, les pages légales et le pied de page).
 3. **Renseigner les réseaux sociaux** dans le pied de page : les liens
    Instagram et LinkedIn pointent aujourd'hui vers les pages d'accueil des

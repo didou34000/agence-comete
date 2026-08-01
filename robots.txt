@@ -6,4 +6,4 @@ Allow: /
 # dans les résultats de recherche comme de vrais commerces.
 Disallow: /demos/
 
-Sitemap: https://agence-du-sud.fr/sitemap.xml
+Sitemap: https://lagencedusud.com/sitemap.xml
