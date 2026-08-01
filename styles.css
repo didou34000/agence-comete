@@ -1126,7 +1126,7 @@ p { text-wrap: pretty; }
 }
 .contact__accroche { font-size: var(--fs-m); color: var(--txt-2); max-width: var(--mesure-etroite); }
 .contact__liste { margin-top: var(--sp-6); }
-.contact__liste li {
+.contact__liste > div {
   display: flex; flex-direction: column; gap: 2px;
   padding-block: var(--sp-4);
   border-bottom: 1px dashed var(--trait-fort);

@@ -142,8 +142,16 @@ if (vues.length > 1 && !mouvementReduit) {
     setTimeout(suivante, PAUSE);
   };
 
-  charger(vues[1]);
-  setTimeout(suivante, PAUSE);
+  // Le carrousel ne concurrence pas le premier affichage : décoder une
+  // capture pendant que la page se peint coûtait 300 ms de fil principal
+  // sur un mobile modeste. On attend le chargement, puis un moment calme.
+  const demarrer = () => { charger(vues[1]); setTimeout(suivante, PAUSE); };
+  const auCalme = () => ('requestIdleCallback' in window)
+    ? requestIdleCallback(demarrer, { timeout: 3000 })
+    : setTimeout(demarrer, 1200);
+
+  if (document.readyState === 'complete') auCalme();
+  else addEventListener('load', auCalme, { once: true });
 }
 
 /* ===== FAQ : une seule question ouverte ===== */
