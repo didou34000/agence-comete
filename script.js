@@ -110,17 +110,18 @@ if (mots.length > 1 && !mouvementReduit) {
   setTimeout(tour, PAUSE);
 }
 
-/* ===== Fenêtre navigateur : les réalisations défilent =====
-   Une seule chose bouge dans le hero : c'est celle-ci.            */
+/* ===== Fenêtre navigateur : le visiteur choisit ce qu'il regarde =====
+   Rien ne bouge tout seul. Une image qui changeait toutes les cinq
+   secondes juste à côté du paragraphe d'accroche captait l'attention
+   par réflexe, en plein milieu de la lecture. On la laisse fixe et on
+   donne la main : une pastille par site, sous la fenêtre.           */
 const vues = $$('[data-vue]');
 const urlVue = $('#urlVue');
 const badgeDemo = $('#badgeDemo');
+const fenetre = $('.fenetre');
 
-if (vues.length > 1 && !mouvementReduit) {
-  const PAUSE = 5000;
-  let i = 0;
-
-  // Charge les images au fil de l'eau plutôt qu'au premier affichage.
+if (vues.length > 1 && fenetre) {
+  // Les captures sont chargées à la demande, pas toutes au premier affichage.
   const charger = el => {
     if (!el) return;
     $$('source[data-srcset]', el.parentElement).forEach(s => {
@@ -129,29 +130,44 @@ if (vues.length > 1 && !mouvementReduit) {
     if (el.dataset.src && !el.getAttribute('src')) el.src = el.dataset.src;
   };
 
-  const suivante = () => {
-    if (document.hidden) return setTimeout(suivante, PAUSE);
-    vues[i].removeAttribute('data-actif');
-    i = (i + 1) % vues.length;
+  const puces = document.createElement('div');
+  puces.className = 'fenetre__puces';
+  puces.setAttribute('role', 'tablist');
+  puces.setAttribute('aria-label', 'Choisir le site à afficher');
+
+  const montrer = i => {
+    vues.forEach((v, n) => {
+      v.toggleAttribute('data-actif', n === i);
+      puces.children[n].setAttribute('aria-selected', String(n === i));
+      puces.children[n].tabIndex = n === i ? 0 : -1;
+    });
     const vue = vues[i];
     charger(vue);
-    vue.setAttribute('data-actif', '');
     if (urlVue && vue.dataset.url) urlVue.textContent = vue.dataset.url;
     badgeDemo?.toggleAttribute('data-visible', vue.hasAttribute('data-demo'));
-    charger(vues[(i + 1) % vues.length]);
-    setTimeout(suivante, PAUSE);
   };
 
-  // Le carrousel ne concurrence pas le premier affichage : décoder une
-  // capture pendant que la page se peint coûtait 300 ms de fil principal
-  // sur un mobile modeste. On attend le chargement, puis un moment calme.
-  const demarrer = () => { charger(vues[1]); setTimeout(suivante, PAUSE); };
-  const auCalme = () => ('requestIdleCallback' in window)
-    ? requestIdleCallback(demarrer, { timeout: 3000 })
-    : setTimeout(demarrer, 1200);
+  vues.forEach((vue, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', vue.dataset.url || `Site ${i + 1}`);
+    b.addEventListener('click', () => montrer(i));
+    // on précharge au survol : le clic paraît instantané
+    b.addEventListener('pointerenter', () => charger(vue));
+    b.addEventListener('keydown', e => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      const suiv = (i + d + vues.length) % vues.length;
+      montrer(suiv);
+      puces.children[suiv].focus();
+    });
+    puces.appendChild(b);
+  });
 
-  if (document.readyState === 'complete') auCalme();
-  else addEventListener('load', auCalme, { once: true });
+  fenetre.after(puces);
+  montrer(0);
 }
 
 /* ===== FAQ : une seule question ouverte ===== */

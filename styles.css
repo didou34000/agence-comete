@@ -483,7 +483,7 @@ p { text-wrap: pretty; }
 
 .hero {
   position: relative;
-  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(4rem, 8vw, 7rem);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2.5rem, 5vw, 4.5rem);
   overflow: clip;                 /* remplace overflow-x:hidden sur body */
 }
 
@@ -671,32 +671,33 @@ p { text-wrap: pretty; }
  * coup d'oeil, sans mouvement ni inclinaison. Les separateurs sont posés
  * en ::after pour qu'aucun ne traîne en fin de ligne au retour à la ligne. */
 
-.expertises {
-  max-width: var(--page); margin-inline: auto;
-  padding-inline: var(--gouttiere);
-  padding-block: clamp(var(--sp-5), 4vw, var(--sp-7));
-}
-.expertises__liste {
-  list-style: none; margin: 0; padding: 0;
-  display: flex; flex-wrap: wrap;
-  align-items: baseline; justify-content: center;
-  gap: .5rem clamp(1rem, 3vw, 2.2rem);
-  border-block: 1px solid var(--trait);
-  padding-block: clamp(1.1rem, 2.6vw, 1.9rem);
-}
-.expertises__liste li {
-  font-size: var(--fs-m);
-  font-weight: 500;
-  display: flex; align-items: baseline;
-  gap: .5rem clamp(1rem, 3vw, 2.2rem);
-  white-space: nowrap;
-}
 /* Le point précède l'élément : aucun ne reste orphelin en fin de ligne. */
-.expertises__liste li + li::before {
-  content: ""; flex: none;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--soleil);
-  translate: 0 -.22em;
+/* Pastilles de la fenêtre : le visiteur choisit la réalisation affichée.
+   Rien ne défile tout seul à côté du texte d'accroche. */
+.fenetre__puces {
+  display: flex; flex-wrap: wrap; justify-content: flex-end;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+  padding-right: var(--sp-2);
+}
+/* La carte de preuve déborde sous la fenêtre à gauche : les pastilles
+   restent à droite pour ne jamais la croiser. */
+@media (max-width: 940px) {
+  .fenetre__puces { justify-content: center; padding-right: 0; }
+}
+.fenetre__puces button {
+  width: 9px; height: 9px; padding: 0;
+  border: 0; border-radius: 50%;
+  background: var(--trait-fort); opacity: .22;
+  cursor: pointer;
+  transition: opacity var(--t) var(--ease), background var(--t) var(--ease), scale var(--t) var(--ease);
+}
+.fenetre__puces button:hover { opacity: .5; }
+.fenetre__puces button[aria-selected="true"] {
+  background: var(--soleil); opacity: 1; scale: 1.25;
+}
+.fenetre__puces button:focus-visible {
+  outline: 2px solid var(--soleil); outline-offset: 3px; opacity: 1;
 }
 
 /* ====================== 10. BANDE DE PREUVE ====================== */
@@ -1071,7 +1072,7 @@ p { text-wrap: pretty; }
 }
 .engagement {
   padding-top: var(--sp-5);
-  border-top: 2px solid #ffffff73;
+  border-top: 2px solid var(--trait-fort);
 }
 .engagement h3 {
   font-family: var(--font-display); font-weight: 400;
@@ -1079,11 +1080,17 @@ p { text-wrap: pretty; }
   line-height: 1.1;
   margin-bottom: var(--sp-3);
 }
-.engagement p { font-size: var(--fs-s); color: #ffffffe0; }
+.engagement p { font-size: var(--fs-s); color: var(--txt-2); }
 
 /* ====================== 18. FAQ ====================== */
 
-.faq { max-width: var(--mesure-large); }
+.faq {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+  gap: 0 var(--sp-8);
+  align-items: start;
+}
+.faq details { break-inside: avoid; }
 .faq details { border-bottom: 1px solid var(--trait); }
 .faq summary {
   display: flex; align-items: center; justify-content: space-between;
