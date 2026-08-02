@@ -9,14 +9,17 @@
    ============================================================= */
 
 /* -------------------------------------------------------------
-   RÉGLAGE À FAIRE UNE FOIS : l'adresse qui reçoit le formulaire.
-   Laissée vide, le formulaire ouvre le logiciel de mail (comme
-   avant). Dès qu'une URL est renseignée (Formspree, Web3Forms,
-   Brevo, une fonction serverless…) l'envoi se fait sans quitter
-   la page, avec message de confirmation.
-   Exemple : "https://formspree.io/f/xxxxxxxx"
+   L'adresse qui reçoit le formulaire se règle à UN SEUL endroit :
+   l'attribut `action` du formulaire, dans index.html. Le script la
+   relit ici, il n'y a donc rien à tenir en double.
+
+   Elle doit être en https : Chrome désactive le remplissage
+   automatique des champs sur tout formulaire qui poste vers un
+   schéma non sécurisé, `mailto:` compris.
+
+   Sans JavaScript, le navigateur poste directement vers cette
+   adresse et Formspree affiche sa page de confirmation.
    ------------------------------------------------------------- */
-const POINT_ENVOI = '';
 const MAIL_CONTACT = 'bonjour@lagencedusud.com';
 
 const mouvementReduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -170,15 +173,19 @@ if (vues.length > 1 && fenetre) {
   montrer(0);
 }
 
-/* ===== FAQ : une seule question ouverte ===== */
-const questions = $$('.faq details');
-questions.forEach(d => d.addEventListener('toggle', () => {
-  if (d.open) questions.forEach(a => { if (a !== d) a.open = false; });
-}));
+/* ===== FAQ =====
+   Plusieurs questions peuvent rester ouvertes en même temps. Refermer
+   les autres au premier clic aurait effacé les trois réponses affichées
+   d'emblée, et obligerait à rouvrir pour comparer deux réponses.       */
 
 /* ===== Formulaire de contact ===== */
 const form = $('#formContact');
 if (form) {
+  // On lit l'attribut, pas la propriété : sans `action`, `form.action`
+  // renvoie l'adresse de la page et on croirait à un point d'envoi.
+  const cible = form.getAttribute('action') || '';
+  const POINT_ENVOI = /^https:\/\//.test(cible) ? cible : '';
+
   const etat = $('.formulaire__etat', form);
   const bouton = $('button[type="submit"]', form);
   const libelleBouton = bouton?.textContent;
@@ -223,7 +230,7 @@ if (form) {
       return;
     }
     const donnees = new FormData(form);
-    if (donnees.get('_appat')) return;          // pot de miel anti-robot
+    if (donnees.get('_gotcha')) return;         // pot de miel anti-robot
 
     if (!POINT_ENVOI) return versMailto(donnees);
 
