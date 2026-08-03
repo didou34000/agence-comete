@@ -247,7 +247,11 @@ if (form) {
       if (!reponse.ok) throw new Error(reponse.status);
       form.reset();
       form.removeAttribute('data-touche');
-      dire('Message reçu. On vous répond sous 24 h, jours ouvrés.', 'ok');
+      dire('');
+      // Le formulaire s'efface au profit du panneau de confirmation :
+      // une ligne de texte ne marque pas assez le passage à l'étape suivante.
+      $('.formulaire__succes', form)?.removeAttribute('hidden');
+      form.setAttribute('data-envoye', '');
     } catch {
       dire('L’envoi a échoué. Écrivez-nous directement à ' + MAIL_CONTACT + '.', 'ko');
     } finally {

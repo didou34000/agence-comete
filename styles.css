@@ -1176,9 +1176,50 @@ p { text-wrap: pretty; }
 .formulaire__pot { position: absolute; left: -9999px; }
 .formulaire__note { font-size: var(--fs-xs); color: var(--txt-3); }
 .formulaire__etat { font-size: var(--fs-s); font-weight: 500; min-height: 1.5rem; }
-.formulaire__etat[data-ton="ok"]  { color: #1E7A46; }
 .formulaire__etat[data-ton="ko"]  { color: #C0392B; }
 .btn[aria-busy="true"] { opacity: .7; pointer-events: none; }
+
+/* Confirmation d'envoi. Une ligne de texte vert ne dit pas assez qu'il
+   s'est passé quelque chose : le formulaire s'efface et laisse la place
+   à une coche qui se dessine. Le message reste lisible sans animation. */
+.formulaire[data-envoye] > *:not(.formulaire__succes) { display: none; }
+.formulaire__succes[hidden] { display: none; }
+.formulaire__succes {
+  display: grid; justify-items: center; text-align: center;
+  gap: var(--sp-4);
+  padding-block: var(--sp-6);
+  animation: succes-entre var(--t-long) var(--ease) both;
+}
+.formulaire__coche {
+  width: 4.5rem; height: 4.5rem;
+  fill: none; stroke: var(--accent-txt);
+  stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+}
+.formulaire__coche circle {
+  stroke-dasharray: 151; stroke-dashoffset: 151;
+  animation: trace-cercle 620ms var(--ease) 80ms forwards;
+}
+.formulaire__coche path {
+  stroke-dasharray: 34; stroke-dashoffset: 34;
+  animation: trace-coche 320ms var(--ease) 520ms forwards;
+}
+.formulaire__succes-titre {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: var(--fs-2xl); line-height: 1.1;
+}
+.formulaire__succes-texte {
+  font-size: var(--fs-s); color: var(--txt-2);
+  max-width: 34ch;
+}
+@keyframes succes-entre { from { opacity: 0; translate: 0 10px; } }
+@keyframes trace-cercle { to { stroke-dashoffset: 0; } }
+@keyframes trace-coche  { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .formulaire__succes { animation: none; }
+  .formulaire__coche circle,
+  .formulaire__coche path { animation: none; stroke-dashoffset: 0; }
+}
 
 /* ====================== 20. PIED DE PAGE ====================== */
 
