@@ -136,21 +136,27 @@ async function parResend(d) {
 async function parSmtp(d) {
   const { pourMoi, pourLui } = messages(d);
   const { default: nodemailer } = await import('nodemailer');
+  const boite = process.env.SMTP_USER || DESTINATAIRE;
   const transport = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'ssl0.ovh.net',
     port: Number(process.env.SMTP_PORT || 465),
     secure: true,
-    auth: { user: process.env.SMTP_USER || DESTINATAIRE, pass: process.env.SMTP_PASS },
+    auth: { user: boite, pass: process.env.SMTP_PASS },
   });
 
+  // L'expéditeur DOIT être la boîte qui s'authentifie : OVH refuse un
+  // From qui ne correspond pas au compte, et le message part en erreur
+  // 550 sans que rien n'indique pourquoi côté visiteur.
+  const de = `L'Agence du Sud <${boite}>`;
+
   await transport.sendMail({
-    from: EXPEDITEUR, to: DESTINATAIRE, replyTo: d.email,
+    from: de, to: DESTINATAIRE, replyTo: d.email,
     subject: pourMoi.sujet, html: pourMoi.html, text: pourMoi.texte,
   });
   let accuse = true;
   try {
     await transport.sendMail({
-      from: EXPEDITEUR, to: d.email, replyTo: DESTINATAIRE,
+      from: de, to: d.email, replyTo: DESTINATAIRE,
       subject: pourLui.sujet, html: pourLui.html, text: pourLui.texte,
     });
   } catch { accuse = false; }
