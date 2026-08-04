@@ -299,8 +299,7 @@ body::after {
   content: ""; width: 1.75rem; height: 2px;
   background: currentColor; flex: none;
 }
-.section--encre .surtitre,
-.section--bleu .surtitre { color: #FFA574; }
+.section--encre .surtitre { color: #FFA574; }
 .section--bleu .surtitre { color: #fff; }
 .section--sable .surtitre { color: var(--accent-txt-sable); }
 
@@ -311,7 +310,12 @@ body::after {
   letter-spacing: -.025em;
   text-wrap: balance;
 }
-.titre-section em { color: var(--bleu-txt); }
+/* Une seule couleur met en valeur, et c'est l'orange. Le bleu avait le
+   même rôle sur les italiques des titres : deux accents qui se disputent
+   l'attention n'en font aucun. Le bleu ne sert plus qu'à ce sur quoi on
+   peut agir (survol, focus, bannière d'appel). Voir « rôle du bleu » § 06. */
+.titre-section em { color: var(--accent-txt); }
+.section--sable .titre-section em { color: var(--accent-txt-sable); }
 .section--encre .titre-section em { color: var(--soleil); }
 .section--bleu .titre-section em,
 .section--bleu .titre-section { color: #fff; }
@@ -483,7 +487,9 @@ p { text-wrap: pretty; }
 
 .hero {
   position: relative;
-  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2.5rem, 5vw, 4.5rem);
+  /* Bas resserré : le premier argument doit arriver avant le troisième
+     défilement sur mobile, pas après. */
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 3vw, 2.75rem);
   overflow: clip;                 /* remplace overflow-x:hidden sur body */
 }
 
@@ -721,7 +727,14 @@ p { text-wrap: pretty; }
   display: flex; flex-wrap: wrap; align-items: center;
   gap: var(--sp-4) var(--sp-7);
 }
-.preuve__logos li { display: flex; }
+/* Chaque logo porte son statut : deux de ces marques appartiennent à
+   l'agence. Le dire est plus solide que de laisser croire le contraire. */
+.preuve__logos li { display: grid; justify-items: start; gap: var(--sp-1); }
+.preuve__statut {
+  font-size: 10px; letter-spacing: .11em; text-transform: uppercase;
+  color: var(--txt-3);
+}
+.preuve__statut--client { color: var(--accent-txt); font-weight: 700; }
 .preuve__logos a {
   display: flex; align-items: center;
   text-decoration: none;
@@ -751,8 +764,8 @@ p { text-wrap: pretty; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--sp-5);
-  margin-top: var(--sp-7);
-  padding-top: var(--sp-7);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-5);
   border-top: 1px solid var(--trait);
 }
 .fait__valeur {
@@ -769,6 +782,71 @@ p { text-wrap: pretty; }
   font-size: var(--fs-s);
   color: var(--txt-2);
   max-width: 16rem;
+}
+
+.preuve__aveu {
+  margin-top: var(--sp-5);
+  max-width: var(--mesure);
+  font-size: var(--fs-s);
+  color: var(--txt-2);
+}
+.preuve__perf {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--trait);
+  max-width: var(--mesure);
+  font-size: var(--fs-s);
+  color: var(--txt-2);
+}
+.preuve__perf b { color: var(--txt); font-weight: 700; }
+
+/* Zone d'intervention. Remplace la carte de France, qui dessinait un
+   réseau national juste à côté d'un texte disant « une seule personne ». */
+.zone {
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--r);
+  padding: var(--sp-6);
+  background: var(--creme);
+}
+.zone__titre {
+  font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: .005em; color: var(--txt-3);
+}
+.zone__villes { list-style: none; margin-top: var(--sp-4); display: grid; }
+.zone__villes li {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-3);
+  border-top: 1px solid var(--trait);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.1;
+}
+.zone__villes li span {
+  font-family: var(--font-body);
+  font-size: var(--fs-s);
+  color: var(--txt-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.zone__villes a { color: inherit; }
+.zone__note {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--trait);
+  font-size: var(--fs-s);
+  color: var(--txt-2);
+}
+
+/* Dire ce qu'on ne fait pas transforme deux concurrents, le photographe
+   et l'imprimeur, en deux apporteurs d'affaires. */
+.options__renvoi {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--trait);
+  max-width: var(--mesure);
+  font-size: var(--fs-s);
+  color: var(--txt-2);
 }
 
 /* ====================== 11. SERVICES ====================== */
@@ -804,7 +882,7 @@ p { text-wrap: pretty; }
 .service li::before {
   content: ""; position: absolute; left: 0; top: .65em;
   width: 8px; height: 8px; border-radius: 50%;
-  border: 2px solid var(--bleu);
+  border: 2px solid var(--soleil);
 }
 .service__lien { margin-top: var(--sp-4); font-size: var(--fs-s); }
 
@@ -861,6 +939,40 @@ p { text-wrap: pretty; }
 .offre--vedette .offre__paiement { color: var(--txt-inv-2); }
 .offre__desc { margin-top: var(--sp-4); color: var(--txt-2); }
 .offre--vedette .offre__desc { color: var(--txt-inv-2); }
+
+/* Le coût annuel répondait à l'objection numéro un depuis le fond de la
+   FAQ. Il est désormais collé au prix, là où la question se pose. */
+.offre__suite {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-s);
+  color: var(--txt-2);
+}
+.offre__suite b { font-weight: 700; color: var(--txt); }
+.offre--vedette .offre__suite { color: var(--txt-inv-2); }
+.offre--vedette .offre__suite b { color: var(--txt-inv); }
+
+/* Douze puces, personne ne les lit. Les quatre qui décident restent
+   visibles, le reste attend qu'on le demande. */
+.offre__plus { margin-top: var(--sp-5); border-top: 1px solid var(--trait); }
+.offre--vedette .offre__plus { border-color: var(--trait-inv); }
+.offre__plus summary {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+  font-size: var(--fs-s); font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.offre__plus summary::-webkit-details-marker { display: none; }
+.offre__plus .faq__signe { width: 1.6rem; height: 1.6rem; border-width: 1.5px; }
+.offre__plus .faq__signe::before { font-size: var(--fs-s); }
+.offre--vedette .offre__plus .faq__signe { border-color: var(--trait-inv); color: var(--txt-inv); }
+.offre__plus[open] .faq__signe {
+  rotate: 45deg;
+  background: var(--soleil); border-color: var(--soleil); color: #fff;
+}
+.offre__plus .offre__liste { margin-top: 0; }
+.offre__plus .offre__liste li:first-child { border-top: 0; }
 
 .offre__liste { margin-top: var(--sp-5); display: grid; }
 .offre__liste li {
@@ -998,16 +1110,6 @@ p { text-wrap: pretty; }
 }
 .agence__signature span { font-family: var(--font-body); font-style: normal; font-size: var(--fs-s); color: var(--txt-3); }
 
-.carte-france { width: 100%; height: auto; }
-.carte-france__terre { fill: #17130E12; stroke: #17130E5C; stroke-width: 1.2; stroke-linejoin: round; }
-.carte-france__ville circle { fill: var(--encre); }
-.carte-france__ville text {
-  font-family: var(--font-body); font-size: 11px; font-weight: 500;
-  fill: var(--txt-2);
-}
-.carte-france__base circle { fill: var(--soleil); }
-.carte-france__base text { font-family: var(--font-body); font-size: 12px; font-weight: 700; fill: var(--txt); }
-.carte-france__halo { fill: var(--soleil); opacity: .25; }
 
 /* ====================== 16. RÉALISATIONS & DÉMOS ====================== */
 
@@ -1318,7 +1420,7 @@ p { text-wrap: pretty; }
   max-width: 26ch;
   text-wrap: balance;
 }
-.page-tete h1 em { color: var(--bleu-txt); }
+.page-tete h1 em { color: var(--accent-txt); }
 .page-tete__chapeau {
   margin-top: var(--sp-5);
   font-size: var(--fs-m);
@@ -1507,8 +1609,12 @@ p { text-wrap: pretty; }
 
 @media (max-width: 560px) {
   .travaux, .demos { grid-template-columns: 1fr; }
-  .faits { grid-template-columns: 1fr; gap: var(--sp-5); }
-  .fait__valeur { font-size: 2.5rem; }
+  /* Empilés, les quatre chiffres prenaient un écran entier. En deux
+     colonnes ils se comparent d'un coup d'œil et font gagner un
+     défilement complet sur mobile. */
+  .faits { grid-template-columns: repeat(2, 1fr); gap: var(--sp-5) var(--sp-4); }
+  .fait__valeur { font-size: 2.1rem; }
+  .fait__libelle { font-size: var(--fs-xs); }
   .pied__cols { grid-template-columns: 1fr; gap: var(--sp-6); }
   .preuve__clients { flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
 }
