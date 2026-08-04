@@ -18,7 +18,7 @@
    schéma non sécurisé, `mailto:` compris.
 
    Sans JavaScript, le navigateur poste directement vers cette
-   adresse et Formspree affiche sa page de confirmation.
+   adresse et la fonction le renvoie sur /merci.
    ------------------------------------------------------------- */
 const MAIL_CONTACT = 'bonjour@lagencedusud.com';
 
@@ -113,11 +113,13 @@ if (mots.length > 1 && !mouvementReduit) {
   setTimeout(tour, PAUSE);
 }
 
-/* ===== Fenêtre navigateur : le visiteur choisit ce qu'il regarde =====
-   Rien ne bouge tout seul. Une image qui changeait toutes les cinq
-   secondes juste à côté du paragraphe d'accroche captait l'attention
-   par réflexe, en plein milieu de la lecture. On la laisse fixe et on
-   donne la main : une pastille par site, sous la fenêtre.           */
+/* ===== Fenêtre navigateur : les sites défilent, et on peut reprendre la main
+   Une image qui changeait toutes les cinq secondes captait l'attention en
+   plein milieu de la lecture. À 6,5 secondes on a le temps de regarder un
+   site avant que le suivant arrive. Le défilement s'arrête dès qu'on
+   survole la fenêtre, dès qu'on met le focus sur une pastille, dès qu'on
+   clique, et quand l'onglet passe en arrière-plan. Il ne démarre pas du
+   tout si le visiteur a demandé moins d'animations.                  */
 const vues = $$('[data-vue]');
 const urlVue = $('#urlVue');
 const badgeDemo = $('#badgeDemo');
@@ -138,7 +140,10 @@ if (vues.length > 1 && fenetre) {
   puces.setAttribute('role', 'tablist');
   puces.setAttribute('aria-label', 'Choisir le site à afficher');
 
+  let courant = 0;
+
   const montrer = i => {
+    courant = i;                      // seul endroit qui fixe la vue affichée
     vues.forEach((v, n) => {
       v.toggleAttribute('data-actif', n === i);
       puces.children[n].setAttribute('aria-selected', String(n === i));
@@ -155,7 +160,7 @@ if (vues.length > 1 && fenetre) {
     b.type = 'button';
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-label', vue.dataset.url || `Site ${i + 1}`);
-    b.addEventListener('click', () => montrer(i));
+    b.addEventListener('click', () => { montrer(i); relancer(); });
     // on précharge au survol : le clic paraît instantané
     b.addEventListener('pointerenter', () => charger(vue));
     b.addEventListener('keydown', e => {
@@ -165,12 +170,45 @@ if (vues.length > 1 && fenetre) {
       const suiv = (i + d + vues.length) % vues.length;
       montrer(suiv);
       puces.children[suiv].focus();
+      relancer();
     });
     puces.appendChild(b);
   });
 
+  /* --- Défilement automatique --- */
+  const DUREE = 6500;
+  let minuteur = null, fige = false;
+
+  const suivant = () => {
+    montrer((courant + 1) % vues.length);
+    // on prépare la vue d'après pour que la transition soit déjà décodée
+    charger(vues[(courant + 1) % vues.length]);
+  };
+  const arreter = () => { clearInterval(minuteur); minuteur = null; };
+  const demarrer = () => {
+    if (minuteur || fige || mouvementReduit || vues.length < 2) return;
+    minuteur = setInterval(() => { if (!document.hidden) suivant(); }, DUREE);
+  };
+  // après une action du visiteur, on repart d'un cycle entier
+  const relancer = () => { arreter(); demarrer(); };
+
+  const geler = () => { fige = true; arreter(); };
+  const degeler = () => { fige = false; demarrer(); };
+
+  const zone = fenetre.parentElement || fenetre;
+  zone.addEventListener('pointerenter', geler);
+  zone.addEventListener('pointerleave', degeler);
+  puces.addEventListener('pointerenter', geler);
+  puces.addEventListener('pointerleave', degeler);
+  puces.addEventListener('focusin', geler);
+  puces.addEventListener('focusout', degeler);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) arreter(); else demarrer();
+  });
+
   fenetre.after(puces);
   montrer(0);
+  demarrer();
 }
 
 /* ===== FAQ =====
@@ -183,8 +221,11 @@ const form = $('#formContact');
 if (form) {
   // On lit l'attribut, pas la propriété : sans `action`, `form.action`
   // renvoie l'adresse de la page et on croirait à un point d'envoi.
+  // Accepte une adresse absolue en https, ou un chemin du site comme
+  // /api/contact. Tout le reste (mailto:, vide) fait basculer sur le
+  // brouillon de mail, qui reste le filet de sécurité.
   const cible = form.getAttribute('action') || '';
-  const POINT_ENVOI = /^https:\/\//.test(cible) ? cible : '';
+  const POINT_ENVOI = /^(https:\/\/|\/(?!\/))/.test(cible) ? cible : '';
 
   const etat = $('.formulaire__etat', form);
   const bouton = $('button[type="submit"]', form);
@@ -244,7 +285,12 @@ if (form) {
         headers: { Accept: 'application/json' },
         body: donnees
       });
-      if (!reponse.ok) throw new Error(reponse.status);
+      if (!reponse.ok) {
+        // Notre fonction renvoie un message lisible ; un service tiers, non.
+        let detail = '';
+        try { detail = (await reponse.json()).erreur || ''; } catch { /* pas du JSON */ }
+        throw new Error(detail || String(reponse.status));
+      }
       form.reset();
       form.removeAttribute('data-touche');
       dire('');
@@ -252,8 +298,9 @@ if (form) {
       // une ligne de texte ne marque pas assez le passage à l'étape suivante.
       $('.formulaire__succes', form)?.removeAttribute('hidden');
       form.setAttribute('data-envoye', '');
-    } catch {
-      dire('L’envoi a échoué. Écrivez-nous directement à ' + MAIL_CONTACT + '.', 'ko');
+    } catch (e) {
+      const message = e && /\D/.test(e.message || '') ? e.message : '';
+      dire(message || ('L’envoi a échoué. Écrivez-nous directement à ' + MAIL_CONTACT + '.'), 'ko');
     } finally {
       bouton?.removeAttribute('aria-busy');
       if (bouton && libelleBouton) bouton.textContent = libelleBouton;

@@ -1,0 +1,9 @@
+{
+  "name": "lagencedusud",
+  "private": true,
+  "type": "module",
+  "description": "Site de L'Agence du Sud. Pages statiques, plus une fonction Vercel pour le formulaire de contact.",
+  "dependencies": {
+    "nodemailer": "^7.0.6"
+  }
+}

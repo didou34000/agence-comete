@@ -784,67 +784,131 @@ p { text-wrap: pretty; }
   max-width: 16rem;
 }
 
-.preuve__aveu {
-  margin-top: var(--sp-5);
-  max-width: var(--mesure);
-  font-size: var(--fs-s);
-  color: var(--txt-2);
+/* ---- Carte de performance ----
+   L'argument le plus facile du site etait ecrit en petit gris, en bas de la
+   bande de preuve : personne ne le lisait. Il devient une carte bleue avec
+   quatre chiffres qu'on ne peut pas manquer, et un bouton pour refaire le
+   test soi-meme. Une preuve qu'on invite a verifier vaut mieux qu'un
+   chiffre qu'il faut croire. */
+.perf {
+  margin-top: var(--sp-6);
+  background: var(--bleu);
+  color: #fff;
+  border-radius: var(--r-l);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-6) var(--sp-8);
+  align-items: center;
 }
-.preuve__perf {
+.perf__titre {
+  font-size: var(--fs-titre-bloc);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.perf__titre em { color: #FFC7A8; }
+.perf__texte {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-s);
+  color: #ffffffd9;
+  max-width: 34ch;
+}
+.perf__btn { margin-top: var(--sp-5); }
+
+.perf__scores {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: var(--sp-5) var(--sp-6);
+  text-align: center;
+}
+.perf__score dd {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+.perf__score dt {
+  margin-top: var(--sp-2);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #ffffffb3;
+}
+/* La note qui compte le plus est celle qu'on regarde en premier. */
+.perf__score--vedette dd { color: #FF7A3D; }
+.perf__score--vedette dt { color: #FFC7A8; }
+
+@media (max-width: 900px) {
+  .perf { grid-template-columns: minmax(0, 1fr); }
+  .perf__scores { grid-template-columns: repeat(2, 1fr); justify-items: center; }
+}
+@media (max-width: 380px) {
+  .perf__scores { gap: var(--sp-4) var(--sp-3); }
+}
+
+/* ---- Carte de France ----
+   Elle dit l'essentiel en un coup d'oeil : la base est a Montpellier, le
+   reste du pays se traite a distance. Les quatre villes ou l'on se deplace
+   ne sont PAS dessinees dessus : a l'echelle de la France elles tiennent
+   toutes dans vingt pixels autour de Montpellier, aucun libelle n'y serait
+   lisible. Elles sont juste en dessous, cliquables. */
+.carte-france { width: 100%; height: auto; }
+.carte-france__terre { fill: #17130E12; stroke: #17130E5C; stroke-width: 1.2; stroke-linejoin: round; }
+.carte-france__ville circle { fill: var(--encre); }
+.carte-france__ville text {
+  font-family: var(--font-body); font-size: 11px; font-weight: 500;
+  fill: var(--txt-2);
+}
+.carte-france__base circle { fill: var(--soleil); }
+.carte-france__base text { font-family: var(--font-body); font-size: 12px; font-weight: 700; fill: var(--txt); }
+.carte-france__halo { fill: var(--soleil); opacity: .25; }
+
+/* ---- Villes desservies ----
+   Le bleu sert ici a ce sur quoi on peut cliquer, comme partout ailleurs
+   sur le site. La fleche dit que ca mene quelque part. */
+.proches {
   margin-top: var(--sp-5);
   padding-top: var(--sp-5);
   border-top: 1px solid var(--trait);
-  max-width: var(--mesure);
-  font-size: var(--fs-s);
-  color: var(--txt-2);
 }
-.preuve__perf b { color: var(--txt); font-weight: 700; }
-
-/* Zone d'intervention. Remplace la carte de France, qui dessinait un
-   réseau national juste à côté d'un texte disant « une seule personne ». */
-.zone {
-  border: 1px solid var(--trait-fort);
-  border-radius: var(--r);
-  padding: var(--sp-6);
-  background: var(--creme);
-}
-.zone__titre {
+.proches__titre {
   font-size: var(--fs-xs); font-weight: 700;
   letter-spacing: .005em; color: var(--txt-3);
 }
-.zone__villes { list-style: none; margin-top: var(--sp-4); display: grid; }
-.zone__villes li {
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: var(--sp-4);
-  padding-block: var(--sp-3);
-  border-top: 1px solid var(--trait);
-  font-family: var(--font-display);
-  font-size: var(--fs-xl);
-  line-height: 1.1;
+.proches__liste {
+  list-style: none;
+  margin-top: var(--sp-3);
+  /* Grille plutot que flex : quatre pastilles en flex cassaient en 3 + 1,
+     ce qui se voit. La grille les range proprement, deux par deux. */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: var(--sp-2);
 }
-.zone__villes li span {
-  font-family: var(--font-body);
-  font-size: var(--fs-s);
-  color: var(--txt-3);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+.proches__liste .ville { justify-content: center; }
+.ville {
+  display: inline-flex; align-items: center; gap: .3em;
+  padding: .38rem .7rem .38rem .8rem;
+  border: 1px solid var(--bleu-txt);
+  border-radius: var(--r-pilule);
+  color: var(--bleu-txt);
+  font-size: var(--fs-s); font-weight: 500;
+  text-decoration: none;
+  transition: background var(--t) var(--ease), color var(--t) var(--ease),
+              border-color var(--t) var(--ease);
 }
-.zone__villes a { color: inherit; }
-.zone__note {
-  margin-top: var(--sp-5);
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--trait);
-  font-size: var(--fs-s);
-  color: var(--txt-2);
+.ville:hover, .ville:focus-visible { background: var(--bleu); border-color: var(--bleu); color: #fff; }
+.ville__fleche { flex: none; transition: translate var(--t) var(--ease); }
+.ville:hover .ville__fleche { translate: 2px -2px; }
+.ville__temps {
+  font-size: var(--fs-xs); font-variant-numeric: tabular-nums;
+  color: var(--txt-3); margin-left: .15em;
 }
-
-/* Dire ce qu'on ne fait pas transforme deux concurrents, le photographe
-   et l'imprimeur, en deux apporteurs d'affaires. */
-.options__renvoi {
-  margin-top: var(--sp-5);
-  padding-top: var(--sp-4);
-  border-top: 1px solid var(--trait);
-  max-width: var(--mesure);
+.ville:hover .ville__temps, .ville:focus-visible .ville__temps { color: #ffffffb3; }
+.proches__note {
+  margin-top: var(--sp-4);
   font-size: var(--fs-s);
   color: var(--txt-2);
 }
@@ -1330,11 +1394,23 @@ p { text-wrap: pretty; }
   font-family: var(--font-display); font-style: italic;
   font-size: clamp(4rem, 15vw, 11rem);
   line-height: .9;
-  text-align: center;
   color: transparent;
   -webkit-text-stroke: 1.5px #17130E24;
   user-select: none;
   margin-bottom: var(--sp-7);
+  /* Le logo prend la meme hauteur que le lettrage et se pose juste a
+     cote. Il est en PNG, donc on ne peut pas le passer en contour comme
+     le texte : on l'amene a la meme densite a l'oeil par l'opacite. */
+  display: flex; align-items: center; justify-content: center;
+  gap: .12em;
+  overflow: clip;
+  white-space: nowrap;
+}
+.pied__filigrane-mark {
+  height: .78em; width: auto;
+  opacity: .15;
+  flex: none;
+  translate: 0 -.04em;
 }
 .pied__cols {
   display: grid;
