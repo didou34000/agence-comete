@@ -187,18 +187,22 @@ if (vues.length > 1 && fenetre) {
   const DUREE = 6500;
   let minuteur = null, fige = false, aLEcran = true, pretADemarrer = false;
 
-  const suivant = () => {
-    montrer((courant + 1) % vues.length);
-    // La vue d'après est décodée hors du fil principal, pour que le
-    // basculement suivant ne provoque aucun à-coup.
-    const apres = vues[(courant + 1) % vues.length];
-    charger(apres);
-    apres.decode?.().catch(() => {});
+  /* On DÉCODE avant de montrer, jamais l'inverse. Afficher une image pas
+     encore décodée forçait le décodage pendant le rendu, sur le fil
+     principal : jusqu'à 400 ms de blocage sur un seul basculement. */
+  const boucle = async () => {
+    minuteur = null;
+    const suiv = (courant + 1) % vues.length;
+    charger(vues[suiv]);
+    try { await vues[suiv].decode?.(); } catch { /* image absente ou remplacée */ }
+    if (fige || !aLEcran || document.hidden) return;   // l'état a pu changer pendant le décodage
+    montrer(suiv);
+    minuteur = setTimeout(boucle, DUREE);
   };
-  const arreter = () => { clearInterval(minuteur); minuteur = null; };
+  const arreter = () => { clearTimeout(minuteur); minuteur = null; };
   const demarrer = () => {
     if (minuteur || fige || !aLEcran || !pretADemarrer || mouvementReduit || vues.length < 2) return;
-    minuteur = setInterval(() => { if (!document.hidden) suivant(); }, DUREE);
+    minuteur = setTimeout(boucle, DUREE);
   };
   // après une action du visiteur, on repart d'un cycle entier
   const relancer = () => { arreter(); demarrer(); };
