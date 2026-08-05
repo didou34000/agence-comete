@@ -194,8 +194,16 @@ if (vues.length > 1 && fenetre) {
     minuteur = null;
     const suiv = (courant + 1) % vues.length;
     charger(vues[suiv]);
-    try { await vues[suiv].decode?.(); } catch { /* image absente ou remplacée */ }
-    if (fige || !aLEcran || document.hidden) return;   // l'état a pu changer pendant le décodage
+    // `decode()` ne se résout pas toujours : sur une image d'un <picture>
+    // dont on vient de changer le srcset, la promesse peut ne jamais
+    // aboutir. Sans garde-fou, le carrousel s'arrêterait pour de bon.
+    try {
+      await Promise.race([
+        vues[suiv].decode?.() ?? Promise.resolve(),
+        new Promise(r => setTimeout(r, 1200)),
+      ]);
+    } catch { /* image absente ou remplacée en cours de route */ }
+    if (fige || !aLEcran || document.hidden) return;   // l'état a pu changer pendant l'attente
     montrer(suiv);
     minuteur = setTimeout(boucle, DUREE);
   };
