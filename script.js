@@ -68,13 +68,16 @@ if (burger && nav) {
 /* ===== Barre de progression + retour en haut ===== */
 const progression = $('.progression');
 const haut = $('.haut');
-if (progression || haut) {
+const ctaMobile = $('.cta-mobile');
+if (progression || haut || ctaMobile) {
   let enAttente = false;
   const mesurer = () => {
     const max = document.documentElement.scrollHeight - innerHeight;
     const ratio = max > 0 ? Math.min(scrollY / max, 1) : 0;
     if (progression) progression.style.width = `${(ratio * 100).toFixed(2)}%`;
     if (haut) haut.toggleAttribute('data-visible', scrollY > innerHeight);
+    // Sous le hero, la barre d'appel n'ajoute rien : elle attend.
+    if (ctaMobile) ctaMobile.toggleAttribute('data-visible', scrollY > innerHeight * 0.75);
     enAttente = false;
   };
   addEventListener('scroll', () => {
@@ -211,6 +214,18 @@ if (vues.length > 1 && fenetre) {
   demarrer();
 }
 
+/* ===== Comparateurs avant / après =====
+   Le champ range couvre toute l'image : glisser dessus deplace la
+   separation. Sans ce script, on voit les deux moities a 50 %, ce qui
+   reste lisible. */
+$$('.compare__cadre').forEach(cadre => {
+  const curseur = $('.compare__curseur', cadre);
+  if (!curseur) return;
+  const placer = () => cadre.style.setProperty('--pos', curseur.value + '%');
+  curseur.addEventListener('input', placer);
+  placer();
+});
+
 /* ===== FAQ =====
    Plusieurs questions peuvent rester ouvertes en même temps. Refermer
    les autres au premier clic aurait effacé les trois réponses affichées
@@ -280,10 +295,13 @@ if (form) {
     dire('Envoi en cours…', null);
 
     try {
+      // On envoie du JSON, pas le FormData tel quel : `body: donnees`
+      // part en multipart/form-data, un format que le point d'arrivée
+      // devait décoder alors qu'on n'a aucun fichier à transmettre.
       const reponse = await fetch(POINT_ENVOI, {
         method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: donnees
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(donnees))
       });
       if (!reponse.ok) {
         // Notre fonction renvoie un message lisible ; un service tiers, non.

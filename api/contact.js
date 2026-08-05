@@ -37,9 +37,28 @@ const propre = (v, max = 200) => String(v == null ? '' : v).replace(/[\r\n]+/g, 
 
 const emailValide = (v) => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v);
 
+/* Découpe un corps multipart/form-data en champs texte. Le formulaire n'a
+   aucun fichier à envoyer, donc pas besoin d'aller plus loin. C'est ce que
+   produit `new FormData(form)` côté navigateur, et l'oublier faisait
+   arriver tous les champs vides. */
+function lireMultipart(brut, type) {
+  const m = /boundary=(?:"([^"]+)"|([^;]+))/i.exec(type);
+  if (!m) return {};
+  const sep = '--' + (m[1] || m[2]).trim();
+  const champs = {};
+  for (const bloc of brut.split(sep)) {
+    const coupe = bloc.indexOf('\r\n\r\n');
+    if (coupe < 0) continue;
+    const nom = /name="([^"]*)"/i.exec(bloc.slice(0, coupe));
+    if (!nom) continue;
+    champs[nom[1]] = bloc.slice(coupe + 4).replace(/\r\n$/, '');
+  }
+  return champs;
+}
+
 async function lireCorps(req) {
   if (req.body && typeof req.body === 'object') return req.body;
-  const brut = await new Promise((resolve, reject) => {
+  const brut = typeof req.body === 'string' ? req.body : await new Promise((resolve, reject) => {
     let d = '';
     req.on('data', (c) => { d += c; if (d.length > 100_000) req.destroy(); });
     req.on('end', () => resolve(d));
@@ -47,6 +66,7 @@ async function lireCorps(req) {
   });
   const type = req.headers['content-type'] || '';
   if (type.includes('application/json')) { try { return JSON.parse(brut); } catch { return {}; } }
+  if (type.includes('multipart/form-data')) return lireMultipart(brut, type);
   return Object.fromEntries(new URLSearchParams(brut));
 }
 
@@ -137,10 +157,13 @@ async function parSmtp(d) {
   const { pourMoi, pourLui } = messages(d);
   const { default: nodemailer } = await import('nodemailer');
   const boite = process.env.SMTP_USER || DESTINATAIRE;
+  const port = Number(process.env.SMTP_PORT || 465);
   const transport = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'ssl0.ovh.net',
-    port: Number(process.env.SMTP_PORT || 465),
-    secure: true,
+    port,
+    // 465 parle TLS d'entrée de jeu ; 587 démarre en clair puis passe en
+    // STARTTLS. Figer `true` interdisait tout relais sur 587, dont Brevo.
+    secure: port === 465,
     auth: { user: boite, pass: process.env.SMTP_PASS },
   });
 

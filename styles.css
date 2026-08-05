@@ -727,14 +727,7 @@ p { text-wrap: pretty; }
   display: flex; flex-wrap: wrap; align-items: center;
   gap: var(--sp-4) var(--sp-7);
 }
-/* Chaque logo porte son statut : deux de ces marques appartiennent à
-   l'agence. Le dire est plus solide que de laisser croire le contraire. */
-.preuve__logos li { display: grid; justify-items: start; gap: var(--sp-1); }
-.preuve__statut {
-  font-size: 10px; letter-spacing: .11em; text-transform: uppercase;
-  color: var(--txt-3);
-}
-.preuve__statut--client { color: var(--accent-txt); font-weight: 700; }
+.preuve__logos li { display: flex; }
 .preuve__logos a {
   display: flex; align-items: center;
   text-decoration: none;
@@ -1229,6 +1222,103 @@ p { text-wrap: pretty; }
 .demos .travail__visuel { aspect-ratio: 4 / 3; }
 .demos .travail__meta h3 { font-size: var(--fs-base); }
 
+/* ---- Comparateur avant / apres ----
+   Le contenu est le meme des deux cotes : seule change la mise en forme.
+   L'image « apres » est rognee a droite du curseur, celle « avant » reste
+   dessous. Sans JavaScript, le curseur ne bouge pas la position mais on
+   voit quand meme les deux moities, ce qui reste comprehensible. */
+.comparateurs { margin-top: var(--sp-9); }
+.comparateurs__intro {
+  max-width: var(--mesure);
+  color: var(--txt-inv-2);
+  font-size: var(--fs-s);
+  margin-bottom: var(--sp-6);
+}
+.comparateurs__grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+  gap: var(--sp-6);
+}
+
+.compare { margin: 0; }
+.compare__cadre {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r);
+  overflow: clip;
+  border: 1px solid var(--trait-inv);
+  background: var(--encre-douce);
+  touch-action: pan-y;             /* le glissement horizontal nous revient */
+}
+.compare__couche {
+  position: absolute; inset: 0;
+  display: block;
+}
+.compare__couche img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.compare__apres { clip-path: inset(0 0 0 var(--pos, 50%)); }
+
+.compare__etiq {
+  position: absolute; top: var(--sp-3);
+  z-index: 2;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .22rem .5rem;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.compare__etiq--avant { left: var(--sp-3); background: #17130ECC; color: var(--txt-inv-2); }
+.compare__etiq--apres { right: var(--sp-3); background: var(--soleil); color: #17130E; }
+
+/* La poignee suit la position, sans jamais intercepter le pointeur :
+   c'est le champ range invisible au-dessus qui recoit les evenements. */
+.compare__poignee {
+  position: absolute; top: 0; bottom: 0;
+  left: var(--pos, 50%);
+  z-index: 3;
+  width: 2px; margin-left: -1px;
+  background: #FAF5EC;
+  pointer-events: none;
+}
+.compare__poignee i {
+  position: absolute; top: 50%; left: 50%;
+  translate: -50% -50%;
+  width: 2.25rem; height: 2.25rem;
+  border-radius: 50%;
+  background: #FAF5EC;
+  box-shadow: 0 2px 10px #00000059;
+}
+.compare__poignee i::before,
+.compare__poignee i::after {
+  content: ""; position: absolute; top: 50%; translate: 0 -50%;
+  width: 0; height: 0;
+  border-block: 4px solid transparent;
+}
+.compare__poignee i::before { left: .5rem; border-right: 6px solid var(--encre); }
+.compare__poignee i::after { right: .5rem; border-left: 6px solid var(--encre); }
+
+.compare__curseur {
+  position: absolute; inset: 0;
+  z-index: 4;
+  width: 100%; height: 100%;
+  margin: 0; padding: 0;
+  appearance: none; background: transparent;
+  cursor: ew-resize;
+}
+.compare__curseur::-webkit-slider-thumb {
+  appearance: none; width: 2.5rem; height: 100%; background: transparent; cursor: ew-resize;
+}
+.compare__curseur::-moz-range-thumb {
+  width: 2.5rem; height: 100%; background: transparent; border: 0; cursor: ew-resize;
+}
+.compare__curseur:focus-visible { outline: 3px solid var(--soleil); outline-offset: 2px; }
+
+.compare figcaption {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-s);
+  color: var(--txt-inv-2);
+}
+.compare figcaption b { color: var(--txt-inv); font-weight: 700; }
+
 /* ====================== 17. ENGAGEMENTS ====================== */
 
 .engagements {
@@ -1392,7 +1482,10 @@ p { text-wrap: pretty; }
 .pied { border-top: 1px solid var(--trait); padding-top: var(--sp-8); overflow: clip; }
 .pied__filigrane {
   font-family: var(--font-display); font-style: italic;
-  font-size: clamp(4rem, 15vw, 11rem);
+  /* Reduit depuis 15vw / 11rem : le logo ajoute environ 0,8 em a la ligne,
+     qui depassait alors la largeur de la page et se faisait rogner des deux
+     cotes par `overflow: clip`. Le jet en perdait sa pointe. */
+  font-size: clamp(2.5rem, 11vw, 8.5rem);
   line-height: .9;
   color: transparent;
   -webkit-text-stroke: 1.5px #17130E24;
@@ -1405,11 +1498,19 @@ p { text-wrap: pretty; }
   gap: .12em;
   overflow: clip;
   white-space: nowrap;
+  padding-inline: var(--sp-5);
 }
-.pied__filigrane-mark {
-  height: .78em; width: auto;
-  opacity: .15;
+/* Logo ET lettrage sont des pseudo-elements : le paragraphe est vide dans
+   le balisage. Un filigrane est une decoration, pas du contenu, et tant
+   qu'il existait comme vrai texte l'audit de contraste le mesurait puis
+   le comptait en echec, alors qu'il est illisible PAR CONSTRUCTION. */
+.pied__filigrane::after { content: "L’Agence du Sud"; }
+.pied__filigrane::before {
+  content: "";
   flex: none;
+  width: .66em; height: .78em;
+  background: url("assets/img/logo-mark.png") no-repeat center / contain;
+  opacity: .15;
   translate: 0 -.04em;
 }
 .pied__cols {
@@ -1446,16 +1547,24 @@ p { text-wrap: pretty; }
 
 /* ====================== 21. ÉLÉMENTS FLOTTANTS ====================== */
 
+/* La barre d'appel mobile n'a rien a faire sur le premier ecran : le hero
+   propose deja son bouton, et trois appels a l'action d'un coup se
+   neutralisent. Elle monte quand on a depasse le hero. */
 .cta-mobile {
   display: none;
   position: fixed; inset: auto 0 0 0;
   z-index: 90;
+  translate: 0 100%;
+  visibility: hidden;
+  transition: translate var(--t-long) var(--ease), visibility var(--t-long);
   gap: var(--sp-2);
   padding: var(--sp-2) var(--sp-3) calc(var(--sp-2) + env(safe-area-inset-bottom));
   background: color-mix(in srgb, var(--creme) 94%, transparent);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--trait);
 }
+.cta-mobile[data-visible] { translate: 0 0; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .cta-mobile { transition: none; } }
 .cta-mobile .btn { flex: 1; padding-block: var(--sp-3); }
 .cta-mobile .btn:first-child { flex: .8; }
 

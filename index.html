@@ -249,7 +249,6 @@
                 <img src="assets/img/logo-south-conciergerie.png" alt="South Conciergerie" width="348" height="120" loading="lazy" decoding="async">
               </picture>
             </a>
-            <span class="preuve__statut">Notre marque</span>
           </li>
           <li>
             <a href="realisations/general-robotics">
@@ -258,7 +257,6 @@
                 <img src="assets/img/logo-general-robotics.png" alt="General Robotics" width="375" height="120" loading="lazy" decoding="async">
               </picture>
             </a>
-            <span class="preuve__statut preuve__statut--client">Client</span>
           </li>
           <li>
             <a class="logo-iksee" href="realisations/iksee">
@@ -274,7 +272,6 @@
                 </g>
               </svg>
             </a>
-            <span class="preuve__statut">Notre marque</span>
           </li>
         </ul>
       </div>
@@ -661,6 +658,55 @@
           </div>
         </a>
       </div>
+
+      <div class="comparateurs apparait">
+        <p class="comparateurs__intro">Démonstration&nbsp;: à gauche, la même page montée sans travail
+        de design, comme on en croise partout. À droite, le site tel qu’il est en ligne aujourd’hui.
+        Le contenu est identique&nbsp;; c’est tout ce qu’il y a autour qui change.</p>
+
+        <div class="comparateurs__grille">
+        <figure class="compare">
+          <div class="compare__cadre" style="--pos:50%">
+            <picture class="compare__couche">
+              <source type="image/avif" srcset="assets/img/iksee-avant-480.avif 480w, assets/img/iksee-avant-720.avif 720w, assets/img/iksee-avant-900.avif 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <source type="image/webp" srcset="assets/img/iksee-avant-480.webp 480w, assets/img/iksee-avant-720.webp 720w, assets/img/iksee-avant-900.webp 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <img src="assets/img/iksee-avant-900.jpg" alt="La même page montée sans travail de design : polices par défaut, aucune hiérarchie, pas de respiration" width="900" height="675" loading="lazy" decoding="async">
+            </picture>
+            <picture class="compare__couche compare__apres">
+              <source type="image/avif" srcset="assets/img/iksee-480.avif 480w, assets/img/iksee-720.avif 720w, assets/img/iksee-900.avif 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <source type="image/webp" srcset="assets/img/iksee-480.webp 480w, assets/img/iksee-720.webp 720w, assets/img/iksee-900.webp 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <img src="assets/img/iksee-900.jpg" alt="Le site d’Iksee en ligne : fond vert profond, titre en serif, parcours d’appel illustré étape par étape" width="900" height="675" loading="lazy" decoding="async">
+            </picture>
+            <span class="compare__etiq compare__etiq--avant" aria-hidden="true">Avant</span>
+            <span class="compare__etiq compare__etiq--apres" aria-hidden="true">Après</span>
+            <span class="compare__poignee" aria-hidden="true"><i></i></span>
+            <input class="compare__curseur" type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Comparer avant et après pour Iksee">
+          </div>
+          <figcaption><b>Iksee</b> Secrétaire téléphonique IA</figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="compare__cadre" style="--pos:50%">
+            <picture class="compare__couche">
+              <source type="image/avif" srcset="assets/img/southconciergerie-avant-480.avif 480w, assets/img/southconciergerie-avant-720.avif 720w, assets/img/southconciergerie-avant-900.avif 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <source type="image/webp" srcset="assets/img/southconciergerie-avant-480.webp 480w, assets/img/southconciergerie-avant-720.webp 720w, assets/img/southconciergerie-avant-900.webp 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <img src="assets/img/southconciergerie-avant-900.jpg" alt="La même page montée sans travail de design : bannière générique, colonnes serrées, photos absentes" width="900" height="675" loading="lazy" decoding="async">
+            </picture>
+            <picture class="compare__couche compare__apres">
+              <source type="image/avif" srcset="assets/img/southconciergerie-480.avif 480w, assets/img/southconciergerie-720.avif 720w, assets/img/southconciergerie-900.avif 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <source type="image/webp" srcset="assets/img/southconciergerie-480.webp 480w, assets/img/southconciergerie-720.webp 720w, assets/img/southconciergerie-900.webp 900w" sizes="(max-width: 940px) 90vw, 45vw">
+              <img src="assets/img/southconciergerie-900.jpg" alt="Le site de South Conciergerie en ligne : photo pleine largeur, deux parcours séparés, voyageurs et propriétaires" width="900" height="675" loading="lazy" decoding="async">
+            </picture>
+            <span class="compare__etiq compare__etiq--avant" aria-hidden="true">Avant</span>
+            <span class="compare__etiq compare__etiq--apres" aria-hidden="true">Après</span>
+            <span class="compare__poignee" aria-hidden="true"><i></i></span>
+            <input class="compare__curseur" type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Comparer avant et après pour South Conciergerie">
+          </div>
+          <figcaption><b>South Conciergerie</b> Conciergerie de locations, Montpellier</figcaption>
+        </figure>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -922,7 +968,7 @@
 
 <!-- ══════════ PIED DE PAGE ══════════ -->
 <footer class="pied">
-  <p class="pied__filigrane" aria-hidden="true"><img class="pied__filigrane-mark" src="/assets/img/logo-mark.png" alt="" width="202" height="240"><span>L'Agence du Sud</span></p>
+  <p class="pied__filigrane" aria-hidden="true"></p>
 
   <div class="wrap">
     <div class="pied__cols">
