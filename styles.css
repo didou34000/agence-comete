@@ -1508,10 +1508,13 @@ p { text-wrap: pretty; }
 .pied__filigrane::before {
   content: "";
   flex: none;
-  width: .66em; height: .78em;
+  /* Plus grand et un peu plus dense qu'a l'origine : la pointe du jet
+     s'affine jusqu'au cheveu, et a 15 % d'opacite elle se perdait dans le
+     fond creme. Le logo semblait coupe alors qu'il etait entier. */
+  width: .76em; height: .9em;
   background: url("assets/img/logo-mark.png") no-repeat center / contain;
-  opacity: .15;
-  translate: 0 -.04em;
+  opacity: .26;
+  translate: 0 -.03em;
 }
 .pied__cols {
   display: grid;

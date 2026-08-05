@@ -13,10 +13,19 @@
    site perd des demandes. Dès qu'une clé est posée, l'accusé de
    réception s'active tout seul, sans rien changer au code.
 
-   Attention côté Resend : le plan gratuit n'autorise QU'UN domaine, et
-   southconciergerie.fr occupe déjà la place avec des envois en
-   production. Tant que lagencedusud.com n'y est pas vérifié, laisser
-   RESEND_API_KEY vide et utiliser le SMTP OVH.
+   Variables du transport SMTP :
+     SMTP_HOST  smtp-relay.brevo.com  (défaut : ssl0.ovh.net)
+     SMTP_PORT  587                   (défaut : 465, TLS implicite)
+     SMTP_USER  le login du relais    (défaut : l'adresse de l'agence)
+     SMTP_PASS  la clé SMTP           ← le seul vrai secret
+     MAIL_FROM  facultatif, pour forcer l'adresse d'expédition
+
+   Deux limites connues, verifiees :
+   - Resend, plan gratuit : UN seul domaine, et southconciergerie.fr
+     occupe la place avec des envois en production.
+   - OVH sur lagencedusud.com : offre en redirection seule, aucun compte
+     e-mail, donc aucun mot de passe SMTP a donner.
+   D'ou Brevo, dont le relais est gratuit jusqu'a 300 envois par jour.
    ============================================================= */
 
 const DESTINATAIRE = 'bonjour@lagencedusud.com';
@@ -167,10 +176,21 @@ async function parSmtp(d) {
     auth: { user: boite, pass: process.env.SMTP_PASS },
   });
 
-  // L'expéditeur DOIT être la boîte qui s'authentifie : OVH refuse un
-  // From qui ne correspond pas au compte, et le message part en erreur
-  // 550 sans que rien n'indique pourquoi côté visiteur.
-  const de = `L'Agence du Sud <${boite}>`;
+  /* Qui expédie.
+
+     Chez OVH, l'identifiant de connexion EST une adresse du domaine, et
+     le serveur refuse tout From qui ne lui correspond pas : on envoie
+     donc sous cette adresse-là.
+
+     Chez un relais comme Brevo, l'identifiant ressemble à
+     b48099001@smtp-brevo.com : ce n'est pas une adresse d'expédition,
+     c'est un login. On envoie alors sous l'adresse de l'agence, qui doit
+     être déclarée comme expéditeur vérifié chez le relais.
+
+     MAIL_FROM tranche à la main si besoin. */
+  const expediteur = process.env.MAIL_FROM
+    || (boite.endsWith('@lagencedusud.com') ? boite : DESTINATAIRE);
+  const de = `L'Agence du Sud <${expediteur}>`;
 
   await transport.sendMail({
     from: de, to: DESTINATAIRE, replyTo: d.email,
