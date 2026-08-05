@@ -199,10 +199,17 @@ if (vues.length > 1 && fenetre) {
      production : 1187 ms de calcul de style et une tâche de 501 ms, pour
      une note de performance tombée de 96 à 82. Le chargement est
      désormais fait une seule fois, au calme, avant que ça tourne. */
+  const auRepos = window.requestIdleCallback || (f => setTimeout(f, 60));
+
   const boucle = () => {
     minuteur = null;
     if (fige || !aLEcran || document.hidden) return;
-    montrer((courant + 1) % vues.length);
+    const suiv = (courant + 1) % vues.length;
+    montrer(suiv);
+    // La capture d'après est préparée maintenant, dans un temps mort :
+    // elle a six secondes et demie pour arriver, et son coût de mise en
+    // page ne tombe jamais au moment du basculement.
+    auRepos(() => charger(vues[(suiv + 1) % vues.length]), { timeout: 2000 });
     minuteur = setTimeout(boucle, DUREE);
   };
   const arreter = () => { clearTimeout(minuteur); minuteur = null; };
@@ -243,13 +250,11 @@ if (vues.length > 1 && fenetre) {
   // alors préparées une par une, chacune dans son propre temps mort, pour
   // ne jamais enchaîner huit recalculs de mise en page d'affilée.
   const armer = () => {
-    const auRepos = window.requestIdleCallback || (f => setTimeout(f, 60));
-    const preparer = i => {
-      if (i >= vues.length) { pretADemarrer = true; demarrer(); return; }
-      charger(vues[i]);
-      auRepos(() => preparer(i + 1), { timeout: 1500 });
-    };
-    auRepos(() => preparer(1), { timeout: 2000 });
+    auRepos(() => {
+      charger(vues[1]);          // une seule, la suivante ; le reste vient au fil de l'eau
+      pretADemarrer = true;
+      demarrer();
+    }, { timeout: 2000 });
   };
   const auCalme = () => (window.requestIdleCallback || (f => setTimeout(f, 800)))(armer, { timeout: 3000 });
   if (document.readyState === 'complete') auCalme();
