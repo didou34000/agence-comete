@@ -178,18 +178,26 @@ if (vues.length > 1 && fenetre) {
     puces.appendChild(b);
   });
 
-  /* --- Défilement automatique --- */
+  /* --- Défilement automatique ---
+     Il ne démarre que lorsque la fenêtre est réellement à l'écran, et
+     seulement une fois la page chargée puis un moment de calme passé.
+     Le faire tourner en aveugle coûtait 300 ms de blocage du fil
+     principal pendant le chargement, pour une animation que personne ne
+     regardait : le carrousel est en haut, on est déjà plus bas. */
   const DUREE = 6500;
-  let minuteur = null, fige = false;
+  let minuteur = null, fige = false, aLEcran = true, pretADemarrer = false;
 
   const suivant = () => {
     montrer((courant + 1) % vues.length);
-    // on prépare la vue d'après pour que la transition soit déjà décodée
-    charger(vues[(courant + 1) % vues.length]);
+    // La vue d'après est décodée hors du fil principal, pour que le
+    // basculement suivant ne provoque aucun à-coup.
+    const apres = vues[(courant + 1) % vues.length];
+    charger(apres);
+    apres.decode?.().catch(() => {});
   };
   const arreter = () => { clearInterval(minuteur); minuteur = null; };
   const demarrer = () => {
-    if (minuteur || fige || mouvementReduit || vues.length < 2) return;
+    if (minuteur || fige || !aLEcran || !pretADemarrer || mouvementReduit || vues.length < 2) return;
     minuteur = setInterval(() => { if (!document.hidden) suivant(); }, DUREE);
   };
   // après une action du visiteur, on repart d'un cycle entier
@@ -211,7 +219,24 @@ if (vues.length > 1 && fenetre) {
 
   fenetre.after(puces);
   montrer(0);
-  demarrer();
+
+  // Hors de l'écran, le carrousel ne consomme rien.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entrees => {
+      aLEcran = entrees.some(e => e.isIntersecting);
+      if (aLEcran) demarrer(); else arreter();
+    }, { threshold: 0.25 }).observe(fenetre);
+  }
+
+  // On attend la fin du chargement, puis un moment de calme : le premier
+  // affichage a la priorité sur une image qui tourne.
+  const armer = () => {
+    pretADemarrer = true;
+    demarrer();
+  };
+  const auCalme = () => (window.requestIdleCallback || (f => setTimeout(f, 800)))(armer, { timeout: 3000 });
+  if (document.readyState === 'complete') auCalme();
+  else addEventListener('load', auCalme, { once: true });
 }
 
 /* ===== Comparateurs avant / après =====
