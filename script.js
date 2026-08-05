@@ -190,21 +190,19 @@ if (vues.length > 1 && fenetre) {
   /* On DÉCODE avant de montrer, jamais l'inverse. Afficher une image pas
      encore décodée forçait le décodage pendant le rendu, sur le fil
      principal : jusqu'à 400 ms de blocage sur un seul basculement. */
-  const boucle = async () => {
+  /* Le basculement ne fait plus QUE changer un attribut, ce qui se résume
+     à une transition d'opacité que le compositeur gère seul.
+
+     Avant, chaque tour appelait `charger()`, donc réécrivait le `srcset`
+     d'un <source> : le navigateur relançait la sélection de source et
+     recalculait la mise en page de tout le <picture>. Mesuré en
+     production : 1187 ms de calcul de style et une tâche de 501 ms, pour
+     une note de performance tombée de 96 à 82. Le chargement est
+     désormais fait une seule fois, au calme, avant que ça tourne. */
+  const boucle = () => {
     minuteur = null;
-    const suiv = (courant + 1) % vues.length;
-    charger(vues[suiv]);
-    // `decode()` ne se résout pas toujours : sur une image d'un <picture>
-    // dont on vient de changer le srcset, la promesse peut ne jamais
-    // aboutir. Sans garde-fou, le carrousel s'arrêterait pour de bon.
-    try {
-      await Promise.race([
-        vues[suiv].decode?.() ?? Promise.resolve(),
-        new Promise(r => setTimeout(r, 1200)),
-      ]);
-    } catch { /* image absente ou remplacée en cours de route */ }
-    if (fige || !aLEcran || document.hidden) return;   // l'état a pu changer pendant l'attente
-    montrer(suiv);
+    if (fige || !aLEcran || document.hidden) return;
+    montrer((courant + 1) % vues.length);
     minuteur = setTimeout(boucle, DUREE);
   };
   const arreter = () => { clearTimeout(minuteur); minuteur = null; };
@@ -241,10 +239,17 @@ if (vues.length > 1 && fenetre) {
   }
 
   // On attend la fin du chargement, puis un moment de calme : le premier
-  // affichage a la priorité sur une image qui tourne.
+  // affichage a la priorité sur une image qui tourne. Les captures sont
+  // alors préparées une par une, chacune dans son propre temps mort, pour
+  // ne jamais enchaîner huit recalculs de mise en page d'affilée.
   const armer = () => {
-    pretADemarrer = true;
-    demarrer();
+    const auRepos = window.requestIdleCallback || (f => setTimeout(f, 60));
+    const preparer = i => {
+      if (i >= vues.length) { pretADemarrer = true; demarrer(); return; }
+      charger(vues[i]);
+      auRepos(() => preparer(i + 1), { timeout: 1500 });
+    };
+    auRepos(() => preparer(1), { timeout: 2000 });
   };
   const auCalme = () => (window.requestIdleCallback || (f => setTimeout(f, 800)))(armer, { timeout: 3000 });
   if (document.readyState === 'complete') auCalme();
