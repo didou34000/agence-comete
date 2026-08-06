@@ -70,7 +70,7 @@
 <section class="section"><div class="wrap"><div class="prose">
 <h2>En bref</h2>
 <ul>
-  <li>Aucun cookie publicitaire, aucun traceur d’audience, aucun bouton de réseau social qui vous suit.</li>
+  <li>Aucun cookie, aucun pixel publicitaire, aucun bouton de réseau social qui vous suit. Une mesure d’audience sans cookie ni identifiant durable, détaillée plus bas.</li>
   <li>Les seules données collectées sont celles que vous saisissez volontairement dans le formulaire de contact.</li>
   <li>Elles servent uniquement à vous répondre. Elles ne sont ni vendues, ni cédées, ni utilisées pour de la prospection.</li>
   <li>Un mail à <a href="mailto:bonjour@lagencedusud.com">bonjour@lagencedusud.com</a> suffit pour les consulter, les corriger ou les faire effacer.</li>
@@ -117,22 +117,33 @@ des prestataires techniques, qui agissent comme sous-traitants au sens de l’ar
   <li><strong>Hébergement du site</strong>&nbsp;: Vercel Inc., 440 N Barranca Ave #4133, Covina,
   CA 91723, États-Unis. Transfert encadré par les clauses contractuelles types de la Commission
   européenne.</li>
+  <li><strong>Mesure d’audience</strong>&nbsp;: Vercel Inc. également, via Web Analytics et
+  Speed Insights. Aucun cookie, aucun identifiant durable, aucune adresse IP conservée.</li>
   <li><strong>Traitement du formulaire de contact</strong>&nbsp;: le formulaire est reçu par une
   fonction hébergée sur ce même site, qui se contente de composer deux courriels&nbsp;: la demande
   vers ma boîte, et un accusé de réception vers la vôtre. Aucun message n’est stocké&nbsp;: ce qui
   reste, ce sont les deux courriels.</li>
-  <li><strong>Acheminement de ces courriels</strong>&nbsp;: OVH SAS, ou Resend Inc. (États-Unis,
-  serveurs de la région irlandaise) si ce transport est activé. Dans ce second cas, le transfert est
-  encadré par les clauses contractuelles types de la Commission européenne.</li>
+  <li><strong>Acheminement de ces courriels</strong>&nbsp;: <strong>Brevo</strong> (Sendinblue SAS),
+  106 boulevard Haussmann, 75008 Paris, France. Société française, données hébergées dans
+  l’Union européenne. Aucun transfert hors UE pour cette étape.</li>
   <li><strong>Messagerie électronique</strong>&nbsp;: OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.
   Données hébergées dans l’Union européenne.</li>
 </ul>
 <p>Aucune donnée n’est transmise à des fins publicitaires ou statistiques à un tiers.</p>
 
 <h2>Cookies et mesure d’audience</h2>
-<p>Ce site ne dépose <strong>aucun cookie</strong>. Il n’utilise ni Google Analytics, ni pixel de
-suivi, ni bouton de partage chargé depuis un réseau social. C’est aussi pour cette raison qu’aucune
-bannière de consentement ne vous est présentée : il n’y a rien à consentir.</p>
+<p>Ce site ne dépose <strong>aucun cookie</strong>. Il n’utilise ni Google Analytics, ni pixel
+publicitaire, ni bouton de partage chargé depuis un réseau social.</p>
+<p>Il utilise en revanche la mesure d’audience de son hébergeur, <strong>Vercel Web Analytics</strong>
+et <strong>Speed Insights</strong>, pour savoir quelles pages sont lues et à quelle vitesse elles
+s’affichent. Cette mesure <strong>ne pose aucun cookie</strong> et ne crée aucun identifiant qui
+vous suivrait d’un jour à l’autre ni d’un site à l’autre&nbsp;: chaque visite est rattachée à un
+identifiant recalculé puis jeté le jour même, et votre adresse IP n’est pas conservée. Aucune
+donnée n’est revendue ni utilisée pour de la publicité.</p>
+<p>C’est pour cela qu’aucune bannière de consentement ne vous est présentée&nbsp;: sans cookie et
+sans suivi d’un site à l’autre, une mesure d’audience strictement limitée à des statistiques
+anonymes n’a pas à être soumise à votre accord préalable. Si vous préférez tout de même ne pas
+être compté, l’option &laquo;&nbsp;Ne pas me pister&nbsp;&raquo; de votre navigateur suffit.</p>
 <p>Les polices de caractères sont hébergées sur notre propre serveur, et non chargées depuis un
 service tiers : votre adresse IP n’est donc transmise à personne d’autre que l’hébergeur du site.</p>
 
@@ -230,5 +241,9 @@ date ci-dessous indique la dernière révision.</p>
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>
 </button>
 <script src="script.js" defer></script>
+
+<!-- mesure d'audience, servie par l'hébergeur -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
