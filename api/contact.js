@@ -93,7 +93,61 @@ async function lireCorps(req) {
   return Object.fromEntries(new URLSearchParams(brut));
 }
 
-/* --- Contenu des deux messages --- */
+/* --- Contenu des deux messages ---
+
+   Gabarit en tableaux et styles en ligne : c'est la seule mise en forme
+   que tous les logiciels de messagerie rendent pareil, Outlook compris.
+   Le logo est une image distante, et la plupart des messageries les
+   bloquent au premier message : le nom de l'agence est donc du VRAI
+   texte a cote, jamais une image. Images coupees, le courrier reste
+   entier et signe. --------------------------------------------------- */
+
+const SITE = 'https://lagencedusud.com';
+const CREME = '#FAF5EC', ENCRE = '#17130E', GRIS = '#6E6459', BLEU = '#1730D6', SOLEIL = '#FF4D00';
+
+function gabarit(contenu) {
+  return `<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light only"></head>
+<body style="margin:0;padding:0;background:${CREME};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${CREME};">
+  <tr><td align="center" style="padding:28px 16px 40px;">
+    <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;">
+
+      <tr><td style="padding:0 0 22px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+          <td style="padding-right:10px;vertical-align:middle;">
+            <img src="${SITE}/assets/img/logo-mark.png" width="30" height="36" alt=""
+                 style="display:block;border:0;width:30px;height:36px;">
+          </td>
+          <td style="vertical-align:middle;font-family:Georgia,'Times New Roman',serif;
+                     font-size:23px;line-height:1;color:${ENCRE};letter-spacing:-.01em;">
+            L&rsquo;Agence du Sud
+          </td>
+        </tr></table>
+      </td></tr>
+
+      <tr><td style="background:#FFFFFF;border:1px solid #17130E1F;border-radius:14px;
+                     padding:30px 28px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:${ENCRE};">
+        ${contenu}
+      </td></tr>
+
+      <tr><td style="padding:20px 6px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
+                     Roboto,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.7;color:${GRIS};">
+        L&rsquo;Agence du Sud &middot; Montpellier, H&eacute;rault<br>
+        <a href="tel:+33767377014" style="color:${GRIS};text-decoration:none;">${TELEPHONE}</a>
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:${DESTINATAIRE}" style="color:${GRIS};text-decoration:none;">${DESTINATAIRE}</a>
+        &nbsp;&middot;&nbsp;
+        <a href="${SITE}" style="color:${BLEU};text-decoration:none;">lagencedusud.com</a>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+</body></html>`;
+}
 
 function messages(d) {
   const lignes = [
@@ -103,38 +157,59 @@ function messages(d) {
     ['Besoin', d.besoin || 'non précisé'],
   ];
   const tableau = lignes
-    .map(([k, v]) => `<tr><td style="padding:4px 14px 4px 0;color:#6E6459">${k}</td>`
-                   + `<td style="padding:4px 0;color:#17130E"><b>${echapper(v)}</b></td></tr>`)
+    .map(([k, v]) => `<tr>`
+      + `<td style="padding:5px 16px 5px 0;color:${GRIS};white-space:nowrap;">${k}</td>`
+      + `<td style="padding:5px 0;color:${ENCRE};font-weight:700;">${echapper(v)}</td></tr>`)
     .join('');
+
   const projet = d.message
-    ? `<p style="margin:18px 0 0;white-space:pre-wrap;color:#17130E">${echapper(d.message)}</p>`
-    : `<p style="margin:18px 0 0;color:#6E6459">Aucun message, à rappeler.</p>`;
+    ? `<p style="margin:22px 0 0;padding:16px 18px;background:${CREME};border-radius:10px;`
+      + `white-space:pre-wrap;color:${ENCRE};">${echapper(d.message)}</p>`
+    : `<p style="margin:22px 0 0;color:${GRIS};">Aucun message&nbsp;: à rappeler.</p>`;
 
   const pourMoi = {
     sujet: `Demande de maquette · ${propre(d.nom, 60)}`,
-    html: `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55">
-      <p style="margin:0 0 14px;color:#6E6459">Nouvelle demande depuis lagencedusud.com</p>
-      <table style="border-collapse:collapse">${tableau}</table>${projet}
-    </div>`,
-    texte: lignes.map(([k, v]) => `${k} : ${v}`).join('\n') + '\n\n' + (d.message || '(aucun message)'),
+    html: gabarit(
+      `<p style="margin:0 0 4px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:${SOLEIL};font-weight:700;">Nouvelle demande</p>`
+      + `<p style="margin:0 0 20px;font-family:Georgia,'Times New Roman',serif;font-size:21px;line-height:1.25;color:${ENCRE};">`
+      + `${echapper(propre(d.nom, 60))} vous a écrit depuis le site.</p>`
+      + `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:15px;">${tableau}</table>`
+      + projet
+      + `<p style="margin:24px 0 0;font-size:13px;color:${GRIS};">`
+      + `Répondez directement à ce message, il part vers l’adresse du visiteur.</p>`),
+    texte: lignes.map(([k, v]) => `${k} : ${v}`).join('\n')
+         + '\n\n' + (d.message || '(aucun message)')
+         + '\n\nRepondez directement a ce message.',
   };
+
+  const prenom = propre(d.nom, 60).split(' ')[0] || '';
 
   const pourLui = {
     sujet: 'Votre demande est bien arrivée · L’Agence du Sud',
-    html: `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.6;color:#17130E">
-      <p style="margin:0 0 16px">Bonjour ${echapper(propre(d.nom, 60).split(' ')[0] || '')},</p>
-      <p style="margin:0 0 16px">Votre message est bien arrivé. Je le lis moi-même, et je vous réponds
-      sous 24&nbsp;heures les jours ouvrés, avec un premier avis sur votre projet et un créneau pour
-      se parler.</p>
-      <p style="margin:0 0 16px">Si c’est pressé, le plus simple reste le téléphone :
-      <a href="tel:+33767377014" style="color:#1730D6">${TELEPHONE}</a>.</p>
-      <p style="margin:0 0 6px">À très vite,</p>
-      <p style="margin:0;color:#6E6459">Dorian · L’Agence du Sud, Montpellier<br>
-      <a href="https://lagencedusud.com" style="color:#1730D6">lagencedusud.com</a></p>
-    </div>`,
-    texte: `Bonjour,\n\nVotre message est bien arrivé. Je le lis moi-même et je vous réponds sous 24 heures `
-         + `les jours ouvrés, avec un premier avis et un créneau pour se parler.\n\n`
-         + `Si c'est pressé : ${TELEPHONE}\n\nDorian, L'Agence du Sud, Montpellier\nhttps://lagencedusud.com`,
+    html: gabarit(
+      `<p style="margin:0 0 18px;">Bonjour ${echapper(prenom)},</p>`
+      + `<p style="margin:0 0 18px;">Votre message est bien arrivé. Je le lis moi-même, et je vous réponds `
+      + `<b>sous 24&nbsp;heures</b> les jours ouvrés, avec un premier avis sur votre projet et un créneau `
+      + `pour se parler.</p>`
+      + `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 18px;">`
+      + `<tr><td style="background:${ENCRE};border-radius:100px;">`
+      + `<a href="tel:+33767377014" style="display:inline-block;padding:11px 22px;color:${CREME};`
+      + `text-decoration:none;font-size:15px;font-weight:700;">Si c’est pressé&nbsp;: ${TELEPHONE}</a>`
+      + `</td></tr></table>`
+      + `<p style="margin:0 0 4px;">À très vite,</p>`
+      + `<p style="margin:0;color:${GRIS};">Dorian</p>`),
+    texte: `Bonjour ${prenom},
+
+Votre message est bien arrive. Je le lis moi-meme et je vous reponds `
+         + `sous 24 heures les jours ouvres, avec un premier avis et un creneau pour se parler.
+
+`
+         + `Si c'est presse : ${TELEPHONE}
+
+A tres vite,
+Dorian
+L'Agence du Sud, Montpellier
+${SITE}`,
   };
 
   return { pourMoi, pourLui };
