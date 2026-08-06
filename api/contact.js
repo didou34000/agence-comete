@@ -46,6 +46,20 @@ const propre = (v, max = 200) => String(v == null ? '' : v).replace(/[\r\n]+/g, 
 
 const emailValide = (v) => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v);
 
+/* Reglages SMTP, calcules a un seul endroit pour que le diagnostic dise
+   exactement ce que l'envoi fait. Un diagnostic qui affiche autre chose
+   que la realite fait perdre plus de temps qu'il n'en gagne. */
+function reglagesSmtp() {
+  const hote = process.env.SMTP_HOST || 'ssl0.ovh.net';
+  // OVH sert le TLS implicite sur 465 ; les relais (Brevo, Mailjet,
+  // Sendgrid) ecoutent en STARTTLS sur 587.
+  const port = Number(process.env.SMTP_PORT || (/ovh\.net$/i.test(hote) ? 465 : 587));
+  const boite = process.env.SMTP_USER || DESTINATAIRE;
+  const expediteur = process.env.MAIL_FROM
+    || (boite.endsWith('@lagencedusud.com') ? boite : DESTINATAIRE);
+  return { hote, port, boite, expediteur };
+}
+
 /* Découpe un corps multipart/form-data en champs texte. Le formulaire n'a
    aucun fichier à envoyer, donc pas besoin d'aller plus loin. C'est ce que
    produit `new FormData(form)` côté navigateur, et l'oublier faisait
@@ -165,13 +179,7 @@ async function parResend(d) {
 async function parSmtp(d) {
   const { pourMoi, pourLui } = messages(d);
   const { default: nodemailer } = await import('nodemailer');
-  const boite = process.env.SMTP_USER || DESTINATAIRE;
-  const hote = process.env.SMTP_HOST || 'ssl0.ovh.net';
-  /* Le port se déduit de l'hébergeur quand il n'est pas donné : OVH sert
-     le TLS implicite sur 465, la quasi-totalité des relais (Brevo,
-     Mailjet, Sendgrid) écoutent en STARTTLS sur 587. Fixer 465 pour tout
-     le monde faisait échouer la connexion sans rien dire d'utile. */
-  const port = Number(process.env.SMTP_PORT || (/ovh\.net$/i.test(hote) ? 465 : 587));
+  const { hote, port, boite, expediteur } = reglagesSmtp();
   const transport = nodemailer.createTransport({
     host: hote,
     port,
@@ -181,20 +189,6 @@ async function parSmtp(d) {
     auth: { user: boite, pass: process.env.SMTP_PASS },
   });
 
-  /* Qui expédie.
-
-     Chez OVH, l'identifiant de connexion EST une adresse du domaine, et
-     le serveur refuse tout From qui ne lui correspond pas : on envoie
-     donc sous cette adresse-là.
-
-     Chez un relais comme Brevo, l'identifiant ressemble à
-     b48099001@smtp-brevo.com : ce n'est pas une adresse d'expédition,
-     c'est un login. On envoie alors sous l'adresse de l'agence, qui doit
-     être déclarée comme expéditeur vérifié chez le relais.
-
-     MAIL_FROM tranche à la main si besoin. */
-  const expediteur = process.env.MAIL_FROM
-    || (boite.endsWith('@lagencedusud.com') ? boite : DESTINATAIRE);
   const de = `L'Agence du Sud <${expediteur}>`;
 
   await transport.sendMail({
@@ -235,13 +229,10 @@ export default async function handler(req, res) {
     return res.status(200).json({
       transport,
       accuseDeReception: transport !== 'formspree',
-      reglages: {
+      reglages: reglagesSmtp(),
+      cles: {
         RESEND_API_KEY: !!process.env.RESEND_API_KEY,
         SMTP_PASS: !!process.env.SMTP_PASS,
-        SMTP_HOST: process.env.SMTP_HOST || '(défaut : ssl0.ovh.net)',
-        SMTP_PORT: process.env.SMTP_PORT || '(défaut : 465)',
-        SMTP_USER: process.env.SMTP_USER || '(défaut : ' + DESTINATAIRE + ')',
-        MAIL_FROM: process.env.MAIL_FROM || '(déduit)',
       },
       destinataire: DESTINATAIRE,
     });
