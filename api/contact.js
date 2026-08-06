@@ -219,6 +219,29 @@ async function parFormspree(d) {
 /* --- Point d'entrée --- */
 
 export default async function handler(req, res) {
+  /* Point de diagnostic : dit par où partiraient les messages, sans rien
+     envoyer. Ne renvoie aucun secret, seulement la présence des réglages
+     et l'identifiant de connexion, qui n'est pas un mot de passe.
+     Sert à répondre en deux secondes à « pourquoi je ne reçois rien ». */
+  if (req.method === 'GET' && /[?&]diagnostic=1/.test(req.url || '')) {
+    const transport = process.env.RESEND_API_KEY ? 'resend'
+                    : process.env.SMTP_PASS ? 'smtp'
+                    : 'formspree';
+    return res.status(200).json({
+      transport,
+      accuseDeReception: transport !== 'formspree',
+      reglages: {
+        RESEND_API_KEY: !!process.env.RESEND_API_KEY,
+        SMTP_PASS: !!process.env.SMTP_PASS,
+        SMTP_HOST: process.env.SMTP_HOST || '(défaut : ssl0.ovh.net)',
+        SMTP_PORT: process.env.SMTP_PORT || '(défaut : 465)',
+        SMTP_USER: process.env.SMTP_USER || '(défaut : ' + DESTINATAIRE + ')',
+        MAIL_FROM: process.env.MAIL_FROM || '(déduit)',
+      },
+      destinataire: DESTINATAIRE,
+    });
+  }
+
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ ok: false, erreur: 'Méthode non autorisée.' });
