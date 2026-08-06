@@ -166,9 +166,14 @@ async function parSmtp(d) {
   const { pourMoi, pourLui } = messages(d);
   const { default: nodemailer } = await import('nodemailer');
   const boite = process.env.SMTP_USER || DESTINATAIRE;
-  const port = Number(process.env.SMTP_PORT || 465);
+  const hote = process.env.SMTP_HOST || 'ssl0.ovh.net';
+  /* Le port se déduit de l'hébergeur quand il n'est pas donné : OVH sert
+     le TLS implicite sur 465, la quasi-totalité des relais (Brevo,
+     Mailjet, Sendgrid) écoutent en STARTTLS sur 587. Fixer 465 pour tout
+     le monde faisait échouer la connexion sans rien dire d'utile. */
+  const port = Number(process.env.SMTP_PORT || (/ovh\.net$/i.test(hote) ? 465 : 587));
   const transport = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'ssl0.ovh.net',
+    host: hote,
     port,
     // 465 parle TLS d'entrée de jeu ; 587 démarre en clair puis passe en
     // STARTTLS. Figer `true` interdisait tout relais sur 587, dont Brevo.
