@@ -1406,6 +1406,28 @@ p { text-wrap: pretty; }
 .contact__liste a, .contact__liste .val { font-size: var(--fs-m); font-weight: 500; text-decoration: none; }
 .contact__liste a:hover { color: var(--accent-txt); }
 
+/* Le formulaire reste l'action principale : la reservation est proposee en
+   bouton creux, pour qu'elle se voie sans concurrencer la maquette offerte. */
+.contact__rdv { margin-top: var(--sp-5); }
+.contact__rdv p {
+  font-size: var(--fs-s); color: var(--txt-2);
+  max-width: var(--mesure-etroite);
+  margin-bottom: var(--sp-3);
+}
+
+/* Deux boutons cote a cote qui passent l'un sous l'autre proprement : sans
+   row-gap, une fois retournes ils se collent. */
+.groupe-btn {
+  display: flex; flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+/* .prose a repeint tous les liens en accent souligne, et sa specificite (0,1,1)
+   bat celle de .btn (0,1,0) : un bouton pose dans un bloc de texte se retrouvait
+   avec du orange sur fond encre, soit 2,95:1, sous le seuil de 4,5. Le bouton
+   garde ses propres couleurs, ou qu'il soit. */
+.prose a.btn { color: var(--btn-txt); text-decoration: none; }
+
 .formulaire {
   background: var(--surface);
   border: 2px solid var(--encre);
