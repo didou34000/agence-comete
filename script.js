@@ -262,15 +262,63 @@ if (vues.length > 1 && fenetre) {
 }
 
 /* ===== Comparateurs avant / après =====
-   Le champ range couvre toute l'image : glisser dessus deplace la
-   separation. Sans ce script, on voit les deux moities a 50 %, ce qui
-   reste lisible. */
+   Le champ `range` reste dans le document pour le clavier et les lecteurs
+   d'écran, mais il ne pilote plus le glissement au doigt : sur mobile, le
+   navigateur consommait le geste horizontal avant que le champ ne le voie,
+   et la séparation ne bougeait pas.
+
+   On écoute donc les événements pointeur sur le cadre lui-même, ce qui
+   couvre souris, doigt et stylet du même code. `setPointerCapture` garde
+   le doigt attaché même s'il sort de l'image, et `touch-action: pan-y`
+   laisse la page défiler verticalement pendant qu'on tire.
+
+   Sans JavaScript, la séparation reste à 50 %, ce qui montre déjà les
+   deux moitiés.                                                        */
 $$('.compare__cadre').forEach(cadre => {
   const curseur = $('.compare__curseur', cadre);
   if (!curseur) return;
-  const placer = () => cadre.style.setProperty('--pos', curseur.value + '%');
-  curseur.addEventListener('input', placer);
-  placer();
+
+  const placer = valeur => {
+    // Arrondi au centième : sans lui, une division de largeurs sort des
+    // « 20.00000000000001% » dans la feuille de style.
+    const v = Math.round(Math.max(0, Math.min(100, valeur)) * 100) / 100;
+    cadre.style.setProperty('--pos', v + '%');
+    curseur.value = String(Math.round(v));
+  };
+
+  const depuisPointeur = e => {
+    const r = cadre.getBoundingClientRect();
+    if (!r.width) return;
+    placer(((e.clientX - r.left) / r.width) * 100);
+  };
+
+  let tire = false;
+
+  cadre.addEventListener('pointerdown', e => {
+    if (e.button != null && e.button !== 0) return;   // clic droit ou molette : on ignore
+    tire = true;
+    cadre.setPointerCapture?.(e.pointerId);
+    depuisPointeur(e);
+    e.preventDefault();                               // pas de sélection de texte pendant le tir
+  });
+
+  cadre.addEventListener('pointermove', e => {
+    if (!tire) return;
+    depuisPointeur(e);
+  });
+
+  const relacher = e => {
+    if (!tire) return;
+    tire = false;
+    cadre.releasePointerCapture?.(e.pointerId);
+  };
+  cadre.addEventListener('pointerup', relacher);
+  cadre.addEventListener('pointercancel', relacher);
+
+  // Le clavier passe toujours par le champ : flèches, Début, Fin.
+  curseur.addEventListener('input', () => placer(Number(curseur.value)));
+
+  placer(Number(curseur.value));
 });
 
 /* ===== FAQ =====
