@@ -415,13 +415,8 @@ p { text-wrap: pretty; }
   z-index: 120;
 }
 
-.annonce {
-  background: var(--encre); color: var(--txt-inv);
-  font-size: var(--fs-s);
-  text-align: center;
-  padding: var(--sp-2) var(--gouttiere);
-}
-.annonce a { color: #FFB08A; font-weight: 500; }
+/* Le bandeau d'annonce a ete retire : il repetait mot pour mot ce que le hero
+   dit 300 px plus bas, et coutait 61 px tout en haut du mobile. */
 
 .entete {
   position: sticky; top: 0; z-index: 100;
@@ -1817,7 +1812,9 @@ p { text-wrap: pretty; }
   .badge-prix { width: 6.5rem; right: -.5rem; top: -1.5rem; }
   .badge-prix text { font-size: 16px; letter-spacing: 0; }
   .badge-prix__centre { font-size: 1.625rem; }
-  .carte-preuve { left: 0; bottom: -1.25rem; }
+  /* Sous 780 px le hero est en une colonne : la carte se pose sur l'image et
+     ajoute du texte par-dessus du texte. Elle est decorative, elle sort. */
+  .carte-preuve { display: none; }
   .pied__bas .pied__cocarde { margin-left: 0; }
 }
 
@@ -1843,7 +1840,7 @@ p { text-wrap: pretty; }
 }
 
 @media print {
-  .annonce, .entete, .cta-mobile, .haut, .progression, body::after { display: none !important; }
+  .entete, .cta-mobile, .haut, .progression, body::after { display: none !important; }
   body { background: #fff; color: #000; }
   .section { padding-block: 1.5rem; }
 }
