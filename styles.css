@@ -592,9 +592,9 @@ p { text-wrap: pretty; }
 }
 
 /* L'écran d'un MacBook est en 16/10. Le ratio est porté par la fenêtre
-   entière — barre d'adresse comprise — et la zone d'image prend ce qui
-   reste dessous. Le poser sur l'image seule donnait un écran presque
-   carré, qui ne ressemblait à aucun portable. */
+   entière, barre d'adresse comprise, et la zone d'image prend ce qui reste
+   dessous. Le poser sur l'image seule donnait un écran presque carré, qui
+   ne ressemblait à aucun portable. */
 .fenetre {
   aspect-ratio: 16 / 10;
   display: flex;
