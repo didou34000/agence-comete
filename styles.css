@@ -559,48 +559,84 @@ p { text-wrap: pretty; }
 
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 
-.hero__gages {
-  display: flex; flex-wrap: wrap;
-  gap: var(--sp-2) var(--sp-5);
-  margin-top: var(--sp-5);
-  font-size: var(--fs-s);
-  color: var(--txt-3);
-}
-.hero__gages li { display: flex; align-items: center; gap: var(--sp-2); }
-.hero__gages svg { flex: none; color: var(--accent-txt); }
-
 /* --- Fenêtre navigateur --- */
 .hero__visuel { position: relative; }
 
-.fenetre {
-  border-radius: var(--r);
-  overflow: clip;
-  background: #fff;
-  border: 1px solid var(--trait-fort);
+/* ══════════ Le Mac ══════════
+   Un capot sombre qui encadre l'écran, un socle un peu plus large en
+   dessous. Le capot porte l'ombre portée, plus la fenêtre : sinon on
+   voit deux ombres empilées. */
+.mac { position: relative; }
+
+.mac__capot {
+  background: var(--encre);
+  border-radius: 13px 13px 5px 5px;
+  padding: 9px 9px 12px;
   box-shadow: 0 2px 6px #17130E0D, 0 32px 64px -28px #17130E59;
 }
+
+.mac__socle {
+  position: relative;
+  height: 11px;
+  margin-inline: -5.5%;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg, #CFC7BC, #9C9388 55%, #7A7166);
+  box-shadow: 0 12px 20px -14px #17130E8C;
+}
+/* La petite encoche d'ouverture, au milieu du socle. */
+.mac__encoche {
+  position: absolute; top: 0; left: 50%; translate: -50% 0;
+  width: 13%; height: 5px;
+  border-radius: 0 0 5px 5px;
+  background: #6E665C;
+}
+
+/* L'écran d'un MacBook est en 16/10. Le ratio est porté par la fenêtre
+   entière — barre d'adresse comprise — et la zone d'image prend ce qui
+   reste dessous. Le poser sur l'image seule donnait un écran presque
+   carré, qui ne ressemblait à aucun portable. */
+.fenetre {
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow: clip;
+  background: #fff;
+  container-type: inline-size;   /* sert d'unité à la barre, voir plus bas */
+}
+/* La barre du navigateur dessine une AUTRE interface : elle ne suit ni
+   l'échelle typographique ni l'échelle d'espacement du site, qui la
+   rendaient deux fois trop haute (14 % de l'écran, contre 5 à 7 % sur un
+   vrai navigateur). Tout est exprimé en em depuis la seule taille
+   ci-dessous : c'est le seul réglage à toucher pour l'épaissir ou
+   l'affiner, et elle reste proportionnelle au Mac. */
 .fenetre__barre {
-  display: flex; align-items: center; gap: var(--sp-3);
-  padding: var(--sp-2) var(--sp-3);
+  /* Mesurée sur la largeur du Mac, pas sur la racine : en rem fixe, la
+     barre gardait sa hauteur pendant que l'écran rétrécissait, et elle
+     reprenait 14 % de la hauteur sur mobile. Le max() lui garde un
+     plancher lisible sur les très petits écrans. */
+  font-size: max(9px, 2.35cqw);   /* la seule valeur à régler */
+  display: flex; align-items: center; gap: .9em;
+  padding: .35em .9em;
   background: var(--sable);
   border-bottom: 1px solid var(--trait);
 }
-.fenetre__pastilles { display: flex; gap: 5px; flex: none; }
-.fenetre__pastilles i { width: 9px; height: 9px; border-radius: 50%; background: #17130E2E; }
+.fenetre__pastilles { display: flex; gap: .45em; flex: none; }
+.fenetre__pastilles i { width: .6em; height: .6em; border-radius: 50%; background: #17130E2E; }
 .fenetre__pastilles i:first-child { background: var(--soleil); }
 .fenetre__url {
   flex: 1; min-width: 0;
   background: var(--creme);
   border-radius: var(--r-pilule);
-  padding: 2px var(--sp-3);
-  font-size: var(--fs-xs);
+  padding: .15em 1em;
+  line-height: 1.4;
   color: var(--txt-3);
   text-align: center;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .fenetre__ecran {
   position: relative;
-  aspect-ratio: 4 / 3;
+  flex: 1; min-height: 0;
   background: var(--sable);
 }
 .fenetre__ecran img {
@@ -626,20 +662,44 @@ p { text-wrap: pretty; }
 }
 .fenetre__badge-demo[data-visible] { opacity: 1; translate: 0 0; }
 
-/* Carte de preuve, posée en bas à gauche */
-.carte-preuve {
-  position: absolute; left: calc(var(--sp-7) * -1); bottom: calc(var(--sp-7) * -1);
-  z-index: 3;
-  background: var(--creme);
-  border: 2px solid var(--encre);
-  border-radius: var(--r);
-  padding: var(--sp-3) var(--sp-4);
-  box-shadow: 5px 5px 0 var(--encre);
-  width: max-content; max-width: 13.5rem;
+/* ══════════ Le téléphone ══════════
+   Posé sur l'angle bas-gauche du Mac, il montre le même site en version
+   mobile. Le ratio de l'écran est celui des captures (500 × 1082), donc
+   la place est réservée avant le chargement : aucun décalage. */
+.tel {
+  position: absolute;
+  left: calc(var(--sp-8) * -1);
+  bottom: calc(var(--sp-4) * -1);
+  z-index: 4;
+  width: 21%;
+  max-width: 8rem;
+  padding: 4px;
+  background: var(--encre);
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 4px #17130E14, 0 26px 42px -22px #17130E73;
 }
-.carte-preuve__etoiles { color: var(--soleil); letter-spacing: .1em; font-size: var(--fs-s); }
-.carte-preuve__txt { font-size: var(--fs-xs); color: var(--txt-2); }
-.carte-preuve__txt b { color: var(--txt); }
+.tel__ilot {
+  position: absolute; z-index: 2;
+  top: 12px; left: 50%; translate: -50% 0;
+  width: 24%; height: 5px;
+  border-radius: var(--r-pilule);
+  background: #17130E;
+}
+.tel__ecran {
+  position: relative;
+  aspect-ratio: 500 / 1082;
+  border-radius: 1.15rem;
+  overflow: clip;
+  background: var(--sable);
+}
+.tel__ecran img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+  opacity: 0;
+  transition: opacity var(--t-long) var(--ease-doux);
+}
+.tel__ecran img[data-actif] { opacity: 1; }
 
 /* Badge prix : ne tourne qu'au survol, plus en boucle. */
 .badge-prix {
@@ -681,10 +741,10 @@ p { text-wrap: pretty; }
   margin-top: var(--sp-5);
   padding-right: var(--sp-2);
 }
-/* La carte de preuve déborde sous la fenêtre à gauche : les pastilles
-   restent à droite pour ne jamais la croiser. */
+/* Le téléphone déborde sous le Mac à gauche : les pastilles restent à
+   droite pour ne jamais le croiser. */
 @media (max-width: 940px) {
-  .fenetre__puces { justify-content: center; padding-right: 0; }
+  .fenetre__puces { justify-content: flex-end; padding-right: 0; }
 }
 .fenetre__puces button {
   width: 9px; height: 9px; padding: 0;
@@ -1777,6 +1837,10 @@ p { text-wrap: pretty; }
   .contact__grille { grid-template-columns: 1fr; }
   .hero__grille { gap: var(--sp-9); }
   .hero__visuel { max-width: 32rem; }
+  /* Le visuel n'a plus de colonne de texte à côté : le téléphone rentre
+     dans le cadre au lieu de déborder dans la gouttière. Sa largeur ne
+     change pas, sinon le rapport avec le Mac ne tient plus. */
+  .tel { left: calc(var(--sp-4) * -1); }
   .agence__visuel { max-width: 26rem; margin-inline: auto; }
   .offres { grid-template-columns: 1fr; }
   .demos { grid-template-columns: repeat(2, 1fr); }
@@ -1812,9 +1876,6 @@ p { text-wrap: pretty; }
   .badge-prix { width: 6.5rem; right: -.5rem; top: -1.5rem; }
   .badge-prix text { font-size: 16px; letter-spacing: 0; }
   .badge-prix__centre { font-size: 1.625rem; }
-  /* Sous 780 px le hero est en une colonne : la carte se pose sur l'image et
-     ajoute du texte par-dessus du texte. Elle est decorative, elle sort. */
-  .carte-preuve { display: none; }
   .pied__bas .pied__cocarde { margin-left: 0; }
 }
 

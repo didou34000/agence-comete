@@ -124,6 +124,7 @@ if (mots.length > 1 && !mouvementReduit) {
    clique, et quand l'onglet passe en arrière-plan. Il ne démarre pas du
    tout si le visiteur a demandé moins d'animations.                  */
 const vues = $$('[data-vue]');
+const mobiles = $$('[data-mob]');   // le téléphone, dans le même ordre que les vues
 const urlVue = $('#urlVue');
 const badgeDemo = $('#badgeDemo');
 const fenetre = $('.fenetre');
@@ -156,6 +157,12 @@ if (vues.length > 1 && fenetre) {
     charger(vue);
     if (urlVue && vue.dataset.url) urlVue.textContent = vue.dataset.url;
     badgeDemo?.toggleAttribute('data-visible', vue.hasAttribute('data-demo'));
+
+    // Le téléphone suit l'écran du Mac : même site, version mobile.
+    if (mobiles.length === vues.length) {
+      charger(mobiles[i]);
+      mobiles.forEach((m, n) => m.toggleAttribute('data-actif', n === i));
+    }
   };
 
   vues.forEach((vue, i) => {
@@ -234,7 +241,9 @@ if (vues.length > 1 && fenetre) {
     if (document.hidden) arreter(); else demarrer();
   });
 
-  fenetre.after(puces);
+  // Sous le Mac entier, pas sous la fenêtre : à l'intérieur du capot les
+  // pastilles tomberaient sur le fond sombre, où elles ne se voient plus.
+  (fenetre.closest('.mac') || fenetre).after(puces);
   montrer(0);
 
   // Hors de l'écran, le carrousel ne consomme rien.

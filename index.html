@@ -151,7 +151,8 @@
 
         <p class="hero__sous-titre">
           <strong>Une seule personne</strong> dessine, écrit et met en ligne votre site. Vous voyez
-          votre page d’accueil terminée <strong>avant de payer quoi que ce soit</strong>.
+          votre page d’accueil terminée <strong>avant de payer quoi que ce soit</strong>, et vous
+          êtes en ligne en trois semaines.
         </p>
 
         <div class="hero__actions">
@@ -159,15 +160,16 @@
           <a class="btn btn--fantome btn--grand" href="#realisations">Voir nos réalisations</a>
         </div>
 
-        <ul class="hero__gages">
-          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12.5 14 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Le site vous appartient</li>
-          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12.5 14 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>En ligne en 3 semaines</li>
-          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12.5 14 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Réponse sous 24&nbsp;h</li>
-          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5 6 12.5 14 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sans engagement</li>
-        </ul>
+        <!-- La liste de gages à coches a été retirée : « réponse sous 24 h »,
+             « sans engagement » et « le site vous appartient » étaient déjà dits
+             par les chiffres juste en dessous (24h, 0€) et par les engagements
+             plus bas. Le seul argument qu'elle portait seule, le délai de trois
+             semaines, est passé dans le sous-titre. -->
       </div>
 
       <div class="hero__visuel">
+        <div class="mac">
+        <div class="mac__capot">
         <div class="fenetre">
           <div class="fenetre__barre" aria-hidden="true">
             <span class="fenetre__pastilles"><i></i><i></i><i></i></span>
@@ -210,9 +212,50 @@
             </picture>
           </div>
         </div>
+        </div>
+          <div class="mac__socle" aria-hidden="true"><span class="mac__encoche"></span></div>
+        </div>
 
-        <div class="carte-preuve">
-          <span class="carte-preuve__txt"><b>Trois sites en ligne</b>, et cinq démos à visiter</span>
+        <!-- Le téléphone reprend les mêmes sites que l'écran du Mac, en version
+             mobile. Il est aria-hidden : c'est un doublon visuel, les captures
+             sont déjà décrites par les alt de la fenêtre du Mac, et les répéter
+             ferait lire huit fois la même chose à un lecteur d'écran. -->
+        <div class="tel" aria-hidden="true">
+          <span class="tel__ilot"></span>
+          <div class="tel__ecran">
+            <picture>
+              <source type="image/webp" srcset="assets/img/mob-southconciergerie.webp">
+              <img data-mob data-actif src="assets/img/mob-southconciergerie.jpg" alt="" width="500" height="1082" decoding="async">
+            </picture>
+            <picture>
+              <source type="image/webp" data-srcset="assets/img/mob-demo-hotel.webp">
+              <img data-mob data-src="assets/img/mob-demo-hotel.jpg" alt="" width="500" height="1082" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source type="image/webp" data-srcset="assets/img/mob-general-robotics.webp">
+              <img data-mob data-src="assets/img/mob-general-robotics.jpg" alt="" width="500" height="1082" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source type="image/webp" data-srcset="assets/img/mob-demo-jetski.webp">
+              <img data-mob data-src="assets/img/mob-demo-jetski.jpg" alt="" width="500" height="1082" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source type="image/webp" data-srcset="assets/img/mob-iksee.webp">
+              <img data-mob data-src="assets/img/mob-iksee.jpg" alt="" width="500" height="1082" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source type="image/webp" data-srcset="assets/img/mob-demo-bistrot.webp">
+              <img data-mob data-src="assets/img/mob-demo-bistrot.jpg" alt="" width="500" height="1082" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source type="image/webp" data-srcset="assets/img/mob-demo-barbier.webp">
+              <img data-mob data-src="assets/img/mob-demo-barbier.jpg" alt="" width="500" height="1082" loading="lazy" decoding="async">
+            </picture>
+            <picture>
+              <source type="image/webp" data-srcset="assets/img/mob-demo-paysagiste.webp">
+              <img data-mob data-src="assets/img/mob-demo-paysagiste.jpg" alt="" width="500" height="1082" loading="lazy" decoding="async">
+            </picture>
+          </div>
         </div>
 
         <!-- Le nom accessible doit CONTENIR tout le texte visible, y compris
