@@ -1,6 +1,6 @@
 # L'Agence du Sud · Agence web à Montpellier
 
-Site vitrine statique de l'agence : offre « site 4 pages à 599 € avec maquette
+Site vitrine statique de l'agence : offre « site 4 pages à 699 € avec maquette
 offerte », réalisations détaillées, pages services, process, FAQ et contact.
 
 Aucune dépendance, aucun build, aucun outil : ce sont des fichiers statiques
