@@ -1056,6 +1056,37 @@ p { text-wrap: pretty; }
 .offre__ttc b { color: var(--txt); }
 .offre--vedette .offre__ttc { color: var(--txt-inv-2); }
 .offre--vedette .offre__ttc b { color: var(--txt-inv); }
+
+/* L'addition sur trois ans : c'est la seule comparaison honnete avec une
+   offre par abonnement, et personne d'autre ne la pose. */
+.offre__addition {
+  margin-top: var(--sp-5);
+  padding: var(--sp-4);
+  border: 1px solid var(--trait);
+  border-radius: var(--r);
+}
+.offre--vedette .offre__addition { border-color: #FFFFFF33; background: #FFFFFF0F; }
+.offre__addition-titre {
+  font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: .01em; color: var(--txt-3);
+}
+.offre--vedette .offre__addition-titre { color: var(--txt-inv-2); }
+.offre__addition-calcul {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl); line-height: 1.1;
+  margin-top: var(--sp-2);
+  color: var(--txt);
+}
+.offre__addition-calcul i { font-style: normal; color: var(--txt-3); margin-inline: .15em; }
+.offre__addition-calcul b { font-weight: 400; color: var(--accent-txt); }
+.offre--vedette .offre__addition-calcul { color: var(--txt-inv); }
+.offre--vedette .offre__addition-calcul i { color: var(--txt-inv-2); }
+.offre--vedette .offre__addition-calcul b { color: var(--soleil); }
+.offre__addition-note {
+  font-size: var(--fs-xs); color: var(--txt-2);
+  margin-top: var(--sp-2);
+}
+.offre--vedette .offre__addition-note { color: var(--txt-inv-2); }
 .offre__desc { margin-top: var(--sp-4); color: var(--txt-2); }
 .offre--vedette .offre__desc { color: var(--txt-inv-2); }
 
@@ -1218,16 +1249,65 @@ p { text-wrap: pretty; }
 }
 .agence__texte > p { color: var(--txt-2); max-width: var(--mesure); }
 .agence__texte > p + p { margin-top: var(--sp-4); }
-.agence__signature {
-  display: flex; align-items: center; gap: var(--sp-3);
+/* Signature de l'agence : un portrait et un nom. Tout l'argumentaire repose
+   sur « je réponds moi-même », une phrase pareille sans visage se lit comme
+   du marketing. En attendant la photo, le cadre porte les initiales : ça doit
+   ressembler a un parti pris, jamais a une image manquante. */
+.portrait {
+  display: flex; align-items: center; gap: var(--sp-4);
   margin-top: var(--sp-6);
   padding-top: var(--sp-5);
   border-top: 1px solid var(--trait);
-  font-family: var(--font-display); font-style: italic;
-  font-size: var(--fs-l);
-  color: var(--txt);           /* explicite : ne dépend pas de .agence__texte > p */
 }
-.agence__signature span { font-family: var(--font-body); font-style: normal; font-size: var(--fs-s); color: var(--txt-3); }
+.portrait__cadre,
+.portrait__photo {
+  flex: none;
+  width: 6.5rem; height: 8rem;
+  border: 2px solid var(--encre);
+  border-radius: var(--r);
+  box-shadow: 5px 5px 0 var(--encre);
+}
+.portrait__photo { object-fit: cover; display: block; }
+.portrait__cadre {
+  display: grid; place-items: center;
+  background:
+    linear-gradient(150deg, var(--sable), color-mix(in srgb, var(--sable) 70%, var(--creme)));
+  overflow: hidden;
+  position: relative;
+}
+/* Un trait de soleil en diagonale : le cadre a l'air dessine, pas vide. */
+.portrait__cadre::after {
+  content: ""; position: absolute; inset: auto -20% -30% -20%;
+  height: 62%;
+  background: var(--soleil);
+  opacity: .14;
+  rotate: -14deg;
+}
+.portrait__initiales {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 2.4rem; line-height: 1;
+  letter-spacing: .02em;
+  color: var(--encre);
+}
+.portrait__nom {
+  font-family: var(--font-display); font-size: var(--fs-l);
+  color: var(--txt);
+}
+.portrait__nom b { font-weight: 400; text-transform: uppercase; letter-spacing: .03em; }
+.portrait__role {
+  font-size: var(--fs-s); color: var(--txt-2);
+  margin-top: var(--sp-2); max-width: 26rem;
+}
+.portrait__lieu {
+  font-size: var(--fs-xs); color: var(--txt-3);
+  margin-top: var(--sp-2);
+}
+@media (max-width: 560px) {
+  .portrait { gap: var(--sp-3); }
+  .portrait__cadre, .portrait__photo { width: 5rem; height: 6.25rem; }
+  .portrait__initiales { font-size: 1.8rem; }
+}
 
 
 /* ====================== 16. RÉALISATIONS & DÉMOS ====================== */

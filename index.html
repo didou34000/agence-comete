@@ -447,8 +447,18 @@
           <p class="offre__paiement">30&nbsp;% à la commande, le solde à la mise en ligne</p>
           <p class="offre__suite"><b>Puis 70&nbsp;€ par an</b>, hébergement et nom de domaine à votre nom,
           à prix coûtant. Rien d’autre, jamais.</p>
-          <p class="offre__desc"><strong>En ligne en trois semaines.</strong> Tout ce qu’il faut pour
-          exister, rien de superflu.</p>
+
+          <div class="offre__addition">
+            <p class="offre__addition-titre">Ce que ça fait sur trois ans</p>
+            <p class="offre__addition-calcul">699&nbsp;€ <i>+</i> 3&nbsp;×&nbsp;70&nbsp;€
+            <i>=</i> <b>909&nbsp;€</b></p>
+            <p class="offre__addition-note">Et le site est à vous. Une formule par abonnement, entre
+            39 et 50&nbsp;€ par mois, coûte de 1&nbsp;400 à 1&nbsp;800&nbsp;€ sur la même durée, et
+            s’arrête le jour où vous arrêtez de payer.</p>
+          </div>
+
+          <p class="offre__desc"><strong>En ligne en trois semaines, ou je vous rends l’acompte.</strong>
+          Le compte à rebours démarre le jour où j’ai vos textes et vos photos.</p>
 
           <ul class="offre__liste">
             <li><span><strong>Maquette offerte</strong>, vous ne payez qu’une fois convaincu</span></li>
@@ -602,7 +612,24 @@
           <li>Le café reste offert si vous passez nous voir</li>
         </ul>
 
-        <p class="agence__signature">L'Agence du Sud, agence web. <span>Montpellier, Hérault</span></p>
+        <div class="portrait">
+          <!-- Emplacement du portrait. Pour poser la vraie photo, remplacer le
+               bloc div.portrait__cadre ci-dessous par une balise img portant la
+               classe portrait__photo, le fichier assets/img/dorian.jpg, un texte
+               alternatif nommant Dorian Vuattoux, width 320, height 400, en
+               chargement differe. Le cadre garde ses dimensions, rien ne bouge.
+               La consigne est ecrite en toutes lettres et non en code, sinon
+               l'explorateur de liens la prend pour une image manquante. -->
+          <div class="portrait__cadre" aria-hidden="true">
+            <span class="portrait__initiales">DV</span>
+          </div>
+          <div class="portrait__texte">
+            <p class="portrait__nom">Dorian <b>Vuattoux</b></p>
+            <p class="portrait__role">Fondateur de L’Agence du Sud, et la seule personne qui
+            travaillera sur votre site.</p>
+            <p class="portrait__lieu">Montpellier, Hérault</p>
+          </div>
+        </div>
       </div>
 
       <div class="agence__visuel apparait">
@@ -1033,6 +1060,7 @@
           <a href="#process">Le process</a>
           <a href="#agence">Qui sommes-nous</a>
           <a href="#faq">Questions fréquentes</a>
+          <a href="/combien-coute-un-site-internet-a-montpellier">Combien coûte un site</a>
           <a href="#contact">Nous contacter</a>
         </nav>
       </div>
