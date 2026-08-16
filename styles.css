@@ -1049,6 +1049,13 @@ p { text-wrap: pretty; }
 .offre__prix .devis { font-style: italic; font-size: .68em; }
 .offre__paiement { font-size: var(--fs-s); color: var(--txt-3); margin-top: var(--sp-2); }
 .offre--vedette .offre__paiement { color: var(--txt-inv-2); }
+
+/* Le TTC etait enterre dans les CGV. C'est pourtant l'ecart le plus large
+   avec les concurrents, qui affichent presque tous des prix hors taxes. */
+.offre__ttc { font-size: var(--fs-s); color: var(--txt-2); margin-top: var(--sp-3); }
+.offre__ttc b { color: var(--txt); }
+.offre--vedette .offre__ttc { color: var(--txt-inv-2); }
+.offre--vedette .offre__ttc b { color: var(--txt-inv); }
 .offre__desc { margin-top: var(--sp-4); color: var(--txt-2); }
 .offre--vedette .offre__desc { color: var(--txt-inv-2); }
 
