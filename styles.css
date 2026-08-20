@@ -1267,7 +1267,11 @@ p { text-wrap: pretty; }
   border-radius: var(--r);
   box-shadow: 5px 5px 0 var(--encre);
 }
-.portrait__photo { object-fit: cover; display: block; }
+.portrait__photo { object-fit: cover; object-position: top; display: block; }
+/* Quand la photo arrive, elle est enveloppee dans un <picture> pour servir le
+   webp. Sans ceci, c'est le <picture> qui devient l'enfant du flex et la photo
+   perd ses dimensions. */
+.portrait picture { display: contents; }
 .portrait__cadre {
   display: grid; place-items: center;
   background:
