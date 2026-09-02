@@ -2,3 +2,11 @@
 .claude/
 node_modules/
 .vercel
+
+# Rushes déposés à la racine pour traitement : ils ne partent jamais dans
+# le dépôt. Seule la version web compressée, dans assets/video/, est
+# versionnée. Un fichier de 154 Mo dans l'historique y reste pour de bon.
+/video.mp4
+/*.MP4
+/*.mov
+/*.MOV

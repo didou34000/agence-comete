@@ -1,7 +1,8 @@
 # L'Agence du Sud · Agence web à Montpellier
 
-Site vitrine statique de l'agence : offre « site 4 pages à 699 € avec maquette
-offerte », réalisations détaillées, pages services, process, FAQ et contact.
+Site statique d'une **agence visuelle** : visites virtuelles 360°, photo et
+vidéo par drone. La création de site internet est le second métier, entier,
+sur sa propre page.
 
 Aucune dépendance, aucun build, aucun outil : ce sont des fichiers statiques
 qu'un simple serveur HTTP suffit à servir.
@@ -24,6 +25,84 @@ qu'un simple serveur HTTP suffit à servir.
 | `assets/img/demos/` | Les photos de chaque démo, un dossier par métier |
 | `favicon.svg` · `apple-touch-icon.png` · `site.webmanifest` | Icônes |
 | `robots.txt` · `sitemap.xml` | Référencement |
+| `visite-virtuelle-360.html` · `photo-video-drone.html` | Le **pôle image**, deuxième métier |
+| `styles-360.css` | Toute la DA du pôle image, isolée |
+| `visites/` | Les visites 360 exportées, un dossier autonome par visite |
+| `scripts/importer-visite.py` | Reprend un export du studio 360 et l'allège pour le web |
+
+
+## Deux métiers, deux pages d'entrée
+
+Le site a été repositionné : l'accueil est celui d'une **agence visuelle**, pas
+d'une agence web.
+
+| Page | Métier | Direction artistique |
+|---|---|---|
+| `/` | Visite 360, drone, vidéo | Nuit, accent `--bleu`, Space Grotesk seule |
+| `/visite-virtuelle-360` · `/photo-video-drone` | Détail du pôle image | idem |
+| `/creation-site-internet` | Site vitrine 4 pages à 699 € | Crème, accent orange, Instrument Serif |
+
+**La DA de la vente de site n'est pas touchée** : `creation-site-internet.html`
+ne charge même pas `styles-360.css`. Toutes les règles du pôle sont portées par
+`.pole-image` ou `.bande-pole`, jamais nues.
+
+`.pole-image` **remappe les jetons de texte** (`--txt`, `--txt-2`, `--txt-3`,
+`--accent-txt`, `--bleu-txt`) pour que tout composant hérité du site crème
+reste lisible sur fond nuit. Sans ça le nom du fondateur ressortait à 1,07:1.
+Si vous réutilisez un bloc crème sur une page sombre, vérifiez le contraste
+avant de le laisser passer.
+
+### Ce qui a bougé
+
+Les ancres de l'offre site ont changé de page : `#offre`, `#process`, `#demos`,
+`#engagements`, `#faq` et `#realisations` vivent maintenant sur
+`/creation-site-internet`. `#agence` et `#contact` sont restés sur l'accueil,
+et la page création a son propre bloc contact — un prospect chaud ne doit pas
+être renvoyé vers l'accueil visuel pour trouver un formulaire.
+
+## Le pôle image : visite virtuelle 360 et drone
+
+Deuxième métier, sur la même marque. Il a **sa propre direction artistique** —
+fond encre plein cadre, accent `--bleu`, Space Grotesk seule sans l'Instrument
+Serif — et cette DA vit entièrement dans `styles-360.css`.
+
+**Règle à ne pas casser** : chaque règle de cette feuille est portée soit par
+`.pole-image` (posé sur le `<body>` des pages du pôle), soit par `.bande-pole`
+(la porte posée sur l'accueil). Rien ne peut donc atteindre la DA des pages de
+vente de site, qui reste strictement inchangée. Si vous ajoutez une règle,
+préfixez-la.
+
+### Les visites
+
+Elles sont produites par le studio local `~/Desktop/SC/SITEV2/visite-360`, qui
+exporte un dossier statique autonome — Pannellum auto-hébergé, **aucun domaine
+tiers, aucun cookie**. La visite livrée n'ajoute donc aucun cookie au site du
+client. (Le site de l'agence, lui, a un bandeau depuis l'ajout de Google
+Analytics — voir `consentement.js`.)
+
+Pour publier une visite :
+
+```bash
+python3 scripts/importer-visite.py <dossier-export> <slug>
+```
+
+Le script ne garde que le panorama 4096, le convertit en WebP (le poids tombe
+de moitié : la visite de démonstration est passée de 60 à 10 Mo) et masque les
+libellés restés à l'état de nom de fichier Insta360.
+
+Les exports arrivent en `noindex` : c'est le bon défaut pour la visite d'un
+client. Seule la visite de démonstration a été ouverte à l'indexation, à la
+main, parce qu'elle est assumée comme vitrine publique.
+
+### À produire
+
+- **Tarifs** : les deux pages portent un emplacement en commentaire HTML. Rien
+  n'a été inventé, les deux annoncent « sur devis » en attendant.
+- **Galerie aérienne** : 26 photos DJI existent dans `~/Desktop/DRONE/100_0002`
+  mais n'ont pas été publiées, faute de sujet vendeur. Emplacement marqué dans
+  `photo-video-drone.html`.
+- **Nommer les pièces** de la visite de démonstration : 22 positions sur 25 sont
+  encore anonymes. Elles se renomment dans le studio, puis on réimporte.
 
 ## Système de design
 

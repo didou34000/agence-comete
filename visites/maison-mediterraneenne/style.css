@@ -1,0 +1,97 @@
+/* Visite virtuelle exportée — interface plein écran, bureau et mobile. */
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  background: #0c0c0e; color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+}
+
+#viewer { position: fixed; inset: 0; }
+
+/* ---------- bandeau de titre ---------- */
+#titlebar {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; gap: 10px;
+  padding: calc(10px + env(safe-area-inset-top)) 16px 26px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.55), transparent);
+  pointer-events: none; z-index: 5;
+}
+#tour-title { font-weight: 700; font-size: 15px; letter-spacing: 0.02em; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+#scene-title { font-size: 13px; opacity: 0.85; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+#scene-title:not(:empty)::before { content: "· "; opacity: 0.6; }
+
+/* ---------- barre de navigation ---------- */
+#bar {
+  position: fixed; left: 0; right: 0;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 12px; z-index: 5;
+}
+.bar-btn {
+  flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(16,16,18,0.62); color: #fff;
+  border: 1px solid rgba(255,255,255,0.35);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  cursor: pointer; transition: background 0.15s ease;
+}
+.bar-btn:hover { background: rgba(16,16,18,0.88); }
+
+#chips {
+  flex: 1; display: flex; gap: 8px;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  padding: 4px 2px; justify-content: safe center;
+}
+#chips::-webkit-scrollbar { display: none; }
+/* Vignette d'accès direct : une image vaut mieux qu'un nom de fichier. */
+.chip {
+  flex: none; padding: 0; overflow: hidden; cursor: pointer;
+  width: 74px; height: 40px; border-radius: 9px;
+  border: 2px solid rgba(255,255,255,0.35);
+  background: rgba(16,16,18,0.62);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.chip img { width: 100%; height: 100%; object-fit: cover; opacity: 0.72; transition: opacity 0.15s ease; }
+.chip:hover { border-color: rgba(255,255,255,0.8); }
+.chip:hover img { opacity: 1; }
+.chip.active { border-color: #fff; transform: translateY(-2px); }
+.chip.active img { opacity: 1; }
+@media (max-width: 640px) { .chip { width: 60px; height: 34px; } }
+
+/* ---------- écrans de chargement / erreur ---------- */
+.overlay {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  background: #0c0c0e;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+.overlay.hidden { opacity: 0; visibility: hidden; }
+.overlay-inner { text-align: center; padding: 24px; max-width: 420px; }
+.overlay-title { font-size: 22px; font-weight: 700; margin: 18px 0 6px; }
+.overlay-sub { font-size: 14px; opacity: 0.7; margin: 0; line-height: 1.5; }
+.spinner {
+  width: 42px; height: 42px; margin: 0 auto;
+  border: 3px solid rgba(255,255,255,0.2); border-top-color: #fff;
+  border-radius: 50%; animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn {
+  margin-top: 18px; padding: 10px 22px; border-radius: 999px;
+  background: #fff; color: #111; border: none;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+}
+
+/* ---------- Pannellum : retouches ---------- */
+.pnlm-container { background: #0c0c0e !important; }
+.pnlm-load-box { display: none !important; } /* remplacé par notre écran de chargement */
+/* les contrôles de zoom passent sous le bandeau de titre */
+.pnlm-controls-container { top: calc(44px + env(safe-area-inset-top)) !important; left: 12px !important; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 640px) {
+  .bar-btn { width: 40px; height: 40px; }
+  #chips { justify-content: flex-start; }
+}

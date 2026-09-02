@@ -2,8 +2,14 @@ User-agent: *
 Allow: /
 
 # Les cinq sites de démonstration présentent des entreprises fictives
-# (noms, téléphones et tarifs inventés). Ils ne doivent jamais apparaître
-# dans les résultats de recherche comme de vrais commerces.
-Disallow: /demos/
+# (noms, téléphones et tarifs inventés). Ils portent tous une balise
+# « noindex, nofollow » et ne doivent jamais apparaître dans les
+# résultats de recherche comme de vrais commerces.
+#
+# /demos/ n'est volontairement PAS bloqué ici : une page interdite au
+# crawl ne peut pas être lue, donc son noindex n'est jamais vu. Google
+# la découvrirait quand même par les cinq liens de la page création de
+# site, et l'indexerait à l'aveugle — URL nue, titre inventé. Laisser le
+# robot entrer est la seule façon de garantir la désindexation.
 
 Sitemap: https://lagencedusud.com/sitemap.xml

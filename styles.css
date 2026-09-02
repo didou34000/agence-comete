@@ -1996,3 +1996,35 @@ p { text-wrap: pretty; }
   body { background: #fff; color: #000; }
   .section { padding-block: 1.5rem; }
 }
+
+/* ══════════ BANDEAU DE CONSENTEMENT ══════════
+   Posé en bas, jamais en travers de la page : il n'attrape pas le
+   contenu et ne piège pas le clavier. Les deux boutons ont exactement
+   la même taille et le même poids visuel — refuser doit être aussi
+   simple qu'accepter, c'est une exigence CNIL et une question d'égards. */
+.consent {
+  position: fixed; z-index: 90;
+  inset: auto var(--gouttiere) var(--gouttiere);
+  display: flex; justify-content: center;
+  pointer-events: none;
+}
+.consent__boite {
+  pointer-events: auto;
+  width: min(100%, 34rem);
+  background: var(--creme);
+  border: 2px solid var(--encre);
+  border-radius: var(--r);
+  box-shadow: 6px 6px 0 var(--encre);
+  padding: var(--sp-4) var(--sp-5);
+  display: grid; gap: var(--sp-3);
+}
+.consent__titre { font-weight: 700; font-size: var(--fs-s); }
+.consent__texte { font-size: var(--fs-s); color: var(--txt-2); }
+.consent__texte a { color: var(--accent-txt); }
+.consent__actions { display: flex; gap: var(--sp-3); }
+.consent__actions .btn { flex: 1; justify-content: center; font-size: var(--fs-s); padding: var(--sp-3) var(--sp-4); }
+
+@media (max-width: 560px) {
+  .consent { inset: auto var(--sp-3) var(--sp-3); }
+  .consent__boite { padding: var(--sp-4); }
+}
