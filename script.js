@@ -357,11 +357,16 @@ if (form) {
   };
 
   const versMailto = donnees => {
-    const sujet = `[Maquette offerte] ${donnees.get('besoin')} · ${donnees.get('nom')}`;
+    // Le sujet vient du champ caché de la page, pas d'une constante :
+    // l'accueil demande un devis, la page site une maquette, et les
+    // deux formulaires partagent ce même code.
+    const objet = (donnees.get('_subject') || 'Demande').split(' · ')[0];
+    const sujet = `[${objet}] ${donnees.get('besoin')} · ${donnees.get('nom')}`;
     const corps = [
       `Nom : ${donnees.get('nom')}`,
       `Email : ${donnees.get('email')}`,
       `Téléphone : ${donnees.get('tel') || 'non renseigné'}`,
+      `Secteur : ${donnees.get('secteur') || 'non renseigné'}`,
       `Besoin : ${donnees.get('besoin')}`,
       '',
       donnees.get('message')

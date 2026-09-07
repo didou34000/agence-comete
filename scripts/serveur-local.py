@@ -44,6 +44,54 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         return local
 
+    def send_head(self):
+        """Ajoute le support des requêtes Range, que SimpleHTTPRequestHandler
+        ignore. Sans lui, une vidéo se lit du début mais refuse de se
+        déplacer : le navigateur demande un morceau, reçoit le fichier
+        entier avec un 200, et abandonne le déplacement. En production
+        Vercel les gère ; ne pas les gérer en local fait diagnostiquer de
+        faux bugs de lecteur."""
+        plage = self.headers.get('Range')
+        if not plage or not plage.startswith('bytes='):
+            return super().send_head()
+
+        chemin = self.translate_path(self.path)
+        if os.path.isdir(chemin) or not os.path.isfile(chemin):
+            return super().send_head()
+
+        taille = os.path.getsize(chemin)
+        debut, _, fin = plage[6:].partition('-')
+        try:
+            debut = int(debut) if debut else 0
+            fin = int(fin) if fin else taille - 1
+        except ValueError:
+            return super().send_head()
+        fin = min(fin, taille - 1)
+        if debut > fin:
+            self.send_response(416)
+            self.send_header('Content-Range', 'bytes */%d' % taille)
+            self.end_headers()
+            return None
+
+        f = open(chemin, 'rb')
+        f.seek(debut)
+        self.send_response(206)
+        self.send_header('Content-Type', self.guess_type(chemin))
+        self.send_header('Content-Range', 'bytes %d-%d/%d' % (debut, fin, taille))
+        self.send_header('Content-Length', str(fin - debut + 1))
+        self.send_header('Accept-Ranges', 'bytes')
+        self.end_headers()
+        # copyfile lirait jusqu'au bout : on borne nous-mêmes.
+        reste = fin - debut + 1
+        while reste > 0:
+            bloc = f.read(min(64 * 1024, reste))
+            if not bloc:
+                break
+            self.wfile.write(bloc)
+            reste -= len(bloc)
+        f.close()
+        return None
+
     def send_error(self, code, message=None, explain=None):
         page = os.path.join(RACINE, '404.html')
         if code == 404 and os.path.exists(page):
@@ -65,6 +113,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         règle est donc posée ici une fois pour toutes. En production,
         c'est vercel.json qui décide, et lui met de vrais caches.
         """
+        self.send_header('Accept-Ranges', 'bytes')
         self.send_header('Cache-Control', 'no-store, must-revalidate')
         self.send_header('Pragma', 'no-cache')
         self.send_header('Expires', '0')

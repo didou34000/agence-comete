@@ -110,3 +110,124 @@
   background: var(--creme); color: var(--encre);
   border-color: var(--trait-inv);
 }
+
+/* ══════════ LECTEUR 360 ══════════
+   Rien ne se charge avant le clic : ni la vidéo, ni le contexte WebGL.
+   L'affiche tient la place, et le ratio est réservé pour qu'aucun
+   décalage n'ait lieu au démarrage. */
+.video360 {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--r);
+  overflow: clip;
+  background: var(--encre);
+  cursor: grab;
+  touch-action: none;
+}
+.video360[data-tire] { cursor: grabbing; }
+.video360 canvas { display: block; width: 100%; height: 100%; }
+.video360__affiche {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.video360__voile {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; place-items: center; gap: var(--sp-4);
+  background: #17130E5C;
+  transition: opacity var(--t) var(--ease);
+}
+.video360[data-lance] .video360__affiche,
+.video360[data-lance] .video360__voile { opacity: 0; pointer-events: none; }
+.video360__aide {
+  position: absolute; z-index: 3; left: var(--sp-4); bottom: var(--sp-4);
+  background: #17130EC7; color: var(--creme);
+  border-radius: var(--r-pilule); padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-xs);
+  opacity: 0; transition: opacity var(--t) var(--ease);
+  pointer-events: none;
+}
+.video360[data-pret] .video360__aide { opacity: 1; }
+.video360:focus-visible { outline: 3px solid var(--bleu); outline-offset: 3px; }
+
+/* Barre de commandes. Posee en JS, donc absente tant que la video
+   n'est pas lancee : rien a masquer sur l'affiche. */
+.video360__barre {
+  position: absolute; z-index: 3; right: var(--sp-4); bottom: var(--sp-4);
+  display: flex; gap: var(--sp-2);
+}
+.video360__cmd {
+  background: #17130EC7; color: var(--creme);
+  border: 1px solid #FFFFFF3D; border-radius: var(--r-pilule);
+  padding: var(--sp-2) var(--sp-4);
+  font: inherit; font-size: var(--fs-xs); line-height: 1;
+  cursor: pointer;
+  transition: background var(--t-vif) var(--ease);
+}
+.video360__cmd:hover { background: var(--encre); }
+.video360__cmd:focus-visible { outline: 3px solid var(--bleu); outline-offset: 2px; }
+/* La pause est la commande principale : elle porte le contraste. */
+.video360__lecture { min-width: 5.5em; }
+
+/* Mention du sujet, posee sur l'image comme un cartel. Elle apparait
+   avec la video : sur l'affiche seule elle ferait doublon avec le
+   titre de section. */
+.video360__cliche {
+  position: absolute; z-index: 3; left: var(--sp-4); top: var(--sp-4);
+  background: #17130EC7; color: var(--creme);
+  border-radius: var(--r-pilule); padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-xs); letter-spacing: .04em;
+  opacity: 0; transition: opacity var(--t) var(--ease);
+  pointer-events: none;
+}
+.video360[data-pret] .video360__cliche { opacity: 1; }
+/* Sur mobile, un 16/9 ne laisse que 210 px de haut : trop peu pour une
+   vue immersive, et les trois pastilles s'y entassent. On donne de la
+   hauteur au bloc, et l'aide remonte au-dessus du bouton de son. */
+@media (max-width: 34rem) {
+  .video360 { aspect-ratio: 4 / 5; }
+  .video360__aide { bottom: calc(var(--sp-4) * 2 + 2.4em); }
+}
+/* Repli : sans WebGL on montre l'affiche et on le dit. */
+.video360[data-echec] .video360__voile { background: #17130E8F; }
+.video360[data-echec] .video360__voile [data-lire] { display: none; }
+.video360__repli { display: none; color: var(--creme); font-size: var(--fs-s); max-width: 26ch; text-align: center; }
+.video360[data-echec] .video360__repli { display: block; }
+
+/* ══════════════════════════════════════════════════════════════════
+   VISITE INTEGREE
+   Meme facade que la video 360 : une affiche, un bouton, et rien qui
+   se charge avant le clic. Le cadre remplace l'affiche a l'ouverture.
+   ══════════════════════════════════════════════════════════════════ */
+.visite-integree {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--r);
+  overflow: clip;
+  background: var(--encre);
+}
+.visite-integree__affiche {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.visite-integree__voile {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; place-items: center; align-content: center; gap: var(--sp-4);
+  background: #17130E5C;
+  padding: var(--sp-5);
+  text-align: center;
+  transition: opacity var(--t) var(--ease);
+}
+.visite-integree__voile p { color: var(--creme); font-size: var(--fs-s); max-width: 40ch; }
+.visite-integree[data-ouverte] .visite-integree__affiche,
+.visite-integree[data-ouverte] .visite-integree__voile { opacity: 0; pointer-events: none; }
+.visite-integree iframe {
+  position: absolute; inset: 0; z-index: 3;
+  width: 100%; height: 100%; border: 0;
+}
+/* En dessous de 34rem un 16/9 laisse une bande de 190 px : trop bas
+   pour se reperer dans une piece. On rend le cadre plus haut. */
+@media (max-width: 34rem) {
+  .visite-integree { aspect-ratio: 4 / 5; }
+}
