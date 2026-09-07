@@ -1046,6 +1046,11 @@ p { text-wrap: pretty; }
   min-height: 1em;               /* les deux prix partagent la même ligne de base */
 }
 .offre__prix sup { font-size: .4em; color: var(--soleil); top: -.85em; }
+.offre__ancien-prix {
+  margin-top: -.75rem;
+  color: var(--txt-2);
+  font-size: var(--fs-s);
+}
 .offre__prix .devis { font-style: italic; font-size: .68em; }
 .offre__paiement { font-size: var(--fs-s); color: var(--txt-3); margin-top: var(--sp-2); }
 .offre--vedette .offre__paiement { color: var(--txt-inv-2); }
