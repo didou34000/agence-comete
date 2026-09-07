@@ -51,6 +51,18 @@
   font-size: var(--fs-m); color: #E4DCD1;
   max-width: 46ch; margin-bottom: var(--sp-6);
 }
+.hero-photo__points {
+  display: flex; flex-wrap: wrap; gap: .45rem .9rem;
+  max-width: 52rem; margin: calc(var(--sp-4) * -1) 0 var(--sp-6);
+  padding: 0; list-style: none; color: #F4EDE4;
+  font-size: var(--fs-xs);
+}
+.hero-photo__points li {
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.hero-photo__points li::before {
+  content: "✓"; color: #FFB596; font-weight: 700;
+}
 .hero-photo .btn--fantome { color: var(--creme); border-color: #FAF5EC5C; }
 .hero-photo .btn--fantome:hover { border-color: var(--creme); background: #FAF5EC1A; }
 
@@ -108,6 +120,7 @@
   .galerie { grid-template-columns: 1fr; }
   .hero-photo { min-height: 74vh; }
   .hero-offre { margin-top: var(--sp-2); }
+  .hero-photo__points { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
 }
 
 /* ══════════ ÉTAPES SUR FOND ENCRE ══════════
