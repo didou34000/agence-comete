@@ -36,32 +36,17 @@
 .hero-photo h1 em { color: var(--soleil); }
 .hero-photo .surtitre { color: #FFB596; }
 .hero-offre {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-3);
+  display: inline-block;
   margin: var(--sp-3) 0 var(--sp-4);
-  padding: .55rem .9rem .55rem .65rem;
-  border: 1px solid #FF4D00;
-  border-radius: var(--r-pilule);
-  background: #FF4D00;
-  color: #fff;
-  box-shadow: 5px 5px 0 #17130E;
+  padding: .55rem .9rem;
+  border-left: 3px solid var(--soleil);
+  background: #17130EB8;
+  color: var(--creme);
+  font-size: var(--fs-s);
+  line-height: 1.35;
 }
-.hero-offre__prix {
-  display: grid;
-  place-items: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 50%;
-  background: var(--creme);
-  color: var(--encre);
-  font-family: var(--font-display);
-  font-size: 2rem;
-  line-height: 1;
-}
-.hero-offre__prix sup { font-size: .45em; color: var(--accent-txt); top: -.7em; }
-.hero-offre__texte { font-size: var(--fs-xs); line-height: 1.25; }
-.hero-offre__texte strong { font-size: var(--fs-s); }
+.hero-offre strong { color: #FFB596; font-size: var(--fs-m); }
+.hero-offre span { color: #D8CFC3; }
 .hero-photo__chapeau {
   font-size: var(--fs-m); color: #E4DCD1;
   max-width: 46ch; margin-bottom: var(--sp-6);
