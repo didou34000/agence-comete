@@ -117,7 +117,10 @@
   .galerie__vue--large img { aspect-ratio: 3 / 2; }
 }
 @media (max-width: 560px) {
-  .galerie { grid-template-columns: 1fr; }
+  /* On garde deux colonnes : en une seule, les cinq vues empilées
+     faisaient 2 100 px de haut pour vingt mots de légende. */
+  .galerie { grid-template-columns: repeat(2, 1fr); gap: var(--sp-2); }
+  .galerie__vue figcaption { font-size: 12px; }
   .hero-photo { min-height: 74vh; }
   .hero-offre { margin-top: var(--sp-2); }
   .hero-photo__points { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
@@ -248,6 +251,10 @@
 .visite-integree__voile p { color: var(--creme); font-size: var(--fs-s); max-width: 40ch; }
 .visite-integree[data-ouverte] .visite-integree__affiche,
 .visite-integree[data-ouverte] .visite-integree__voile { opacity: 0; pointer-events: none; }
+.visite-integree__note {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-s); color: var(--txt-3);
+}
 .visite-integree iframe {
   position: absolute; inset: 0; z-index: 3;
   width: 100%; height: 100%; border: 0;

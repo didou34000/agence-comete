@@ -746,17 +746,29 @@ p { text-wrap: pretty; }
 @media (max-width: 940px) {
   .fenetre__puces { justify-content: flex-end; padding-right: 0; }
 }
+/* La pastille reste un point de 9 px à l'œil, mais le bouton fait 44 px :
+   le rond est peint par ::before, la surface cliquable est le bouton lui
+   -même. Sans ça, viser au pouce relevait de la chance. */
 .fenetre__puces button {
-  width: 9px; height: 9px; padding: 0;
-  border: 0; border-radius: 50%;
-  background: var(--trait-fort); opacity: .22;
+  width: 44px; height: 44px; padding: 0;
+  display: grid; place-items: center;
+  border: 0; background: none;
   cursor: pointer;
-  transition: opacity var(--t) var(--ease), background var(--t) var(--ease), scale var(--t) var(--ease);
+  transition: scale var(--t) var(--ease);
 }
-.fenetre__puces button:hover { opacity: .5; }
-.fenetre__puces button[aria-selected="true"] {
-  background: var(--soleil); opacity: 1; scale: 1.25;
+.fenetre__puces button::before {
+  content: ""; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--trait-fort); opacity: .22;
+  transition: opacity var(--t) var(--ease), background var(--t) var(--ease);
 }
+/* Les pastilles se touchaient : on resserre l'écart puisque chaque
+   bouton porte déjà sa marge de 44 px. */
+.fenetre__puces { gap: 0; margin-top: var(--sp-3); }
+.fenetre__puces button:hover::before { opacity: .5; }
+.fenetre__puces button[aria-selected="true"]::before {
+  background: var(--soleil); opacity: 1;
+}
+.fenetre__puces button[aria-selected="true"] { scale: 1.25; }
 .fenetre__puces button:focus-visible {
   outline: 2px solid var(--soleil); outline-offset: 3px; opacity: 1;
 }
@@ -2033,4 +2045,54 @@ p { text-wrap: pretty; }
 @media (max-width: 560px) {
   .consent { inset: auto var(--sp-3) var(--sp-3); }
   .consent__boite { padding: var(--sp-4); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   CIBLES TACTILES
+
+   Sur écran tactile, les commandes autonomes doivent pouvoir être
+   visées au pouce. On ne touche pas aux liens en ligne dans un
+   paragraphe : les agrandir casserait l'interligne, et la règle de
+   taille de cible les exempte justement parce qu'ils sont dans du
+   texte suivi.
+   ══════════════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+  .ville { padding-block: .7rem; }
+  .pied nav a,
+  .pied__coord a,
+  .pied__liens a {
+    display: inline-flex; align-items: center;
+    min-height: 44px;
+  }
+  /* Les liens d'action isolés — « Voir l'offre », « En parler » — sont
+     des boutons déguisés : ils méritent la même surface. */
+  .lien-fleche,
+  .carte__lien,
+  .travail__meta a,
+  .prose > p > .lien-souligne:only-child {
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+  .logo { min-height: 44px; display: inline-flex; align-items: center; }
+  /* Téléphone et mail du bloc contact : ce sont des actions, pas du
+     texte suivi. */
+  .coord dd a, dd > a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* Le petit bouton frôlait les 42 px : deux pixels manquaient. */
+  .btn--petit { min-height: 44px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DENSITÉ MOBILE
+
+   Les cartes courtes — un titre, une ligne — passaient une par ligne :
+   quatre services occupaient 1 580 px pour 130 mots. À deux par ligne,
+   la page se parcourt au lieu de se dérouler.
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 560px) {
+  .services { grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); }
+  .services .carte { padding: var(--sp-4); }
+  .services .carte h3 { font-size: var(--fs-s); }
+  .services .carte p { font-size: 13px; line-height: 1.45; }
+  /* Les cartes « travail » portent une image : elles restent pleine
+     largeur, mais l'image se raccourcit. */
+  .travail__visuel img { aspect-ratio: 16 / 9; object-fit: cover; }
 }

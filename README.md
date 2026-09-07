@@ -9,7 +9,7 @@ qu'un simple serveur HTTP suffit à servir.
 
 ## Ancrage géographique
 
-L'agence est présentée comme ayant **deux bases : Montpellier et Paris 17e**, et
+L'agence est présentée comme ayant **deux bases : Montpellier et Paris**, et
 comme intervenant dans **les deux villes et leurs alentours**. Ce n'est
 pas qu'une formule dans les textes, ça se joue à cinq endroits qu'il faut garder
 cohérents entre eux, sous peine d'envoyer des signaux contradictoires à Google :
@@ -19,7 +19,7 @@ cohérents entre eux, sous peine d'envoyer des signaux contradictoires à Google
    (Nîmes, Béziers, Sète, Lunel) restent volontairement mono-ville : leur intérêt
    est justement d'être étroitement ciblées.
 3. **Les données structurées** : `address` reste Montpellier, c'est le siège
-   déclaré au SIRET. Paris est un second `Place` — **Paris 17e, 75017**, avec les
+   déclaré au SIRET. Paris est un second `Place` — **Paris, 75017**, avec les
    coordonnées du centre de l'arrondissement. **Aucune rue n'est publiée**, ni pour
    Montpellier ni pour Paris : c'est un choix, les mentions légales renvoient à une
    communication sur demande. Ne pas en inventer une pour « faire propre ».

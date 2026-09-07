@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FAF5EC">
 <title>Agence visuelle à Montpellier et Paris · visite 360° et drone</title>
-<meta name="description" content="Agence visuelle basée à Montpellier et à Paris 17e : visite virtuelle 360°, photo et vidéo par drone. Les deux villes et leurs alentours.">
+<meta name="description" content="Agence visuelle basée à Montpellier et à Paris : visite virtuelle 360°, photo et vidéo par drone. Les deux villes et leurs alentours.">
 <link rel="canonical" href="https://lagencedusud.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="geo.region" content="FR-34">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="L'Agence du Sud">
 <meta property="og:url" content="https://lagencedusud.com/">
 <meta property="og:title" content="Agence visuelle à Montpellier et Paris · visite 360° et drone">
-<meta property="og:description" content="Agence visuelle basée à Montpellier et à Paris 17e : visite virtuelle 360°, photo et vidéo par drone. Les deux villes et leurs alentours.">
+<meta property="og:description" content="Agence visuelle basée à Montpellier et à Paris : visite virtuelle 360°, photo et vidéo par drone. Les deux villes et leurs alentours.">
 <meta property="og:image" content="https://lagencedusud.com/assets/img/pole-360-hero.jpg">
 <meta property="og:image:width" content="1800">
 <meta property="og:image:height" content="900">
@@ -152,11 +152,10 @@
         },
         {
           "@type": "Place",
-          "name": "L'Agence du Sud · Paris 17e",
+          "name": "L'Agence du Sud · Paris",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Paris",
-            "postalCode": "75017",
             "addressRegion": "Île-de-France",
             "addressCountry": "FR"
           },
@@ -205,20 +204,20 @@
   <section class="hero-photo" id="top">
     <div class="hero-photo__fond" aria-hidden="true">
       <picture>
-        <source type="image/webp" srcset="assets/img/pole-drone-hero.webp">
-        <img src="assets/img/pole-drone-hero.jpg" alt="Vue aérienne d’un paysage méditerranéen filmé par drone" width="1400" height="700" fetchpriority="high" decoding="async">
+        <source type="image/webp" srcset="assets/img/accueil-hero.webp">
+        <img src="assets/img/accueil-hero.jpg" alt="Côte méditerranéenne découpée et eau turquoise, vue par drone" width="1400" height="700" fetchpriority="high" decoding="async">
       </picture>
     </div>
     <div class="wrap hero-photo__texte">
-      <p class="surtitre">Offre de lancement <b>·</b> 10 premiers biens</p>
-      <p class="hero-offre"><strong>90&nbsp;€</strong> pour les 10 premiers biens <span>· ensuite 190&nbsp;€</span></p>
+      <p class="surtitre">Visite virtuelle 360° <b>·</b> Montpellier &amp; Paris</p>
       <h1>Votre lieu, <span class="griffe">visitable</span> <em>en ligne.</em></h1>
-      <p class="hero-photo__chapeau">On photographie vos espaces en 360° pour créer une visite
-      virtuelle où l’on se déplace de pièce en pièce. <strong>Elle est hébergée sur votre propre site</strong>&nbsp;:
-      elle vous appartient, sans abonnement. <strong>90&nbsp;€ pour les 10 premiers biens.</strong></p>
+      <p class="hero-offre"><strong>90&nbsp;€</strong> pour les 10 premiers biens <span>· ensuite 190&nbsp;€</span></p>
+      <p class="hero-photo__chapeau">On photographie vos espaces en 360° et on en fait une visite où
+      l’on se déplace de pièce en pièce. <strong>Elle est hébergée sur votre propre site</strong>&nbsp;:
+      elle vous appartient, sans abonnement.</p>
       <div class="hero__actions">
         <a class="btn btn--grand" href="#contact">Réserver l’offre à 90&nbsp;€</a>
-        <a class="btn btn--fantome btn--grand" href="#contact">Demander un devis</a>
+        <a class="btn btn--fantome btn--grand" href="visites/appartement-temoin">Essayer la visite témoin</a>
       </div>
     </div>
   </section>
@@ -258,6 +257,22 @@
         l’état du sol, la vue par la fenêtre. Puis il clique au sol et passe dans la pièce suivante.</p>
       </header>
 
+      <!-- La démonstration est posée ici, avant les cartes : une visite
+           virtuelle s'explique en la faisant essayer, pas en la décrivant.
+           Rien ne se charge avant le clic — voir lecteur-360.js. -->
+      <div class="visite-integree apparait"
+           data-visite="visites/appartement-temoin/"
+           data-titre="Visite virtuelle 360° d’un appartement témoin">
+        <img class="visite-integree__affiche" src="assets/img/pole-360-apercu.webp" alt="Pièce vide ouvrant sur un balcon, vue depuis un panorama 360°" width="1200" height="600" loading="lazy" decoding="async">
+        <div class="visite-integree__voile">
+          <p>Essayez&nbsp;: faites glisser pour regarder autour de vous, cliquez au sol pour
+          passer dans la pièce suivante. C’est exactement ce que reçoivent nos clients.</p>
+          <button type="button" class="btn btn--grand" data-ouvrir>Ouvrir la visite ici</button>
+        </div>
+      </div>
+      <p class="visite-integree__note">Rien ne se télécharge tant que vous n’avez pas cliqué.
+      <a class="lien-souligne" href="visites/appartement-temoin">Ouvrir en plein écran →</a></p>
+
       <div class="travaux">
         <a class="travail apparait" href="visites/appartement-temoin">
           <div class="travail__visuel">
@@ -296,7 +311,7 @@
       </header>
       <div class="offres">
         <article class="offre offre--vedette apparait">
-          <p class="offre__drapeau">Offre de lancement · 10 premiers biens</p>
+          <p class="offre__drapeau">Lancement <b>·</b> 10 premiers biens</p>
           <h3 class="offre__nom">La visite essentielle</h3>
           <p class="offre__prix">90<sup>€</sup></p>
           <p class="offre__ancien-prix">190 € ensuite · prix final, sans abonnement</p>
@@ -531,7 +546,7 @@
         téléphone, et je suis exactement la personne qui travaillera sur votre site.</strong></p>
 
         <p>L’agence a deux points d’attache&nbsp;: Montpellier, entre la Comédie et la mer, et
-        Paris, dans le 17<sup>e</sup>. On intervient depuis l’un ou l’autre&nbsp;: Montpellier et
+        Paris. On intervient depuis l’un ou l’autre&nbsp;: Montpellier et
         alentours, Paris et alentours, sans facturer le trajet. Ailleurs en France, le premier
         rendez-vous, les validations et la formation finale se font en visio, sans jamais
         perdre en précision.</p>
@@ -547,7 +562,7 @@
 
       <div class="agence__visuel apparait">
         <svg class="carte-france" viewBox="0 0 460 452" role="img" aria-labelledby="t-carte">
-                  <title id="t-carte">Carte de France. L'Agence du Sud a deux bases, Montpellier et Paris 17e, intervient dans les deux villes et leurs alentours, et travaille dans toute la France en visio, notamment à Lyon, Marseille, Toulouse, Bordeaux, Nantes, Lille et Strasbourg.</title>
+                  <title id="t-carte">Carte de France. L'Agence du Sud a deux bases, Montpellier et Paris, intervient dans les deux villes et leurs alentours, et travaille dans toute la France en visio, notamment à Lyon, Marseille, Toulouse, Bordeaux, Nantes, Lille et Strasbourg.</title>
                   <path class="carte-france__terre" d="M374.0 187.2L357.6 209.0L349.9 222.3L350.9 227.1L349.7 232.3L346.2 237.8L347.1 239.5L352.2 237.6L355.0 234.9L355.4 231.4L359.7 229.5L367.7 229.1L371.7 231.8L371.5 237.4L373.4 242.7L377.4 247.6L377.5 252.4L373.7 257.0L374.8 262.9L380.9 270.1L382.9 276.0L381.1 280.5L376.6 284.0L369.6 286.5L369.5 292.1L376.6 300.9L378.4 307.3L375.0 311.5L374.5 316.8L377.0 323.4L381.0 328.0L386.7 330.6L392.1 331.3L397.3 330.1L398.7 333.8L396.2 342.4L388.6 350.9L375.8 359.4L368.5 366.3L366.7 371.7L362.1 375.8L354.7 378.7L344.4 378.1L331.3 374.0L324.7 370.4L324.4 367.3L319.0 365.8L308.3 366.1L297.8 363.9L287.4 359.4L274.8 362.4L260.1 373.1L253.4 385.3L254.7 399.1L246.2 406.9L227.7 408.7L216.2 406.7L211.6 401.2L201.1 395.7L184.6 390.2L176.1 389.4L175.4 393.1L169.7 395.0L158.8 395.2L150.9 393.4L146.0 389.8L141.7 388.8L137.9 390.4L134.4 389.1L131.2 384.9L125.3 381.2L116.9 377.9L111.3 377.0L108.8 378.6L107.9 377.1L108.9 372.6L106.6 369.8L101.0 368.9L100.5 364.4L105.1 356.2L108.9 342.3L111.8 322.6L115.3 311.6L119.1 309.3L119.9 306.7L117.5 303.9L115.5 304.1L114.0 307.3L114.6 298.4L117.3 277.3L122.7 272.6L130.7 284.5L133.0 285.7L129.7 276.2L124.5 268.6L117.5 262.9L115.5 256.6L118.4 249.6L118.5 244.3L115.8 240.7L115.2 237.2L116.7 233.9L112.0 230.1L101.0 225.8L92.9 219.9L87.7 212.3L86.3 206.1L88.9 201.2L88.2 197.5L84.3 195.1L82.8 192.3L83.7 189.0L81.4 187.2L75.9 186.8L73.5 183.9L74.2 178.6L71.6 176.0L65.4 176.3L63.1 174.9L64.6 171.6L62.4 170.8L56.5 172.3L53.5 174.3L53.4 176.5L53.4 174.7L53.5 168.8L50.9 166.1L45.6 166.8L42.4 165.3L41.3 161.6L40.6 160.8L40.4 162.9L36.7 162.2L29.7 158.8L23.1 158.4L16.9 161.1L13.4 160.4L12.4 156.4L9.6 153.2L4.9 150.8L6.0 149.1L12.9 148.1L14.9 146.0L12.1 142.8L9.9 142.0L8.4 143.7L7.7 142.5L7.7 138.4L10.4 136.8L15.7 137.9L13.7 137.0L4.6 134.1L2.2 130.1L6.6 124.7L16.3 121.6L31.4 120.7L39.2 118.4L39.9 114.7L42.8 112.3L47.9 111.3L54.7 115.1L63.0 123.9L70.3 126.2L76.4 122.1L82.2 121.8L87.7 125.2L90.7 124.9L91.3 121.0L95.5 119.9L103.4 121.5L106.2 115.0L103.9 100.2L99.9 86.7L94.2 74.6L96.8 68.9L107.6 69.7L114.2 74.2L116.6 82.6L126.7 87.2L144.7 87.9L156.4 86.9L161.8 84.0L162.4 81.8L158.0 80.2L156.9 76.9L158.8 72.0L171.7 63.5L195.7 51.7L206.4 44.5L204.1 42.0L203.3 33.3L204.0 18.5L212.1 8.3L227.5 2.8L237.4 4.7L241.7 14.2L246.5 18.0L251.9 16.4L255.7 18.8L257.9 25.2L261.5 28.8L266.7 29.6L270.1 32.4L271.7 37.3L275.1 39.0L280.2 37.7L284.2 38.1L287.0 40.2L288.4 45.2L288.2 53.1L290.6 57.2L295.7 57.4L301.2 55.0L307.1 49.9L309.8 51.8L309.4 60.7L312.5 66.4L319.1 68.8L324.1 72.4L327.3 77.4L335.3 79.7L347.9 79.4L356.5 80.3L361.3 82.6L365.2 86.8L368.1 93.1L375.3 96.0L386.6 95.5L398.5 97.8L410.9 102.9L414.1 109.5L408.0 117.6L402.8 128.0L398.6 140.5L396.5 153.3L396.7 166.3L395.1 174.5L391.8 177.9L388.2 178.8L384.2 177.1L382.1 176.3L382.1 176.3ZM453.2 436.2L449.6 446.8L444.6 449.6L438.1 444.8L436.0 441.4L438.2 439.3L437.5 437.6L433.8 436.4L432.9 434.2L434.8 431.1L434.2 429.5L431.2 429.3L430.7 427.4L432.7 423.9L432.2 419.1L429.2 412.9L429.8 407.1L433.9 401.7L440.1 397.9L448.3 395.7L452.7 391.2L453.3 384.5L455.2 389.0L458.4 404.8L458.7 417.3L456.2 426.4L455.0 431.0L455.0 431.0Z"/>
                   <g class="carte-france__ville" aria-hidden="true">
                     <circle cx="251.6" cy="23.3" r="3.2"/><text x="259" y="27">Lille</text>
@@ -704,7 +719,7 @@
     <div class="pied__cols">
       <div>
         <p class="pied__marque"><img class="logo__mark" src="/assets/img/logo-mark.png" alt="" width="202" height="240"><span>L'Agence du Sud</span></p>
-        <p class="pied__baseline">Agence visuelle &amp; web. Basée à Montpellier et à Paris 17<sup>e</sup>. On intervient dans les deux villes et leurs alentours, et partout en France en visio.</p>
+        <p class="pied__baseline">Agence visuelle &amp; web. Basée à Montpellier et à Paris. On intervient dans les deux villes et leurs alentours, et partout en France en visio.</p>
       </div>
 
       <div>
@@ -746,7 +761,7 @@
         <a href="tel:+33767377014">07 67 37 70 14</a>
         <a href="mailto:bonjour@lagencedusud.com">bonjour@lagencedusud.com</a>
         <p>Du lundi au samedi<br>8&nbsp;h à 19&nbsp;h</p>
-        <p>Montpellier (34) et Paris 17<sup>e</sup></p>
+        <p>Montpellier (34) et Paris</p>
       </div>
     </div>
 
@@ -765,7 +780,7 @@
 
 <div class="cta-mobile">
   <a class="btn btn--fantome" href="tel:+33767377014">Appeler</a>
-  <a class="btn" href="#contact">Maquette offerte</a>
+  <a class="btn" href="#contact">Réserver à 90&nbsp;€</a>
 </div>
 
 <button class="haut" type="button" aria-label="Retour en haut de page">
@@ -773,6 +788,7 @@
 </button>
 
 <script src="script.js" defer></script>
+<script src="/lecteur-360.js" defer></script>
 
 <!-- mesure d'audience, servie par l'hébergeur -->
 <script defer src="/_vercel/insights/script.js"></script>
