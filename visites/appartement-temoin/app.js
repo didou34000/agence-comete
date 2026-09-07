@@ -7,6 +7,7 @@
   "use strict";
 
   const tour = window.TOUR_DATA;
+  const ASSET_BASE = "/visites/appartement-temoin/";
   const loading = document.getElementById("loading");
   const errorBox = document.getElementById("error");
   const errorMsg = document.getElementById("error-message");
@@ -18,7 +19,7 @@
 
   let tv;
   try {
-    tv = TourViewer.create({ container: "viewer", tour, assetBase: "" });
+    tv = TourViewer.create({ container: "viewer", tour, assetBase: ASSET_BASE });
   } catch (err) {
     showError(err.message);
     return;
@@ -40,7 +41,7 @@
     chip.setAttribute("aria-label", named || `Position ${i + 1}`);
     if (named) chip.title = named;
     const img = document.createElement("img");
-    img.src = node.panorama.thumbnail;
+    img.src = ASSET_BASE + node.panorama.thumbnail;
     img.alt = "";
     img.loading = "lazy";
     chip.appendChild(img);
