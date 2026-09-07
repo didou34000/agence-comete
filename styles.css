@@ -1016,7 +1016,7 @@ p { text-wrap: pretty; }
   transition: box-shadow var(--t) var(--ease), translate var(--t) var(--ease);
 }
 .offre:hover { box-shadow: 8px 8px 0 var(--encre); translate: -2px -2px; }
-.offre--vedette { background: var(--encre); color: var(--txt-inv); }
+.offre--vedette { background: var(--encre); color: var(--txt-inv); border-color: var(--soleil); }
 .offre--vedette:hover { box-shadow: 8px 8px 0 var(--soleil); }
 
 /* Le drapeau vit à l'intérieur de la carte : il ne flotte plus
@@ -1051,6 +1051,7 @@ p { text-wrap: pretty; }
   color: var(--txt-2);
   font-size: var(--fs-s);
 }
+.offre--vedette .offre__ancien-prix { color: var(--txt-inv-2); }
 .offre__prix .devis { font-style: italic; font-size: .68em; }
 .offre__paiement { font-size: var(--fs-s); color: var(--txt-3); margin-top: var(--sp-2); }
 .offre--vedette .offre__paiement { color: var(--txt-inv-2); }

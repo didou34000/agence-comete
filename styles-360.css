@@ -35,6 +35,33 @@
 .hero-photo h1 { font-size: var(--fs-titre-hero); line-height: .98; letter-spacing: -.03em; margin-bottom: var(--sp-4); }
 .hero-photo h1 em { color: var(--soleil); }
 .hero-photo .surtitre { color: #FFB596; }
+.hero-offre {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: var(--sp-3) 0 var(--sp-4);
+  padding: .55rem .9rem .55rem .65rem;
+  border: 1px solid #FF4D00;
+  border-radius: var(--r-pilule);
+  background: #FF4D00;
+  color: #fff;
+  box-shadow: 5px 5px 0 #17130E;
+}
+.hero-offre__prix {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--creme);
+  color: var(--encre);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+}
+.hero-offre__prix sup { font-size: .45em; color: var(--accent-txt); top: -.7em; }
+.hero-offre__texte { font-size: var(--fs-xs); line-height: 1.25; }
+.hero-offre__texte strong { font-size: var(--fs-s); }
 .hero-photo__chapeau {
   font-size: var(--fs-m); color: #E4DCD1;
   max-width: 46ch; margin-bottom: var(--sp-6);
@@ -95,6 +122,7 @@
 @media (max-width: 560px) {
   .galerie { grid-template-columns: 1fr; }
   .hero-photo { min-height: 74vh; }
+  .hero-offre { margin-top: var(--sp-2); }
 }
 
 /* ══════════ ÉTAPES SUR FOND ENCRE ══════════
