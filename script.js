@@ -421,6 +421,14 @@ if (form) {
       form.reset();
       form.removeAttribute('data-touche');
       dire('');
+      // Google Ads : conversion uniquement après confirmation réelle de l'envoi.
+      // La balise Google est déjà présente sur le site ; on évite ainsi de
+      // compter les simples clics sur le bouton comme des demandes de devis.
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-18137118125/MrNFCPqPy6ccEK3ruchD'
+        });
+      }
       // Le formulaire s'efface au profit du panneau de confirmation :
       // une ligne de texte ne marque pas assez le passage à l'étape suivante.
       $('.formulaire__succes', form)?.removeAttribute('hidden');
