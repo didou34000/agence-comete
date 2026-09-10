@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "id": "appartement-temoin",
-  "name": "Appartement témoin",
-  "created": "2026-09-07T00:00:00.000Z",
-  "updated": "2026-09-07T00:00:00.000Z",
+  "id": "appartement",
+  "name": "Appartement vide",
+  "created": "2026-09-08T00:00:00.000Z",
+  "updated": "2026-09-08T00:00:00.000Z",
   "settings": {
     "sceneFadeDuration": 900,
     "autoRotate": false,
@@ -18,7 +18,7 @@
   "nodes": [
     {
       "id": "small_empty_room_1",
-      "label": "Séjour",
+      "label": "Le séjour",
       "order": 0,
       "panorama": {
         "width": 8192,
@@ -32,8 +32,8 @@
         "thumbnail": "thumbs/small_empty_room_1.webp"
       },
       "view": {
-        "yaw": 35.0,
-        "pitch": 0,
+        "yaw": -135.0,
+        "pitch": -4.0,
         "hfov": 100
       },
       "northOffset": 0,
@@ -41,10 +41,10 @@
       "links": [
         {
           "to": "small_empty_room_3",
-          "yaw": -160.0,
-          "pitch": -14.0,
+          "yaw": -164.0,
+          "pitch": -16.0,
           "label": null,
-          "targetYaw": 0.0,
+          "targetYaw": -135.0,
           "targetPitch": null
         }
       ],
@@ -52,7 +52,7 @@
     },
     {
       "id": "small_empty_room_3",
-      "label": "Chambre",
+      "label": "La chambre",
       "order": 1,
       "panorama": {
         "width": 8192,
@@ -66,8 +66,8 @@
         "thumbnail": "thumbs/small_empty_room_3.webp"
       },
       "view": {
-        "yaw": 30.0,
-        "pitch": 0,
+        "yaw": -135.0,
+        "pitch": -4.0,
         "hfov": 100
       },
       "northOffset": 0,
@@ -75,18 +75,18 @@
       "links": [
         {
           "to": "small_empty_room_1",
-          "yaw": -178.0,
+          "yaw": -172.0,
           "pitch": -14.0,
           "label": null,
-          "targetYaw": 35.0,
+          "targetYaw": -135.0,
           "targetPitch": null
         },
         {
           "to": "small_empty_room_2",
           "yaw": -156.0,
-          "pitch": -14.0,
+          "pitch": -20.0,
           "label": null,
-          "targetYaw": 30.0,
+          "targetYaw": -100.0,
           "targetPitch": null
         }
       ],
@@ -94,7 +94,7 @@
     },
     {
       "id": "small_empty_room_2",
-      "label": "Cuisine",
+      "label": "Le bureau",
       "order": 2,
       "panorama": {
         "width": 8192,
@@ -108,8 +108,8 @@
         "thumbnail": "thumbs/small_empty_room_2.webp"
       },
       "view": {
-        "yaw": 30.0,
-        "pitch": 0,
+        "yaw": -100.0,
+        "pitch": -4.0,
         "hfov": 100
       },
       "northOffset": 0,
@@ -117,18 +117,18 @@
       "links": [
         {
           "to": "small_empty_room_3",
-          "yaw": -140.0,
+          "yaw": -128.0,
           "pitch": -14.0,
           "label": null,
-          "targetYaw": 30.0,
+          "targetYaw": -135.0,
           "targetPitch": null
         },
         {
           "to": "small_empty_room_4",
-          "yaw": -120.0,
-          "pitch": -14.0,
+          "yaw": -112.0,
+          "pitch": -20.0,
           "label": null,
-          "targetYaw": 40.0,
+          "targetYaw": -100.0,
           "targetPitch": null
         }
       ],
@@ -136,7 +136,7 @@
     },
     {
       "id": "small_empty_room_4",
-      "label": "Bureau",
+      "label": "La cuisine",
       "order": 3,
       "panorama": {
         "width": 8192,
@@ -150,8 +150,8 @@
         "thumbnail": "thumbs/small_empty_room_4.webp"
       },
       "view": {
-        "yaw": 40.0,
-        "pitch": 0,
+        "yaw": -100.0,
+        "pitch": -4.0,
         "hfov": 100
       },
       "northOffset": 0,
@@ -159,52 +159,10 @@
       "links": [
         {
           "to": "small_empty_room_2",
-          "yaw": -140.0,
-          "pitch": -14.0,
+          "yaw": -122.0,
+          "pitch": -16.0,
           "label": null,
-          "targetYaw": 30.0,
-          "targetPitch": null
-        },
-        {
-          "to": "modern_bathroom",
-          "yaw": -116.0,
-          "pitch": -14.0,
-          "label": null,
-          "targetYaw": 100.0,
-          "targetPitch": null
-        }
-      ],
-      "auto_label": false
-    },
-    {
-      "id": "modern_bathroom",
-      "label": "Salle de bain",
-      "order": 4,
-      "panorama": {
-        "width": 8192,
-        "height": 4096,
-        "sources": [
-          {
-            "src": "panoramas/modern_bathroom.webp",
-            "width": 4096
-          }
-        ],
-        "thumbnail": "thumbs/modern_bathroom.webp"
-      },
-      "view": {
-        "yaw": 100.0,
-        "pitch": 0,
-        "hfov": 100
-      },
-      "northOffset": 0,
-      "position": null,
-      "links": [
-        {
-          "to": "small_empty_room_4",
-          "yaw": 102.0,
-          "pitch": -12.0,
-          "label": null,
-          "targetYaw": 40.0,
+          "targetYaw": -100.0,
           "targetPitch": null
         }
       ],

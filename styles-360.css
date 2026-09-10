@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════════
-   PÔLE IMAGE — le strict complément
+   PÔLE IMAGE, le strict complément
 
    Version précédente : 560 lignes qui réinventaient une direction
    artistique complète, sombre et bleue, à côté de celle du site. C'était
-   l'erreur. Le site a déjà une identité aboutie — serif italique dans
+   l'erreur. Le site a déjà une identité aboutie (serif italique dans
    les titres, soulignement manuscrit, sceau de prix, cartes numérotées,
-   accent soleil — et les pages image doivent la parler, pas en inventer
+   accent soleil), et les pages image doivent la parler, pas en inventer
    une seconde.
 
    Ce qui distingue le pôle, ce sont ses images et son propos, pas une
@@ -249,6 +249,20 @@
   transition: opacity var(--t) var(--ease);
 }
 .visite-integree__voile p { color: var(--creme); font-size: var(--fs-s); max-width: 40ch; }
+/* Cartel : ce qu'on regarde et ce qu'il contient, avant même d'ouvrir. Il dit
+   aussi que c'est une démonstration : la visite n'est le bien de personne. */
+.visite-integree__cartel {
+  display: inline-flex; align-items: center; gap: 0.55em;
+  padding: 0.45em 0.95em; border-radius: 999px;
+  border: 1px solid #FAF5EC59; background: #17130E4D;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  color: var(--creme); font-size: var(--fs-xs);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.visite-integree__cartel::before {
+  content: ""; width: 0.5em; height: 0.5em; border-radius: 50%;
+  background: var(--soleil); flex: none;
+}
 .visite-integree[data-ouverte] .visite-integree__affiche,
 .visite-integree[data-ouverte] .visite-integree__voile { opacity: 0; pointer-events: none; }
 .visite-integree__note {
@@ -264,3 +278,112 @@
 @media (max-width: 34rem) {
   .visite-integree { aspect-ratio: 4 / 5; }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   CHOIX DU LIEU
+
+   Six démonstrations, une par type de lieu. Les onglets sont posés
+   sous la carte plutôt que dessus : au-dessus, ils auraient mangé
+   l'image, qui est le seul argument de vente de la section.
+   ══════════════════════════════════════════════════════════════════ */
+.visite-choix {
+  display: flex; flex-wrap: wrap; gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+.visite-choix__btn {
+  display: inline-flex; align-items: center; gap: 0.5em;
+  min-height: 44px; padding: 0.5em 1em;
+  border: 1px solid var(--trait-fort); border-radius: 999px;
+  background: transparent; color: var(--txt-2);
+  font: inherit; font-size: var(--fs-s); cursor: pointer;
+  transition: background var(--t) var(--ease), color var(--t) var(--ease),
+              border-color var(--t) var(--ease);
+}
+.visite-choix__btn:hover { border-color: var(--encre); color: var(--encre); }
+.visite-choix__btn[aria-selected="true"] {
+  background: var(--encre); border-color: var(--encre); color: var(--creme);
+}
+/* Le nombre de positions décide de ce qu'on promet : « 4 positions »
+   annonce un parcours, « 1 vue » annonce une vue. Jamais l'inverse. */
+.visite-choix__nb {
+  font-size: var(--fs-xs); opacity: 0.7; font-variant-numeric: tabular-nums;
+}
+.visite-choix__btn[aria-selected="true"] .visite-choix__nb { opacity: 0.75; }
+@media (max-width: 34rem) {
+  .visite-choix { gap: 6px; }
+  .visite-choix__btn { padding: 0.45em 0.8em; font-size: var(--fs-xs); }
+  /* Six onglets avec leur compte tenaient sur quatre lignes, soit près de
+     200 px avant même de voir l'image. Le compte reste lisible : il est
+     répété sur le cartel de l'affiche et dans la légende, pour le lieu
+     effectivement choisi. */
+  .visite-choix__nb { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SECTION LEVÉE
+
+   La visite de démonstration remonte sur le bas du hero. C'est le seul
+   moyen de la faire voir sans défiler : sur une page qui vend une
+   visite virtuelle, la voir compte plus que la lire. Le hero perd donc
+   la hauteur qu'elle lui prend, pour que le total ne bouge pas.
+   ══════════════════════════════════════════════════════════════════ */
+/* Quand une carte se lève sur lui, le hero se resserre : il doit
+   laisser voir le haut de la carte sans qu'on ait à défiler, sinon
+   la lever ne sert à rien. */
+.hero-photo:has(+ .section--levee) {
+  min-height: 0;
+  padding-bottom: var(--sp-9);
+}
+.hero-photo:has(+ .section--levee) .hero-photo__texte {
+  padding-block: var(--sp-6) var(--sp-5);
+}
+.hero-photo:has(+ .section--levee) .hero-photo__chapeau {
+  margin-bottom: var(--sp-3);
+  max-width: 44ch;
+}
+.hero-photo:has(+ .section--levee) .hero-photo__points { margin-bottom: var(--sp-4); }
+/* Le titre de la carte levée est un vrai h2 (la section doit garder sa place
+   dans le plan de la page) mais il tient le rôle d'un cartel : on lui donne
+   la taille d'un titre de carte, pas celle d'un titre de section. */
+.video-carte__titre {
+  font-size: var(--fs-m); font-weight: 500; line-height: 1.25;
+  margin-bottom: var(--sp-1);
+}
+
+/* La carte montre le panorama, pas sa marge : on la met à fleur en haut. */
+.section--levee .video-carte { padding-top: 0; }
+.section--levee {
+  position: relative;
+  margin-top: calc(var(--sp-9) * -1);
+  padding-top: 0;
+}
+.section--levee .video-carte {
+  background: var(--surface);
+  border-radius: var(--r-l);
+  padding: var(--sp-3);
+  box-shadow: 0 24px 60px -28px #17130E59;
+}
+@media (max-width: 560px) {
+  .hero-photo:has(+ .section--levee) { padding-bottom: var(--sp-7); }
+  .section--levee { margin-top: calc(var(--sp-7) * -1); }
+  .section--levee .video-carte { padding: var(--sp-2); }
+}
+/* Repli : sans :has, la carte reste simplement en dessous du hero. */
+@supports not (selector(:has(*))) {
+  .section--levee { margin-top: 0; padding-top: var(--sp-6); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PANORAMA DU HERO
+   La toile se pose au-dessus de la photo, jamais à sa place : si le
+   script ne tourne pas, on ne voit simplement pas la différence.
+   ══════════════════════════════════════════════════════════════════ */
+.hero-photo__pano {
+  position: absolute; inset: 0; z-index: 1;
+  display: block; width: 100%; height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.hero-photo__fond[data-pano-pret] .hero-photo__pano { opacity: 1; }
+/* Le voile du hero doit rester au-dessus de la toile. */
+.hero-photo__fond::after { z-index: 2; }

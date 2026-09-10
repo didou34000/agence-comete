@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Cette visite-ci est une DÉMONSTRATION publique, liée depuis la page
+       pilier et déclarée au sitemap : elle est donc ouverte à l'indexation.
+       Les exports du studio arrivent en « noindex, nofollow » par défaut,
+       et c'est le bon réglage pour la visite d'un client : ne l'ouvrir que
+       pour ce qu'on assume de montrer publiquement. -->
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="description" content="Vue à 360° d’un bassin bordé de palmiers. Démonstration de L'Agence du Sud.">
+  <link rel="canonical" href="https://lagencedusud.com/visites/piscine">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="L'Agence du Sud">
+  <meta property="og:url" content="https://lagencedusud.com/visites/piscine">
+  <meta property="og:title" content="Visite virtuelle 360° : Piscine et jardin">
+  <meta property="og:description" content="Un bassin bordé de palmiers, en une vue.">
+  <meta property="og:image" content="https://lagencedusud.com/assets/img/visite-piscine.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="800">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <title>Visite virtuelle 360° : Piscine et jardin | L'Agence du Sud</title>
+  <link rel="stylesheet" href="/visites/_lecteur/vendor/pannellum.css">
+  <link rel="stylesheet" href="/visites/_lecteur/style.css">
+</head>
+<body>
+  <div id="viewer" aria-label="Visite virtuelle 360°"></div>
+
+  <div id="loading" class="overlay">
+    <div class="overlay-inner">
+      <div class="spinner" aria-hidden="true"></div>
+      <p class="overlay-title">Piscine et jardin</p>
+      <p class="overlay-sub">Chargement de la visite…</p>
+    </div>
+  </div>
+
+  <div id="error" class="overlay hidden">
+    <div class="overlay-inner">
+      <p class="overlay-title">Impossible d'afficher la visite</p>
+      <p class="overlay-sub" id="error-message"></p>
+      <button type="button" id="error-retry" class="btn">Réessayer</button>
+    </div>
+  </div>
+
+  <header id="titlebar">
+    <span id="tour-title">Piscine et jardin</span>
+    <span id="scene-title"></span>
+    <!-- Une visite se partage par mail ou par SMS, souvent sans le site autour :
+         c'est parfois le seul endroit où le visiteur apprend qui l'a réalisée. -->
+    <a id="marque" href="/visite-virtuelle-360#contact" target="_top">
+      <span class="pastille" aria-hidden="true"></span>
+      <span class="libelle">Visite réalisée par</span> L’Agence du Sud
+    </a>
+  </header>
+
+  <nav id="bar" aria-label="Navigation entre les positions">
+    <button type="button" id="btn-prev" class="bar-btn" aria-label="Position précédente" title="Position précédente">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div id="chips" role="tablist" aria-label="Positions de la visite"></div>
+    <button type="button" id="btn-next" class="bar-btn" aria-label="Position suivante" title="Position suivante">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button type="button" id="btn-fs" class="bar-btn" aria-label="Plein écran" title="Plein écran">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
+
+  <script>window.TOUR_BASE = "/visites/piscine/";</script>
+  <script>window.TOUR_DATA = {"version":1,"id":"piscine","name":"Piscine et jardin","created":"2026-09-08T00:00:00.000Z","updated":"2026-09-08T00:00:00.000Z","settings":{"sceneFadeDuration":900,"autoRotate":false,"nadir":{"mode":"text","text":"L’Agence du Sud","size":190,"color":"#17130E"}},"startNodeId":"pool","nodes":[{"id":"pool","label":"Le bassin","order":0,"panorama":{"width":8192,"height":4096,"sources":[{"src":"panoramas/pool.webp","width":4096}],"thumbnail":"thumbs/pool.webp"},"view":{"yaw":85.0,"pitch":2.0,"hfov":100},"northOffset":0,"position":null,"links":[],"auto_label":false}]};</script>
+  <script src="/visites/_lecteur/vendor/pannellum.js"></script>
+  <script src="/visites/_lecteur/viewer.js"></script>
+  <script src="/visites/_lecteur/app.js"></script>
+<script src="/consentement.js" defer></script>
+</body>
+</html>

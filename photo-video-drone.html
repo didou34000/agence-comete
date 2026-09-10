@@ -105,14 +105,53 @@
       Photos et vidéos livrées retouchées, au format de vos annonces et de vos réseaux.</p>
       <div class="hero__actions">
         <a class="btn btn--grand" href="/#contact">Demander un devis</a>
-        <a class="btn btn--fantome btn--grand" href="/visite-virtuelle-360">Voir la visite 360°</a>
+        <a class="btn btn--fantome btn--grand" href="#video360">Essayer la vidéo 360° sonore</a>
       </div>
     </div>
   </section>
 
 
 
-  <section class="section section--majeure section--levee" aria-labelledby="t-gal">
+  <!-- La vidéo 360 est le seul contenu de la page dans lequel on entre
+       plutôt qu'on regarde : elle passe donc en premier, levée sur le hero,
+       comme la visite de démonstration sur la page 360.
+
+       Vraie équirectangulaire, lecteur maison (lecteur-360.js, 7,5 Ko)
+       plutôt qu'une bibliothèque : videojs-vr et consorts pèsent 200 à
+       600 Ko et appellent souvent un CDN, ce qui casserait le « aucun
+       domaine tiers » tenu depuis le début. Rien ne se charge avant le
+       clic. -->
+  <section class="section section--levee" id="video360" aria-labelledby="t-v360">
+    <div class="wrap">
+      <div class="video-carte">
+        <div class="video360" data-video360 data-son data-video="/assets/video/mini-360.mp4"
+             data-lacet="90" data-tangage="40" data-champ="112"
+             role="application" aria-label="Vidéo 360 sonore, faites glisser pour tourner la vue, molette ou touches plus et moins pour le champ">
+          <img class="video360__affiche" src="/assets/img/mini-360-poster.webp"
+               alt="Mini Cooper vue de dessus en roulage de nuit, prise de vue à 360 degrés" width="1600" height="900" loading="lazy" decoding="async">
+          <p class="video360__cliche">Cliché Mini Cooper</p>
+          <div class="video360__voile">
+            <button type="button" class="btn btn--grand" data-lire>Lancer la vidéo 360</button>
+            <p class="video360__repli">Votre navigateur ne gère pas la 3D dans la page&nbsp;: la vidéo
+            immersive ne peut pas s’afficher ici.</p>
+          </div>
+          <p class="video360__aide" aria-hidden="true">Faites glisser pour regarder autour</p>
+        </div>
+        <div class="video-carte__pied">
+          <h2 id="t-v360" class="video-carte__titre">Vidéo 360° sonore</h2>
+          <p>Roulage de nuit, caméra sur perche au-dessus de la voiture. Vous choisissez
+          où regarder&nbsp;: devant, derrière, au-dessus.</p>
+          <a class="btn btn--petit" href="#comment-360">Comment ça marche →</a>
+        </div>
+      </div>
+      <p class="offre__desc" id="comment-360" style="margin-top:var(--sp-4)">Glissez pour tourner, molette ou
+      pincement pour élargir ou resserrer, flèches et touches <kbd>+</kbd> <kbd>−</kbd> au clavier.
+      La pause et le son sont en bas à droite, la barre d’espace met aussi en pause.
+      Rien ne se télécharge tant que vous ne lancez pas la vidéo.</p>
+    </div>
+  </section>
+
+  <section class="section section--majeure" aria-labelledby="t-gal">
     <div class="wrap">
       <header class="entete-section entete-section--large">
         <p class="surtitre">Extraits</p>
@@ -125,19 +164,19 @@
           <video controls preload="none" playsinline muted loop poster="/assets/img/drone-littoral-poster.webp"
                  width="1152" height="648" style="display:block;width:100%;height:auto">
             <source src="/assets/video/drone-littoral.mp4" type="video/mp4"></video>
-          <div class="video-carte__pied"><p><strong>Littoral</strong> — approche d’une calanque, pour un hôtel ou un camping qui vend son emplacement, 9 s.</p></div>
+          <div class="video-carte__pied"><p><strong>Littoral</strong> : approche d’une calanque, pour un hôtel ou un camping qui vend son emplacement, 9 s.</p></div>
         </div>
         <div class="video-carte">
           <video controls preload="none" playsinline muted loop poster="/assets/img/drone-falaise-poster.webp"
                  width="1152" height="648" style="display:block;width:100%;height:auto">
             <source src="/assets/video/drone-falaise.mp4" type="video/mp4"></video>
-          <div class="video-carte__pied"><p><strong>Falaise et arrière-pays</strong> — le relief d’un terrain, ses limites et ce qu’il y a autour, 10 s.</p></div>
+          <div class="video-carte__pied"><p><strong>Falaise et arrière-pays</strong> : le relief d’un terrain, ses limites et ce qu’il y a autour, 10 s.</p></div>
         </div>
         <div class="video-carte">
           <video controls preload="none" playsinline muted loop poster="/assets/img/drone-riviere-poster.webp"
                  width="1152" height="648" style="display:block;width:100%;height:auto">
             <source src="/assets/video/drone-riviere.mp4" type="video/mp4"></video>
-          <div class="video-carte__pied"><p><strong>Rivière</strong> — descente au ras de l’eau, le plan qui donne l’échelle d’un site, 8 s.</p></div>
+          <div class="video-carte__pied"><p><strong>Rivière</strong> : descente au ras de l’eau, le plan qui donne l’échelle d’un site, 8 s.</p></div>
         </div>
       </div>
       <div class="offre__desc">
@@ -175,14 +214,14 @@
 
     <h2>Le cadre légal, dit clairement</h2>
     <p>Le vol de drone en France est encadré. Selon le lieu, il faut une déclaration, une
-    autorisation préfectorale, ou l’accord du gestionnaire du site — et certaines zones sont
+    autorisation préfectorale, ou l’accord du gestionnaire du site, et certaines zones sont
     fermées, notamment autour des aéroports et au-dessus de la plupart des centres-villes denses.</p>
     <p>On vérifie la faisabilité <strong>avant</strong> de vous proposer une date, et on vous le dit
     franchement quand un lieu n’est pas survolable. Un devis qui promet un vol impossible ne rend
     service à personne.</p>
 
     <!-- ══════════════════════════════════════════════════════════════
-         TARIFS DRONE — À COMPLÉTER
+         TARIFS DRONE, À COMPLÉTER
          Laissé vide volontairement : aucun prix inventé.
          Renseigner ici le forfait (demi-journée / journée), le nombre de
          photos livrées, la durée de vidéo montée, et le seuil de
@@ -193,7 +232,7 @@
     de photos livrées et la durée de vidéo montée, avant qu’on commence.</p>
 
     <!-- ══════════════════════════════════════════════════════════════
-         GALERIE AÉRIENNE — EMPLACEMENT
+         GALERIE AÉRIENNE, EMPLACEMENT
          26 photos DJI disponibles dans ~/Desktop/DRONE/100_0002 (2000×1500).
          À trier, puis générer en AVIF + WebP + JPEG sur trois largeurs,
          comme le reste du site. Elles n'ont pas été publiées ici parce
@@ -201,12 +240,42 @@
          ══════════════════════════════════════════════════════════════ -->
   </div></div></section>
 
+  
+    <!-- Ces cinq vues sont du travail de drone : elles ont leur place ici,
+       pas sur une page qui vend des visites d'intérieur. -->
+  <section class="section section--majeure" aria-labelledby="t-gal-photo">
+    <div class="wrap">
+      <header class="entete-section entete-section--large apparait">
+        <p class="surtitre">En images</p>
+        <h2 class="titre-section" id="t-gal-photo">Ce que ça donne, <em>en vrai.</em></h2>
+      </header>
+      <div class="galerie apparait">
+        <figure class="galerie__vue galerie__vue--large">
+          <img src="/assets/img/gal-cote.webp" alt="Côte découpée et eau turquoise vues par drone" width="1000" height="562" loading="lazy" decoding="async">
+          <figcaption>Littoral</figcaption>
+        </figure>
+        <figure class="galerie__vue">
+          <img src="/assets/img/gal-riviere.webp" alt="Rivière bordée d’arbres et passerelle, vue du ciel" width="900" height="450" loading="lazy" decoding="async">
+          <figcaption>Rivière</figcaption>
+        </figure>
+        <figure class="galerie__vue">
+          <img src="/assets/img/gal-campagne.webp" alt="Champs cultivés et bâtiments agricoles vus du ciel" width="900" height="450" loading="lazy" decoding="async">
+          <figcaption>Campagne</figcaption>
+        </figure>
+        <figure class="galerie__vue galerie__vue--large">
+          <img src="/assets/img/gal-gorge.webp" alt="Gorge boisée et eau verte dans l’arrière-pays héraultais, vue par drone" width="1000" height="562" loading="lazy" decoding="async">
+          <figcaption>Arrière-pays héraultais</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <section class="section section--serree"><div class="wrap">
     <header class="entete-section"><p class="surtitre">Pour aller plus loin</p>
       <h2 class="titre-section" style="font-size:var(--fs-titre-bloc)">À voir ensuite</h2></header>
     <div class="suite">
       <a href="/visite-virtuelle-360"><h3>Visite virtuelle 360°</h3><p>Faire entrer vos clients avant qu’ils viennent.</p></a>
-      <a href="/visites/appartement-temoin"><h3>Une visite de démonstration</h3><p>5 positions, à parcourir depuis le navigateur.</p></a>
+      <a href="/visites/maison"><h3>Une visite de démonstration</h3><p>Cinq lieux, à parcourir depuis le navigateur.</p></a>
       <a href="/"><h3>Création de site internet</h3><p>L’autre moitié du métier.</p></a>
     </div>
   </div></section>
@@ -279,6 +348,7 @@
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>
 </button>
 <script src="script.js" defer></script>
+<script src="/lecteur-360.js" defer></script>
 
 <!-- mesure d'audience, servie par l'hébergeur -->
 <script defer src="/_vercel/insights/script.js"></script>

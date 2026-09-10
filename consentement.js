@@ -1,8 +1,8 @@
 /* ══════════════════════════════════════════════════════════════════════
-   CONSENTEMENT — bandeau, et chargement conditionnel de Google Analytics
+   CONSENTEMENT : bandeau, et chargement conditionnel de Google Analytics
 
    Parti pris : blocage préalable strict. Tant que le visiteur n'a pas
-   cliqué « Accepter », RIEN de Google n'est chargé — pas de gtag.js, pas
+   cliqué « Accepter », RIEN de Google n'est chargé : pas de gtag.js, pas
    une requête, pas un cookie. On ne se contente pas du mode consentement
    de Google, qui charge quand même le script : ici le <script> n'est
    inséré qu'après le clic.

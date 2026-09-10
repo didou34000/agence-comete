@@ -988,6 +988,17 @@ p { text-wrap: pretty; }
   padding: var(--sp-6);
   transition: box-shadow var(--t) var(--ease), translate var(--t) var(--ease);
 }
+/* Pictogramme de carte. Il précède le titre et se colore à l'accent :
+   c'est un repère, pas une illustration, d'où le trait fin et la
+   taille modeste. */
+.carte__ico {
+  display: block;
+  margin-bottom: var(--sp-3);
+  color: var(--accent-txt);
+}
+.section--sable .carte__ico { color: var(--accent-txt-sable); }
+.carte:hover .carte__ico { color: var(--bleu-txt); }
+
 /* Un seul langage au survol : l'ombre dure se pose. Pas de 3D. */
 .carte:hover { box-shadow: var(--ombre-dure) var(--bleu); translate: -2px -2px; }
 
@@ -2018,7 +2029,7 @@ p { text-wrap: pretty; }
 /* ══════════ BANDEAU DE CONSENTEMENT ══════════
    Posé en bas, jamais en travers de la page : il n'attrape pas le
    contenu et ne piège pas le clavier. Les deux boutons ont exactement
-   la même taille et le même poids visuel — refuser doit être aussi
+   la même taille et le même poids visuel : refuser doit être aussi
    simple qu'accepter, c'est une exigence CNIL et une question d'égards. */
 .consent {
   position: fixed; z-index: 90;
@@ -2064,7 +2075,7 @@ p { text-wrap: pretty; }
     display: inline-flex; align-items: center;
     min-height: 44px;
   }
-  /* Les liens d'action isolés — « Voir l'offre », « En parler » — sont
+  /* Les liens d'action isolés (« Voir l'offre », « En parler ») sont
      des boutons déguisés : ils méritent la même surface. */
   .lien-fleche,
   .carte__lien,
@@ -2083,7 +2094,7 @@ p { text-wrap: pretty; }
 /* ══════════════════════════════════════════════════════════════════
    DENSITÉ MOBILE
 
-   Les cartes courtes — un titre, une ligne — passaient une par ligne :
+   Les cartes courtes (un titre, une ligne) passaient une par ligne :
    quatre services occupaient 1 580 px pour 130 mots. À deux par ligne,
    la page se parcourt au lieu de se dérouler.
    ══════════════════════════════════════════════════════════════════ */

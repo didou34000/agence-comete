@@ -1,9 +1,9 @@
 /* ══════════════════════════════════════════════════════════════════════
-   LECTEUR VIDÉO 360 — auto-hébergé, sans bibliothèque
+   LECTEUR VIDÉO 360, auto-hébergé et sans bibliothèque
 
    Pourquoi pas une bibliothèque : videojs-vr, Pannellum-video et les
    autres pèsent entre 200 et 600 Ko, et la plupart appellent un CDN.
-   Ça casserait deux choses tenues depuis le début — le « aucun domaine
+   Ça casserait deux choses tenues depuis le début : le « aucun domaine
    tiers » et le poids de page. Ici tout tient en un fichier de quelques
    kilo-octets, chargé seulement sur les pages qui en ont besoin.
 
@@ -86,7 +86,7 @@
     video.loop = true; video.playsInline = true;
     /* Le son n'est pas le defaut : il ne s'active que sur les blocs qui
        portent data-son. La lecture partant d'un clic, le navigateur
-       autorise le son — un autoplay muet n'aurait pas ce droit. */
+       autorise le son, qu'un autoplay muet n'aurait pas. */
     video.muted = !bloc.hasAttribute('data-son');
     video.setAttribute('playsinline', '');
 
@@ -121,7 +121,7 @@
     const uVue  = gl.getUniformLocation(prog, 'vue');
 
     /* Orientation d'ouverture. Chaque tournage a un « devant » different
-       — ici le capot de la voiture — et le zero de la sphere ne tombe
+       (ici le capot de la voiture) et le zero de la sphere ne tombe
        jamais dessus par hasard. Les deux attributs se reglent en degres
        dans le HTML, ce qui evite de re-encoder la video pour cadrer. */
     const deg = v => (parseFloat(v) || 0) * Math.PI / 180;
@@ -130,7 +130,7 @@
     const LIMITE = Math.PI / 2 - 0.02;   // on ne bascule pas par-dessus les pôles
 
     /* Champ de vision. Plus il est large, plus on voit de la scene d'un
-       coup — au prix de la deformation aux bords, inevitable des qu'on
+       coup, au prix de la deformation aux bords, inevitable des qu'on
        aplatit une sphere. Les bornes tiennent le reglage entre un
        tele-objectif et un tres grand angle, au-dela ca ne montre plus
        rien d'utile. */
@@ -262,6 +262,99 @@
     return true;
   }
 
+  /* ══════════════════════════════════════════════════════════════
+     PANORAMA DU HERO
+
+     Le fond du hero n'est pas une photo mais un panorama qui tourne
+     très lentement : sur une page qui vend des visites virtuelles, le
+     fond montre le produit au lieu de le raconter.
+
+     La photo reste dessous et n'est jamais retirée. C'est elle qu'on
+     voit si WebGL manque, si la texture tarde, ou si le visiteur a
+     demandé moins d'animations, auquel cas on n'initialise rien.
+
+     La boucle s'arrête dès que le hero sort du champ : une rotation
+     qu'on ne voit pas n'a aucune raison de consommer du GPU.
+     ══════════════════════════════════════════════════════════════ */
+  document.querySelectorAll('[data-pano]').forEach(fond => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const toile = document.createElement('canvas');
+    const gl = toile.getContext('webgl', { alpha: false, antialias: false });
+    if (!gl) return;
+
+    const image = new Image();
+    image.decoding = 'async';
+    image.onerror = () => {};
+    image.onload = () => {
+      toile.className = 'hero-photo__pano';
+      fond.prepend(toile);
+
+      const prog = gl.createProgram();
+      gl.attachShader(prog, compiler(gl, gl.VERTEX_SHADER, SOMMET));
+      gl.attachShader(prog, compiler(gl, gl.FRAGMENT_SHADER, FRAGMENT));
+      gl.linkProgram(prog); gl.useProgram(prog);
+
+      const g = sphere();
+      const tampon = (data, type, Tableau) => {
+        const b = gl.createBuffer();
+        gl.bindBuffer(type, b); gl.bufferData(type, new Tableau(data), gl.STATIC_DRAW);
+        return b;
+      };
+      tampon(g.pos, gl.ARRAY_BUFFER, Float32Array);
+      const aPos = gl.getAttribLocation(prog, 'position');
+      gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+      tampon(g.uvs, gl.ARRAY_BUFFER, Float32Array);
+      const aUv = gl.getAttribLocation(prog, 'uv');
+      gl.enableVertexAttribArray(aUv); gl.vertexAttribPointer(aUv, 2, gl.FLOAT, false, 0, 0);
+      tampon(g.idx, gl.ELEMENT_ARRAY_BUFFER, Uint16Array);
+
+      const tex = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+
+      const uProj = gl.getUniformLocation(prog, 'projection');
+      const uVue  = gl.getUniformLocation(prog, 'vue');
+
+      const DEPART = parseFloat(fond.dataset.lacet || 0) * Math.PI / 180;
+      const TANGAGE = parseFloat(fond.dataset.tangage || 0) * Math.PI / 180;
+      const CHAMP = (parseFloat(fond.dataset.champ) || 82) * Math.PI / 180;
+      /* Un tour complet en dix minutes : à l'échelle d'une visite, le
+         mouvement se sent sans jamais attirer l'œil. */
+      const VITESSE = (Math.PI * 2) / 600000;
+
+      let lacet = DEPART, dernier = 0, visible = true, boucle = 0;
+
+      const dessiner = horodatage => {
+        boucle = requestAnimationFrame(dessiner);
+        if (dernier) lacet += (horodatage - dernier) * VITESSE;
+        dernier = horodatage;
+        const l = fond.clientWidth, h = fond.clientHeight;
+        if (!l || !h) return;
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        if (toile.width !== l * dpr || toile.height !== h * dpr) {
+          toile.width = l * dpr; toile.height = h * dpr;
+          gl.viewport(0, 0, toile.width, toile.height);
+        }
+        gl.uniformMatrix4fv(uProj, false, matriceProjection(CHAMP, l / h, 0.1, 100));
+        gl.uniformMatrix4fv(uVue,  false, matriceVue(lacet, TANGAGE));
+        gl.drawElements(gl.TRIANGLES, g.idx.length, gl.UNSIGNED_SHORT, 0);
+      };
+
+      const observateur = new IntersectionObserver(entrees => {
+        visible = entrees[0].isIntersecting;
+        if (visible && !boucle) { dernier = 0; boucle = requestAnimationFrame(dessiner); }
+        else if (!visible && boucle) { cancelAnimationFrame(boucle); boucle = 0; }
+      });
+      observateur.observe(fond);
+      fond.dataset.panoPret = '';
+    };
+    image.src = fond.dataset.pano;
+  });
+
   document.querySelectorAll('[data-video360]').forEach(bloc => {
     const bouton = bloc.querySelector('[data-lire]');
     if (!bouton) return;
@@ -276,7 +369,7 @@
    VISITE INTEGREE
 
    La visite vit dans son propre dossier, autonome. On l'ouvre ici dans
-   un cadre plutot que d'obliger a quitter la page — mais seulement au
+   un cadre plutot que d'obliger a quitter la page, mais seulement au
    clic : une visite pese une dizaine de mega, la charger d'office
    ferait payer a chaque visiteur une chose que la plupart ne
    demanderont pas. Tant qu'on n'a rien clique, il n'y a qu'une image.
@@ -288,9 +381,8 @@
 document.querySelectorAll('[data-visite]').forEach(bloc => {
   const bouton = bloc.querySelector('[data-ouvrir]');
   if (!bouton) return;
-  bouton.addEventListener('click', () => {
-    if (bloc.dataset.ouverte !== undefined) return;
-    bloc.dataset.ouverte = '';
+
+  const ouvrir = () => {
     const cadre = document.createElement('iframe');
     cadre.src = bloc.dataset.visite;
     cadre.title = bloc.dataset.titre || 'Visite virtuelle 360';
@@ -299,5 +391,44 @@ document.querySelectorAll('[data-visite]').forEach(bloc => {
     bloc.appendChild(cadre);
     /* Le focus suit l'action, sinon le clavier reste derriere le cadre. */
     cadre.addEventListener('load', () => cadre.focus(), { once: true });
+    return cadre;
+  };
+
+  bouton.addEventListener('click', () => {
+    if (bloc.dataset.ouverte !== undefined) return;
+    bloc.dataset.ouverte = '';
+    ouvrir();
+  });
+
+  /* ── choix du lieu ───────────────────────────────────────────────
+     Six demonstrations pour six types de lieux. Tant que rien n'est
+     ouvert, changer d'onglet ne fait que changer l'affiche : toujours
+     aucun megaoctet charge sans qu'on l'ait demande. Une fois la
+     visite ouverte, l'onglet remplace le cadre. */
+  const choix = document.querySelector(`[data-choix="${bloc.id}"]`);
+  if (!choix) return;
+  const onglets = [...choix.querySelectorAll('[data-lieu]')];
+  const affiche = bloc.querySelector('.visite-integree__affiche');
+  const cartel = bloc.querySelector('.visite-integree__cartel');
+  const pied = document.querySelector(`[data-pied="${bloc.id}"]`);
+  const plein = document.querySelector(`[data-plein="${bloc.id}"]`);
+
+  onglets.forEach(onglet => {
+    onglet.addEventListener('click', () => {
+      onglets.forEach(o => o.setAttribute('aria-selected', String(o === onglet)));
+      bloc.dataset.visite = onglet.dataset.lieu;
+      bloc.dataset.titre = onglet.dataset.titre;
+      if (affiche) {
+        affiche.src = onglet.dataset.affiche;
+        affiche.alt = onglet.dataset.alt || '';
+      }
+      if (cartel) cartel.textContent = onglet.dataset.cartel || '';
+      if (pied) pied.innerHTML = onglet.dataset.legende || '';
+      if (plein) plein.href = onglet.dataset.lieu;
+
+      const cadre = bloc.querySelector('iframe');
+      if (cadre) cadre.remove();
+      if (bloc.dataset.ouverte !== undefined) ouvrir();
+    });
   });
 });

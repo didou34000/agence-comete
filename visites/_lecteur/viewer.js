@@ -1,5 +1,5 @@
 /**
- * TourViewer — enveloppe du moteur de rendu 360°.
+ * TourViewer, enveloppe du moteur de rendu 360°.
  *
  * Toute l'application (éditeur, prévisualisation, visite exportée) passe par
  * cette couche : elle traduit le manifeste de visite (tour.json, indépendant
@@ -13,7 +13,7 @@
  *   tv.getView() → { yaw, pitch, hfov }
  *   tv.coordsFromEvent(mouseEvent) → { pitch, yaw }   (placement de hotspots)
  *   tv.toggleFullscreen() / tv.on(event, cb) / tv.destroy()
- *   tv.orderedIds — positions dans l'ordre défini
+ *   tv.orderedIds : positions dans l'ordre défini
  */
 (function (global) {
   "use strict";
@@ -410,7 +410,7 @@
     }
     /* Suivi continu : la vue peut changer par la souris, le doigt, le clavier,
        le gyroscope ou une animation. Plutôt que de tenter d'intercepter chaque
-       origine, on réévalue à chaque image — le calcul est négligeable. */
+       origine, on réévalue à chaque image, le calcul est négligeable. */
     let nadirRaf = 0;
     const nadirLoop = () => {
       applyNadirScale();
@@ -424,7 +424,7 @@
      * Volontairement sobre : une courte pause pour que le clic soit ressenti,
      * puis le fondu du moteur. Les tentatives d'animer un rapprochement vers
      * le passage se lisaient comme une latence plutôt que comme un
-     * déplacement — le fondu seul est plus net.
+     * déplacement : le fondu seul est plus net.
      */
     const FADE = tour.settings?.sceneFadeDuration ?? 900;
 

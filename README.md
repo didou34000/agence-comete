@@ -14,12 +14,12 @@ comme intervenant dans **les deux villes et leurs alentours**. Ce n'est
 pas qu'une formule dans les textes, ça se joue à cinq endroits qu'il faut garder
 cohérents entre eux, sous peine d'envoyer des signaux contradictoires à Google :
 
-1. **Le pied de page** de chaque page (baseline, adresse, cocarde) — 20 pages.
+1. **Le pied de page** de chaque page (baseline, adresse, cocarde), sur 20 pages.
 2. **Les titres et descriptions** des pages génériques. Les pages de ville
    (Nîmes, Béziers, Sète, Lunel) restent volontairement mono-ville : leur intérêt
    est justement d'être étroitement ciblées.
 3. **Les données structurées** : `address` reste Montpellier, c'est le siège
-   déclaré au SIRET. Paris est un second `Place` — **Paris, 75017**, avec les
+   déclaré au SIRET. Paris est un second `Place`, **Paris, 75017**, avec les
    coordonnées du centre de l'arrondissement. **Aucune rue n'est publiée**, ni pour
    Montpellier ni pour Paris : c'est un choix, les mentions légales renvoient à une
    communication sur demande. Ne pas en inventer une pour « faire propre ».
@@ -85,14 +85,14 @@ avant de le laisser passer.
 Les ancres de l'offre site ont changé de page : `#offre`, `#process`, `#demos`,
 `#engagements`, `#faq` et `#realisations` vivent maintenant sur
 `/creation-site-internet`. `#agence` et `#contact` sont restés sur l'accueil,
-et la page création a son propre bloc contact — un prospect chaud ne doit pas
+et la page création a son propre bloc contact : un prospect chaud ne doit pas
 être renvoyé vers l'accueil visuel pour trouver un formulaire.
 
 ## Le pôle image : visite virtuelle 360 et drone
 
-Deuxième métier, sur la même marque. Il a **sa propre direction artistique** —
-fond encre plein cadre, accent `--bleu`, Space Grotesk seule sans l'Instrument
-Serif — et cette DA vit entièrement dans `styles-360.css`.
+Deuxième métier, sur la même marque. Il a **sa propre direction artistique**
+(fond encre plein cadre, accent `--bleu`, Space Grotesk seule sans l'Instrument
+Serif), et cette DA vit entièrement dans `styles-360.css`.
 
 **Règle à ne pas casser** : chaque règle de cette feuille est portée soit par
 `.pole-image` (posé sur le `<body>` des pages du pôle), soit par `.bande-pole`
@@ -102,16 +102,57 @@ préfixez-la.
 
 ### Les visites
 
-`visites/appartement-temoin` est la **démonstration publique**. Elle est montée sur
-des panoramas **CC0** de [Poly Haven](https://polyhaven.com/license) — domaine
-public, usage commercial libre, aucune attribution obligatoire. Cinq positions,
-2 Mo, servies en WebP 4096.
+Il y a **cinq démonstrations publiques**, une par type de lieu, toutes montées sur
+des panoramas **CC0** de [Poly Haven](https://polyhaven.com/license) : domaine
+public, usage commercial libre, aucune attribution obligatoire.
 
-Le lecteur (`app.js`, `viewer.js`, `style.css`, `vendor/pannellum.*`) est celui du
-studio, repris tel quel. Seules les données changent : `tour.json`, et le même
-objet inliné dans `index.html` sous `window.TOUR_DATA`.
+| Adresse | Positions | Source |
+|---|---|---|
+| `visites/maison` | 4 | famille `lythwood_*` |
+| `visites/appartement` | 4 | famille `small_empty_room_*` |
+| `visites/hotel` | 1 | `relax_inn_seaview_suite` |
+| `visites/piscine` | 1 | `pool` |
+| `visites/terrasse` | 1 | `sundowner_deck` |
 
-#### La règle sur les droits — à ne pas contourner
+#### La règle des déplacements, à ne pas contourner
+
+Un passage n'est proposé **qu'entre deux panoramas pris au même endroit réel**, et
+il est posé sur une ouverture visible : une porte, une baie. C'est pourquoi seules
+deux démonstrations ont plusieurs positions : ce sont les deux seules familles de
+Poly Haven photographiées dans un même lieu.
+
+Relier deux lieux différents produirait une flèche qui ment. On l'a fait une fois,
+et c'est exactement ce qu'on ne pardonne pas à une visite virtuelle : on avance vers
+une porte et on arrive ailleurs. Les quatre autres démonstrations n'ont donc qu'une
+position, et l'annoncent (« 1 vue »).
+
+Le contrôle est automatisé : `scripts/construire-demos.py` refuse de construire une
+position dont aucun passage n'apparaît dans le champ d'ouverture. Une scène sans
+sortie visible passe pour bloquée, et le visiteur s'arrête là.
+
+#### Fabrication
+
+Tout se reconstruit avec :
+
+    python3 scripts/construire-demos.py
+
+Les cadrages, les libellés et les directions sont dans `DEMOS`, en tête du script.
+Les sources attendues sont les JPG tonemappés 8192x4096 de Poly Haven, dans `/tmp/pano`
+par défaut (variable `PANOS`) ; ils ne sont pas versionnés, seuls les WebP dérivés
+le sont.
+
+Les vignettes de la barre de navigation sont des **cadrages rectilignes** de la vue
+d'ouverture, pas des équirectangulaires réduits : à 320 px, un équirectangulaire est
+illisible.
+
+Le lecteur est partagé : `visites/_lecteur/` (`app.js`, `viewer.js`, `style.css`,
+`vendor/pannellum.*`), un seul exemplaire pour les cinq. Chaque visite déclare
+`window.TOUR_BASE` et son `window.TOUR_DATA`, et garde son `tour.json` en clair.
+
+Ce sont des **démonstrations de format**, pas des biens existants, et les pages qui
+les présentent le disent. Ne jamais les annoncer comme la réalisation d'un client.
+
+#### La règle sur les droits, à ne pas contourner
 
 Deux retraits ont eu lieu, tous deux à la demande du fondateur, et ils fixent la
 règle :
@@ -127,9 +168,9 @@ laquelle on met chaque fichier avant de l'ajouter** :
 
 | Catégorie | Ce qu'on peut en faire | Exemples actuels |
 |---|---|---|
-| **CC0** | Tout, y compris illustrer | `visites/appartement-temoin`, `pole-360-*` |
+| **CC0** | Tout, y compris illustrer | `visites/*` sauf `_lecteur`, `pole-360-*`, `visite-*` |
 | **Ses propres plans sans bien privé identifiable** | Tout, et c'est le seul cas où on peut écrire « en vrai » | `gal-*`, `drone-*`, `mini-360` |
-| **Bien d'un tiers** | Rien, sans accord écrit de diffusion publique | — |
+| **Bien d'un tiers** | Rien, sans accord écrit de diffusion publique | aucun |
 
 Corollaire pour la galerie « Ce que ça donne, en vrai » de l'accueil : elle ne doit
 contenir que la deuxième catégorie. Y glisser du CC0 ferait passer une image de
@@ -148,8 +189,8 @@ python3 scripts/importer-visite.py <dossier-export> <slug>
 
 `lecteur-360.js` projette une vidéo équirectangulaire sur une sphère en WebGL, sans
 bibliothèque : videojs-vr et consorts pèsent 200 à 600 Ko et appellent souvent un CDN,
-ce qui casserait le « aucun domaine tiers » tenu depuis le début. Rien — ni la vidéo,
-ni le contexte graphique — n'existe avant le clic.
+ce qui casserait le « aucun domaine tiers » tenu depuis le début. Rien (ni la vidéo,
+ni le contexte graphique) n'existe avant le clic.
 
 Le bloc se règle en HTML, ce qui évite de ré-encoder pour recadrer :
 
@@ -170,7 +211,7 @@ y a été aplatie au montage, elle est perdue, et la vidéo ne peut plus tourner
 l'export équirectangulaire, reconnaissable à son rapport 2:1 (ici 5760 × 2880).
 
 **Plaques d'immatriculation** : la caméra étant solidaire du véhicule, la plaque occupe
-toujours le même rectangle de l'équirectangulaire — un cache fixe suffit, incrusté au
+toujours le même rectangle de l'équirectangulaire, et un cache fixe suffit, incrusté au
 ré-encodage, donc irréversible. Ne jamais publier une vidéo de roulage sans cette
 vérification.
 
@@ -188,7 +229,7 @@ Deux points appris en le faisant :
 - **Tarifs** : les deux pages portent un emplacement en commentaire HTML. Rien
   n'a été inventé, les deux annoncent « sur devis » en attendant.
 - **Galerie aérienne** : emplacement marqué dans `photo-video-drone.html`. Les 26
-  photos de `~/Desktop/DRONE/100_0002` ne conviennent pas — ce sont des parkings.
+  photos de `~/Desktop/DRONE/100_0002` ne conviennent pas : ce sont des parkings.
   Le bon gisement est la carte de la caméra (`/Volumes/Insta360 X5/DCIM/100MEDIA`,
   62 vidéos), dont l'essentiel n'a jamais été copié sur le disque : les plans de
   propriétés y sont, notamment `DJI_0193`, `0210`, `0219`, `0220`, `0232`, `0253`,

@@ -7,7 +7,10 @@
   "use strict";
 
   const tour = window.TOUR_DATA;
-  const ASSET_BASE = "/visites/appartement-temoin/";
+  /* Le lecteur est commun a toutes les demonstrations : chaque visite le
+     charge depuis /visites/_lecteur/ et declare seulement ou trouver ses
+     propres panoramas. Un seul exemplaire de pannellum pour tout le site. */
+  const ASSET_BASE = window.TOUR_BASE || "./";
   const loading = document.getElementById("loading");
   const errorBox = document.getElementById("error");
   const errorMsg = document.getElementById("error-message");
@@ -26,10 +29,9 @@
   }
 
   /* --- accès direct aux positions ---------------------------------------
-     Des vignettes plutôt que des libellés : les noms hérités des fichiers de
-     l'appareil photo n'ont aucun sens pour un visiteur, et une image dit
-     immédiatement de quelle pièce il s'agit. Le nom n'apparaît que s'il a été
-     saisi, en infobulle et pour les lecteurs d'écran. */
+     Une vignette ET son nom. L'image seule laissait deviner : deux extérieurs
+     verts se ressemblent à 100 px de large. Le nom n'est écrit que s'il a été
+     saisi : un libellé hérité d'un nom de fichier ne dit rien à personne. */
   const chipEls = {};
   tv.orderedIds.forEach((id, i) => {
     const node = byId[id];
@@ -45,6 +47,12 @@
     img.alt = "";
     img.loading = "lazy";
     chip.appendChild(img);
+    if (named) {
+      const nom = document.createElement("span");
+      nom.className = "chip__nom";
+      nom.textContent = named;
+      chip.appendChild(nom);
+    }
     chip.addEventListener("click", () => tv.goTo(id));
     chips.appendChild(chip);
     chipEls[id] = chip;
@@ -59,6 +67,10 @@
     if (active && active.scrollIntoView) {
       active.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
     }
+  }
+
+  if (tour.nodes.length < 2) {
+    document.getElementById("bar").classList.add("bar--seule");
   }
 
   /* --- boutons ----------------------------------------------------------- */

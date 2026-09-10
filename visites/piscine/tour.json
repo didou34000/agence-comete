@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "id": "piscine",
+  "name": "Piscine et jardin",
+  "created": "2026-09-08T00:00:00.000Z",
+  "updated": "2026-09-08T00:00:00.000Z",
+  "settings": {
+    "sceneFadeDuration": 900,
+    "autoRotate": false,
+    "nadir": {
+      "mode": "text",
+      "text": "L’Agence du Sud",
+      "size": 190,
+      "color": "#17130E"
+    }
+  },
+  "startNodeId": "pool",
+  "nodes": [
+    {
+      "id": "pool",
+      "label": "Le bassin",
+      "order": 0,
+      "panorama": {
+        "width": 8192,
+        "height": 4096,
+        "sources": [
+          {
+            "src": "panoramas/pool.webp",
+            "width": 4096
+          }
+        ],
+        "thumbnail": "thumbs/pool.webp"
+      },
+      "view": {
+        "yaw": 85.0,
+        "pitch": 2.0,
+        "hfov": 100
+      },
+      "northOffset": 0,
+      "position": null,
+      "links": [],
+      "auto_label": false
+    }
+  ]
+}

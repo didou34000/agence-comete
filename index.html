@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://lagencedusud.com/assets/img/pole-360-hero.jpg">
 <meta property="og:image:width" content="1800">
 <meta property="og:image:height" content="900">
-<meta property="og:image:alt" content="Intérieur d’une villa méditerranéenne ouvert sur la terrasse et la piscine">
+<meta property="og:image:alt" content="Bassin turquoise bordé de palmiers, vu depuis un panorama 360°">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -202,10 +202,11 @@
 <main id="contenu">
   <!-- ══════════ HERO ══════════ -->
   <section class="hero-photo" id="top">
-    <div class="hero-photo__fond" aria-hidden="true">
+    <div class="hero-photo__fond" aria-hidden="true" data-pano="assets/img/hero-panorama.webp"
+         data-lacet="-55" data-tangage="-6" data-champ="82">
       <picture>
         <source type="image/webp" srcset="assets/img/accueil-hero.webp">
-        <img src="assets/img/accueil-hero.jpg" alt="Côte méditerranéenne découpée et eau turquoise, vue par drone" width="1400" height="700" fetchpriority="high" decoding="async">
+        <img src="assets/img/accueil-hero.jpg" alt="Séjour ouvert par une baie vitrée sur une terrasse et la mer, vu depuis un panorama 360°" width="1400" height="700" fetchpriority="high" decoding="async">
       </picture>
     </div>
     <div class="wrap hero-photo__texte">
@@ -217,7 +218,7 @@
       elle vous appartient, sans abonnement.</p>
       <div class="hero__actions">
         <a class="btn btn--grand" href="#contact">Réserver l’offre à 90&nbsp;€</a>
-        <a class="btn btn--fantome btn--grand" href="visites/appartement-temoin">Essayer la visite témoin</a>
+        <a class="btn btn--fantome btn--grand" href="/visites/maison">Essayer la visite témoin</a>
       </div>
     </div>
   </section>
@@ -259,37 +260,75 @@
 
       <!-- La démonstration est posée ici, avant les cartes : une visite
            virtuelle s'explique en la faisant essayer, pas en la décrivant.
-           Rien ne se charge avant le clic — voir lecteur-360.js. -->
-      <div class="visite-integree apparait"
-           data-visite="visites/appartement-temoin/"
-           data-titre="Visite virtuelle 360° d’un appartement témoin">
-        <img class="visite-integree__affiche" src="assets/img/pole-360-apercu.webp" alt="Pièce vide ouvrant sur un balcon, vue depuis un panorama 360°" width="1200" height="600" loading="lazy" decoding="async">
+           Rien ne se charge avant le clic. Voir lecteur-360.js. -->
+      <div class="visite-integree apparait" id="demo-accueil"
+           data-visite="/visites/maison"
+           data-titre="Visite virtuelle 360° : Maison de maître">
+        <img class="visite-integree__affiche" src="/assets/img/visite-maison.webp" alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
         <div class="visite-integree__voile">
+          <span class="visite-integree__cartel">Maison de maître · 4 positions</span>
           <p>Essayez&nbsp;: faites glisser pour regarder autour de vous, cliquez au sol pour
           passer dans la pièce suivante. C’est exactement ce que reçoivent nos clients.</p>
           <button type="button" class="btn btn--grand" data-ouvrir>Ouvrir la visite ici</button>
         </div>
       </div>
+      <div class="visite-choix" data-choix="demo-accueil" role="tablist" aria-label="Type de lieu à visiter">
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="true"
+          data-lieu="/visites/maison"
+          data-titre="Visite virtuelle 360° : Maison de maître"
+          data-affiche="/assets/img/visite-maison.webp"
+          data-alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°"
+          data-cartel="Maison de maître · 4 positions"
+          data-legende="&lt;strong&gt;Maison de maître&lt;/strong&gt; : le parc, la terrasse, le salon et la chambre. Les passages sont posés sur les vraies portes du lieu.">Maison<span class="visite-choix__nb">4 positions</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/appartement"
+          data-titre="Visite virtuelle 360° : Appartement vide"
+          data-affiche="/assets/img/visite-appartement.webp"
+          data-alt="Séjour vide d’un appartement neuf ouvrant sur un balcon, vue depuis un panorama 360°"
+          data-cartel="Appartement vide · 4 positions"
+          data-legende="&lt;strong&gt;Appartement vide&lt;/strong&gt; : quatre pièces d’un logement neuf, reliées par leurs portes. Le cas le plus courant en immobilier.">Appartement<span class="visite-choix__nb">4 positions</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/hotel"
+          data-titre="Visite virtuelle 360° : Chambre d’hôtel"
+          data-affiche="/assets/img/visite-hotel.webp"
+          data-alt="Chambre d’hôtel ouvrant sur sa terrasse, vue depuis un panorama 360°"
+          data-cartel="Chambre d’hôtel · 1 vue"
+          data-legende="&lt;strong&gt;Chambre d’hôtel&lt;/strong&gt; : une position, à faire tourner. C’est la brique de base d’une visite complète.">Hôtel<span class="visite-choix__nb">1 vue</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/piscine"
+          data-titre="Visite virtuelle 360° : Piscine et jardin"
+          data-affiche="/assets/img/visite-piscine.webp"
+          data-alt="Bassin turquoise bordé de palmiers, vu depuis un panorama 360°"
+          data-cartel="Piscine et jardin · 1 vue"
+          data-legende="&lt;strong&gt;Piscine et jardin&lt;/strong&gt; : une position, à faire tourner. L’extérieur compte autant que l’intérieur dans une annonce.">Piscine<span class="visite-choix__nb">1 vue</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/terrasse"
+          data-titre="Visite virtuelle 360° : Terrasse en bord de mer"
+          data-affiche="/assets/img/visite-terrasse.webp"
+          data-alt="Terrasse couverte face à la mer, vue depuis un panorama 360°"
+          data-cartel="Terrasse en bord de mer · 1 vue"
+          data-legende="&lt;strong&gt;Terrasse en bord de mer&lt;/strong&gt; : une position, à faire tourner. Ce que la photo cadrée ne rend jamais.">Terrasse<span class="visite-choix__nb">1 vue</span></button>
+      </div>
       <p class="visite-integree__note">Rien ne se télécharge tant que vous n’avez pas cliqué.
-      <a class="lien-souligne" href="visites/appartement-temoin">Ouvrir en plein écran →</a></p>
+      <a class="lien-souligne" data-plein="demo-accueil" href="/visites/maison">Ouvrir en plein écran →</a></p>
 
       <div class="travaux">
-        <a class="travail apparait" href="visites/appartement-temoin">
+        <a class="travail apparait" href="/visites/maison">
           <div class="travail__visuel">
             <span class="travail__etiquette">Démonstration</span>
-            <img src="assets/img/pole-360-apercu.webp" alt="Pièce vide ouvrant sur un balcon, vue depuis un panorama 360°" width="1200" height="600" loading="lazy" decoding="async">
+            <img src="/assets/img/visite-maison.webp" alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
           </div>
-          <div class="travail__meta"><h3>Appartement témoin</h3><p>5 positions · démonstration à parcourir</p></div>
+          <div class="travail__meta"><h3>Maison de maître</h3><p>4 positions · démonstration à parcourir</p></div>
         </a>
         <a class="travail apparait" href="visite-virtuelle-360">
           <div class="travail__visuel">
-            <img src="assets/img/pole-360-piece.webp" alt="Pièce vide et sa fenêtre, vue depuis un panorama 360°" width="900" height="450" loading="lazy" decoding="async">
+            <img src="/assets/img/visite-terrasse.webp" alt="Terrasse couverte face à la mer, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
           </div>
           <div class="travail__meta"><h3>Comment ça marche</h3><p>Le détail de la prestation</p></div>
         </a>
         <a class="travail apparait" href="#offre">
           <div class="travail__visuel">
-            <img src="assets/img/pole-360-bain.webp" alt="Salle de bain vue depuis un panorama 360°" width="900" height="450" loading="lazy" decoding="async">
+            <img src="/assets/img/visite-hotel.webp" alt="Chambre d’hôtel ouvrant sur sa terrasse, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
           </div>
       <div class="travail__meta"><h3>Combien ça coûte</h3><p>90 € pour les 10 premiers biens</p></div>
         </a>
@@ -300,7 +339,7 @@
   <!-- ══════════ L'OFFRE ══════════
        Reprise du composant .offre de la page site : même drapeau, même
        prix en exposant, même liste à coches. Une seule offre affichée,
-       donc pas de comparatif — c'est le repère, pas un menu. -->
+       donc pas de comparatif : c'est le repère, pas un menu. -->
   <section class="section section--majeure section--creuse" id="offre" aria-labelledby="t-offre">
     <div class="wrap">
       <header class="entete-section entete-section--large apparait">
@@ -325,7 +364,7 @@
             <p class="offre__addition-titre">Ce que ça fait sur trois ans</p>
             <p class="offre__addition-calcul">90&nbsp;€ <i>+</i> 0&nbsp;€ <i>=</i> <b>90&nbsp;€</b></p>
             <p class="offre__addition-note">Une visite hébergée par une plateforme se paie souvent
-            entre 12 et 20&nbsp;€ par mois, soit 430 à 720&nbsp;€ sur la même durée — et elle
+            entre 12 et 20&nbsp;€ par mois, soit 430 à 720&nbsp;€ sur la même durée, et elle
             s’éteint le jour où vous arrêtez de payer.</p>
           </div>
 
@@ -362,7 +401,7 @@
        L'argument le plus fort du pôle, et le seul que les plateformes ne
        peuvent pas copier : la visite est un dossier statique, elle vit
        sur le domaine du client, elle ne dépend de personne. C'est
-       vérifiable — l'export n'appelle aucun domaine tiers. Il méritait
+       vérifiable : l'export n'appelle aucun domaine tiers. Il méritait
        mieux que six phrases dispersées dans la page. -->
   <section class="section section--majeure section--encre sur-fond-sombre" aria-labelledby="t-avous">
     <div class="wrap">
@@ -409,35 +448,51 @@
     </div>
   </section>
 
-  <!-- ══════════ EN IMAGES ══════════ -->
+  <!-- ══════════ LES SIX DÉMONSTRATIONS ══════════
+       Un type de lieu par démonstration. Celles qui portent plusieurs
+       positions sont montées sur des panoramas d'un même lieu réel, et
+       leurs passages sont posés sur de vraies portes : on va vraiment où
+       la flèche indique. Les autres n'ont qu'une vue, et le disent. -->
   <section class="section section--majeure" aria-labelledby="t-gal">
     <div class="wrap">
       <header class="entete-section entete-section--large apparait">
-        <p class="surtitre">En images</p>
-        <h2 class="titre-section" id="t-gal">Ce que ça donne, <em>en vrai.</em></h2>
+        <p class="surtitre">Les démonstrations</p>
+        <h2 class="titre-section" id="t-gal">Cinq lieux, <em>cinq visites.</em></h2>
+        <p class="intro-section">Maison, appartement, chambre d’hôtel, piscine,
+        terrasse. Chacune s’ouvre dans le navigateur, sans installer quoi que ce soit.</p>
       </header>
-      <div class="galerie apparait">
-          <figure class="galerie__vue galerie__vue--large">
-            <img src="assets/img/gal-cote.webp" alt="Côte découpée et eau turquoise vues par drone" width="1000" height="562" loading="lazy" decoding="async">
-            <figcaption>Littoral — par drone</figcaption>
-          </figure>
-          <figure class="galerie__vue">
-            <img src="assets/img/gal-falaise.webp" alt="Falaise calcaire plongeant dans une calanque" width="900" height="450" loading="lazy" decoding="async">
-            <figcaption>Falaises</figcaption>
-          </figure>
-          <figure class="galerie__vue">
-            <img src="assets/img/gal-riviere.webp" alt="Rivière bordée d’arbres et passerelle, vue du ciel" width="900" height="450" loading="lazy" decoding="async">
-            <figcaption>Rivière</figcaption>
-          </figure>
-          <figure class="galerie__vue">
-            <img src="assets/img/gal-campagne.webp" alt="Champs cultivés et bâtiments agricoles vus du ciel" width="900" height="450" loading="lazy" decoding="async">
-            <figcaption>Campagne</figcaption>
-          </figure>
-          <figure class="galerie__vue galerie__vue--large">
-            <img src="assets/img/gal-gorge.webp" alt="Gorge boisée et eau verte dans l’arrière-pays héraultais, vue par drone" width="1000" height="562" loading="lazy" decoding="async">
-            <figcaption>Arrière-pays héraultais — par drone</figcaption>
-          </figure>
-        </div>
+      <div class="travaux">
+        <a class="travail apparait" href="/visites/maison">
+          <div class="travail__visuel">
+            <img src="/assets/img/visite-maison.webp" alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+          </div>
+          <div class="travail__meta"><h3>Maison de maître</h3><p>4 positions · du parc à la chambre</p></div>
+        </a>
+        <a class="travail apparait" href="/visites/appartement">
+          <div class="travail__visuel">
+            <img src="/assets/img/visite-appartement.webp" alt="Séjour vide d’un appartement neuf ouvrant sur un balcon, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+          </div>
+          <div class="travail__meta"><h3>Appartement vide</h3><p>4 positions · un logement neuf</p></div>
+        </a>
+        <a class="travail apparait" href="/visites/hotel">
+          <div class="travail__visuel">
+            <img src="/assets/img/visite-hotel.webp" alt="Chambre d’hôtel ouvrant sur sa terrasse, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+          </div>
+          <div class="travail__meta"><h3>Chambre d’hôtel</h3><p>1 vue à 360°</p></div>
+        </a>
+        <a class="travail apparait" href="/visites/piscine">
+          <div class="travail__visuel">
+            <img src="/assets/img/visite-piscine.webp" alt="Bassin turquoise bordé de palmiers, vu depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+          </div>
+          <div class="travail__meta"><h3>Piscine et jardin</h3><p>1 vue à 360°</p></div>
+        </a>
+        <a class="travail apparait" href="/visites/terrasse">
+          <div class="travail__visuel">
+            <img src="/assets/img/visite-terrasse.webp" alt="Terrasse couverte face à la mer, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+          </div>
+          <div class="travail__meta"><h3>Terrasse en bord de mer</h3><p>1 vue à 360°</p></div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -520,12 +575,12 @@
         <div class="video-carte apparait">
           <video controls preload="none" playsinline muted loop poster="assets/img/drone-gorge-poster.webp"
                  width="1152" height="648"><source src="assets/video/drone-gorge.mp4" type="video/mp4"></video>
-          <p class="video-carte__pied"><strong>Gorge et eau verte</strong> — 9 s, par drone.</p>
+          <p class="video-carte__pied"><strong>Gorge et eau verte</strong> : 9 s, par drone.</p>
         </div>
         <div class="video-carte apparait">
           <video controls preload="none" playsinline muted loop poster="assets/img/video-vehicule-poster.webp"
                  width="1280" height="720"><source src="assets/video/video-vehicule.mp4" type="video/mp4"></video>
-          <p class="video-carte__pied"><strong>Véhicule en mouvement</strong> — 5 s, perche invisible. Plaque floutée.</p>
+          <p class="video-carte__pied"><strong>Véhicule en mouvement</strong> : 5 s, perche invisible. Plaque floutée.</p>
         </div>
       </div>
     </div>
@@ -706,8 +761,6 @@
       </div>
     </div>
   </section>
-
-</main>
 
 </main>
 

@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://lagencedusud.com/assets/img/pole-360-hero.jpg">
 <meta property="og:image:width" content="1800">
 <meta property="og:image:height" content="900">
-<meta property="og:image:alt" content="Vue 360° d’une villa méditerranéenne, terrasse et piscine">
+<meta property="og:image:alt" content="Bassin turquoise bordé de palmiers, vu depuis un panorama 360°">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -92,7 +92,7 @@
     <a href="/#agence">L’agence</a>
     <a href="/creation-site-internet">Création de site</a>
   </nav>
-  <a class="btn btn--petit" href="/#contact">Demander un devis →</a>
+  <a class="btn btn--petit" href="#contact">Demander un devis →</a>
   <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">
     <span></span><span></span><span></span>
   </button>
@@ -100,10 +100,11 @@
 
 <main id="contenu">
   <section class="hero-photo">
-    <div class="hero-photo__fond">
+    <div class="hero-photo__fond" data-pano="/assets/img/hero-panorama-visite.webp"
+         data-lacet="30" data-tangage="-16" data-champ="82">
       <picture>
         <source type="image/webp" srcset="/assets/img/pole-360-hero.webp">
-        <img src="/assets/img/pole-360-hero.jpg" alt="Séjour ouvert par une baie vitrée sur une terrasse et la mer" width="1400" height="700" fetchpriority="high" decoding="async">
+        <img src="/assets/img/pole-360-hero.jpg" alt="Piscine turquoise bordée de palmiers sous un ciel bleu, vue depuis un panorama 360°" width="1400" height="700" fetchpriority="high" decoding="async">
       </picture>
     </div>
     <div class="wrap hero-photo__texte">
@@ -119,8 +120,8 @@
         <li>Déplacement compris dans 30&nbsp;km</li>
       </ul>
       <div class="hero__actions">
-        <a class="btn btn--grand" href="/#contact">Réserver l’offre à 90&nbsp;€</a>
-        <a class="btn btn--fantome btn--grand" href="/visites/appartement-temoin">Essayer la visite témoin</a>
+        <a class="btn btn--grand" href="#contact">Réserver l’offre à 90&nbsp;€</a>
+        <a class="btn btn--fantome btn--grand" href="/visites/maison">Essayer la visite témoin</a>
       </div>
     </div>
   </section>
@@ -129,25 +130,63 @@
 
   <!-- ══════════ LA VISITE, DANS LA PAGE ══════════
        Le meilleur argument pour une visite virtuelle, c'est la visite.
-       Elle s'ouvre ici, sans quitter la page — mais au clic seulement.
+       Elle s'ouvre ici, sans quitter la page, mais au clic seulement.
        C'est une démonstration montée sur des panoramas libres de droits
        (CC0), pas le bien d'un client : voir le README. -->
-  <section class="section section--serree" aria-labelledby="t-visite">
+  <section class="section section--levee" aria-labelledby="t-visite">
     <div class="wrap">
       <div class="video-carte">
-        <div class="visite-integree"
-             data-visite="/visites/appartement-temoin/"
-             data-titre="Visite virtuelle 360° d’un appartement témoin">
-          <img class="visite-integree__affiche" src="/assets/img/pole-360-apercu.webp" alt="Pièce vide ouvrant sur un balcon, vue depuis un panorama 360°" width="1200" height="600" loading="lazy" decoding="async">
-          <div class="visite-integree__voile">
-            <p>Une démonstration, exactement au format que reçoivent nos clients.
-            Elle s’ouvre ici&nbsp;; rien ne se télécharge tant que vous ne l’avez pas demandé.</p>
-            <button type="button" class="btn btn--grand" data-ouvrir>Ouvrir la visite ici</button>
-          </div>
+      <div class="visite-integree apparait" id="demo-visite"
+           data-visite="/visites/maison"
+           data-titre="Visite virtuelle 360° : Maison de maître">
+        <img class="visite-integree__affiche" src="/assets/img/visite-maison.webp" alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+        <div class="visite-integree__voile">
+          <span class="visite-integree__cartel">Maison de maître · 4 positions</span>
+          <p>Une démonstration, exactement au format que reçoivent nos clients.
+          Elle s’ouvre ici&nbsp;; rien ne se télécharge tant que vous ne l’avez pas demandé.</p>
+          <button type="button" class="btn btn--grand" data-ouvrir>Ouvrir la visite ici</button>
         </div>
+      </div>
+        <div class="visite-choix" data-choix="demo-visite" role="tablist" aria-label="Type de lieu à visiter">
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="true"
+          data-lieu="/visites/maison"
+          data-titre="Visite virtuelle 360° : Maison de maître"
+          data-affiche="/assets/img/visite-maison.webp"
+          data-alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°"
+          data-cartel="Maison de maître · 4 positions"
+          data-legende="&lt;strong&gt;Maison de maître&lt;/strong&gt; : le parc, la terrasse, le salon et la chambre. Les passages sont posés sur les vraies portes du lieu.">Maison<span class="visite-choix__nb">4 positions</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/appartement"
+          data-titre="Visite virtuelle 360° : Appartement vide"
+          data-affiche="/assets/img/visite-appartement.webp"
+          data-alt="Séjour vide d’un appartement neuf ouvrant sur un balcon, vue depuis un panorama 360°"
+          data-cartel="Appartement vide · 4 positions"
+          data-legende="&lt;strong&gt;Appartement vide&lt;/strong&gt; : quatre pièces d’un logement neuf, reliées par leurs portes. Le cas le plus courant en immobilier.">Appartement<span class="visite-choix__nb">4 positions</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/hotel"
+          data-titre="Visite virtuelle 360° : Chambre d’hôtel"
+          data-affiche="/assets/img/visite-hotel.webp"
+          data-alt="Chambre d’hôtel ouvrant sur sa terrasse, vue depuis un panorama 360°"
+          data-cartel="Chambre d’hôtel · 1 vue"
+          data-legende="&lt;strong&gt;Chambre d’hôtel&lt;/strong&gt; : une position, à faire tourner. C’est la brique de base d’une visite complète.">Hôtel<span class="visite-choix__nb">1 vue</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/piscine"
+          data-titre="Visite virtuelle 360° : Piscine et jardin"
+          data-affiche="/assets/img/visite-piscine.webp"
+          data-alt="Bassin turquoise bordé de palmiers, vu depuis un panorama 360°"
+          data-cartel="Piscine et jardin · 1 vue"
+          data-legende="&lt;strong&gt;Piscine et jardin&lt;/strong&gt; : une position, à faire tourner. L’extérieur compte autant que l’intérieur dans une annonce.">Piscine<span class="visite-choix__nb">1 vue</span></button>
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+          data-lieu="/visites/terrasse"
+          data-titre="Visite virtuelle 360° : Terrasse en bord de mer"
+          data-affiche="/assets/img/visite-terrasse.webp"
+          data-alt="Terrasse couverte face à la mer, vue depuis un panorama 360°"
+          data-cartel="Terrasse en bord de mer · 1 vue"
+          data-legende="&lt;strong&gt;Terrasse en bord de mer&lt;/strong&gt; : une position, à faire tourner. Ce que la photo cadrée ne rend jamais.">Terrasse<span class="visite-choix__nb">1 vue</span></button>
+      </div>
         <div class="video-carte__pied">
-          <p id="t-visite"><strong>Appartement témoin</strong> — 5 positions, du séjour à la salle de bain. Se déplace à la souris, au doigt, au clavier.</p>
-          <a class="btn btn--petit" href="/visites/appartement-temoin">Ouvrir en plein écran →</a>
+          <p id="t-visite" data-pied="demo-visite"><strong>Maison de maître</strong> : le parc, la terrasse, le salon et la chambre. Les passages sont posés sur les vraies portes du lieu.</p>
+          <a class="btn btn--petit" data-plein="demo-visite" href="/visites/maison">Ouvrir en plein écran →</a>
         </div>
       </div>
     </div>
@@ -166,21 +205,31 @@
     veut privatiser une salle sans venir la voir trois fois.</p>
   </div></div></section>
 
+    <section class="bande-photo" aria-labelledby="t-bande-visite">
+    <picture>
+      <source type="image/webp" srcset="/assets/img/bande-visite.webp">
+      <img src="/assets/img/bande-visite.jpg" alt="" width="1600" height="558" loading="lazy" decoding="async">
+    </picture>
+    <div class="wrap bande-photo__texte">
+      <p id="t-bande-visite">On ne visite pas une photo.<br><em>On visite un lieu.</em></p>
+    </div>
+  </section>
+
   <section class="section section--serree"><div class="wrap"><div class="prose">
 <h2>Pour qui</h2>
     <div class="services">
-      <article class="carte service"><h3>Immobilier</h3><p>Agences, mandataires, promoteurs. La visite tourne 24 h sur 24 et se partage dans une annonce, un mail ou un SMS.</p></article>
-      <article class="carte service"><h3>Hôtels et locations</h3><p>Chambres, gîtes, meublés. Une raison de réserver en direct plutôt que sur une plateforme qui prend sa commission.</p></article>
-      <article class="carte service"><h3>Commerces et showrooms</h3><p>Boutiques, garages, salles de sport, salons. On entre, on regarde, on se décide à venir.</p></article>
-      <article class="carte service"><h3>Restaurants et salles</h3><p>La salle, la terrasse, l’étage privatisable. Le client voit la place avant de demander un devis pour trente couverts.</p></article>
-      <article class="carte service"><h3>Chantiers et patrimoine</h3><p>États des lieux, avancement de chantier, bâti ancien. Une trace exacte, datée, consultable à distance.</p></article>
+      <article class="carte service"><svg class="carte__ico" width="24" height="24" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9.5 11 3l8 6.5V19a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 20v-6h4v6"/></svg><h3>Immobilier</h3><p>Agences, mandataires, promoteurs. La visite tourne 24 h sur 24 et se partage dans une annonce, un mail ou un SMS.</p></article>
+      <article class="carte service"><svg class="carte__ico" width="24" height="24" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 18V7"/><path d="M3 11h12a4 4 0 0 1 4 4v3"/><path d="M3 18h16"/><circle cx="7.5" cy="8.5" r="1.6"/></svg><h3>Hôtels et locations</h3><p>Chambres, gîtes, meublés. Une raison de réserver en direct plutôt que sur une plateforme qui prend sa commission.</p></article>
+      <article class="carte service"><svg class="carte__ico" width="24" height="24" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9h14l-1 10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/><path d="M8 9V6.5a3 3 0 0 1 6 0V9"/></svg><h3>Commerces et showrooms</h3><p>Boutiques, garages, salles de sport, salons. On entre, on regarde, on se décide à venir.</p></article>
+      <article class="carte service"><svg class="carte__ico" width="24" height="24" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3v8a2 2 0 0 0 4 0V3"/><path d="M8 11v9"/><path d="M16 3c-1.5 1.5-2 3-2 5s.7 3 2 3v9"/></svg><h3>Restaurants et salles</h3><p>La salle, la terrasse, l’étage privatisable. Le client voit la place avant de demander un devis pour trente couverts.</p></article>
+      <article class="carte service"><svg class="carte__ico" width="24" height="24" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h15"/><path d="M6 20V9l5-4 5 4v11"/><path d="M9 20v-4h4v4"/><path d="M11 5V2.5"/></svg><h3>Chantiers et patrimoine</h3><p>États des lieux, avancement de chantier, bâti ancien. Une trace exacte, datée, consultable à distance.</p></article>
     </div>
   </div></div></section>
 
   <section class="section section--sable"><div class="wrap"><div class="prose">
 <h2>Ce qui nous distingue des plateformes</h2>
     <p>La plupart des visites virtuelles vivent sur un service qui les héberge et les facture au
-    mois. Le jour où l’abonnement s’arrête, le lien meurt — souvent dans une annonce ou un mail
+    mois. Le jour où l’abonnement s’arrête, le lien meurt, souvent dans une annonce ou un mail
     envoyé des mois plus tôt.</p>
     <p>Ici, la visite est un <strong>dossier de fichiers</strong>, posé sur votre propre site. Elle
     fonctionne sur n’importe quel hébergement, elle vous est livrée entière, et personne ne peut
@@ -195,6 +244,20 @@
 
   <section class="section section--serree"><div class="wrap"><div class="prose">
 <h2>Comment ça se passe</h2>
+    <div class="galerie apparait" style="margin-block:var(--sp-5)">
+      <figure class="galerie__vue">
+        <img src="/assets/img/visite-terrasse.webp" alt="Terrasse et fontaine, une des positions de la visite" width="900" height="506" loading="lazy" decoding="async">
+        <figcaption>Une position par pièce</figcaption>
+      </figure>
+      <figure class="galerie__vue">
+        <img src="/assets/img/visite-appartement.webp" alt="Séjour vide, une des positions de la visite" width="900" height="506" loading="lazy" decoding="async">
+        <figcaption>Chacune sur 360°</figcaption>
+      </figure>
+      <figure class="galerie__vue">
+        <img src="/assets/img/visite-hotel.webp" alt="Chambre d’hôtel, une des positions de la visite" width="900" height="506" loading="lazy" decoding="async">
+        <figcaption>Reliées entre elles</figcaption>
+      </figure>
+    </div>
     <ol>
       <li><strong>On repère le lieu ensemble</strong>, en visite ou sur plan : combien de positions, dans quel ordre, ce qu’on montre et ce qu’on évite.</li>
       <li><strong>La prise de vue</strong>, en une demi-journée pour un logement, une journée pour un site plus grand. Il faut que le lieu soit rangé et éclairé : c’est là que se joue la moitié du résultat.</li>
@@ -204,7 +267,7 @@
     <p>Comptez une semaine entre la prise de vue et la mise en ligne.</p>
 
     <!-- ══════════════════════════════════════════════════════════════
-         TARIFS — OFFRE DE LANCEMENT
+         TARIFS DE L’OFFRE DE LANCEMENT
          ══════════════════════════════════════════════════════════════ -->
   </div></div></section>
 
@@ -213,8 +276,8 @@
 <p><strong>90&nbsp;€ pour les 10 premiers biens</strong>, puis 190&nbsp;€ au tarif normal, pour la visite virtuelle d’un bien de moins de 100&nbsp;m²,
 jusqu’à 15 positions, déplacement compris dans un rayon de 30&nbsp;km autour de Montpellier ou de Paris. Prix
 final&nbsp;: aucune TVA à ajouter, et aucun abonnement pour que la visite reste en ligne.</p>
-<p>Au-delà — position supplémentaire, surface plus grande, plusieurs bâtiments, déplacement plus
-lointain, vues par drone — le devis est chiffré poste par poste et validé avant qu’on commence,
+<p>Au-delà (position supplémentaire, surface plus grande, plusieurs bâtiments, déplacement plus
+lointain, vues par drone), le devis est chiffré poste par poste et validé avant qu’on commence,
 comme pour un site.</p>
 <p>C’est là que la comparaison se fait vraiment&nbsp;: une visite hébergée par une plateforme coûte
 souvent moins cher à la commande et se paie ensuite tous les mois, sans fin. La nôtre est payée une
@@ -222,51 +285,116 @@ fois.</p>
   </div></div></section>
 
 
-  <!-- ══════════ VIDÉO 360 ══════════
-       Vraie équirectangulaire : le visiteur fait tourner la vue. Le
-       lecteur est maison (lecteur-360.js, 7,5 Ko) plutôt qu'une
-       bibliothèque : videojs-vr et consorts pèsent 200 à 600 Ko et
-       appellent souvent un CDN, ce qui casserait le « aucun domaine
-       tiers » tenu depuis le début. Rien ne se charge avant le clic. -->
-  <section class="section section--majeure section--creuse" id="video360" aria-labelledby="t-v360">
-    <div class="wrap">
-      <header class="entete-section entete-section--large apparait">
-        <p class="surtitre">Vidéo 360</p>
-        <h2 class="titre-section" id="t-v360">Une vidéo <em>où vous tournez la tête.</em></h2>
-        <p class="intro-section">Pas une vidéo qu’on regarde&nbsp;: une vidéo dans laquelle on est.
-        Cliquez, puis faites glisser pour changer de direction — devant la voiture, derrière,
-        au-dessus. Le son est de la prise de vue.</p>
-      </header>
-
-      <div class="video360" data-video360 data-son data-video="/assets/video/mini-360.mp4"
-           data-lacet="90" data-tangage="40" data-champ="112"
-           role="application" aria-label="Vidéo 360 sonore, faites glisser pour tourner la vue, molette ou touches plus et moins pour le champ">
-        <img class="video360__affiche" src="/assets/img/mini-360-poster.webp"
-             alt="Mini Cooper vue de dessus en roulage de nuit, prise de vue à 360 degrés" width="1600" height="900" loading="lazy" decoding="async">
-        <p class="video360__cliche">Cliché Mini Cooper</p>
-        <div class="video360__voile">
-          <button type="button" class="btn btn--grand" data-lire>Lancer la vidéo 360</button>
-          <p class="video360__repli">Votre navigateur ne gère pas la 3D dans la page&nbsp;: la vidéo
-          immersive ne peut pas s’afficher ici.</p>
-        </div>
-        <p class="video360__aide" aria-hidden="true">Faites glisser pour regarder autour</p>
-      </div>
-      <p class="offre__desc" style="margin-top:var(--sp-4)">Roulage de nuit, caméra sur perche au-dessus de la voiture.
-      Vous êtes libre du cadrage&nbsp;: glissez pour tourner, molette ou pincement pour élargir ou
-      resserrer, flèches et touches <kbd>+</kbd> <kbd>−</kbd> au clavier. La pause et le son sont en bas
-      à droite, la barre d’espace met aussi en pause. Rien ne se télécharge tant que vous ne lancez pas la vidéo.</p>
-    </div>
-  </section>
+  
 
   <section class="section section--serree"><div class="wrap">
     <header class="entete-section"><p class="surtitre">Pour aller plus loin</p>
       <h2 class="titre-section" style="font-size:var(--fs-titre-bloc)">À voir ensuite</h2></header>
     <div class="suite">
       <a href="/photo-video-drone"><h3>Photo et vidéo par drone</h3><p>Vues aériennes, façades, terrains et bords de mer.</p></a>
-      <a href="/visites/appartement-temoin"><h3>La visite de démonstration</h3><p>5 positions, à parcourir tout de suite.</p></a>
+      <a href="/visites/maison"><h3>Les cinq démonstrations</h3><p>Maison, appartement, hôtel, piscine, terrasse.</p></a>
       <a href="/"><h3>Création de site internet</h3><p>L’autre moitié du métier : le site qui accueille tout ça.</p></a>
     </div>
   </div></section>
+  <!-- ══════════ CONTACT ══════════
+       Le formulaire est posé ici plutôt que renvoyé vers l'accueil : un
+       visiteur convaincu par la démonstration ne doit pas changer de page,
+       ni perdre le contexte de ce qu'il vient de regarder. Même `action`,
+       même code (script.js, #formContact) ; seul l'objet du message change,
+       pour qu'une demande venue d'ici se reconnaisse dans la boîte mail. -->
+  <section class="section section--majeure section--creuse" id="contact" aria-labelledby="t-contact">
+    <div class="wrap">
+      <header class="entete-section apparait">
+        <p class="surtitre">Contact</p>
+        <h2 class="titre-section" id="t-contact">Réservez votre visite à 90&nbsp;€. <em>Écrivez-nous.</em></h2>
+      </header>
+
+      <div class="contact__grille">
+        <div class="apparait">
+          <p class="contact__accroche">Votre nom et un moyen de vous rappeler suffisent&nbsp;: le reste se
+          dit mieux de vive voix. Réponse sous 24&nbsp;h avec un premier avis et un créneau pour se parler.
+          Et si je ne suis pas le bon pour votre projet, je vous le dis franchement.</p>
+
+          <dl class="contact__liste">
+            <div><dt>Téléphone</dt><dd><a href="tel:+33767377014">07 67 37 70 14</a></dd></div>
+            <div><dt>Mail</dt><dd><a href="mailto:bonjour@lagencedusud.com">bonjour@lagencedusud.com</a></dd></div>
+            <div><dt>Horaires</dt><dd class="val">Du lundi au samedi, 8&nbsp;h à 19&nbsp;h</dd></div>
+            <div><dt>Zone</dt><dd class="val">Montpellier et alentours, Paris et alentours, et toute la France en visio</dd></div>
+          </dl>
+
+          <div class="contact__rdv">
+            <p>Vous préférez ne pas écrire&nbsp;? Prenez le créneau qui vous arrange dans mon
+            agenda, et c’est moi qui vous appelle.</p>
+            <a class="btn btn--fantome" href="https://cal.com/lagencedusud/appel-decouverte"
+            target="_blank" rel="noopener">Réserver un appel de 30&nbsp;minutes</a>
+          </div>
+        </div>
+
+        <form class="formulaire apparait" id="formContact" method="post"
+        action="/api/contact" novalidate>
+          <div class="formulaire__duo">
+            <label>Votre nom
+              <input required name="nom" type="text" autocomplete="name" placeholder="Camille Dupont">
+            </label>
+            <label>Votre email
+              <input required name="email" type="email" autocomplete="email" placeholder="camille@exemple.fr">
+            </label>
+          </div>
+          <div class="formulaire__duo">
+            <label>Téléphone <small>(facultatif)</small>
+              <input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78">
+            </label>
+            <label>Votre secteur
+              <select name="secteur">
+                <option>Montpellier et alentours</option>
+                <option>Paris et alentours</option>
+                <option>Ailleurs en France (en visio)</option>
+              </select>
+            </label>
+          </div>
+          <label>Votre besoin
+            <select name="besoin">
+              <option>Une visite virtuelle 360°</option>
+              <option>Les deux : visite 360° et drone</option>
+              <option>Photo et vidéo par drone</option>
+              <option>Une vidéo de mon bien ou de mon lieu</option>
+              <option>Un site internet</option>
+              <option>Autre chose</option>
+            </select>
+          </label>
+          <label>Le lieu à visiter <small>(facultatif)</small>
+            <textarea name="message" rows="4" placeholder="Type de bien, surface, ville. Deux lignes suffisent."></textarea>
+          </label>
+
+          <label class="formulaire__pot" aria-hidden="true" tabindex="-1">
+            Ne remplissez pas ce champ
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+          </label>
+
+          <input type="hidden" name="_subject" value="Visite 360° · lagencedusud.com">
+          <button class="btn btn--grand" type="submit">Réserver ma visite à 90&nbsp;€</button>
+          <p class="formulaire__etat" role="status" aria-live="polite"></p>
+
+          <div class="formulaire__succes" role="status" hidden>
+            <svg class="formulaire__coche" viewBox="0 0 52 52" aria-hidden="true" focusable="false">
+              <circle cx="26" cy="26" r="24"/>
+              <path d="M15 27l8 8 15-16"/>
+            </svg>
+            <p class="formulaire__succes-titre">Message reçu.</p>
+            <p class="formulaire__succes-texte">On vous répond sous 24&nbsp;h, jours ouvrés, avec un
+            premier avis et un créneau pour se parler. Si c’est pressé&nbsp;:
+            <a class="lien-souligne" href="tel:+33767377014">07&nbsp;67&nbsp;37&nbsp;70&nbsp;14</a>.</p>
+            <a class="btn btn--fantome" href="https://cal.com/lagencedusud/appel-decouverte"
+            target="_blank" rel="noopener">Ou choisir le créneau maintenant</a>
+          </div>
+          <p class="formulaire__note">Vos coordonnées servent uniquement à vous répondre. Elles ne sont ni
+          revendues ni utilisées pour de la prospection, voir la
+          <a class="lien-souligne" href="/confidentialite">politique de confidentialité</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </main>
 <footer class="pied">
   <div class="wrap">
@@ -329,7 +457,7 @@ fois.</p>
 </footer>
 <div class="cta-mobile">
   <a class="btn btn--fantome" href="tel:+33767377014">Appeler</a>
-  <a class="btn" href="/#contact">Réserver à 90&nbsp;€</a>
+  <a class="btn" href="#contact">Réserver à 90&nbsp;€</a>
 </div>
 
 <button class="haut" type="button" aria-label="Retour en haut de page">

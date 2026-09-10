@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "id": "terrasse",
+  "name": "Terrasse en bord de mer",
+  "created": "2026-09-08T00:00:00.000Z",
+  "updated": "2026-09-08T00:00:00.000Z",
+  "settings": {
+    "sceneFadeDuration": 900,
+    "autoRotate": false,
+    "nadir": {
+      "mode": "text",
+      "text": "L’Agence du Sud",
+      "size": 190,
+      "color": "#17130E"
+    }
+  },
+  "startNodeId": "sundowner_deck",
+  "nodes": [
+    {
+      "id": "sundowner_deck",
+      "label": "La terrasse",
+      "order": 0,
+      "panorama": {
+        "width": 8192,
+        "height": 4096,
+        "sources": [
+          {
+            "src": "panoramas/sundowner_deck.webp",
+            "width": 4096
+          }
+        ],
+        "thumbnail": "thumbs/sundowner_deck.webp"
+      },
+      "view": {
+        "yaw": -60.0,
+        "pitch": -4.0,
+        "hfov": 100
+      },
+      "northOffset": 0,
+      "position": null,
+      "links": [],
+      "auto_label": false
+    }
+  ]
+}

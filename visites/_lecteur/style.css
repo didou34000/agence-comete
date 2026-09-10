@@ -1,26 +1,72 @@
-/* Visite virtuelle exportée — interface plein écran, bureau et mobile. */
+/* Visite virtuelle exportée : interface plein écran, bureau et mobile.
+   La visite est une vitrine : elle porte les couleurs et les caractères du
+   site plutôt qu'un habillage noir générique. Deux fontes seulement, dans le
+   sous-ensemble latin, servies depuis /assets/fonts déjà mis en cache long. */
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic; font-weight: 400; font-display: swap;
+  src: url("/assets/fonts/instrument-serif-400-italic-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url("/assets/fonts/space-grotesk-500-normal-latin.woff2") format("woff2");
+}
+
+:root {
+  --creme:  #FAF5EC;
+  --encre:  #17130E;
+  --soleil: #FF4D00;
+  --sys: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
 
 * { box-sizing: border-box; }
 html, body {
   margin: 0; padding: 0; height: 100%;
-  background: #0c0c0e; color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--encre); color: var(--creme);
+  font-family: "Space Grotesk", var(--sys);
   overflow: hidden;
 }
 
 #viewer { position: fixed; inset: 0; }
 
-/* ---------- bandeau de titre ---------- */
+/* ---------- bandeau de titre ----------
+   Le nom de l'agence d'abord : sur une visite partagée par mail ou par SMS,
+   c'est souvent le seul endroit où le visiteur apprend qui l'a réalisée. */
 #titlebar {
   position: fixed; top: 0; left: 0; right: 0;
-  display: flex; align-items: center; gap: 10px;
-  padding: calc(10px + env(safe-area-inset-top)) 16px 26px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.55), transparent);
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  padding: calc(12px + env(safe-area-inset-top)) 16px 30px;
+  background: linear-gradient(180deg, rgba(10,8,6,0.62), rgba(10,8,6,0));
   pointer-events: none; z-index: 5;
 }
-#tour-title { font-weight: 700; font-size: 15px; letter-spacing: 0.02em; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
-#scene-title { font-size: 13px; opacity: 0.85; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
-#scene-title:not(:empty)::before { content: "· "; opacity: 0.6; }
+#tour-title {
+  font-weight: 500; font-size: 15px; letter-spacing: 0.01em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+}
+#scene-title {
+  font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+  font-size: 19px; line-height: 1; opacity: 0.95;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+}
+#scene-title:not(:empty)::before { content: "· "; opacity: 0.5; font-style: normal; }
+
+/* Signature : le seul élément cliquable du bandeau. */
+#marque {
+  pointer-events: auto; margin-left: auto;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px; min-height: 36px; border-radius: 999px;
+  background: rgba(250,245,236,0.10);
+  border: 1px solid rgba(250,245,236,0.30);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  color: var(--creme); text-decoration: none;
+  font-size: 12.5px; font-weight: 500; letter-spacing: 0.01em;
+  white-space: nowrap; transition: background 0.15s ease, border-color 0.15s ease;
+}
+#marque:hover { background: rgba(250,245,236,0.20); border-color: rgba(250,245,236,0.55); }
+#marque .pastille { width: 7px; height: 7px; border-radius: 50%; background: var(--soleil); flex: none; }
+@media (max-width: 560px) { #marque span.libelle { display: none; } #marque { padding: 7px 11px; } }
 
 /* ---------- barre de navigation ---------- */
 #bar {
@@ -32,13 +78,13 @@ html, body {
 .bar-btn {
   flex: none;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 42px; height: 42px; border-radius: 50%;
-  background: rgba(16,16,18,0.62); color: #fff;
-  border: 1px solid rgba(255,255,255,0.35);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(23,19,14,0.62); color: var(--creme);
+  border: 1px solid rgba(250,245,236,0.35);
   backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  cursor: pointer; transition: background 0.15s ease;
+  cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease;
 }
-.bar-btn:hover { background: rgba(16,16,18,0.88); }
+.bar-btn:hover { background: rgba(23,19,14,0.9); border-color: rgba(250,245,236,0.6); }
 
 #chips {
   flex: 1; display: flex; gap: 8px;
@@ -46,52 +92,81 @@ html, body {
   padding: 4px 2px; justify-content: safe center;
 }
 #chips::-webkit-scrollbar { display: none; }
-/* Vignette d'accès direct : une image vaut mieux qu'un nom de fichier. */
+
+/* Vignette d'accès direct : un cadrage rectiligne de la vue d'ouverture, avec
+   le nom de la pièce posé dessus. L'image dit où l'on va, le mot le confirme ;
+   deviner « Le bassin » depuis un équirectangulaire écrasé était illusoire. */
 .chip {
-  flex: none; padding: 0; overflow: hidden; cursor: pointer;
-  width: 74px; height: 40px; border-radius: 9px;
-  border: 2px solid rgba(255,255,255,0.35);
-  background: rgba(16,16,18,0.62);
+  position: relative; flex: none; padding: 0; overflow: hidden; cursor: pointer;
+  width: 108px; height: 62px; border-radius: 10px;
+  border: 2px solid rgba(250,245,236,0.30);
+  background: rgba(23,19,14,0.62);
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.chip img { width: 100%; height: 100%; object-fit: cover; opacity: 0.72; transition: opacity 0.15s ease; }
-.chip:hover { border-color: rgba(255,255,255,0.8); }
+.chip img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0.68; transition: opacity 0.15s ease;
+}
+.chip .chip__nom {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 12px 6px 4px;
+  background: linear-gradient(180deg, rgba(10,8,6,0), rgba(10,8,6,0.82));
+  color: var(--creme); font-size: 11px; font-weight: 500; letter-spacing: 0.01em;
+  line-height: 1.1; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chip:hover { border-color: rgba(250,245,236,0.75); }
 .chip:hover img { opacity: 1; }
-.chip.active { border-color: #fff; transform: translateY(-2px); }
+.chip.active { border-color: var(--soleil); transform: translateY(-2px); }
 .chip.active img { opacity: 1; }
-@media (max-width: 640px) { .chip { width: 60px; height: 34px; } }
+.chip:focus-visible { outline: 3px solid var(--soleil); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .chip { width: 92px; height: 56px; }
+  .chip .chip__nom { font-size: 10.5px; }
+}
+
+/* Une seule position : pas de suivant, pas de precedent, pas de vignette a
+   choisir. Il ne reste que le plein ecran, cale a droite. */
+.bar--seule #chips,
+.bar--seule #btn-prev,
+.bar--seule #btn-next { display: none; }
+.bar--seule { justify-content: flex-end; }
 
 /* ---------- écrans de chargement / erreur ---------- */
 .overlay {
   position: fixed; inset: 0; z-index: 10;
   display: flex; align-items: center; justify-content: center;
-  background: #0c0c0e;
+  background: var(--encre);
   transition: opacity 0.45s ease, visibility 0.45s ease;
 }
 .overlay.hidden { opacity: 0; visibility: hidden; }
-.overlay-inner { text-align: center; padding: 24px; max-width: 420px; }
-.overlay-title { font-size: 22px; font-weight: 700; margin: 18px 0 6px; }
-.overlay-sub { font-size: 14px; opacity: 0.7; margin: 0; line-height: 1.5; }
+.overlay-inner { text-align: center; padding: 24px; max-width: 440px; }
+.overlay-title {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 30px; font-weight: 400; margin: 20px 0 8px; letter-spacing: 0.01em;
+}
+.overlay-sub { font-size: 14px; opacity: 0.72; margin: 0; line-height: 1.55; }
 .spinner {
   width: 42px; height: 42px; margin: 0 auto;
-  border: 3px solid rgba(255,255,255,0.2); border-top-color: #fff;
+  border: 3px solid rgba(250,245,236,0.18); border-top-color: var(--soleil);
   border-radius: 50%; animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
 .btn {
-  margin-top: 18px; padding: 10px 22px; border-radius: 999px;
-  background: #fff; color: #111; border: none;
-  font-size: 14px; font-weight: 600; cursor: pointer;
+  margin-top: 18px; padding: 12px 24px; border-radius: 999px; min-height: 44px;
+  background: var(--creme); color: var(--encre); border: none;
+  font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
 }
 
 /* ---------- Pannellum : retouches ---------- */
-.pnlm-container { background: #0c0c0e !important; }
+.pnlm-container { background: var(--encre) !important; }
 .pnlm-load-box { display: none !important; } /* remplacé par notre écran de chargement */
 /* les contrôles de zoom passent sous le bandeau de titre */
-.pnlm-controls-container { top: calc(44px + env(safe-area-inset-top)) !important; left: 12px !important; }
+.pnlm-controls-container { top: calc(52px + env(safe-area-inset-top)) !important; left: 12px !important; }
 
 /* ---------- mobile ---------- */
 @media (max-width: 640px) {
-  .bar-btn { width: 40px; height: 40px; }
   #chips { justify-content: flex-start; }
+  #scene-title { font-size: 17px; }
 }
