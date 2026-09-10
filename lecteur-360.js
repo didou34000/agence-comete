@@ -382,6 +382,13 @@ document.querySelectorAll('[data-visite]').forEach(bloc => {
   const bouton = bloc.querySelector('[data-ouvrir]');
   if (!bouton) return;
 
+  /* Un iframe 360 intercepte naturellement les gestes tactiles pour faire
+     tourner la vue. Sur téléphone, cela emprisonne aussi le scroll de la page
+     dès que le lecteur est ouvert. Le lecteur autonome est plus confortable :
+     il prend tout l'écran et le bouton Retour ramène exactement ici. */
+  const tactile = matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (tactile) bouton.textContent = 'Ouvrir la visite en plein écran';
+
   const ouvrir = () => {
     const cadre = document.createElement('iframe');
     cadre.src = bloc.dataset.visite;
@@ -396,6 +403,10 @@ document.querySelectorAll('[data-visite]').forEach(bloc => {
 
   bouton.addEventListener('click', () => {
     if (bloc.dataset.ouverte !== undefined) return;
+    if (tactile) {
+      location.assign(bloc.dataset.visite);
+      return;
+    }
     bloc.dataset.ouverte = '';
     ouvrir();
   });

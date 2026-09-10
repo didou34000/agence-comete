@@ -1369,7 +1369,6 @@ p { text-wrap: pretty; }
   object-fit: cover; object-position: top center;
   transition: scale var(--t-long) var(--ease);
 }
-.travail:hover .travail__visuel img { scale: 1.04; }
 .travail__etiquette {
   position: absolute; top: var(--sp-3); left: var(--sp-3);
   z-index: 2;
@@ -1390,7 +1389,17 @@ p { text-wrap: pretty; }
   color: var(--soleil);
 }
 .travail__voir svg { transition: translate var(--t) var(--ease); }
-.travail:hover .travail__voir svg { translate: 4px 0; }
+/* Les états :hover restent parfois accrochés après un glissement sur iOS et
+   Android. Sur une grille de démos, chaque image finissait donc agrandie au
+   fur et à mesure du scroll. Ces effets sont réservés aux vraies souris. */
+@media (hover: hover) and (pointer: fine) {
+  .travail:hover .travail__visuel img { scale: 1.04; }
+  .travail:hover .travail__voir svg { translate: 4px 0; }
+}
+@media (hover: none), (pointer: coarse) {
+  .travail__visuel img { scale: 1; transition: none; }
+  .travail__voir svg { translate: 0 0; transition: none; }
+}
 
 /* Démos : cinq tuiles sur une ligne, plus d'orphelin. */
 .demos { grid-template-columns: repeat(5, 1fr); }
