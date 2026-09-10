@@ -2113,6 +2113,17 @@ p { text-wrap: pretty; }
   .services .carte h3 { font-size: var(--fs-s); }
   .services .carte p { font-size: 13px; line-height: 1.45; }
   /* Les cartes « travail » portent une image : elles restent pleine
-     largeur, mais l'image se raccourcit. */
-  .travail__visuel img { aspect-ratio: 16 / 9; object-fit: cover; }
+     largeur, mais leur cadre garde une hauteur courte et déterministe.
+     Positionner l'image évite que ses dimensions intrinsèques puissent
+     étirer la ligne de grille sur Safari mobile. */
+  .travaux .travail__visuel {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+  .travaux .travail__visuel img {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    object-fit: cover;
+  }
 }
