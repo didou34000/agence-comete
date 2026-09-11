@@ -109,7 +109,7 @@ public, usage commercial libre, aucune attribution obligatoire.
 | Adresse | Positions | Source |
 |---|---|---|
 | `visites/maison` | 4 | famille `lythwood_*` |
-| `visites/appartement` | 4 | famille `small_empty_room_*` |
+| `visites/appartement` | 1 | `combination_room` |
 | `visites/hotel` | 1 | `relax_inn_seaview_suite` |
 | `visites/piscine` | 1 | `pool` |
 | `visites/terrasse` | 1 | `sundowner_deck` |
@@ -117,9 +117,9 @@ public, usage commercial libre, aucune attribution obligatoire.
 #### La règle des déplacements, à ne pas contourner
 
 Un passage n'est proposé **qu'entre deux panoramas pris au même endroit réel**, et
-il est posé sur une ouverture visible : une porte, une baie. C'est pourquoi seules
-deux démonstrations ont plusieurs positions : ce sont les deux seules familles de
-Poly Haven photographiées dans un même lieu.
+il est posé sur une ouverture visible : une porte, une baie. C'est pourquoi seule
+la démonstration de maison a plusieurs positions : c'est la seule famille conservée
+qui a été photographiée dans un même lieu.
 
 Relier deux lieux différents produirait une flèche qui ment. On l'a fait une fois,
 et c'est exactement ce qu'on ne pardonne pas à une visite virtuelle : on avance vers

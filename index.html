@@ -218,7 +218,7 @@
       elle vous appartient, sans abonnement.</p>
       <div class="hero__actions">
         <a class="btn btn--grand" href="#contact">Profiter de l’offre de rentrée</a>
-        <a class="btn btn--fantome btn--grand" href="/visites/maison">Essayer la visite témoin</a>
+        <a class="btn btn--fantome btn--grand" href="/visites/appartement">Essayer la visite témoin</a>
       </div>
     </div>
   </section>
@@ -255,38 +255,39 @@
         <p class="surtitre">Le métier de base</p>
         <h2 class="titre-section" id="t-visite">Un lieu qu’on parcourt,<br><em>pas des photos qu’on feuillette.</em></h2>
         <p class="intro-section">Le visiteur entre chez vous depuis son canapé, regarde le plafond,
-        l’état du sol, la vue par la fenêtre. Puis il clique au sol et passe dans la pièce suivante.</p>
+        l’état du sol et la vue par la fenêtre. Dans une visite complète, il passe ensuite de
+        pièce en pièce grâce aux points de passage.</p>
       </header>
 
       <!-- La démonstration est posée ici, avant les cartes : une visite
            virtuelle s'explique en la faisant essayer, pas en la décrivant.
            Rien ne se charge avant le clic. Voir lecteur-360.js. -->
       <div class="visite-integree apparait" id="demo-accueil"
-           data-visite="/visites/maison"
-           data-titre="Visite virtuelle 360° : Maison de maître">
-        <img class="visite-integree__affiche" src="/assets/img/visite-maison.webp" alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+           data-visite="/visites/appartement"
+           data-titre="Visite virtuelle 360° : Appartement ancien">
+        <img class="visite-integree__affiche" src="/assets/img/visite-appartement.webp?v=20260911" alt="Salon d’un appartement ancien avec parquet, portes moulurées et belle hauteur sous plafond" width="1600" height="800" loading="lazy" decoding="async">
         <div class="visite-integree__voile">
-          <span class="visite-integree__cartel">Maison de maître · 4 positions</span>
-          <p>Essayez&nbsp;: faites glisser pour regarder autour de vous, cliquez au sol pour
-          passer dans la pièce suivante. C’est exactement ce que reçoivent nos clients.</p>
+          <span class="visite-integree__cartel">Appartement ancien · panorama 360°</span>
+          <p>Essayez&nbsp;: faites glisser l’image pour regarder librement autour de vous.
+          C’est une vraie vue 360°, au format livré à nos clients.</p>
           <button type="button" class="btn btn--grand" data-ouvrir>Ouvrir la visite ici</button>
         </div>
       </div>
       <div class="visite-choix" data-choix="demo-accueil" role="tablist" aria-label="Type de lieu à visiter">
-        <button type="button" class="visite-choix__btn" role="tab" aria-selected="true"
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
           data-lieu="/visites/maison"
           data-titre="Visite virtuelle 360° : Maison de maître"
           data-affiche="/assets/img/visite-maison.webp"
           data-alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°"
           data-cartel="Maison de maître · 4 positions"
           data-legende="&lt;strong&gt;Maison de maître&lt;/strong&gt; : le parc, la terrasse, le salon et la chambre. Les passages sont posés sur les vraies portes du lieu.">Maison<span class="visite-choix__nb">4 positions</span></button>
-        <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
+        <button type="button" class="visite-choix__btn" role="tab" aria-selected="true"
           data-lieu="/visites/appartement"
-          data-titre="Visite virtuelle 360° : Appartement vide"
-          data-affiche="/assets/img/visite-appartement.webp"
-          data-alt="Séjour vide d’un appartement neuf ouvrant sur un balcon, vue depuis un panorama 360°"
-          data-cartel="Appartement vide · 4 positions"
-          data-legende="&lt;strong&gt;Appartement vide&lt;/strong&gt; : quatre pièces d’un logement neuf, reliées par leurs portes. Le cas le plus courant en immobilier.">Appartement<span class="visite-choix__nb">4 positions</span></button>
+          data-titre="Visite virtuelle 360° : Appartement ancien"
+          data-affiche="/assets/img/visite-appartement.webp?v=20260911"
+          data-alt="Salon d’un appartement ancien avec parquet, portes moulurées et belle hauteur sous plafond"
+          data-cartel="Appartement ancien · panorama 360°"
+          data-legende="&lt;strong&gt;Appartement ancien&lt;/strong&gt; : une vraie position 360° à faire tourner, dans un intérieur proche du logement français.">Appartement<span class="visite-choix__nb">Vue 360°</span></button>
         <button type="button" class="visite-choix__btn" role="tab" aria-selected="false"
           data-lieu="/visites/hotel"
           data-titre="Visite virtuelle 360° : Chambre d’hôtel"
@@ -310,15 +311,15 @@
           data-legende="&lt;strong&gt;Terrasse en bord de mer&lt;/strong&gt; : une position, à faire tourner. Ce que la photo cadrée ne rend jamais.">Terrasse<span class="visite-choix__nb">1 vue</span></button>
       </div>
       <p class="visite-integree__note">Rien ne se télécharge tant que vous n’avez pas cliqué.
-      <a class="lien-souligne" data-plein="demo-accueil" href="/visites/maison">Ouvrir en plein écran →</a></p>
+      <a class="lien-souligne" data-plein="demo-accueil" href="/visites/appartement">Ouvrir en plein écran →</a></p>
 
       <div class="travaux">
-        <a class="travail apparait" href="/visites/maison">
+        <a class="travail apparait" href="/visites/appartement">
           <div class="travail__visuel">
             <span class="travail__etiquette">Démonstration</span>
-            <img src="/assets/img/visite-maison.webp" alt="Terrasse pavée d’une maison de maître, sa fontaine et son parc, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+            <img src="/assets/img/visite-appartement.webp?v=20260911" alt="Salon d’un appartement ancien avec parquet et portes moulurées" width="1600" height="800" loading="lazy" decoding="async">
           </div>
-          <div class="travail__meta"><h3>Maison de maître</h3><p>4 positions · démonstration à parcourir</p></div>
+          <div class="travail__meta"><h3>Appartement ancien</h3><p>Panorama 360° · démonstration interactive</p></div>
         </a>
         <a class="travail apparait" href="visite-virtuelle-360">
           <div class="travail__visuel">
@@ -470,9 +471,9 @@
         </a>
         <a class="travail apparait" href="/visites/appartement">
           <div class="travail__visuel">
-            <img src="/assets/img/visite-appartement.webp" alt="Séjour vide d’un appartement neuf ouvrant sur un balcon, vue depuis un panorama 360°" width="900" height="506" loading="lazy" decoding="async">
+            <img src="/assets/img/visite-appartement.webp?v=20260911" alt="Salon d’un appartement ancien avec parquet et portes moulurées" width="1600" height="800" loading="lazy" decoding="async">
           </div>
-          <div class="travail__meta"><h3>Appartement vide</h3><p>4 positions · un logement neuf</p></div>
+          <div class="travail__meta"><h3>Appartement ancien</h3><p>Vue 360° · intérieur résidentiel</p></div>
         </a>
         <a class="travail apparait" href="/visites/hotel">
           <div class="travail__visuel">

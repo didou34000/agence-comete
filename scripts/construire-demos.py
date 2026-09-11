@@ -60,24 +60,15 @@ def p(src, label, yaw, pitch, liens=()):
 DEMOS = [
     {
         "slug": "appartement",
-        "affiche": ("small_empty_room_1", 0, 0),
-        "nom": "Appartement vide",
-        "resume": "Quatre pièces d’un appartement neuf, avant emménagement.",
-        "meta": "Visite virtuelle 360° d’un appartement vide : quatre pièces reliées "
-                "par leurs portes. Démonstration de L'Agence du Sud, hébergée sans "
-                "plateforme ni cookie.",
+        "affiche": ("combination_room", -135, -4),
+        "nom": "Appartement ancien",
+        "resume": "Un vrai panorama 360° d’un salon ancien, à explorer librement.",
+        "meta": "Visite virtuelle 360° d’un salon d’appartement ancien : parquet, "
+                "portes moulurées et belle hauteur sous plafond. Démonstration de "
+                "L'Agence du Sud, sans plateforme ni cookie.",
         "positions": [
-            # Portes relevées sur les panoramas : -164, -164, -120, -122.
-            p("small_empty_room_1", "Le séjour", -135, -4, [
-                v("small_empty_room_3", -164, -16)]),
-            p("small_empty_room_3", "La chambre", -135, -4, [
-                v("small_empty_room_1", -172, -14),
-                v("small_empty_room_2", -156, -20)]),
-            p("small_empty_room_2", "Le bureau", -100, -4, [
-                v("small_empty_room_3", -128, -14),
-                v("small_empty_room_4", -112, -20)]),
-            p("small_empty_room_4", "La cuisine", -100, -4, [
-                v("small_empty_room_2", -122, -16)]),
+            # Une vraie position 360°, sans inventer de passage vers un autre lieu.
+            p("combination_room", "Le salon", -135, -4),
         ],
     },
     {

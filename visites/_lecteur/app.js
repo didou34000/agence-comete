@@ -17,6 +17,24 @@
   const chips = document.getElementById("chips");
   const sceneTitle = document.getElementById("scene-title");
 
+  /* Une indication courte rend le geste immédiat, surtout pour une visite à
+     position unique : elle disparaît dès que la personne commence à explorer. */
+  const aide = document.createElement("div");
+  aide.className = "tour-aide";
+  aide.setAttribute("aria-hidden", "true");
+  aide.innerHTML = '<span class="tour-aide__main">Glissez pour regarder à 360°</span><span class="tour-aide__sub">Pincez ou utilisez la molette pour zoomer</span>';
+  document.body.appendChild(aide);
+
+  let aideMasquee = false;
+  function masquerAide() {
+    if (aideMasquee) return;
+    aideMasquee = true;
+    aide.classList.add("tour-aide--masquee");
+  }
+  document.getElementById("viewer").addEventListener("pointerdown", masquerAide, { once: true });
+  document.getElementById("viewer").addEventListener("wheel", masquerAide, { once: true, passive: true });
+  window.setTimeout(masquerAide, 6500);
+
   const byId = {};
   for (const node of tour.nodes) byId[node.id] = node;
 
