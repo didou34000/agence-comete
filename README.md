@@ -109,7 +109,7 @@ public, usage commercial libre, aucune attribution obligatoire.
 | Adresse | Positions | Source |
 |---|---|---|
 | `visites/maison` | 4 | famille `lythwood_*` |
-| `visites/appartement` | 1 | `combination_room` |
+| `visites/appartement` | 1 | `brown_photostudio_04` |
 | `visites/hotel` | 1 | `relax_inn_seaview_suite` |
 | `visites/piscine` | 1 | `pool` |
 | `visites/terrasse` | 1 | `sundowner_deck` |

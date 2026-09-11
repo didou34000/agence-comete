@@ -60,15 +60,16 @@ def p(src, label, yaw, pitch, liens=()):
 DEMOS = [
     {
         "slug": "appartement",
-        "affiche": ("combination_room", -135, -4),
-        "nom": "Appartement ancien",
-        "resume": "Un vrai panorama 360° d’un salon ancien, à explorer librement.",
-        "meta": "Visite virtuelle 360° d’un salon d’appartement ancien : parquet, "
-                "portes moulurées et belle hauteur sous plafond. Démonstration de "
-                "L'Agence du Sud, sans plateforme ni cookie.",
+        "affiche": ("brown_photostudio_04", 135, -4),
+        "nom": "Studio contemporain",
+        "resume": "Une vraie vue 360° d’un studio avec cuisine, séjour et coin nuit.",
+        "meta": "Visite virtuelle 360° d’un studio contemporain avec cuisine, "
+                "canapé et coin nuit. Démonstration de L'Agence du Sud, sans "
+                "plateforme ni cookie.",
+        "auto_rotate": True,
         "positions": [
             # Une vraie position 360°, sans inventer de passage vers un autre lieu.
-            p("combination_room", "Le salon", -135, -4),
+            p("brown_photostudio_04", "Cuisine, séjour et coin nuit", 135, -4),
         ],
     },
     {
@@ -258,7 +259,7 @@ def construire(demo):
     visite = {
         "version": 1, "id": demo["slug"], "name": demo["nom"],
         "created": "2026-09-08T00:00:00.000Z", "updated": "2026-09-08T00:00:00.000Z",
-        "settings": {"sceneFadeDuration": 900, "autoRotate": False,
+        "settings": {"sceneFadeDuration": 900, "autoRotate": demo.get("auto_rotate", False),
                      "nadir": {"mode": "text", "text": "L’Agence du Sud",
                                "size": 190, "color": "#17130E"}},
         "startNodeId": demo["positions"][0]["src"], "nodes": noeuds,
