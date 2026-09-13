@@ -1352,11 +1352,15 @@ p { text-wrap: pretty; }
 }
 .travail {
   display: flex; flex-direction: column;
+  min-width: 0;
   text-decoration: none;
   border-radius: var(--r-l);
 }
 .travail__visuel {
   position: relative;
+  width: 100%;
+  min-width: 0;
+  flex: none;
   aspect-ratio: 16 / 11;
   border-radius: var(--r);
   overflow: clip;
@@ -1364,7 +1368,17 @@ p { text-wrap: pretty; }
   background: var(--encre-douce);
 }
 .section:not(.section--encre) .travail__visuel { border-color: var(--trait); background: var(--sable); }
+/* Les images responsives ne doivent pas dimensionner la grille. Safari
+   recalculait la taille intrinsèque du <picture> au chargement et étirait
+   les colonnes 1fr. Le cadre fixe le ratio, l'image ne fait que le remplir. */
+.travail__visuel > picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
 .travail__visuel img {
+  position: absolute;
+  inset: 0;
   width: 100%; height: 100%;
   object-fit: cover; object-position: top center;
   transition: scale var(--t-long) var(--ease);
@@ -1402,7 +1416,7 @@ p { text-wrap: pretty; }
 }
 
 /* Démos : cinq tuiles sur une ligne, plus d'orphelin. */
-.demos { grid-template-columns: repeat(5, 1fr); }
+.demos { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .demos .travail__visuel { aspect-ratio: 4 / 3; }
 .demos .travail__meta h3 { font-size: var(--fs-base); }
 
@@ -1950,7 +1964,7 @@ p { text-wrap: pretty; }
 /* ====================== 24. ADAPTATIF ====================== */
 
 @media (max-width: 1180px) {
-  .demos { grid-template-columns: repeat(3, 1fr); }
+  .demos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 1080px) {
@@ -1972,7 +1986,7 @@ p { text-wrap: pretty; }
   .tel { left: calc(var(--sp-4) * -1); }
   .agence__visuel { max-width: 26rem; margin-inline: auto; }
   .offres { grid-template-columns: 1fr; }
-  .demos { grid-template-columns: repeat(2, 1fr); }
+  .demos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 780px) {
@@ -2009,7 +2023,7 @@ p { text-wrap: pretty; }
 }
 
 @media (max-width: 560px) {
-  .travaux, .demos { grid-template-columns: 1fr; }
+  .travaux, .demos { grid-template-columns: minmax(0, 1fr); }
   /* Empilés, les quatre chiffres prenaient un écran entier. En deux
      colonnes ils se comparent d'un coup d'œil et font gagner un
      défilement complet sur mobile. */
