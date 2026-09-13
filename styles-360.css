@@ -393,3 +393,52 @@
 .hero-photo__fond[data-pano-pret] .hero-photo__pano { opacity: 1; }
 /* Le voile du hero doit rester au-dessus de la toile. */
 .hero-photo__fond::after { z-index: 2; }
+
+/* Page d’arrivée Ads : prix et périmètre avant la démonstration.
+   Styles isolés pour préserver les autres pages et le lecteur mobile. */
+.arrivee { padding-block: clamp(2rem, 5vw, 5rem); border-bottom: 1px solid var(--trait); }
+.arrivee__grille { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+.arrivee h1 { font-size: clamp(2.5rem, 4.4vw, 4.5rem); line-height: 1.04; letter-spacing: -.035em; margin-block: 1rem 1.25rem; }
+.arrivee h1 em { color: var(--accent-txt); }
+.arrivee__intro { max-width: 53ch; font-size: 1.0625rem; color: var(--txt-2); }
+.arrivee__prix { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-block: 1.5rem; }
+.arrivee__prix > strong { font-size: clamp(3.5rem, 6vw, 5.5rem); line-height: 1; letter-spacing: -.06em; }
+.arrivee__prix > strong span { font-size: .6em; color: var(--accent-txt); }
+.arrivee__prix p { margin: 0; font-size: 1.125rem; line-height: 1.5; }
+.arrivee__prix p span { font-size: .875rem; color: var(--txt-2); }
+.arrivee__inclus { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; gap: .5rem; }
+.arrivee__inclus li { position: relative; padding-left: 1.5rem; }
+.arrivee__inclus li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-txt); }
+.arrivee__conditions { max-width: 60ch; font-size: .875rem; line-height: 1.55; color: var(--txt-2); margin-bottom: 1.5rem; }
+.arrivee .hero__actions { flex-direction: column; align-items: flex-start; gap: .75rem; }
+.arrivee__appel { padding-block: .5rem; font-size: .9375rem; text-decoration: underline; text-underline-offset: .25em; }
+.arrivee__rassurance { margin-top: .75rem; color: var(--txt-3); font-size: .875rem; }
+.arrivee__apercu { position: relative; display: block; min-width: 0; height: clamp(22rem, 38vw, 34rem); border-radius: var(--r-l); overflow: hidden; background: var(--encre); color: var(--creme); }
+.arrivee__apercu img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.arrivee__apercu::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, #17130EEB); pointer-events: none; }
+.arrivee__badge { position: absolute; top: 1.25rem; left: 1.25rem; padding: .5rem .85rem; border-radius: 2rem; background: var(--creme); color: var(--encre); font-size: .875rem; }
+.arrivee__legende { position: absolute; z-index: 1; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; display: grid; gap: .75rem; }
+.arrivee__legende strong { font-size: 1.5rem; line-height: 1.2; max-width: 18ch; }
+.arrivee__legende > span { font-size: .9375rem; text-decoration: underline; text-underline-offset: .3em; }
+.demo-arrivee { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+.demo-arrivee__entete { display: flex; align-items: end; gap: 2rem; justify-content: space-between; margin-bottom: 1.5rem; }
+.demo-arrivee__entete h2 { font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1.15; margin-top: .75rem; }
+.demo-arrivee__entete > p { max-width: 36ch; font-size: .9375rem; color: var(--txt-2); }
+.page-visite #contact { scroll-margin-top: 6rem; }
+.page-visite #demo-visite { scroll-margin-top: 6rem; }
+.page-visite #contact .titre-section { font-size: clamp(2rem, 4vw, 3.5rem); }
+.page-visite #contact .formulaire { padding: clamp(1.25rem, 3vw, 2rem); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--r-l); }
+.page-visite #contact .contact__rdv { margin-top: 1.5rem; }
+@media (max-width: 800px) {
+  .arrivee__grille { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+  .arrivee__apercu { height: 17rem; }
+  .demo-arrivee__entete { display: block; }
+  .demo-arrivee__entete > p { max-width: 55ch; margin-top: 1rem; }
+  .page-visite #contact .formulaire { order: -1; }
+}
+@media (max-width: 480px) {
+  .arrivee .btn--grand { width: 100%; white-space: normal; text-align: center; padding-inline: 1rem; }
+  .arrivee__prix { gap: 1rem; }
+  .arrivee__apercu { height: 14rem; }
+  .arrivee .surtitre { font-size: .875rem; }
+}

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FAF5EC">
-<title>Visite virtuelle 360° à Montpellier et à Paris · immobilier</title>
+<title>Visite virtuelle à 90 € · Montpellier & Paris | L’Agence du Sud</title>
 <meta name="description" content="Offre de rentrée : visite virtuelle 360° à 90 € à Montpellier, Paris et alentours. Jusqu’à 15 positions, sans abonnement.">
 <link rel="canonical" href="https://lagencedusud.com/visite-virtuelle-360">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -29,7 +29,7 @@
 <link rel="preload" href="/assets/fonts/space-grotesk-700-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/space-grotesk-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css?v=20260910-mobile2">
-<link rel="stylesheet" href="/styles-360.css?v=20260910-mobile2">
+<link rel="stylesheet" href="/styles-360.css?v=20260913-contact">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
  {"@type":"ListItem","position":1,"name":"Accueil","item":"https://lagencedusud.com/"},
@@ -81,7 +81,7 @@
 }
 </script>
 </head>
-<body>
+<body class="page-visite">
 <a class="saut-lien" href="#contenu">Aller au contenu</a>
 <div class="progression" role="presentation"></div>
 <header class="entete">
@@ -99,31 +99,31 @@
 </header>
 
 <main id="contenu">
-  <section class="hero-photo">
-    <div class="hero-photo__fond" data-pano="/assets/img/hero-panorama-visite.webp"
-         data-lacet="30" data-tangage="-16" data-champ="82">
-      <picture>
-        <source type="image/webp" srcset="/assets/img/pole-360-hero.webp">
-        <img src="/assets/img/pole-360-hero.jpg" alt="Piscine turquoise bordée de palmiers sous un ciel bleu, vue depuis un panorama 360°" width="1400" height="700" fetchpriority="high" decoding="async">
-      </picture>
-    </div>
-    <div class="wrap hero-photo__texte">
-      <p class="surtitre">Visite virtuelle · offre de rentrée</p>
-      <h1>On fait entrer vos clients <em>avant qu’ils viennent.</em></h1>
-      <p class="hero-offre"><strong>90&nbsp;€</strong> la visite virtuelle <span>· jusqu’à 15 positions</span></p>
-      <p class="hero-photo__chapeau">Prise de vue 360°, montage de la visite, hébergement sur votre propre site.
-      La visite vous appartient : pas d’abonnement mensuel, pas de plateforme qui la coupe le jour où vous arrêtez de payer.</p>
-      <ul class="hero-photo__points" aria-label="Détails de l’offre">
-        <li>Bien de moins de 100&nbsp;m²</li>
-        <li>Jusqu’à 15 positions 360°</li>
-        <li>Mise en ligne sous 7 jours</li>
-        <li>Déplacement compris dans 30&nbsp;km</li>
-      </ul>
-      <div class="hero__actions">
-        <a class="btn btn--grand" href="#contact">Profiter de l’offre de rentrée</a>
-        <a class="btn btn--fantome btn--grand" href="/visites/appartement">Essayer la visite témoin</a>
+  <section class="arrivee" aria-labelledby="t-arrivee">
+    <div class="wrap arrivee__grille">
+      <div>
+        <p class="surtitre">Montpellier &amp; Paris · Offre de rentrée</p>
+        <h1 id="t-arrivee">Faites visiter votre bien <em>à distance.</em></h1>
+        <p class="arrivee__intro">Vous vendez ou louez un logement&nbsp;? Nous venons le photographier et créons votre visite virtuelle 360°, prête à partager avec vos futurs acheteurs ou locataires.</p>
+        <div class="arrivee__prix"><strong>90<span>&nbsp;€</span></strong><p>la visite virtuelle<br><span>Prix final · sans abonnement</span></p></div>
+        <ul class="arrivee__inclus" aria-label="Inclus dans les 90 euros">
+          <li>Jusqu’à <strong>15 positions 360°</strong></li>
+          <li>Prise de vue, montage et mise en ligne sur votre site</li>
+          <li>Livraison sous 7 jours après la prise de vue</li>
+        </ul>
+        <p class="arrivee__conditions">Pour un bien de moins de 100&nbsp;m². Déplacement inclus dans un rayon de 30&nbsp;km autour de Montpellier ou de Paris. Au-delà, devis avant intervention.</p>
+        <div class="hero__actions">
+          <a class="btn btn--grand" href="#contact">Demander ma visite à 90&nbsp;€ →</a>
+          <a class="arrivee__appel" href="tel:+33767377014">Ou appeler le 07&nbsp;67&nbsp;37&nbsp;70&nbsp;14</a>
+        </div>
+        <p class="arrivee__rassurance">Demande sans engagement · Aucun paiement en ligne</p>
       </div>
-    </div>
+      <a class="arrivee__apercu" href="#demo-visite" aria-label="Découvrir la démonstration 360° du studio">
+        <img src="/assets/img/visite-appartement.webp?v=20260911b" alt="Aperçu du studio de démonstration avec séjour et cuisine" width="1600" height="800" fetchpriority="high" decoding="async">
+        <span class="arrivee__badge">Démonstration 360°</span>
+        <span class="arrivee__legende"><strong>Voyez ce que vos visiteurs verront.</strong><span>Explorer le studio témoin <span aria-hidden="true">↗</span></span></span>
+      </a>
+      </div>
   </section>
 
   
@@ -133,8 +133,9 @@
        Elle s'ouvre ici, sans quitter la page, mais au clic seulement.
        C'est une démonstration montée sur des panoramas libres de droits
        (CC0), pas le bien d'un client : voir le README. -->
-  <section class="section section--levee" aria-labelledby="t-visite">
+  <section class="section demo-arrivee" aria-labelledby="t-demo">
     <div class="wrap">
+      <header class="demo-arrivee__entete"><div><p class="surtitre">Essayez avant de nous contacter</p><h2 id="t-demo">Une visite, pas seulement des photos.</h2></div><p>Cette démonstration présente une seule vue 360°. Votre prestation comprend jusqu’à 15 positions reliées entre elles.</p></header>
       <div class="video-carte">
       <div class="visite-integree apparait" id="demo-visite"
            data-visite="/visites/appartement"
@@ -191,6 +192,96 @@
       </div>
     </div>
   </section>
+
+  <!-- ══════════ CONTACT ══════════
+       Le formulaire est posé ici plutôt que renvoyé vers l'accueil : un
+       visiteur convaincu par la démonstration ne doit pas changer de page,
+       ni perdre le contexte de ce qu'il vient de regarder. Même `action`,
+       même code (script.js, #formContact) ; seul l'objet du message change,
+       pour qu'une demande venue d'ici se reconnaisse dans la boîte mail. -->
+  <section class="section section--majeure section--creuse" id="contact" aria-labelledby="t-contact">
+    <div class="wrap">
+      <header class="entete-section apparait">
+        <p class="surtitre">Contact</p>
+        <h2 class="titre-section" id="t-contact">Votre visite à 90&nbsp;€. <em>On en parle&nbsp;?</em></h2>
+      </header>
+
+      <div class="contact__grille">
+        <div class="apparait">
+          <p class="contact__accroche">Laissez votre nom et votre email. Nous vous répondons sous 24&nbsp;h, jours ouvrés, pour confirmer le tarif et convenir de la prise de vue. Pas de paiement ni de réservation automatique&nbsp;: on échange d’abord.</p>
+
+          <dl class="contact__liste">
+            <div><dt>Téléphone</dt><dd><a href="tel:+33767377014">07 67 37 70 14</a></dd></div>
+            <div><dt>Mail</dt><dd><a href="mailto:bonjour@lagencedusud.com">bonjour@lagencedusud.com</a></dd></div>
+            <div><dt>Horaires</dt><dd class="val">Du lundi au samedi, 8&nbsp;h à 19&nbsp;h</dd></div>
+            <div><dt>Zone</dt><dd class="val">Montpellier, Paris et leurs alentours</dd></div>
+          </dl>
+
+          <div class="contact__rdv">
+            <p>Vous préférez ne pas écrire&nbsp;? Prenez le créneau qui vous arrange dans mon
+            agenda, et c’est moi qui vous appelle.</p>
+            <a class="btn btn--fantome" href="https://cal.com/lagencedusud/appel-decouverte"
+            target="_blank" rel="noopener">Réserver un appel de 30&nbsp;minutes</a>
+          </div>
+        </div>
+
+        <form class="formulaire apparait" id="formContact" method="post"
+        action="/api/contact" novalidate>
+          <div class="formulaire__duo">
+            <label>Votre nom
+              <input required name="nom" type="text" autocomplete="name" placeholder="Camille Dupont">
+            </label>
+            <label>Votre email
+              <input required name="email" type="email" autocomplete="email" placeholder="camille@exemple.fr">
+            </label>
+          </div>
+          <div class="formulaire__duo">
+            <label>Téléphone <small>(facultatif)</small>
+              <input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78">
+            </label>
+            <label>Votre secteur
+              <select name="secteur">
+                <option>Montpellier et alentours</option>
+                <option>Paris et alentours</option>
+                <option>Autre zone (sur devis)</option>
+              </select>
+            </label>
+          </div>
+          <input type="hidden" name="besoin" value="Une visite virtuelle 360° · offre de rentrée à 90 €">
+          <label>Le lieu à visiter <small>(facultatif)</small>
+            <textarea name="message" rows="4" placeholder="Type de bien, surface, ville. Deux lignes suffisent."></textarea>
+          </label>
+
+          <label class="formulaire__pot" aria-hidden="true" tabindex="-1">
+            Ne remplissez pas ce champ
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+          </label>
+
+          <input type="hidden" name="_subject" value="Visite 360° · lagencedusud.com">
+          <button class="btn btn--grand" type="submit">Envoyer ma demande →</button>
+          <p class="arrivee__rassurance">Sans engagement · Aucun paiement à cette étape</p>
+          <p class="formulaire__etat" role="status" aria-live="polite"></p>
+
+          <div class="formulaire__succes" role="status" hidden>
+            <svg class="formulaire__coche" viewBox="0 0 52 52" aria-hidden="true" focusable="false">
+              <circle cx="26" cy="26" r="24"/>
+              <path d="M15 27l8 8 15-16"/>
+            </svg>
+            <p class="formulaire__succes-titre">Message reçu.</p>
+            <p class="formulaire__succes-texte">On vous répond sous 24&nbsp;h, jours ouvrés, avec un
+            premier avis et un créneau pour se parler. Si c’est pressé&nbsp;:
+            <a class="lien-souligne" href="tel:+33767377014">07&nbsp;67&nbsp;37&nbsp;70&nbsp;14</a>.</p>
+            <a class="btn btn--fantome" href="https://cal.com/lagencedusud/appel-decouverte"
+            target="_blank" rel="noopener">Ou choisir le créneau maintenant</a>
+          </div>
+          <p class="formulaire__note">Vos coordonnées servent uniquement à vous répondre. Elles ne sont ni
+          revendues ni utilisées pour de la prospection, voir la
+          <a class="lien-souligne" href="/confidentialite">politique de confidentialité</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
 
     <section class="section section--serree"><div class="wrap"><div class="prose">
 <h2>Ce qu’une visite virtuelle change vraiment</h2>
@@ -296,104 +387,6 @@ fois.</p>
       <a href="/"><h3>Création de site internet</h3><p>L’autre moitié du métier : le site qui accueille tout ça.</p></a>
     </div>
   </div></section>
-  <!-- ══════════ CONTACT ══════════
-       Le formulaire est posé ici plutôt que renvoyé vers l'accueil : un
-       visiteur convaincu par la démonstration ne doit pas changer de page,
-       ni perdre le contexte de ce qu'il vient de regarder. Même `action`,
-       même code (script.js, #formContact) ; seul l'objet du message change,
-       pour qu'une demande venue d'ici se reconnaisse dans la boîte mail. -->
-  <section class="section section--majeure section--creuse" id="contact" aria-labelledby="t-contact">
-    <div class="wrap">
-      <header class="entete-section apparait">
-        <p class="surtitre">Contact</p>
-        <h2 class="titre-section" id="t-contact">Réservez votre visite à 90&nbsp;€. <em>Écrivez-nous.</em></h2>
-      </header>
-
-      <div class="contact__grille">
-        <div class="apparait">
-          <p class="contact__accroche">Votre nom et un moyen de vous rappeler suffisent&nbsp;: le reste se
-          dit mieux de vive voix. Réponse sous 24&nbsp;h avec un premier avis et un créneau pour se parler.
-          Et si je ne suis pas le bon pour votre projet, je vous le dis franchement.</p>
-
-          <dl class="contact__liste">
-            <div><dt>Téléphone</dt><dd><a href="tel:+33767377014">07 67 37 70 14</a></dd></div>
-            <div><dt>Mail</dt><dd><a href="mailto:bonjour@lagencedusud.com">bonjour@lagencedusud.com</a></dd></div>
-            <div><dt>Horaires</dt><dd class="val">Du lundi au samedi, 8&nbsp;h à 19&nbsp;h</dd></div>
-            <div><dt>Zone</dt><dd class="val">Montpellier et alentours, Paris et alentours, et toute la France en visio</dd></div>
-          </dl>
-
-          <div class="contact__rdv">
-            <p>Vous préférez ne pas écrire&nbsp;? Prenez le créneau qui vous arrange dans mon
-            agenda, et c’est moi qui vous appelle.</p>
-            <a class="btn btn--fantome" href="https://cal.com/lagencedusud/appel-decouverte"
-            target="_blank" rel="noopener">Réserver un appel de 30&nbsp;minutes</a>
-          </div>
-        </div>
-
-        <form class="formulaire apparait" id="formContact" method="post"
-        action="/api/contact" novalidate>
-          <div class="formulaire__duo">
-            <label>Votre nom
-              <input required name="nom" type="text" autocomplete="name" placeholder="Camille Dupont">
-            </label>
-            <label>Votre email
-              <input required name="email" type="email" autocomplete="email" placeholder="camille@exemple.fr">
-            </label>
-          </div>
-          <div class="formulaire__duo">
-            <label>Téléphone <small>(facultatif)</small>
-              <input name="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78">
-            </label>
-            <label>Votre secteur
-              <select name="secteur">
-                <option>Montpellier et alentours</option>
-                <option>Paris et alentours</option>
-                <option>Ailleurs en France (en visio)</option>
-              </select>
-            </label>
-          </div>
-          <label>Votre besoin
-            <select name="besoin">
-              <option>Une visite virtuelle 360°</option>
-              <option>Les deux : visite 360° et drone</option>
-              <option>Photo et vidéo par drone</option>
-              <option>Une vidéo de mon bien ou de mon lieu</option>
-              <option>Un site internet</option>
-              <option>Autre chose</option>
-            </select>
-          </label>
-          <label>Le lieu à visiter <small>(facultatif)</small>
-            <textarea name="message" rows="4" placeholder="Type de bien, surface, ville. Deux lignes suffisent."></textarea>
-          </label>
-
-          <label class="formulaire__pot" aria-hidden="true" tabindex="-1">
-            Ne remplissez pas ce champ
-            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
-          </label>
-
-          <input type="hidden" name="_subject" value="Visite 360° · lagencedusud.com">
-          <button class="btn btn--grand" type="submit">Réserver ma visite à 90&nbsp;€</button>
-          <p class="formulaire__etat" role="status" aria-live="polite"></p>
-
-          <div class="formulaire__succes" role="status" hidden>
-            <svg class="formulaire__coche" viewBox="0 0 52 52" aria-hidden="true" focusable="false">
-              <circle cx="26" cy="26" r="24"/>
-              <path d="M15 27l8 8 15-16"/>
-            </svg>
-            <p class="formulaire__succes-titre">Message reçu.</p>
-            <p class="formulaire__succes-texte">On vous répond sous 24&nbsp;h, jours ouvrés, avec un
-            premier avis et un créneau pour se parler. Si c’est pressé&nbsp;:
-            <a class="lien-souligne" href="tel:+33767377014">07&nbsp;67&nbsp;37&nbsp;70&nbsp;14</a>.</p>
-            <a class="btn btn--fantome" href="https://cal.com/lagencedusud/appel-decouverte"
-            target="_blank" rel="noopener">Ou choisir le créneau maintenant</a>
-          </div>
-          <p class="formulaire__note">Vos coordonnées servent uniquement à vous répondre. Elles ne sont ni
-          revendues ni utilisées pour de la prospection, voir la
-          <a class="lien-souligne" href="/confidentialite">politique de confidentialité</a>.</p>
-        </form>
-      </div>
-    </div>
-  </section>
 
 </main>
 <footer class="pied">
