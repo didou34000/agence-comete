@@ -16,7 +16,7 @@ export const products = [
     inclusionNote: 'Carte microSD et perche invisible : présence et conditions à confirmer lors de la réservation.',
     optionalAccessories: [accessory('ventouse', 'Support voiture / ventouse'), accessory('perche', 'Perche invisible'), accessory('grande-perche', 'Grande perche type faux drone'), accessory('batterie-x5', 'Batterie supplémentaire'), accessory('chargeur-x5', 'Chargeur'), accessory('microsd-x5', 'Carte microSD supplémentaire'), accessory('casque', 'Fixation casque'), accessory('guidon', 'Fixation guidon / moto / vélo')],
     image: '/assets/img/location/insta360-x5.webp', imageAlt: 'Insta360 X5 noire, caméra 360° disponible à la location à Montpellier',
-    seoTitle: 'Location Insta360 X5 à Montpellier | L’Agence du Sud', seoDescription: 'Louez une Insta360 X5 à Montpellier : 25 € la demi-journée, 39 € la journée. Caméra 360° 8K, accessoires sur demande et retrait sur rendez-vous.',
+    seoTitle: 'Location caméra Insta360 X5 Montpellier | L’Agence du Sud', seoDescription: 'Louez une Insta360 X5 à Montpellier : 25 € la demi-journée, 39 € la journée. Caméra 360° 8K, accessoires sur demande et retrait sur rendez-vous.',
     source: 'https://onlinemanual.insta360.com/x5/fr-fr/faq/specs/hardware'
   },
   {
@@ -29,7 +29,7 @@ export const products = [
     specifications: [['Caméra', 'Grand-angle 12 MP'], ['Vidéo', 'Ultra HD 3K'], ['Autonomie', 'Jusqu’à 8 heures en utilisation modérée, variable selon l’usage'], ['Stockage', '32 Go · plus de 500 photos ou 100 vidéos de 30 secondes selon l’usage'], ['Son', 'Audio intégré · 5 microphones'], ['Connexion', 'Bluetooth 5.3 · Wi-Fi 6E'], ['Commandes', 'Tactiles et vocales · Meta AI'], ['Recharge', 'Étui de recharge fourni']],
     includedAccessories: ['Ray-Ban Meta Gen 2', 'Étui de recharge', 'Chiffon microfibre'], inclusionNote: 'Le modèle de monture et les verres sont précisés lors de la confirmation. Visuel illustratif du modèle.', optionalAccessories: [],
     image: '/assets/img/location/ray-ban-meta.webp', imageAlt: 'Lunettes Ray-Ban Meta Gen 2, pour filmer en vue subjective sans les mains',
-    seoTitle: 'Location Ray-Ban Meta à Montpellier | L’Agence du Sud', seoDescription: 'Louez des Ray-Ban Meta Gen 2 à Montpellier : 20 € la demi-journée, 30 € la journée. Vidéo POV mains libres et étui de recharge inclus.',
+    seoTitle: 'Location Ray-Ban Meta Gen 2 Montpellier | L’Agence du Sud', seoDescription: 'Louez des Ray-Ban Meta Gen 2 à Montpellier : 20 € la demi-journée, 30 € la journée. Vidéo POV mains libres et étui de recharge inclus.',
     source: 'https://about.fb.com/fr/news/2025/09/ray-ban-meta-gen-2-desormais-disponible-avec-une-autonomie-jusqua-deux-fois-superieure-et-une-meilleure-capture-video/'
   },
   {
@@ -43,7 +43,7 @@ export const products = [
     includedAccessories: ['DJI Mini 2 SE', 'Radiocommande', 'Batterie', 'Câbles', 'Sac / protection'], inclusionNote: 'Le contenu exact et les accessoires disponibles sont confirmés avant le retrait.',
     optionalAccessories: [accessory('batterie-dji', 'Batterie supplémentaire'), accessory('pack-batteries', 'Pack plusieurs batteries'), accessory('microsd-dji', 'Carte microSD'), accessory('helices', 'Hélices de rechange'), accessory('hub', 'Chargeur / hub de charge')],
     image: '/assets/img/location/dji-mini-2-se.webp', imageAlt: 'Drone DJI Mini 2 SE déplié, avec sa caméra stabilisée',
-    seoTitle: 'Location DJI Mini 2 SE à Montpellier | L’Agence du Sud', seoDescription: 'Location de drone DJI Mini 2 SE à Montpellier : 25 € la demi-journée, 35 € la journée. Vidéo 2,7K, retrait sur rendez-vous et accessoires sur demande.',
+    seoTitle: 'Location drone DJI Mini 2 SE Montpellier | L’Agence du Sud', seoDescription: 'Location de drone DJI Mini 2 SE à Montpellier : 25 € la demi-journée, 35 € la journée. Vidéo 2,7K, retrait sur rendez-vous et accessoires sur demande.',
     source: 'https://www.dji.com/support/product/mini-2-se'
   }
 ];
