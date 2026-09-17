@@ -21,7 +21,7 @@ export const products = [
   },
   {
     id: 'ray-ban-meta', slug: 'location-ray-ban-meta-montpellier', name: 'Ray-Ban Meta Gen 2', brand: 'Ray-Ban', category: 'Lunettes connectées · POV', number: '02',
-    tagline: 'Votre point de vue, sans tenir une caméra.', halfDayPrice: 20, dayPrice: 30, deposit: 500,
+    tagline: 'Votre point de vue, sans tenir une caméra.', halfDayPrice: 20, dayPrice: 35, deposit: 500,
     description: 'Filmez exactement ce que vous voyez. Une balade, les coulisses d’un événement, une journée entre amis : les lunettes capturent votre point de vue pendant que vos mains restent libres. Les photos et vidéos se récupèrent ensuite sur votre téléphone.',
     highlights: ['Vidéo Ultra HD 3K', 'Mains libres', 'Étui de recharge inclus'],
     uses: ['Voyage', 'Événement', 'Vlog & lifestyle', 'TikTok & Reels', 'Journée entre amis', 'Sport léger'],
@@ -29,12 +29,12 @@ export const products = [
     specifications: [['Caméra', 'Grand-angle 12 MP'], ['Vidéo', 'Ultra HD 3K'], ['Autonomie', 'Jusqu’à 8 heures en utilisation modérée, variable selon l’usage'], ['Stockage', '32 Go · plus de 500 photos ou 100 vidéos de 30 secondes selon l’usage'], ['Son', 'Audio intégré · 5 microphones'], ['Connexion', 'Bluetooth 5.3 · Wi-Fi 6E'], ['Commandes', 'Tactiles et vocales · Meta AI'], ['Recharge', 'Étui de recharge fourni']],
     includedAccessories: ['Ray-Ban Meta Gen 2', 'Étui de recharge', 'Chiffon microfibre'], inclusionNote: 'Le modèle de monture et les verres sont précisés lors de la confirmation. Visuel illustratif du modèle.', optionalAccessories: [],
     image: '/assets/img/location/ray-ban-meta.webp', imageAlt: 'Lunettes Ray-Ban Meta Gen 2, pour filmer en vue subjective sans les mains',
-    seoTitle: 'Location Ray-Ban Meta Gen 2 Montpellier | L’Agence du Sud', seoDescription: 'Louez des Ray-Ban Meta Gen 2 à Montpellier : 20 € la demi-journée, 30 € la journée. Vidéo POV mains libres et étui de recharge inclus.',
+    seoTitle: 'Location Ray-Ban Meta Gen 2 Montpellier | L’Agence du Sud', seoDescription: 'Louez des Ray-Ban Meta Gen 2 à Montpellier : 20 € la demi-journée, 35 € la journée. Vidéo POV mains libres et étui de recharge inclus.',
     source: 'https://about.fb.com/fr/news/2025/09/ray-ban-meta-gen-2-desormais-disponible-avec-une-autonomie-jusqua-deux-fois-superieure-et-une-meilleure-capture-video/'
   },
   {
     id: 'dji-mini-2-se', slug: 'location-drone-dji-mini-2-se-montpellier', name: 'DJI Mini 2 SE', brand: 'DJI', category: 'Drone · Vue aérienne', number: '03',
-    tagline: 'Prenez de la hauteur.', halfDayPrice: 25, dayPrice: 35, deposit: 400,
+    tagline: 'Prenez de la hauteur.', halfDayPrice: 25, dayPrice: 39, deposit: 400,
     description: 'Un paysage, une propriété, une route qui serpente : le Mini 2 SE donne une autre échelle à vos images. Sa nacelle stabilise la caméra sur trois axes pour des mouvements fluides, même quand vous découvrez la prise de vue aérienne.',
     highlights: ['Vidéo 2,7K', 'Nacelle stabilisée 3 axes', 'Environ 246 g'],
     uses: ['Paysage & voyage', 'Immobilier', 'Contenu automobile', 'Réseaux sociaux', 'Souvenirs de vacances', 'Extérieur, en zone autorisée'],
@@ -43,7 +43,7 @@ export const products = [
     includedAccessories: ['DJI Mini 2 SE', 'Radiocommande', 'Batterie', 'Câbles', 'Sac / protection'], inclusionNote: 'Le contenu exact et les accessoires disponibles sont confirmés avant le retrait.',
     optionalAccessories: [accessory('batterie-dji', 'Batterie supplémentaire'), accessory('pack-batteries', 'Pack plusieurs batteries'), accessory('microsd-dji', 'Carte microSD'), accessory('helices', 'Hélices de rechange'), accessory('hub', 'Chargeur / hub de charge')],
     image: '/assets/img/location/dji-mini-2-se.webp', imageAlt: 'Drone DJI Mini 2 SE déplié, avec sa caméra stabilisée',
-    seoTitle: 'Location drone DJI Mini 2 SE Montpellier | L’Agence du Sud', seoDescription: 'Location de drone DJI Mini 2 SE à Montpellier : 25 € la demi-journée, 35 € la journée. Vidéo 2,7K, retrait sur rendez-vous et accessoires sur demande.',
+    seoTitle: 'Location drone DJI Mini 2 SE Montpellier | L’Agence du Sud', seoDescription: 'Location de drone DJI Mini 2 SE à Montpellier : 25 € la demi-journée, 39 € la journée. Vidéo 2,7K, retrait sur rendez-vous et accessoires sur demande.',
     source: 'https://www.dji.com/support/product/mini-2-se'
   }
 ];
