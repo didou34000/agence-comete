@@ -346,3 +346,29 @@ Puis ouvrir http://localhost:4173
 - **Accessibilité** : lien d'évitement, contrastes AA vérifiés (les couleurs
   de texte sont opaques, pas des alpha empilés), navigation clavier complète,
   et `prefers-reduced-motion` respecté sur toutes les animations.
+
+## Location de matériel à Montpellier
+
+Les quatre pages sont générées à partir de `data/location.js` par `npm run build`.
+Les HTML générés sont versionnés pour que le site reste utilisable sans build local.
+Le catalogue alimente également le navigateur et la validation de l’API : ne pas
+modifier manuellement les tarifs dans les HTML. Accessoires : `enabled: false`
+masque une option ; `price: null` affiche « sur demande ». Mettre à jour
+`includedAccessories` avec le contenu réel du parc. Packs sans prix : sur demande.
+
+`/api/location` utilise les mêmes variables SMTP/Resend que `/api/contact`.
+Le destinataire location est `contact@southconciergerie.fr`, défini dans le
+catalogue côté serveur. L’adresse du client devient le Reply-To. L’expéditeur
+reste l’adresse validée du service de messagerie existant. Aucun repli vers le
+formulaire Formspree de l’agence : un service indisponible produit une erreur,
+jamais une fausse confirmation. Les autres formulaires restent inchangés.
+
+La réception par le fournisseur conditionne l’affichage de la confirmation.
+Cela ne certifie pas le placement dans la boîte de réception plutôt que les
+indésirables. La disponibilité réelle est confirmée manuellement. Aucun paiement,
+stock fictif ou empreinte bancaire n’est annoncé.
+
+Validation : `npm run test:location` couvre le destinataire, Reply-To, transports
+simulés, entrées invalides, erreurs, soumission native sans JS et packs. Le test
+`scripts/test-location-browser.cjs` couvre Chrome et WebKit de 320 à 1440 px et
+intercepte les envois pour ne pas générer de demandes réelles.

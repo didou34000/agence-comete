@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import handler, {validateRental,rentalMessage,sendRental} from '../api/location.js';
+import nodemailer from 'nodemailer';
+const input={nom:'Test',prenom:'Parcours',email:'client@example.com',tel:'0600000000',materiel:['insta360-x5'],accessoires:['ventouse'],duree:'journee',date:'2027-12-20',message:'<script>contenu</script>'};
+const valid=validateRental(input,new Date('2026-09-17T10:00:00Z'));
+const message=rentalMessage(valid);
+assert(message.text.includes('Insta360 X5 : 39 €'));
+assert(message.html.includes('&lt;script&gt;'));
+assert(!message.html.includes('<script>'));
+assert.equal(message.subject,'Demande de location – Insta360 X5 – 20/12/2027');
+for(const patch of [{nom:''},{prenom:''},{email:'bad'},{email:'a@b.fr\r\nBcc:x@y.fr'},{tel:'123'},{materiel:[]},{materiel:['unknown']},{accessoires:['hub']},{duree:'__proto__'},{date:'2027-02-30'},{date:'2020-01-01'},{pack:'ultimate'}])assert.throws(()=>validateRental({...input,...patch},new Date('2026-09-17')));
+const params={...input,materiel:['insta360-x5','ray-ban-meta','dji-mini-2-se'],accessoires:[],pack:'ultimate'};
+assert.equal(validateRental(params).packName,'Pack ultimate');
+const previous={...process.env};
+const fetchOriginal=globalThis.fetch;
+const transportOriginal=nodemailer.createTransport;
+try {
+ process.env.RESEND_API_KEY='test-only-not-a-key';process.env.RESEND_FROM='L’Agence du Sud <sender@example.com>';
+ const calls=[];globalThis.fetch=async(url,options)=>{calls.push({url,...JSON.parse(options.body)});return {ok:true};};
+ await sendRental(valid);assert.equal(calls.length,1);assert.deepEqual(calls[0].to,['contact@southconciergerie.fr']);assert.equal(calls[0].reply_to,input.email);assert.equal(calls[0].from,process.env.RESEND_FROM);
+ globalThis.fetch=async()=>({ok:false,status:500});await assert.rejects(()=>sendRental(valid));
+ delete process.env.RESEND_API_KEY;process.env.SMTP_PASS='test-only';process.env.SMTP_HOST='smtp-relay.brevo.com';process.env.SMTP_USER='login@example.com';process.env.MAIL_FROM='bonjour@lagencedusud.com';
+ let options,mail,closed=false;
+ nodemailer.createTransport=o=>{options=o;return {sendMail:async m=>{mail=m;return {accepted:['contact@southconciergerie.fr']}},close:()=>{closed=true}}};
+ await sendRental(valid);assert.equal(options.port,587);assert.equal(options.requireTLS,true);assert.equal(mail.to,'contact@southconciergerie.fr');assert.equal(mail.replyTo,input.email);assert.equal(mail.from,"L'Agence du Sud <bonjour@lagencedusud.com>");assert(closed);
+ const response=()=>({code:0,headers:{},setHeader(k,v){this.headers[k]=v},status(c){this.code=c;return this},json(b){this.body=b;return this},end(b){this.body=b;return this}});
+ let res=response();await handler({method:'POST',headers:{accept:'application/json',origin:'https://lagencedusud.com'},body:{...input,to:'attacker@example.com'}},res);assert.equal(res.code,200);assert.equal(mail.to,'contact@southconciergerie.fr');
+ res=response();await handler({method:'POST',headers:{accept:'text/html','content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({...input,materiel:'insta360-x5',accessoires:'ventouse'}).toString()},res);assert.equal(res.code,303);assert.equal(res.headers.Location,'/merci-location');
+ res=response();await handler({method:'POST',headers:{accept:'application/json',origin:'https://evil.example'},body:input},res);assert.equal(res.code,403);
+ res=response();await handler({method:'POST',headers:{accept:'application/json'},body:{...input,date:'2027-02-30'}},res);assert.equal(res.code,400);
+ res=response();await handler({method:'POST',headers:{accept:'application/json','content-length':'25000'},body:input},res);assert.equal(res.code,400);
+ res=response();await handler({method:'GET',headers:{}},res);assert.equal(res.code,405);
+ res=response();await handler({method:'POST',headers:{accept:'application/json'},body:{_gotcha:'bot'}},res);assert.equal(res.code,200);
+ delete process.env.SMTP_PASS;res=response();await handler({method:'POST',headers:{accept:'application/json'},body:input},res);assert.equal(res.code,502);assert.equal(res.body.ok,false);
+ console.log('PASS: validation, date, accessoires, packs, échappement, destinataire fixe, Reply-To, Resend/SMTP, erreurs, sans JavaScript. Aucun email réel envoyé.');
+}finally{globalThis.fetch=fetchOriginal;nodemailer.createTransport=transportOriginal;for(const k of Object.keys(process.env))if(!(k in previous))delete process.env[k];Object.assign(process.env,previous);}
